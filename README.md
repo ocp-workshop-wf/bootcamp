@@ -1,6 +1,8 @@
 # OpenShift bootcamp training 
 
-# Module 1: Introduction and Core Concepts
+<br>
+
+## Module 1: Introduction and Core Concepts
 
 <br>
 
