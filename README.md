@@ -5,19 +5,36 @@
 <br>
 
 Overview of OpenShift and its Architecture
+
+<br>
+
 Difference between Kubernetes and OpenShift
+
+<br>
+
 Module 2: Working with OpenShift Interfaces
 
 <br>
 
 OpenShift CLI and Web Console
+
+<br>
+
 Creating and Managing Projects
-Module 3: Core OpenShift Resources
+<br>
+
+### Module 3: Core OpenShift Resources
 
 <br>
 
 OpenShift Resources Overview
+
+<br>
+
 Container Lifecycle Management
+
+<br>
+
 Image Stream Management
 
 <br>
@@ -27,7 +44,13 @@ Image Stream Management
 <br> 
 
 Deploying Applications on OpenShift
+
+<br>
+
 Managing Application Configurations
+
+<br>
+
 Configuring and Scaling Applications
 
 <br> 
@@ -37,8 +60,17 @@ Configuring and Scaling Applications
 <br>
 
 Debugging Applications
+
+<br>
+
 Deployment Strategies
+
+<br>
+
 Application Health Checks
+
+<br>
+
 Configuring Jobs in OpenShift
 
 <br>
@@ -48,6 +80,9 @@ Configuring Jobs in OpenShift
 <br>
 
 Metrics and Logging
+
+<br>
+
 Observability Tools and Practices
 
 <br>
