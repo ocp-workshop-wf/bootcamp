@@ -25,6 +25,7 @@ OpenShift is Red Hat's enterprise Kubernetes platform. It automates deployment, 
 >> ##### Allows you to log in to any OpenShift cluster
 > `oc login <cluster address>` 
 <br/>
+
 > `oc whoami`
 >> ##### Log out
 > `oc logout`
