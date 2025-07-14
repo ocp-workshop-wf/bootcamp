@@ -1,0 +1,147 @@
+apiVersion: template.openshift.io/v1
+kind: Template
+metadata:
+  resourceVersion: ""
+  selfLink: ""
+  name: hello-world
+objects:
+- apiVersion: apps.openshift.io/v1
+  kind: DeploymentConfig
+  metadata:
+    annotations:
+      openshift.io/generated-by: PracticalOpenshift
+    labels:
+      app: hello-world
+    name: hello-world
+  spec:
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      app: hello-world
+      deploymentconfig: hello-world
+    strategy:
+      activeDeadlineSeconds: 21600
+      resources: {}
+      rollingParams:
+        intervalSeconds: 1
+        maxSurge: 25%
+        maxUnavailable: 25%
+        timeoutSeconds: 600
+        updatePeriodSeconds: 1
+      type: Rolling
+    template:
+      metadata:
+        annotations:
+          openshift.io/generated-by: OpenShiftNewApp
+        creationTimestamp: null
+        labels:
+          app: hello-world
+          deploymentconfig: hello-world
+      spec:
+        containers:
+        - image: quay.io/practicalopenshift/hello-world@sha256:2311b7a279608de9547454d1548e2de7e37e981b6f84173f2f452854d81d1b7e
+          imagePullPolicy: Always
+          name: hello-world
+          ports:
+          - containerPort: 8080
+            protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          env:
+            - name: MESSAGE
+              # This syntax copies the template parameter value as a YAML string
+              value: ${MESSAGE}
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+    test: false
+    triggers:
+    - type: ConfigChange
+    - imageChangeParams:
+        automatic: true
+        containerNames:
+        - hello-world
+        from:
+          kind: ImageStreamTag
+          name: hello-world:latest
+        lastTriggeredImage: quay.io/practicalopenshift/hello-world@sha256:2311b7a279608de9547454d1548e2de7e37e981b6f84173f2f452854d81d1b7e
+      type: ImageChange
+- apiVersion: image.openshift.io/v1
+  kind: ImageStream
+  metadata:
+    annotations:
+      openshift.io/generated-by: OpenShiftNewApp
+      openshift.io/image.dockerRepositoryCheck: 2020-07-26T18:03:42Z
+    labels:
+      app: hello-world
+    name: hello-world
+  spec:
+    lookupPolicy:
+      local: false
+    tags:
+    - annotations:
+        openshift.io/imported-from: quay.io/practicalopenshift/hello-world
+      from:
+        kind: DockerImage
+        name: quay.io/practicalopenshift/hello-world
+      generation: 2
+      importPolicy: {}
+      name: latest
+      referencePolicy:
+        type: Source
+  status:
+    dockerImageRepository: 172.30.1.1:5000/templates/hello-world
+    tags:
+    - items:
+      - created: 2020-07-26T18:03:42Z
+        dockerImageReference: quay.io/practicalopenshift/hello-world@sha256:2311b7a279608de9547454d1548e2de7e37e981b6f84173f2f452854d81d1b7e
+        generation: 2
+        image: sha256:2311b7a279608de9547454d1548e2de7e37e981b6f84173f2f452854d81d1b7e
+      tag: latest
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      openshift.io/generated-by: OpenShiftNewApp
+    creationTimestamp: 2020-07-26T18:03:41Z
+    labels:
+      app: hello-world
+    name: hello-world
+  spec:
+    ports:
+    - name: 8080-tcp
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+    selector:
+      app: hello-world
+      deploymentconfig: hello-world
+    sessionAffinity: None
+    type: ClusterIP
+- apiVersion: route.openshift.io/v1
+  kind: Route
+  metadata:
+    annotations:
+      openshift.io/host.generated: "true"
+    creationTimestamp: 2020-07-26T18:03:49Z
+    labels:
+      app: hello-world
+    name: hello-world
+  spec:
+    port:
+      targetPort: 8080-tcp
+    to:
+      kind: Service
+      name: hello-world
+      weight: 100
+    wildcardPolicy: None
+parameters:
+- description: Message to respond to requests with
+  displayName: Message
+  name: MESSAGE
+  required: false
+  value: Hello from the default value for the template
+

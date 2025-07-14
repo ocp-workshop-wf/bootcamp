@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: hello-world-pod-2
+  labels:
+    app: hello-world-pod-2
+spec:
+  containers:
+  - env:
+    - name: MESSAGE
+      value: Hi! I'm an environment variable in pod 2
+    image: quay.io/practicalopenshift/hello-world
+    imagePullPolicy: Always
+    name: hello-world-override
+    resources: {}

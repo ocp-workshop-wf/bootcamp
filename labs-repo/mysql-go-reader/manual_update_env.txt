@@ -1,0 +1,40 @@
+# Build 
+podman build -t go-sample .
+
+# Copy to quay.io
+skopeo copy containers-storage:localhost/go-sample docker://quay.io/scott_archer_23/go-sample --dest-creds=scott_archer_23:quayiopassword
+
+# Make the project public on quay.io
+# TODO
+
+# Import into openshift
+
+export MYSQL_USER=testuser
+export MYSQL_PASSWORD=testpassword
+export MYSQL_DATABASE=inventory
+export MYSQL_HOSTNAME=localhost:3306
+
+oc new-app quay.io/scott_archer_23/go-sample -e MYSQL_USER=$MYSQL_USER -e MYSQL_PASSWORD=$MYSQL_PASSWORD -e MYSQL_DATABASE=$MYSQL_DATABASE -e MYSQL_HOSTNAME=$MYSQL_HOSTNAME
+
+# Fix host
+oc describe svc/mysql-56-centos7 | grep Endpoints
+
+# Fix environment variable
+oc get svc
+mysql-56-centos7.scotts-mysql-project.svc.cluster.local
+
+# Clean up
+oc delete all -l app=go-sample
+
+
+# Notes
+
+Default
+<pod_namespace>.cluster.local
+
+Services
+<service>.<pod_namespace>.svc.cluster.local
+
+Endpoints
+<name>.<namespace>.endpoints.cluster.local
+
