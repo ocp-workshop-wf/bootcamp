@@ -12,38 +12,38 @@ OpenShift is Red Hat's enterprise Kubernetes platform. It automates deployment, 
 ![OpenShift Architecture](/images/ocp-arch.png)
 
 **YouTube:**  
-- [What is OpenShift? - Red Hat](https://www.youtube.com/watch?v=epD1GQe9yMo)
+- [What is OpenShift?](https://youtu.be/KTN_QBuDplo)
 
 **Lab:**  
-- Log in to the OpenShift Web Console or Sandbox.
-> 
-> #### Log in, log out
->
->> ##### Uses the pre-configured OpenShift cluster
->  `oc login`
+- Log in to the OpenShift Web Console.
 
->> ##### Allows you to log in to any OpenShift cluster
-> `oc login <cluster address>` 
-<br/>
+    > #### Log in, log out
+    >
+    >> ##### Uses the pre-configured OpenShift cluster
+    >  `oc login`
 
-> `oc whoami`
->> ##### Log out
-> `oc logout`
+    >> ##### Allows you to log in to any OpenShift cluster
+    > `oc login <cluster address>` 
+    <br/>
+
+    > `oc whoami`
+    >> ##### Log out
+    > `oc logout`
 
 
-> #### Project Basics
+    > #### Project Basics
 
->> ##### See current project
-> `oc project`
+    >> ##### See current project
+    > `oc project`
 
->> ##### Create a new project
-> `oc new-project demo-project`
+    >> ##### Create a new project
+    > `oc new-project demo-project`
 
->> ##### List all projects
-> `oc projects`
+    >> ##### List all projects
+    > `oc projects`
 
->> ##### Switch projects
-> `oc project <project name>`
+    >> ##### Switch projects
+    > `oc project <project name>`
 
 - Identify the main cluster components.
 
