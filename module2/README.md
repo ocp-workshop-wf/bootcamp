@@ -77,9 +77,20 @@ ___
 
    ##### Deleting a Pod
     >> ##### Make sure to delete the pod by specifying the correct pod name
-    > `oc delete pod/<pod-name>`
+    > `oc delete pod <pod-name>`
     >> ##### Show all currently running pods
     > `oc get pods`
+
+   ##### Watching a Pod use 2 different terminals.
+    >> ##### Run the pod watch command on Terminal 1 
+    > `oc get pods --watch`
+
+    >> ##### Create the pod again! on Termnial 2
+    >> `oc create -f pods/pod.yaml`
+
+    >> ##### Make sure to delete the pod by specifying the correct pod name on Terminal 2
+    > `oc delete pod <pod-name>`
+  
 ___
 ### Quiz
 
