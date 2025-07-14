@@ -16,16 +16,22 @@
 **Lab:**  
 - Log in to the OpenShift Web Console.
 
-    > #### Log in, log out
-    >
+    > Check the status of OpenShift
+    > 
+    > ##### Log in, log out
+    > `oc status`
+
     >> ##### Uses the pre-configured OpenShift cluster
     >  `oc login`
 
     >> ##### Allows you to log in to any OpenShift cluster
     > `oc login <cluster address>` 
+    
     <br/>
 
+    >> ##### Check which user
     > `oc whoami`
+
     >> ##### Log out
     > `oc logout`
 
@@ -46,17 +52,19 @@
 ___
 
 - Identify the OpenShift components.
-    > Pod Documentation 
+
+    ##### Pod Documentation 
+
     >> `oc explain pod`
-    > Get details on the pod's spec
+    > ##### Get details on the pod's spec
     >> `oc explain pod.spec`
-    > Get details on the pod's containers
+    > ##### Get details on the pod's containers
     > `oc explain pod.spec.containers`
     
-    > Creating Pod from files
-    >> Create pod on OpenShift
+   ##### Creating Pod from files
+    >> ##### Create pod on OpenShift
     > `oc create -f pods/pod.yaml`
-    >> Show all currently running Pods
+    >> ##### Show all currently running Pods
     > `oc get pods`
 ___
 ### Quiz
