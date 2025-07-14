@@ -11,7 +11,7 @@
 - List pods: `oc get pods`
 
 **YouTube:**  
-- [OpenShift CLI Basics](https://www.youtube.com/watch?v=8wFJe2U1GdI)
+- [OpenShift CLI Basics](https://docs.redhat.com/en/documentation/openshift_container_platform/4.2/html/cli_tools/openshift-cli-oc)
 
 **Lab:**  
 - Log in to the OpenShift Web Console.
