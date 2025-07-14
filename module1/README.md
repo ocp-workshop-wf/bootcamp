@@ -46,7 +46,20 @@ OpenShift is Red Hat's enterprise Kubernetes platform. It automates deployment, 
     > `oc project <project name>`
 ___
 
-- Identify the main cluster components.
+- Identify the OpenShift components.
+    > Pod Documentation 
+    >> `oc explain pod`
+    > Get details on the pod's spec
+    >> `oc explain pod.spec`
+    > Get details on the pod's containers
+    > `oc explain pod.spec.containers`
+    
+    > Creating Pod from files
+    >> Create pod on OpenShift
+    > `oc create -f pods/pod.yaml`
+    >> Show all currently running Pods
+    > `oc get pods`
+
 
 ___
 ### Quiz
