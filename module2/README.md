@@ -75,6 +75,11 @@ ___
     >> ##### Read the output file
     > `cat <file-name>`
 
+   ##### Deleting a Pod
+    >> ##### Make sure to delete the pod by specifying the correct pod name
+    > `oc delete pod/<pod-name>`
+    >> ##### Show all currently running pods
+    > `oc get pods`
 ___
 ### Quiz
 
