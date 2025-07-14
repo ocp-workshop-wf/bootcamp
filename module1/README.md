@@ -9,7 +9,7 @@ OpenShift is Red Hat's enterprise Kubernetes platform. It automates deployment, 
 - **Core Architecture:**  
   Control Plane (API server, etcd), Worker Nodes, SDN, Registry, OAuth, Router, Monitoring/Logging.
 - **Diagram:**  
-  ![OpenShift Cluster Architecture](./openshift-architecture.png)
+![OpenShift Architecture](/images/ocp-arch.png)
 
 **YouTube:**  
 - [What is OpenShift? - Red Hat](https://www.youtube.com/watch?v=epD1GQe9yMo)
