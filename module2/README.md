@@ -66,6 +66,15 @@ ___
     > `oc create -f pods/pod.yaml`
     >> ##### Show all currently running Pods
     > `oc get pods`
+
+   ##### Accessing the Pod
+    >> ##### Access the shell inside the container 
+    > `oc rsh <pod name>`
+    >> ##### Request localhost
+    > `wget localhost:8080`
+    >> ##### Read the output file
+    > `cat <file-name>`
+
 ___
 ### Quiz
 
