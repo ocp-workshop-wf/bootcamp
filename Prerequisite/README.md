@@ -1,3 +1,10 @@
+List of prerequisites:
+- [x] Docker or Podman
+- [x] Git
+- [x] vim or vi 
+- [x] Visual Studio code / or any other IDE
+- [x] OpenShift CLI 
+- [x] iterm terminal preferred for multi-terminal purposes.
 ## Docker
 
 ### Building containers

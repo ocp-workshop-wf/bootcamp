@@ -86,12 +86,68 @@ ___
     > `oc get pods --watch`
 
     >> ##### Create the pod again! on Termnial 2
-    >> `oc create -f pods/pod.yaml`
+    > `oc create -f pods/pod.yaml`
 
     >> ##### Make sure to delete the pod by specifying the correct pod name on Terminal 2
     > `oc delete pod <pod-name>`
   
 ___
+
+### 2.2 Creating and Managing Projects (Learning YAML)
+
+  ***YAML*** : Yaml Ain't Markup Language
+  - What it is? **YAML** is a human friendly data serialization standard for all programming languages.
+  - What's the difference between json and yaml? <br/>
+  ***YAML*** can handle more tasks than JSON, also it supports data types like integers and floats, while JSON doesn't. In Addition JSON uses { curly brackets } to list, ***YAML*** doesn't.
+
+  | YAML    
+| -------- 
+  ```yaml
+    outerKey:
+      innerKey1: 1
+      innerKey2: 2
+  ```
+  | JSON    
+| -------- 
+  ```json 
+   { 
+    outerKey:{
+      innerKey1: 1,
+      innerKey2: 2
+    }
+   }
+  ```
+### Arrays in Yaml vs Json
+
+  | YAML    
+| -------- 
+  ```yaml
+  ingredients:
+  - Tomato
+  - Cilantro
+  - Jalapeno
+  ```
+  | JSON    
+| -------- 
+  ```json 
+  {ingredients: [
+    "Tomato", "Jalapeno", "Cilantro"
+    ]
+  }
+  ```
+### [Resource: Yaml.org](https://yaml.org/)
+
+**Lab:**  
+
+- Use YAML to understand Pod defenations.
+
+    ##### Pod Documentation 
+
+
+
+
+
+
 ### Quiz
 
 #### Q1: What is the command to log in to OpenShift on the command line?
@@ -134,7 +190,7 @@ ___
 ---
 ---
 
-### 2.2 Creating and Managing Projects
+
 
 - Projects = Namespaces + metadata/RBAC.
 - Add quotas, manage access via RBAC.
