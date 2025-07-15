@@ -139,14 +139,52 @@ ___
 
 **Lab:**  
 
-- Use YAML to understand Pod defenations.
+- Use YAML to understand Pod defenations following objects such as `apiVersion, kind, spec`.
 
-    ##### Pod Documentation 
+    ##### Go ahead and open `/labs-repo/pods/pod.yaml`
+    
+    ```yaml
+    apiVersion: v1
+    kind: Pod 
+    metadata:
+      name: hello-world-pod
+      labels:
+        app: hello-world-pod
+    spec:
+      ..........
+    ```
+    >> ##### Dive deeper into pods 
+    > `oc explain pod.spec.containers.env`
 
+### Hands-on Lab: 
+In this lab, you will create a custom Pod definition and upload it to OpenShift. This will test your skills in writing and debugging Pod YAML for the OpenShift platform.
 
+- First, create a new file under the labs project. The path will be pods/lab-pod.yaml
 
+- Copy the pod definition from another source into lab-pod.yaml
 
+- Update the MESSAGE environment variable to a custom message. Update the name.
 
+- Start a Pod based on lab-pod.yaml on the server
+
+- Forward port 8080 from your computer to the running Pod
+    > You can use `oc port-forward pod/lab-pod 8080` to do this
+
+    > #### Port forwarding for Pods
+    >> ##### Open a local port that forwards traffic to a pod
+    >> `oc port-forward <pod name> <local port>:<pod port>`
+
+    > #### Example of 8080 to 8080 for hello world
+    >>`oc port-forward hello-world-pod 8080:8080`
+
+### Checklist: 
+Once you meet all of these criteria, you have successfully completed the lab. You will need to run the commands yourself in order to grade this lab.
+
+- Output from oc get pods contains the pod.
+
+- Output from oc describe pod/lab-pod has the correct name and MESSAGE environment value.
+
+- curl localhost:8080 prints the message.
 
 ### Quiz
 
@@ -187,20 +225,51 @@ ___
 
 </details>
 
----
----
+#### Q4: What is the minimum number of containers in a pod?
+- [ ] 1
+- [ ] 2
+- [ ] 5
+- [ ] 0
+<details>
+  <summary> Answer </summary>
 
+   1
+</details>
 
+#### Q5: What is the YAML type of pod.spec.containers
+- [ ] String
+- [ ] squence or list
+- [ ] <[]object>
+- [ ] object
+<details>
+  <summary> Answer </summary>
 
-- Projects = Namespaces + metadata/RBAC.
-- Add quotas, manage access via RBAC.
+   squence or list
 
-**Lab:**  
-- Create a project, set a resource quota.
-- Assign a user with:  
-  `oc adm policy add-role-to-user edit <username> -n demo-project`
+</details>
 
-**YouTube:**  
-- [Getting Started with OpenShift Web Console](https://www.youtube.com/watch?v=Qzvfi6VSFoc)
+#### Q6: What is the command to create a pod on OpenShift based on its YAML file?
+- [ ] `oc start pod <pod-file.yaml>`
+- [ ] `oc create <pod-file.yaml>`
+- [ ] `oc create-f <pod-file.yaml>`
+- [ ] `oc start pod -f <pod-file.yaml>`
 
----
+<details>
+  <summary> Answer </summary>
+
+   `oc create-f <pod-file.yaml>`
+
+</details>
+
+#### Q7: What is the command to start a shell in a pod on OpenShift?
+- [ ] `oc shell <pod-name>`
+- [ ] `oc exec <pod-name>`
+- [ ] `oc sh <pod-name>`
+- [ ] `oc rsh <pod-name>`
+
+<details>
+  <summary> Answer </summary>
+
+   `oc rsh <pod-name>`
+
+</details>
