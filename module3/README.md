@@ -117,6 +117,7 @@
     oc new-app https://gitlab.com/therayy1/hello-world.git --as-deployment-config 
     ```
 
+
 ---
 
 ### 3.3 Image Stream Management
