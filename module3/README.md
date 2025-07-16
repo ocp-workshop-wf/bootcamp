@@ -101,10 +101,10 @@
 
 ---
 
-### 3.2 OpenShift to deploy applications
+### 3.2 OpenShift and how to deploy applications
 
 - Direct deployment Git (for GitHub)
-- Source-to-Image (S2I)
+- Source-to-Image (S2I) "Later in this course!"
 - OpenShift Pipelines (Tekton)
 
 #### Direct deployment using Git
@@ -116,21 +116,23 @@
     ```
     oc new-app https://gitlab.com/therayy1/hello-world.git --as-deployment-config 
     ```
+- Track the progress of the build
+    ```
+    oc logs -f bc/hello-world
+    ```
+- 
 
 
 ---
 
-### 3.3 Image Stream Management
+### 3.3 OpenShift Networking
 
-- **ImageStreams** let you manage and tag images, enabling automated redeployments.
-- **BuildConfig/S2I** automates builds from source code.
+- **Servcies** 
+- **Routes** 
 
 **Lab:**  
-- Create an ImageStream, BuildConfig.
-- Push new code/image, watch auto-update.
+- C
 
-**YouTube:**  
-- [OpenShift Image Streams Explained](https://www.youtube.com/watch?v=jA-RH0jO-J8)
 
 ---
 

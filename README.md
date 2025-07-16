@@ -22,7 +22,7 @@ OpenShift CLI and Web Console
 
 <br>
 
-Creating and Managing Projects
+Creating and Managing Projects (Learning YAML)
 
 <br>
 
@@ -34,11 +34,11 @@ OpenShift Resources Overview
 
 <br>
 
-Container Lifecycle Management
+OpenShift and how to deploy applications
 
 <br>
 
-Image Stream Management
+OpenShift Networking
 
 <br>
 
@@ -46,35 +46,36 @@ Image Stream Management
 
 <br> 
 
-Deploying Applications on OpenShift
+OpenShift ConfigMaps
 
 <br>
 
-Managing Application Configurations
+Secrets
 
 <br>
 
-Configuring and Scaling Applications
+Images and Image Streams
 
 <br> 
+
+
+Builds and BuildConfigs
+
+<br>
 
 ## [Module 5](https://github.com/ocp-workshop-wf/bootcamp/tree/main/module5): Reliability and Operations
 
 <br>
 
-Debugging Applications
+Source-to-image (S2I)
 
 <br>
 
-Deployment Strategies
+OpenShift Stroage (Volumes)
 
 <br>
 
-Application Health Checks
-
-<br>
-
-Configuring Jobs in OpenShift
+Advanced DeploymentConfigs
 
 <br>
 
@@ -82,10 +83,10 @@ Configuring Jobs in OpenShift
 
 <br>
 
-Metrics and Logging
+Metrics and Scaling your Application
 
 <br>
 
-Observability Tools and Practices
+Templates
 
 <br>
