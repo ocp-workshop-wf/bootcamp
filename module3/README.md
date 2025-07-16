@@ -17,11 +17,11 @@
 **Lab:**  
 - Deploy an existing image based on its tag: `oc new-app <image tag>`
   - For this lesson
-  ```bash
+  ```
   oc new-app quay.io/practicalopenshift/hello-world --as-deployment-config
   ```
 - Check running resources: 
-  ```bash
+  ```
   oc status
   ```
 - Check pods: 
