@@ -46,14 +46,14 @@
     ```
     oc delete svc/hello-world
     ```
-    - ```
-      oc get svc
-      ```
+    ```
+    oc get svc
+    ```
   - Check the status again and see what was effected: 
     ```
     oc delete dc/hello-world
     ```
-    - 
+    
     ```
     oc status
     ```
