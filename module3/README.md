@@ -101,11 +101,15 @@
 
 ---
 
-### 3.2 Deploying from Git
+### 3.2 OpenShift to deploy applications
 
-- Understand pod phases and restart policies.
-- Add lifecycle hooks (PostStart, PreStop).
+- Direct deployment Git (for GitHub)
+- Source-to-Image (S2I)
+- OpenShift Pipelines (Tekton)
 
+#### Direct deployment using Git
+
+![Git Deployment](/images/deploy4mgit.png)
 **Lab:**  
 - Edit deployment YAML to add lifecycle hooks.
 - Delete pods and observe automated restart.
