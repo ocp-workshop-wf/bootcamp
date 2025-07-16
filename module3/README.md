@@ -17,7 +17,7 @@
 **Lab:**  
 - Deploy an existing image based on its tag: `oc new-app <image tag>`
   - For this lesson
-`oc new-app quay.io/practicalopenshift/hello-world --as-deployment-config`
+```oc new-app quay.io/practicalopenshift/hello-world --as-deployment-config```
 - Check running resources: `oc status`
 - Check pods: `oc get pods`
 
