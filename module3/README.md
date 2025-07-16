@@ -22,7 +22,10 @@
 - Check pods: `oc get pods`
 
 - Cleaning Up after testing things out: `oc status` to make sure that your deployment is still running 
-  - Get to see the service: `oc get svc`
+  - Get to see the service: 
+    ```
+    oc get svc
+    ```
   - Get to see the deployment config: `oc get dc`
   - Get to see image stream: `oc get istag`
   - Let delete using full name of the resource: `oc delete svc/hello-world`
