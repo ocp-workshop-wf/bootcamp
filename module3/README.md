@@ -30,12 +30,15 @@
   - Check the status again and see what was effected: `oc delete dc/hello-world`
     - `oc status`
 - More advance way to clean up:
-  - Run the application again: `oc new-app quay.io/practicalopenshift/hello-world --as-deployment-config`
+  - Run the application again: 
+  `oc new-app quay.io/practicalopenshift/hello-world --as-deployment-config`
   - Check the detatils for that DeploymentConfig: `oc describe dc/hello-world`
   - Clean up using a label selector: `oc delete all -l <label-selector>`
-- Name your DeploymentConfigs: `oc new-app quay.io/practicalopenshift/hello-world --name demo-app --as-deployment-config`
+- Name your DeploymentConfigs:
+ `oc new-app quay.io/practicalopenshift/hello-world --name demo-app --as-deployment-config`
   - Describe your new named DC: `oc describe dc/demo-app`
-  - Lets add another app with a different name parameter: `oc new-app quay.io/practicalopenshift/hello-world --name demo-app-2 --as-deployment-config`
+  - Lets add another app with a different name parameter: 
+  `oc new-app quay.io/practicalopenshift/hello-world --name demo-app-2 --as-deployment-config`
   - Run status: `oc status`
   - Delete the first app: `oc delete all -l app=demo-app`
   - Run status: `oc status`
