@@ -101,7 +101,7 @@
 
 ---
 
-### 3.2 Container Lifecycle Management
+### 3.2 Deploying from Git
 
 - Understand pod phases and restart policies.
 - Add lifecycle hooks (PostStart, PreStop).

@@ -6,9 +6,18 @@
 - The **CLI (`oc`)** gives full control with extra features over `kubectl`.
 
 **Lab:**  
-- Login using `oc login`
-- Create a project: `oc new-project demo-project`
-- List pods: `oc get pods`
+- Login using 
+  ```
+  oc login
+  ```
+- Create a project: 
+  ```
+  oc new-project demo-project
+  ```
+- List pods: 
+  ```
+  oc get pods
+  ```
 
 **YouTube:**  
 - [OpenShift CLI Basics](https://docs.redhat.com/en/documentation/openshift_container_platform/4.2/html/cli_tools/openshift-cli-oc)
@@ -19,77 +28,123 @@
     > Check the status of OpenShift
     > 
     > ##### Log in, log out
-    > `oc status`
+    ```
+    oc status
+    ```
 
     >> ##### Uses the pre-configured OpenShift cluster
-    >  `oc login`
+    ```
+    oc login
+    ```
 
     >> ##### Allows you to log in to any OpenShift cluster
-    > `oc login <cluster address>` 
+    ```
+    oc login <cluster address>
+    ```
     
     <br/>
 
     >> ##### Check which user
-    > `oc whoami`
+    ```
+    oc whoami
+    ```
 
     >> ##### Log out
-    > `oc logout`
+    ```
+    oc logout
+    ```
 
 
     > #### Project Basics
 
     >> ##### See current project
-    > `oc project`
+    ```
+    oc project
+    ```
 
     >> ##### Create a new project
-    > `oc new-project myproject`
+    ```
+    oc new-project myproject
+    ```
 
     >> ##### List all projects
-    > `oc projects`
+    ```
+    oc projects
+    ```
 
     >> ##### Switch projects
-    > `oc project <project name>`
+    ```
+    oc project <project name>
+    ```
 ___
 
 - Identify the OpenShift components.
 
     ##### Pod Documentation 
 
-    >> `oc explain pod`
+    ```
+    oc explain pod
+    ```
     > ##### Get details on the pod's spec
-    >> `oc explain pod.spec`
+    ```
+    oc explain pod.spec
+    ```
     > ##### Get details on the pod's containers
-    > `oc explain pod.spec.containers`
+    ```
+    oc explain pod.spec.containers
+    ```
     
    ##### Creating Pod from files
     >> ##### Create pod on OpenShift
-    > `oc create -f pods/pod.yaml`
+    ```
+    oc create -f pods/pod.yaml
+    ```
     >> ##### Show all currently running Pods
-    > `oc get pods`
+    ```
+    oc get pods
+    ```
 
    ##### Accessing the Pod
     >> ##### Access the shell inside the container 
-    > `oc rsh <pod name>`
+    ```
+    oc rsh <pod name>
+    ```
     >> ##### Request localhost
-    > `wget localhost:8080`
+
+    ```
+    wget localhost:8080
+    ```
     >> ##### Read the output file
-    > `cat <file-name>`
+     
+    ```
+    cat <file-name>
+    ```
 
    ##### Deleting a Pod
     >> ##### Make sure to delete the pod by specifying the correct pod name
-    > `oc delete pod <pod-name>`
+    ```
+    oc delete pod <pod-name>
+    ```
     >> ##### Show all currently running pods
-    > `oc get pods`
+    ```
+    oc get pods
+    ```
 
    ##### Watching a Pod use 2 different terminals.
     >> ##### Run the pod watch command on Terminal 1 
-    > `oc get pods --watch`
+    ```
+    oc get pods --watch
+    ```
 
     >> ##### Create the pod again! on Termnial 2
-    > `oc create -f pods/pod.yaml`
+    ```
+    oc create -f pods/pod.yaml
+    ```
 
     >> ##### Make sure to delete the pod by specifying the correct pod name on Terminal 2
-    > `oc delete pod <pod-name>`
+    ```
+    oc delete pod <pod-name>
+    ```
   
 ___
 
@@ -154,7 +209,9 @@ ___
       ..........
     ```
     >> ##### Dive deeper into pods 
-    > `oc explain pod.spec.containers.env`
+      ```
+      oc explain pod.spec.containers.env
+      ```
 
 ### Hands-on Lab: 
 In this lab, you will create a custom Pod definition and upload it to OpenShift. This will test your skills in writing and debugging Pod YAML for the OpenShift platform.
@@ -168,14 +225,21 @@ In this lab, you will create a custom Pod definition and upload it to OpenShift.
 - Start a Pod based on lab-pod.yaml on the server
 
 - Forward port 8080 from your computer to the running Pod
-    > You can use `oc port-forward pod/lab-pod 8080` to do this
+    > You can use to do this
+    ```
+    oc port-forward pod/lab-pod 8080
+    ```
 
     > #### Port forwarding for Pods
     >> ##### Open a local port that forwards traffic to a pod
-    >> `oc port-forward <pod name> <local port>:<pod port>`
+    ```
+    oc port-forward <pod name> <local port>:<pod port>
+    ```
 
     > #### Example of 8080 to 8080 for hello world
-    >>`oc port-forward hello-world-pod 8080:8080`
+      ```
+      oc port-forward hello-world-pod 8080:8080
+      ```
 
 ### Checklist: 
 Once you meet all of these criteria, you have successfully completed the lab. You will need to run the commands yourself in order to grade this lab.
