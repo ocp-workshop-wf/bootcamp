@@ -109,7 +109,7 @@
 
 #### Direct deployment using Git
 
-![Git Deployment](/images/deploy4mgit.webp)
+![Git Deployment](/images/deployfromgit.png)
 **Lab:**  
 - Edit deployment YAML to add lifecycle hooks.
 - Delete pods and observe automated restart.
