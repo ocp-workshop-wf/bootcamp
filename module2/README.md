@@ -240,7 +240,7 @@ In this lab, you will create a custom Pod definition and upload it to OpenShift.
       ```
       oc port-forward hello-world-pod 8080:8080
       ```
-
+---
 ### Checklist: 
 Once you meet all of these criteria, you have successfully completed the lab. You will need to run the commands yourself in order to grade this lab.
 
@@ -249,10 +249,11 @@ Once you meet all of these criteria, you have successfully completed the lab. Yo
 - Output from oc describe pod/lab-pod has the correct name and MESSAGE environment value.
 
 - curl localhost:8080 prints the message.
+---
 
 ### Quiz
 
-#### Q1: What is the command to log in to OpenShift on the command line?
+> Q1: What is the command to log in to OpenShift on the command line?
 - [ ] `oc log on <cluster URL>`
 - [ ] `oc login <cluster URL>`
 - [ ] `minishift log on <cluster URL>`
@@ -265,7 +266,7 @@ Once you meet all of these criteria, you have successfully completed the lab. Yo
 </details>
 
 
-#### Q2: What is the command to create a project?
+> Q2: What is the command to create a project?
 - [ ] `oc project <name>`
 - [ ] `oc projects <name>`
 - [ ] `oc new-project <name>`
@@ -277,7 +278,7 @@ Once you meet all of these criteria, you have successfully completed the lab. Yo
 
 </details>
 
-#### Q3: What is the command to switch your current project to a different project?
+> Q3: What is the command to switch your current project to a different project?
 - [ ] `oc project <name>`
 - [ ] `oc projects <name>`
 - [ ] `oc new-project <name>`
@@ -289,7 +290,7 @@ Once you meet all of these criteria, you have successfully completed the lab. Yo
 
 </details>
 
-#### Q4: What is the minimum number of containers in a pod?
+> Q4: What is the minimum number of containers in a pod?
 - [ ] 1
 - [ ] 2
 - [ ] 5
@@ -300,7 +301,7 @@ Once you meet all of these criteria, you have successfully completed the lab. Yo
    1
 </details>
 
-#### Q5: What is the YAML type of pod.spec.containers
+> Q5: What is the YAML type of pod.spec.containers
 - [ ] String
 - [ ] squence or list
 - [ ] <[]object>
@@ -312,7 +313,7 @@ Once you meet all of these criteria, you have successfully completed the lab. Yo
 
 </details>
 
-#### Q6: What is the command to create a pod on OpenShift based on its YAML file?
+> Q6: What is the command to create a pod on OpenShift based on its YAML file?
 - [ ] `oc start pod <pod-file.yaml>`
 - [ ] `oc create <pod-file.yaml>`
 - [ ] `oc create-f <pod-file.yaml>`
@@ -325,7 +326,7 @@ Once you meet all of these criteria, you have successfully completed the lab. Yo
 
 </details>
 
-#### Q7: What is the command to start a shell in a pod on OpenShift?
+> Q7: What is the command to start a shell in a pod on OpenShift?
 - [ ] `oc shell <pod-name>`
 - [ ] `oc exec <pod-name>`
 - [ ] `oc sh <pod-name>`

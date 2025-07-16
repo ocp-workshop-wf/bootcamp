@@ -28,7 +28,7 @@
   ```
   oc get pods
   ```
-
+---
 - Cleaning Up after testing things out: `oc status` to make sure that your deployment is still running 
   - Get to see the service: 
     ```
@@ -57,6 +57,7 @@
     ```
     oc status
     ```
+---
 - More advance way to clean up:
   - Run the application again: 
     ```
@@ -70,6 +71,7 @@
     ```
     oc delete all -l <label-selector>
     ```
+---
 - Name your DeploymentConfigs:
   ```
   oc new-app quay.io/practicalopenshift/hello-world --name demo-app --as-deployment-config
@@ -133,6 +135,7 @@
     oc delete all -l app=hello-world
     ```
     - You must see that `buildconfig, build & golang imagestream` got delete along with the others.
+---
 - ReplicationControllers: DeploymentConfigs use ReplicationControllers to run their pods.
   - Deploy the application!
     ```
@@ -142,18 +145,128 @@
     ```
     oc get -o yaml dc/hello-world
     ```
-  
-
-
+  - Lets get the ReplicationController
+    ```
+    oc get rc
+    ```
+    - Your output should include your ReplicationController.
+---
+- Rollout and Rollback 
+  - You need 2 different split terminals
+  - Make sure that your application is running on the OCP cluster.
+    ```
+    oc new-app quay.io/practicalopenshift/hello-world --as-deployment-config
+    ```
+  - Terminal 1:
+    ```
+    oc get pods --watch 
+    ```
+    or 
+    ```
+    oc get pods -w
+    ```
+  - Terminal 2:
+    ```
+    oc rollout latest dc/hello-world
+    ```
+    - The first thing OCP does is to start a new deployment `starting from, Pending - ContainerCreating - Running` once its Running the previous version `Terminating` "Start new - Stop old"
+    ```
+    oc rollback dc/hello-world
+    ```
+    - It is very similar process "Start the previous version, and Stop current"
 ---
 
+### Hands-on Lab: 
+In the DeploymentConfig lab, you will create a custom DeploymentConfig based on the hello-world image by changing some parameters.
+
+- First, `use oc new-app to start an application based on quay.io/practicalopenshift/hello-world`
+
+- Use `oc new-app` to start a second version of the application using the name `lab-dc`, a custom value for the `MESSAGE` environment variable, and the same hello-world image
+
+  - You can specify environment variables in `oc new-app` with a flag. `oc new-app --help` can help you to find the correct one
+
+- Forward port 8080 on your local computer to port 8080 on the second pod you created
+---
+### Checklist: 
+- Output from `oc get pods` contains two pods
+
+- Output from `oc describe dc/lab-dc` has the correct name and `MESSAGE` environment value
+
+- `curl localhost:8080` prints the message you entered in step 2
+
+---
+> Cleaning Up:
+ To clean up, use a single command to delete all of the resources created in step 1. You are done when `oc get dc` just has the `lab-dc` DeploymentConfig.
+
+---
+### Quiz
+
+>Q1: What is the command to deploy the hello-world image to OpenShift as a deployment config?
+- [ ] `oc new-app quay.io/practicalopenshift/hello-world`
+- [ ] `oc start-app quay.io/practicalopenshift/hello-world`
+- [ ] `oc new-apps quay.io/practicalopenshift/hello-world`
+- [ ] `oc create -f quay.io/practicalopenshift/hello-world`
+<details>
+  <summary> Answer </summary>
+
+   `oc new-app quay.io/practicalopenshift/hello-world`
+
+</details>
+
+> Q2: What OpenShift resource is responsible for running the correct number of pods for a DeploymentConfig?
+- [ ] DeploymentConfigPodRunner
+- [ ] ReplicaSet
+- [ ] ReplicationController
+- [ ] DeploymentConfig
+<details>
+  <summary> Answer </summary>
+
+   ReplicationController
+
+</details>
+
+> Q3: What is the command to create a DeploymentConfig based on a Git repository?
+- [ ] `oc new-build https://github.com/practical-openshift/hello-world`
+- [ ] `oc start-build quay.io/practicalopenshift/hello-world`
+- [ ] `oc new-deploy quay.io/practicalopenshift/hello-world`
+- [ ] `oc new-app https://github.com/practical-openshift/hello-world`
+<details>
+  <summary> Answer </summary>
+
+  `oc new-app https://github.com/practical-openshift/hello-world`
+
+</details>
+
+> Q4: What's the easiest way to delete all the resources made from oc new-app?
+- [ ] Use oc delete once for each resource you need to delete
+- [ ] Use label selectors with oc delete all
+- [ ] Use oc undeploy with the name in oc new-app
+- [ ] There is no easy way!
+<details>
+  <summary> Answer </summary>
+
+   Use label selectors with oc delete all
+
+</details>
+
+> Q5: What is the command to roll out a new version of your DeploymentConfig?
+- [ ] `oc update dc/app-name`
+- [ ] `oc rollout dc/app-name`
+- [ ] `oc rollout latest dc/app-name`
+- [ ] `oc update latest dc/app-name`
+<details>
+  <summary> Answer </summary>
+
+  `oc rollout latest dc/app-name`
+
+</details>
 ### 3.3 OpenShift Networking
 
 - **Servcies** 
 - **Routes** 
 
 **Lab:**  
-- C
+- 
 
 
 ---
