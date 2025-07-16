@@ -116,11 +116,33 @@
     ```
     oc new-app https://gitlab.com/therayy1/hello-world.git --as-deployment-config 
     ```
+  - When you run this command, OpenShift automatically creates a BuildConfig for your application. The BuildConfig contains all necessary instructions for building the image, similar to how Docker build commands operate.
+  - OpenShift will then clone the repository from the provided Git URL and proceed to build the image by executing the Dockerfile steps contained in your application. Each step results in an intermediate container.
+  - Once the build successfully completes, OpenShift pushes the built image to an ImageStream, which you can utilize for deployment purposes.
+
 - Track the progress of the build
+    ```
+    oc status
+    ```
+    - Check the line for `bc` "BuildConfig"
     ```
     oc logs -f bc/hello-world
     ```
-- 
+    - Lets go delete all and check the output
+    ```
+    oc delete all -l app=hello-world
+    ```
+    - You must see that `buildconfig, build & golang imagestream` got delete along with the others.
+- ReplicationControllers: DeploymentConfigs use ReplicationControllers to run their pods.
+  - Deploy the application!
+    ```
+    oc new-app quay.io/practicalopenshift/hello-world --as-deployment-config
+    ```
+  - We need to look into more options into our DeploymentConfig
+    ```
+    oc get -o yaml dc/hello-world
+    ```
+  
 
 
 ---
