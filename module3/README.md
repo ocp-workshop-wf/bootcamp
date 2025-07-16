@@ -176,7 +176,7 @@
     - It is very similar process "Start the previous version, and Stop current"
 ---
 
-### Hands-on Lab: 
+### 🔬 Hands-on Lab: 
 In the DeploymentConfig lab, you will create a custom DeploymentConfig based on the hello-world image by changing some parameters.
 
 - First, `use oc new-app to start an application based on quay.io/practicalopenshift/hello-world`
@@ -187,7 +187,7 @@ In the DeploymentConfig lab, you will create a custom DeploymentConfig based on 
 
 - Forward port 8080 on your local computer to port 8080 on the second pod you created
 ---
-### Checklist: 
+### Checklist 📋: 
 - Output from `oc get pods` contains two pods
 
 - Output from `oc describe dc/lab-dc` has the correct name and `MESSAGE` environment value
@@ -195,7 +195,7 @@ In the DeploymentConfig lab, you will create a custom DeploymentConfig based on 
 - `curl localhost:8080` prints the message you entered in step 2
 
 ---
-> Cleaning Up:
+> 💡 Cleaning Up:
  To clean up, use a single command to delete all of the resources created in step 1. You are done when `oc get dc` just has the `lab-dc` DeploymentConfig.
 
 ---
