@@ -14,7 +14,9 @@
 - **Replicas:** Is the number of desired replicas.
 ![Deployment](/images/deployment.png)
 
-**Lab:**  
+---
+
+**Hands-on Walkthroughs**  
 - Deploy an existing image based on its tag: `oc new-app <image tag>`
   - For this lesson
   ```
@@ -113,7 +115,9 @@
 
 ![Git Deployment](/images/deployfromgit.png)
 
-**Lab:**  
+---
+
+**Hands-on Walkthroughs**  
 - Deploy the app:
     ```
     oc new-app https://gitlab.com/therayy1/hello-world.git --as-deployment-config 
@@ -135,7 +139,9 @@
     oc delete all -l app=hello-world
     ```
     - You must see that `buildconfig, build & golang imagestream` got delete along with the others.
+
 ---
+
 - ReplicationControllers: DeploymentConfigs use ReplicationControllers to run their pods.
   - Deploy the application!
     ```
@@ -174,6 +180,7 @@
     oc rollback dc/hello-world
     ```
     - It is very similar process "Start the previous version, and Stop current"
+
 ---
 
 ### 🔬 Hands-on Lab: 
@@ -186,7 +193,9 @@ In the DeploymentConfig lab, you will create a custom DeploymentConfig based on 
   - You can specify environment variables in `oc new-app` with a flag. `oc new-app --help` can help you to find the correct one
 
 - Forward port 8080 on your local computer to port 8080 on the second pod you created
+
 ---
+
 ### Checklist 📋: 
 - Output from `oc get pods` contains two pods
 
@@ -195,6 +204,7 @@ In the DeploymentConfig lab, you will create a custom DeploymentConfig based on 
 - `curl localhost:8080` prints the message you entered in step 2
 
 ---
+
 > 💡 Cleaning Up:
  To clean up, use a single command to delete all of the resources created in step 1. You are done when `oc get dc` just has the `lab-dc` DeploymentConfig.
 
@@ -262,12 +272,168 @@ In the DeploymentConfig lab, you will create a custom DeploymentConfig based on 
 </details>
 ### 3.3 OpenShift Networking
 
-- **Servcies** 
-- **Routes** 
+- **Servcies** They are Kubernetes resources that expose a set of pods as a network service. They provide a stable endpoint for accessing applications running within the cluster, even as individual pods are created, destroyed, or scaled.
+- **Routes** Exposes a service at a hostname so that external clients can reach it. Routes are essentially DNS entries that map a hostname to a service within the OpenShift cluster - [RedHat Documentation](https://docs.redhat.com/en/documentation/openshift_container_platform/3.11/html/developer_guide/dev-guide-routes)
 
-**Lab:**  
-- 
-
+![OpenShift Network](/images/network.png)
 
 ---
 
+**Hands-on Walkthroughs**  
+- As always lets read about our new resource: 
+ ```
+ oc explain svc
+ ```
+- Dig into the Spec.
+ ```
+ oc explain svc.spec
+ ```
+- Lets create a manual service:
+  ```
+  cd <lab-directory>
+  ```
+  ```
+  oc create -f pods/pod.yaml
+  ```
+  ```
+  oc expose pod/hello-world-pod
+  ```
+    > "you should see an error as you need to spicify the port!"
+  
+  ```
+  oc expose --port 8080 pod/hellp-world-pod
+  ```
+  ```
+  oc status
+  ```
+  ```
+  oc create -f pods/pod2.yaml
+  ```
+    > We need to open a shell in the 2nd Pod
+  ```
+  oc rsh hello-world-pod-2
+  ```
+    ```bash
+    $wget -qO- <service IP / Port>
+    ```
+    - Accessing a Service: 
+    ```bash
+    env
+    ```
+    ```bash
+    $wget -qO- $HELLO_WORLD_POD_PORT_8080_TCP_ADDR:$HELLO_WORLD_POD_PORT_8080_TCP_PORT
+    ```
+    > You should get the same output and thats the first step of learning Bash Scripting.
+____
+
+- Exposing a Route:
+```
+oc status
+```
+```
+oc new-app quay.io/practicalopenshift/hello-world --as-deployment-config
+```
+```
+oc expose svc/hello-world
+```
+  > You should that the expose happened 
+```
+oc status
+```
+> On the first line you will fine the `http-URL` copy that!
+```
+curl <route from oc status>
+```
+> You should get a Welcome! Message.
+
+- Dig deeper:
+
+```
+oc get -o yaml route/hello-world
+```
+> Looking at the host its a compination of the app-name-<project-name>.IP-address.
+---
+
+### 🔬 Hands-on Lab:
+For networking, you'll need to make some modifications to get a route to load balance between two pods.
+
+- First, use `oc create` to start `pods/pod.yaml` in the labs project
+- Create a service for this pod
+- Modify `pods/pod2.yaml` so that the service will also hit this pod (hint: check the labels section in the pod and selector section in the service)
+- Use `oc create` to start `pods/pods.yaml` in the labs project
+- Expose a route for this service
+
+---
+
+### Checklist 📋: 
+Once you meet all of these criteria, you have successfully completed the lab. You will need to run the commands yourself in order to grade this lab.
+
+- Output from `oc get pods` contains two pods
+- Output from `oc status` groups the two pods under the same route
+- When you run `curl <your route>` several times, it will return messages from both `pod.yaml` and `pod2.yaml`
+
+---
+
+### Quiz
+
+> Q1: What mechanism do services use to figure out which pods to send traffic to?
+- [ ] Develpers manually update services using `oc service add-target`
+- [ ] Label selectors
+- [ ] Services keep target pods in their yaml under `spec.targets`
+- [ ] There is no such a thing!
+<details>
+  <summary> Answer </summary>
+
+   Label selectors
+
+</details>
+
+### Quiz
+
+> Q2: How do pods and other resources send traffic to a service?
+- [ ] The Pod's virtual IP
+- [ ] Expose a Route for the service
+- [ ] Use oc port-forward from inside a Pod
+- [ ] Click on the service right click and select one!
+<details>
+  <summary> Answer </summary>
+
+   The Pod's virtual IP
+
+</details>
+
+> Q3: What is the command to create a service for a pod?
+- [ ] `oc expose <pod-name>`
+- [ ] `oc expose --port<port><pod-name>`
+- [ ] `oc expose service --port<port><pod-name>`
+- [ ] `oc expose service<pod-name>`
+<details>
+  <summary> Answer </summary>
+
+   `oc expose --port<port><pod-name>`
+
+</details>
+
+> Q4: What is the command to create a route for a service?
+- [ ] `oc expose <service-name>`
+- [ ] `oc expose-service <service-name`
+- [ ] `oc expose port<port>`
+- [ ] `oc expose service<pod-name>`
+<details>
+  <summary> Answer </summary>
+
+   `oc expose <service-name>`
+
+</details>
+
+> Q5: True / False: OpenShift publishes virtual IPs in environment variables inside of containers.
+- [ ] True
+- [ ] False
+- [ ] None of the above 
+- [ ] All the above
+<details>
+  <summary> Answer </summary>
+
+   True
+
+</details>

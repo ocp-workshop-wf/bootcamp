@@ -5,7 +5,9 @@
 - The **Web Console** offers tabs for Overview, Workloads, Networking, Builds, Storage, Monitoring, etc.
 - The **CLI (`oc`)** gives full control with extra features over `kubectl`.
 
-**Lab:**  
+---
+
+**Hands-on Walkthroughs:**  
 - Login using 
   ```
   oc login
@@ -22,7 +24,9 @@
 **YouTube:**  
 - [OpenShift CLI Basics](https://docs.redhat.com/en/documentation/openshift_container_platform/4.2/html/cli_tools/openshift-cli-oc)
 
-**Lab:**  
+---
+
+**Hands-on Walkthroughs**  
 - Log in to the OpenShift Web Console.
 
     > Check the status of OpenShift
@@ -53,7 +57,6 @@
     ```
     oc logout
     ```
-
 
     > #### Project Basics
 
@@ -192,7 +195,7 @@ ___
   ```
 ### [Resource: Yaml.org](https://yaml.org/)
 
-**Lab:**  
+**Hands-on Walkthroughs**  
 
 - Use YAML to understand Pod defenations following objects such as `apiVersion, kind, spec`.
 
