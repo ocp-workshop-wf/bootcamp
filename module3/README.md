@@ -17,35 +17,87 @@
 **Lab:**  
 - Deploy an existing image based on its tag: `oc new-app <image tag>`
   - For this lesson
-```oc new-app quay.io/practicalopenshift/hello-world --as-deployment-config```
-- Check running resources: `oc status`
-- Check pods: `oc get pods`
+  ```bash
+  oc new-app quay.io/practicalopenshift/hello-world --as-deployment-config
+  ```
+- Check running resources: 
+  ```bash
+  oc status
+  ```
+- Check pods: 
+  ```
+  oc get pods
+  ```
 
 - Cleaning Up after testing things out: `oc status` to make sure that your deployment is still running 
   - Get to see the service: 
     ```
     oc get svc
     ```
-  - Get to see the deployment config: `oc get dc`
-  - Get to see image stream: `oc get istag`
-  - Let delete using full name of the resource: `oc delete svc/hello-world`
-    - `oc get svc`
-  - Check the status again and see what was effected: `oc delete dc/hello-world`
-    - `oc status`
+  - Get to see the deployment config: 
+    ```
+    oc get dc
+    ```
+  - Get to see image stream: 
+    ```
+    oc get istag
+    ```
+  - Let delete using full name of the resource: 
+    ```
+    oc delete svc/hello-world
+    ```
+    - ```
+      oc get svc
+      ```
+  - Check the status again and see what was effected: 
+    ```
+    oc delete dc/hello-world
+    ```
+    - 
+    ```
+    oc status
+    ```
 - More advance way to clean up:
   - Run the application again: 
-  `oc new-app quay.io/practicalopenshift/hello-world --as-deployment-config`
-  - Check the detatils for that DeploymentConfig: `oc describe dc/hello-world`
-  - Clean up using a label selector: `oc delete all -l <label-selector>`
+    ```
+    oc new-app quay.io/practicalopenshift/hello-world --as-deployment-config
+    ```
+  - Check the detatils for that DeploymentConfig: 
+    ```
+    oc describe dc/hello-world
+    ```
+  - Clean up using a label selector: 
+    ```
+    oc delete all -l <label-selector>
+    ```
 - Name your DeploymentConfigs:
- `oc new-app quay.io/practicalopenshift/hello-world --name demo-app --as-deployment-config`
-  - Describe your new named DC: `oc describe dc/demo-app`
+  ```
+  oc new-app quay.io/practicalopenshift/hello-world --name demo-app --as-deployment-config
+  ```
+  - Describe your new named DC: 
+    ```
+    oc describe dc/demo-app
+    ```
   - Lets add another app with a different name parameter: 
-  `oc new-app quay.io/practicalopenshift/hello-world --name demo-app-2 --as-deployment-config`
-  - Run status: `oc status`
-  - Delete the first app: `oc delete all -l app=demo-app`
-  - Run status: `oc status`
-  - Delete the 2nd app: `oc delete all -l app=demo-app-2`
+    ```
+    oc new-app quay.io/practicalopenshift/hello-world --name demo-app-2 --as-deployment-config
+    ```
+  - Run status: 
+    ```
+    oc status
+    ```
+  - Delete the first app: 
+    ```
+    oc delete all -l app=demo-app
+    ```
+  - Run status: 
+    ```
+    oc status
+    ```
+  - Delete the 2nd app: 
+    ```
+    oc delete all -l app=demo-app-2
+    ```
 
 ---
 
