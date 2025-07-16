@@ -271,6 +271,8 @@ In the DeploymentConfig lab, you will create a custom DeploymentConfig based on 
 
 </details>
 
+---
+
 ### 3.3 OpenShift Networking
 
 - **Servcies** They are Kubernetes resources that expose a set of pods as a network service. They provide a stable endpoint for accessing applications running within the cluster, even as individual pods are created, destroyed, or scaled.
