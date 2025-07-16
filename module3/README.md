@@ -110,9 +110,12 @@
 #### Direct deployment using Git
 
 ![Git Deployment](/images/deployfromgit.png)
+
 **Lab:**  
-- Edit deployment YAML to add lifecycle hooks.
-- Delete pods and observe automated restart.
+- Deploy the app:
+    ```
+    oc new-app https://gitlab.com/therayy1/hello-world.git --as-deployment-config 
+    ```
 
 ---
 
