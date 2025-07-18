@@ -212,9 +212,10 @@ ___
       ..........
     ```
     >> ##### Dive deeper into pods 
-      ```
-      oc explain pod.spec.containers.env
-      ```
+
+    ```
+    oc explain pod.spec.containers.env
+    ```
 
 ### 🔬 Hands-on Lab: 
 In this lab, you will create a custom Pod definition and upload it to OpenShift. This will test your skills in writing and debugging Pod YAML for the OpenShift platform.
@@ -240,9 +241,9 @@ In this lab, you will create a custom Pod definition and upload it to OpenShift.
     ```
 
     > #### Example of 8080 to 8080 for hello world
-      ```
-      oc port-forward hello-world-pod 8080:8080
-      ```
+    ```
+    oc port-forward hello-world-pod 8080:8080
+    ```
 ---
 ### Checklist 📋: 
 Once you meet all of these criteria, you have successfully completed the lab. You will need to run the commands yourself in order to grade this lab.
