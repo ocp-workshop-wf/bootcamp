@@ -2,13 +2,58 @@
 
 ### 4.1 OpenShift ConfigMaps
 
-- **DeploymentConfig** vs. **Deployment**: DeploymentConfig supports S2I, triggers.
-- S2I builds containers directly from source code.
+- **Configmaps:** a fundamental way to manage configuration data for applications. They are Kubernetes API objects that store configuration data as key-value pairs, allowing you to decouple configuration from your application code and keep your containers portable. This means you can change an application's behavior without rebuilding its container image. 
+
+    ![ConfigMaps Stucture](/images/configmap.png)
+
+> - Not for sensitive data
+> - 1MB limit
+
+- ConfigMap Example:
+    ```yaml
+    apiVersion: v1
+    data:
+    MESSAGE: Hello from ConfigMap
+    kind: ConfigMap
+    metadata:
+    creationTimestamp: 2025-06-11T11:40:41Z
+    name: message-map
+    namespace: myproject
+    resourceVersion: "2827192"
+    selfLink: /api/v1/namespaces/myproject/configmaps/message-map
+    uid: 60dc0569-abd8-11ea-9133-080027c1c30a
+    ```
+
 
 **Hands-on Walkthroughs**  
-- Deploy a Node.js or Python app from GitHub via S2I.
+- Creating ConfigMaps:
 
-
+```bash
+oc create configmap message-map --from-literal MESSAGE="Hello from ConfigMap"
+```
+> `configmap/message-map created`
+```bash
+oc get cm
+```
+```bash
+message-map         1      42s
+```
+```bash
+oc get -o yaml cm/message-map
+```
+```yaml
+apiVersion: v1
+data:
+  MESSAGE: Hello from ConfigMap
+kind: ConfigMap
+metadata:
+  creationTimestamp: "2025-07-18T01:09:39Z"
+  name: message-map
+  namespace: <your-namespace>
+  resourceVersion: "3298865818"
+  uid: 7c32526a-8837-48ba-ab36-bade0095b35b
+```
+- Consuming ConfigMaps:
 
 ---
 

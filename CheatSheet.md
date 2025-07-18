@@ -550,5 +550,64 @@ oc set env dc/hello-world --from cm/<configmap-name>
 ```bash
 oc create configmap message-map --from-literal MESSAGE="Hello From ConfigMap"
 ```
+### Create a configmap using literal command line arguments
 
+```bash
+oc create configmap message-map --from-literal MESSAGE="Hello From ConfigMap"
+```
+--- 
 
+### Deploy the Hello World app and expose it
+```bash
+oc new-app quay.io/practicalopenshift/hello-world
+oc expose svc/hello-world
+```
+
+### Get the route URL
+```bash
+oc status
+```
+### First check
+```bash
+curl <url from route>
+```
+### Set environment variables
+```bash
+oc set env dc/hello-world --from cm/message-map
+```
+### Second check
+```bash
+curl <url from route>
+```
+### Get the YAML
+```bash
+oc get -o yaml dc/hello-world
+```
+### First, you'll need to create a file
+```bash
+echo "Hello from ConfigMap file" > MESSAGE.txt
+```
+### Verify the file exists
+```bash
+cat MESSAGE.txt
+```
+### Create the file
+```bash
+oc create configmap file-map --from-file=MESSAGE.txt
+```
+### Create the file with a key override
+```bash
+oc create configmap file-map --from-file=MESSAGE=MESSAGE.txt
+```
+### Consume ConfigMap (same for all ConfigMaps)
+```bash
+oc set env dc/hello-world --from cm/file-map-2
+```
+### Same --from-file but with a directory
+```bash
+oc create configmap pods-example --from-file pods
+```
+### Verify
+```bash
+oc get -o yaml configmap/pods-example
+```
