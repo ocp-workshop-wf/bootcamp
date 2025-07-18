@@ -54,6 +54,52 @@ metadata:
   uid: 7c32526a-8837-48ba-ab36-bade0095b35b
 ```
 - Consuming ConfigMaps:
+```bash
+oc new-app quay.io/practicalopenshift/hello-world --as-deployment-config
+```
+> Once app created go ahead and expouse the service!
+
+```bash
+oc expose service/hello-world
+```
+> Once expose was done lets run status to get the URL
+
+```bash
+oc status
+```
+> We will Curl before and after configmap being applied to the application, at first it should give us the default message, at 2nd it should give us the message from inside the configmap!
+```bash
+curl <url from oc status>
+```
+> output: 
+"Welcome! You can change this message by editing the MESSAGE environment variable."
+
+- Consuming a ConfigMap to the application
+```bash
+oc set env dc/hello-world --from cm/message-map
+```
+> output: `deploymentconfig.apps.openshift.io/hello-world updated`
+
+```bash
+curl <url from oc status>
+```
+> output: "Hello from ConfigMap"
+
+```bash
+oc get -o yaml dc/hello-world
+```
+```yaml
+    .....
+    spec:
+      containers:
+      - env:
+        - name: MESSAGE
+          valueFrom:
+            configMapKeyRef:
+              key: MESSAGE
+              name: message-map
+              ........
+```
 
 ---
 
