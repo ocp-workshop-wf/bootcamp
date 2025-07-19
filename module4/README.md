@@ -303,12 +303,154 @@ metadata:
 
 ### 4.2 Secrets
 
-- [Service Accounts](https://docs.redhat.com/en/documentation/openshift_container_platform/3.11/html/developer_guide/dev-guide-service-accounts): Service accounts provide a flexible way to control API access without sharing a regular user’s credentials.
-- Secrets: 
-- Mount as env vars or volumes.
+- Secrets: a Kubernetes resource designed to hold sensitive information like passwords, API keys, certificates, and other credentials.
+  - Basic Auth
+  - SSH Key 
+  - TLS Auth
+
 
 **Hands-on Walkthroughs**  
-- Create and mount ConfigMaps and Secrets in a deployment.
+- Create an Opaque secret
+
+```bash
+oc create secret generic message-secret --from-literal MESSAGE="secret message"
+```
+> output: secret/message-secret created
+
+- Lets find out where it is!
+
+```bash
+oc get secret
+```
+> output: "message-secret        Opaque            10s"
+
+- Lets open the yaml for that secret.
+
+```bash
+oc get -o yaml secrete/message-secret
+```
+> output:
+
+```yaml
+apiVersion: v1
+data:
+  MESSAGE: c2VjcmV0IG1lc3NhZ2U=
+kind: Secret
+metadata:
+  creationTimestamp: "2025-07-19T03:42:04Z"
+  name: message-secret
+  namespace: raafat-dev
+  resourceVersion: "3334020540"
+  uid: d1e28fce-ab5d-45a3-8e9f-526f83d20135
+type: Opaque
+```
+- This message is base64.
+
+- How to use a Secret as environment variables
+
+```bash
+oc new-app quay.io/practicalopenshift/hello-world --as-deployment-config
+```
+```bash
+oc expose svc/hello-world /
+oc status
+```
+```bash
+curl <url from oc status> 
+```
+
+> output: "Welcome! You can change this message by editing the MESSAGE environment variable."
+
+```bash
+oc set env dc/hello-world --from secret/message-secret
+```
+> output: "deploymentconfig.apps.openshift.io/hello-world updated"
+
+```bash
+curl <URL from oc status>
+```
+> output: "secret message"
+
+```bash
+oc get -o yaml dc/hello-world
+```
+```yaml
+  .....
+ - env:
+        - name: MESSAGE
+          valueFrom:
+            secretKeyRef:
+              key: MESSAGE
+              name: message-secret
+        image: quay.io/practicalopenshift/hello-world@sha256:2311b7a279608de9547454d1548e2de7e37e981b6f84173f2f452854d81d1b7e
+        imagePullPolicy: Always
+        name: hello-world
+      .......
+```
+---
+
+### 🔬 Hands-on Lab: 
+For secrets, you will update a secret value by modifying its definition. Start with the following secret:
+
+```yaml
+apiVersion: v1
+data:
+  MESSAGE: YmFzZTY0
+kind: Secret
+metadata:
+  name: lab-secret
+type: Opaque
+```
+- Create a new file and put the above YAML inside
+- Update the value of MESSAGE to "Hello from Lab Secret"
+- Create a secret based on this YAML using `oc create -f`
+- Deploy and expose the Hello World Application
+- Set the MESSAGE environment varaible using the secret.
+---
+
+### Checklist 📋: 
+- Output from `oc get secret` contains your new Secret
+
+- Output from `oc get -o yaml dc/hello-world` contains the string "secretKeyRef"
+
+- When you run `curl <your route>` you get the value you put in the Secret
+
+---
+### Quiz
+> Q1: You can use all the same inputs for ConfigMaps in order to create Secrets.
+- [ ] Fales
+- [ ] True
+
+<details>
+  <summary> Answer </summary>
+
+  True
+
+</details>
+
+> Q2: The data stored in a secret resource is securely encrypted. Even if someone could read the secret, they wouldn't get access to the information inside.
+- [ ] Fales
+- [ ] True
+
+<details>
+  <summary> Answer </summary>
+
+  False "Base64 is not a secure encryption method"
+
+</details>
+
+> Q3: What format do secrets use for their values?
+- [ ] SHA256
+- [ ] RSA
+- [ ] WPA2
+- [ ] Base64
+
+<details>
+  <summary> Answer </summary>
+
+ Base64 
+
+</details>
 
 **Resource:**  
 - [Using ConfigMaps & Secrets in OpenShift](https://www.youtube.com/watch?v=AnvOMRFwimM)
