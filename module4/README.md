@@ -299,6 +299,7 @@ metadata:
    Command line arguments, files, directories, and custom ConfigMap YAML files
 
 </details>
+
 --- 
 
 ### 4.2 Secrets
