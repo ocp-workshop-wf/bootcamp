@@ -1108,3 +1108,47 @@ Steps for a custom template:
               value: ${MESSAGE}
 
 ```
+
+# Deployment and DeploymentConfig FAQ
+Here are some of the most frequently asked questions by students about Deployments and DeploymentConfigs.
+
+
+> Why did oc new-app work without --as-deployment-config?
+
+Yes, some of the commands in this course will work without the --as-deployment-config flag on oc new-app. The default behavior of oc new-app is to create a Deployment in more recent versions of OpenShift and oc. For many use cases, Deployment is a good choice to run your applications and it's a Kubernetes built-in type. Using a Kubernetes type is advantageous because it allows you to migrate your workload to non-OpenShift clusters if you needed to do such a thing. The controller pattern used in Deployments is a bit cleaner than DeploymentConfig's deploy pods. However, not all the functionality in DeploymentConfigs is supported by the Deployment type.
+
+
+> Why does OpenShift have both Deployments and DeploymentConfigs?
+
+- Deployments and DeploymentConfigs are different resource types, but they are very similar. Both Deployments and DeploymentConfigs have the same job of running multiple copies of your container images. They both maintain a stable number of pods, work with HorizontalPodAutoscalers, and support rollouts through the oc command line tool.
+
+- DeploymentConfigs were added to OpenShift by RedHat as a custom resource type in the early days of OpenShift 3, around 2015. Adding them allowed RedHat to add the DeploymentConfig features to the OpenShift platform without waiting for Kubernetes to support them. An early version of Deployments landed in Kubernetes itself in Kubernetes 1.2 in 2016.
+
+- Because OpenShift is a compliant Kubernetes distribution, OpenShift also supports this Deployment resource type. With OpenShift 4, the underlying Kubernetes version is much more recent than the OpenShift 3.x line. This means that it also got the improvements made over the years to the Deployment type. Deployments now have the API version apps/v1, with no more alpha or beta. Now that the Deployment object is more mature, RedHat decided to switch oc new-app to use the Kubernetes built-in Deployment type by default.
+
+> What are the differences between Deployment and DeploymentConfig?
+
+- The first major difference is that Deployments use a ReplicaSet and DeploymentConfigs use a ReplicationController. These two resource types serve a similar purpose, and you shouldn't have to worry about them as a Deployment or DeploymentConfig user. But they are different. More information on differences here: https://stackoverflow.com/questions/36220388/what-is-the-difference-between-replicaset-and-replicationcontroller
+
+- Another big difference is that Deployments run on a control loop inside the Kubernetes control plane to conduct rollouts. The controller pattern is very common in Kubernetes. DeploymentConfigs instead run the deployment logic on pods in the data plane alongside your application.
+
+- More information on controllers in [Kubernetes and OpenShift:](https://kubernetes.io/docs/concepts/architecture/controller/)
+
+
+> Why does this course use DeploymentConfig?
+
+- Deployments are the default for oc new-app, but DeploymentConfigs have more features as of writing. Kubernetes may close this gap with future enhancements to the Deployment system. There are a lot of use cases that will work just fine with a Deployment and don't need a DeploymentConfig. This course teaches DeploymentConfigs so that you can learn and use the extra functionality available to you in OpenShift DeploymentConfigs.
+
+- Here are the features that are not supported in Deployments but are supported in DeploymentConfigs:
+    - Custom deployment strategies
+    - Automated rollbacks
+    - ConfigChange and ImageChange triggers
+    - Lifecycle hooks
+
+
+***More Info***
+
+- For more information about Deployments and DeploymentConfigs, you can consult the official documentation from RedHat [here](https://docs.openshift.com/container-platform/4.9/applications/deployments/what-deployments-are.html):
+
+- [Kubernetes Deployment information](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/)
+
