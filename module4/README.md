@@ -713,3 +713,82 @@ For images, you'll import your own private image and tag into OpenShift.
 ---
 
 ### 4.4 Builds and BuildConfigs
+Builds represent the process of transforming input (like source code) into a runnable image, while BuildConfigs define the entire build process for an application. A BuildConfig acts as a template, specifying how to build an image, including the source code, build strategy, and output location. 
+- A build is a specific instance of a build process triggered by a BuildConfig. 
+- A BuildConfig is a resource in OpenShift that defines the build process for an application. 
+
+**Hands-on Walkthroughs**  
+
+- lets create a new build 
+
+```bash
+oc new-build <Git URL>
+```
+
+> output: "buildconfig.build.openshift.io "hello-world" created"
+
+- Lets see whats inside the buildconfig
+
+```bash
+oc get -o yaml buildconfig/hello-world
+```
+> output: 
+
+```yaml
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  annotations:
+    openshift.io/generated-by: OpenShiftNewBuild
+  creationTimestamp: "2025-07-19T22:53:53Z"
+  generation: 2
+  labels:
+    build: hello-world
+  name: hello-world
+  namespace: raafat-dev
+  resourceVersion: "3357388343"
+  uid: 0d5acd9e-e53c-4d3e-a7da-50aaeda9a832
+spec:
+  failedBuildsHistoryLimit: 5
+  nodeSelector: null
+  output:
+    to:
+      kind: ImageStreamTag
+      name: hello-world:latest
+  postCommit: {}
+  resources: {}
+  runPolicy: Serial
+  source:
+    git:
+      uri: https://gitlab.com/therayy1/hello-world.git
+    type: Git
+  strategy:
+    dockerStrategy:
+      from:
+        kind: ImageStreamTag
+        name: golang:1.17
+    type: Docker
+  successfulBuildsHistoryLimit: 5
+  triggers:
+  - github:
+      secret: uEN_9w-Ftp5rVSR3Q_35
+    type: GitHub
+  - generic:
+      secret: 8R972EmKLVDCPF5N6y7O
+    type: Generic
+  - type: ConfigChange
+  - imageChange: {}
+    type: ImageChange
+```
+- Lets look at the builds
+
+```bash
+oc get build
+```
+> output: 
+
+| NAME | TYPE | FROM | STATUS | STARTED | DURATION|
+| ---- | ---- | ---- | ------ | ------- | ------- |
+|hello-world-1| Docker | Git@9e4d905 | Complete | 39 minutes ago | 56s|'
+
+
