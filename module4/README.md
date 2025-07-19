@@ -538,9 +538,10 @@ oc get istag
 > output: you should see both images with the tag `latest` and `update-message`
 
 - Lets learn how to push a private image on quay.io
+- locate credentials.env file and update it with your Quay.io credentials.
 
 ```bash
-export $REGISTRY_USERNAME=<your-username>
+source credentials.env
 ```
 ```bash
 cd ./labs-repo/hello-world-go-private
@@ -552,7 +553,7 @@ cat Dockerfile
 
 |HOST|Repository|Image Name (:tag)|
 | ----| ---- | ----|
-|quay.io|/practicalopenshift|/private-repo
+|quay.io|/`$REGISTRY_USERNAME`$|/private-repo
 ---
 ```bash
 docker build -t quay.io/$REGISTRY_USERNAME/private-repo .
@@ -578,11 +579,9 @@ aad63a933944: Pushed
 0dd0829302c5: Pushed 
 aaed0f9cbe2b: Pushed 
 latest: digest: sha256:813277ad25de25d77aee81727dc6a27751434294682b922c8ae97966a1ac1faf size: 856
-
-
-**Resource:**  
-- [OpenShift Deployments & Scaling](https://www.youtube.com/watch?v=JysYQ3a7fwQ)
 ```
+
+
 - How to run this private image to OpenShift?
 
 ```bash
@@ -601,8 +600,42 @@ oc create secret docker-registry \ demo-image-pull-secret \
 --docker-server=$REGISTRY_HOST \
 --docker-username=$REGISTRY_USERNAME \
 --docker-password=$REGISTRY_PASSWORD \ 
---docker-email=$REGISTRY_EMAIl
+--docker-email=$REGISTRY_EMAIL
 ```
+> output: secret created
+
+- creating a secret is not enough you need to link that secret to let openshift use it to pull the image.
+
+```bash
+oc secrets link default demo-image-pull-secret --for=pull
+```
+- dafault here is the service account that openshift will use, using pull because we want that secret to pull an image.
+```bash
+oc describe serviceaccount/default
+```
+
+> output: you should see something like this
+
+```bash
+.......
+Image pull secrets:  default-dockercfg-stnvn
+                     demo-image-pull-secret
+.....
+```
+- lets confirm everything went well
+```bash
+oc new-app quay.io/$REGISTRY_USERNAME/private-repo --as-deployment-config
+```
+```bash
+oc expose service/private-repo
+```
+```bash
+oc status
+```
+```bash
+curl <URL from oc status>
+```
+> output: "Hello from private image registry"
 
 ---
 
