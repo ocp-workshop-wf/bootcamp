@@ -459,12 +459,12 @@ type: Opaque
 ---
 
 ### 4.3 Images and Image Streams 
+An image is a self-contained package containing everything needed to run an application, including the code, runtime, system tools, libraries, and settings. An image stream, on the other hand, is a way to manage and track different versions of an image within OpenShift, acting as a virtual image repository. 
 
-- Scale deployments manually or with autoscaling (HPA).
-- Set autoscaling thresholds for CPU/memory.
+![Image & Image Steams architecture](/images/image-imagestream.png)
 
 **Hands-on Walkthroughs**  
-- Apply an HPA, generate load, observe auto-scaling.
+- 
 
 **Resource:**  
 - [OpenShift Deployments & Scaling](https://www.youtube.com/watch?v=JysYQ3a7fwQ)
