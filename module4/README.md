@@ -639,4 +639,77 @@ curl <URL from oc status>
 
 ---
 
+### 🔬 Hands-on Lab: 
+For images, you'll import your own private image and tag into OpenShift.
+
+- Create a new project called `images-lab`
+- Create an image named `images-lab` based on `quay.io/practicalopenshift/hello-world`
+- Push this image to your Quay.io accout. Keep it private
+- Create another image with the tag `images-lab:private-tag`.
+- Push this tag to Quay.io
+- Create an ImageStream for your private images-lab image
+- Import the tag into OpenShift as an ImageStreamTag
+- Deploy an application based on the images-lab:private-tag image
+---
+
+### Checklist 📋: 
+- `oc get is` returns a single ImageStream
+- `oc get istag`returns 2 tags for `images-lab`
+- `oc get secret` shows your authentication secret
+- `curl <your route>` gives you the message you supplied in step 4.
+
+---
+### Quiz
+> Q1: OpenShift has its own image registry built in.
+- [ ] Fales
+- [ ] True
+
+<details>
+  <summary> Answer </summary>
+
+  True
+
+</details>
+
+> Q2: ImageStreams correspond to which Docker concept?
+- [ ] Single Image
+- [ ] Image name such as Hello-world
+- [ ] Image tags such as hello-world
+- [ ] Running containers
+
+<details>
+  <summary> Answer </summary>
+
+  Image name such as Hello-world
+
+</details>
+
+> Q3: Which service account can you add docker authentication to in order to pull from a private repository?
+- [ ] Puller
+- [ ] default
+- [ ] Authentication
+- [ ] secrets
+
+<details>
+  <summary> Answer </summary>
+
+  default
+
+</details>
+
+> Q4: What command can you use to add an ImageStreamTag for an image that you already have an ImageStream for?
+- [ ] `oc add tag`
+- [ ] `oc tag`
+- [ ] `oc copy tag`
+- [ ] `oc tag:tag`
+
+<details>
+  <summary> Answer </summary>
+
+  `oc tag`
+
+</details>
+
+---
+
 ### 4.4 Builds and BuildConfigs
