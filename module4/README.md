@@ -299,10 +299,12 @@ metadata:
    Command line arguments, files, directories, and custom ConfigMap YAML files
 
 </details>
+--- 
 
 ### 4.2 Secrets
 
-- **Secrets**: Encrypted, for sensitive info.
+- [Service Accounts](https://docs.redhat.com/en/documentation/openshift_container_platform/3.11/html/developer_guide/dev-guide-service-accounts): Service accounts provide a flexible way to control API access without sharing a regular user’s credentials.
+- Secrets: 
 - Mount as env vars or volumes.
 
 **Hands-on Walkthroughs**  
