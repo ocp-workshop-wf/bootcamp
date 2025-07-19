@@ -100,12 +100,208 @@ oc get -o yaml dc/hello-world
               name: message-map
               ........
 ```
+- Create ConfigMaps from Files:
+```bash
+echo "Hello from ConfigMap file" > MESSAGE.txt
+```
+```bash
+cat MESSAGE.txt
+```
+> output:"Hello from ConfigMap file"
+
+```bash
+oc create configmap file-map --from-file=MESSAGE.txt
+```
+---
+
+> output: "configmap/file-map created"
+
+```bash
+oc get -o yaml cm/file-map
+```
+
+```yaml
+apiVersion: v1
+data:
+  MESSAGE.txt: |
+    Hello from ConfigMap file
+kind: ConfigMap
+metadata:
+.........
+```
+> output: "data.MESSAGE.txt: this is the wrong syntax as it doesn't match the key in the Hello-world application"
+
+```bash
+oc create configmap file-map-2 --from-file=MESSAGE=MESSAGE.txt
+```
+> output: "configmap/file-map created"
+
+```bash
+oc get -o yaml cm/file-map
+```
+```yaml
+apiVersion: v1
+data:
+  MESSAGE: |
+    Hello from ConfigMap file
+kind: ConfigMap
+metadata:
+```
+> output: Now as you see the data.MESSAGE: follows the same pattern for the Hello-world application.
+
+```bash
+oc set env dc/hello-world --from cm/file-map-2
+```
+> output: "deploymentconfig.apps.openshift.io/hello-world updated"
+
+```bash
+curl < URL from oc status>
+```
+> output: Hello from ConfigMap file.
+
+- Create ConfigMaps from Directories:
+
+```bash
+cd ./labs
+```
+```bash
+oc create configmap pods-example --from-file=pods
+```
+> output: "configmap/pods-example created!"
+
+```bash
+oc get -o yaml configmap/pods-example
+```
+> output:
+
+```yaml
+apiVersion: v1
+data:
+  pod.yaml: |
+    apiVersion: v1
+    kind: Pod
+    metadata:
+      name: hello-world-pod
+      labels:
+        app: hello-world-pod
+    spec:
+      containers:
+      - env:
+        - name: MESSAGE
+          value: Hi! I'm an environment variable
+        image: quay.io/practicalopenshift/hello-world
+        imagePullPolicy: Always
+        name: hello-world-override
+        resources: {}
+  pod2.yaml: |
+    apiVersion: v1
+    kind: Pod
+    metadata:
+      name: hello-world-pod-2
+      labels:
+        app: hello-world-pod-2
+    spec:
+      containers:
+      - env:
+        - name: MESSAGE
+          value: Hi! I'm an environment variable in pod 2
+        image: quay.io/practicalopenshift/hello-world
+        imagePullPolicy: Always
+        name: hello-world-override
+        resources: {}
+  service.yaml: |
+    apiVersion: v1
+    kind: Service
+    metadata:
+      name: hello-world-pod-service
+    spec:
+      selector:
+        app: hello-world-pod
+      ports:
+        - protocol: TCP
+          port: 80
+          targetPort: 8080
+kind: ConfigMap
+
+```
+---
+
+### 🔬 Hands-on Lab: 
+For ConfigMaps, you'll get some hands-on practice working with YAML. Start with the following ConfigMap definition:
+
+```yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: lab-map
+```
+- Create a new file called lab-configmap.yaml
+- Copy the above YAML into the file
+- Modify this YAML so that the ConfigMap will have the proper key fro the hello-world application
+- Us `oc create` to create the ConfigMap from the file
+- Deploy the `quay.io/practicalopenshift/hello-world` image using `oc new-app`
+- Change the message that the `DeploymentConfig` uses to the ConfigMap value using the `oc set env` command
+- Expose a route for your application.
 
 ---
 
+### Checklist 📋: 
+- Output from `oc get cm` contains your new ConfigMap
+
+- Output from `oc get -o yaml dc/hello-world` contains the string `configMapKeyRef`
+
+- When you run `curl <your route>` you get the value you put in the ConfigMap
+
+---
+### Quiz
+> Q1: What is the maximum amount of data that you can store in a ConfigMap?
+- [ ] 1 GB
+- [ ] 1 KB
+- [ ] 1 MB
+- [ ] 1 TB 
+<details>
+  <summary> Answer </summary>
+
+   1 MB
+
+</details>
+
+> Q2: The data for a configmap is stored in its YAML resource definition under the "configData" field name.
+- [ ] True
+- [ ] False 
+<details>
+  <summary> Answer </summary>
+
+   Fales "the field called data"
+
+</details>
+
+> Q3: What is the command to create a configmap using the oc tool?
+- [ ] `oc create configmap <new configmap name>`
+- [ ] `oc create -f configmap <new configmap name>`
+- [ ] `oc get configmap <new configmap name>`
+- [ ] `oc apply -f configmap <new configmap name>`
+<details>
+  <summary> Answer </summary>
+
+ `oc create configmap <new configmap name>`
+
+</details>
+
+> Q4: What kinds of inputs can you use to create a configmap?
+- [ ] Command line arguments of files
+- [ ] Command line arguments, files, directories, and custom ConfigMap YAML files
+- [ ] Command line arguments, files, or directories
+- [ ] Command line arguments, directories only!
+<details>
+  <summary> Answer </summary>
+
+   Command line arguments, files, directories, and custom ConfigMap YAML files
+
+</details>
+
 ### 4.2 Secrets
 
-- **ConfigMaps**: Key-value config data.
 - **Secrets**: Encrypted, for sensitive info.
 - Mount as env vars or volumes.
 
