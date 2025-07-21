@@ -22,6 +22,7 @@
 - Secrets
 - Images and Image Streams
 - Builds and BuildConfigs
+- Webhooks
 
 ### [Module 5](https://github.com/ocp-workshop-wf/bootcamp/tree/main/module5): Reliability and Operations
 
