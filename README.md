@@ -30,9 +30,5 @@
 - OpenShift Stroage (Volumes)
 - Advanced DeploymentConfigs
 
-### [Module 6](https://github.com/ocp-workshop-wf/bootcamp/tree/main/module6): Observability and Monitoring
-
-- Metrics and Scaling your Application
-- Templates
-- Revision
+### [Module 6]xxxx
 
