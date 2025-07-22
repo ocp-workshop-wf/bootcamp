@@ -102,7 +102,7 @@ For S2I, you'll deploy a Python application without a Dockerfile and override an
 </details>
 ---
 
-### 5.2 OpenShift Stroage (Volumes)
+### 5.2 OpenShift Storage (Volumes)
 
 ---
 
