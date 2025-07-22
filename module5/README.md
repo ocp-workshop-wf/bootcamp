@@ -1,4 +1,4 @@
-## Module 5: OpenShift Service Mesh & Advanced Traffic Management (4 hours)
+## Module 5: Advanced App Deployment
 
 ### 5.1 Introduction Source-to-image (S2I)
  It is a toolkit and workflow that automates the process of building container images from source code. It takes a builder image (containing necessary build tools and dependencies) and source code, then combines them to create a runnable application image. S2I is used to create reproducible container images, making it easier for developers to deploy and manage applications in various environments, including OpenShift. 
