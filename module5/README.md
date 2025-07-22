@@ -12,9 +12,6 @@
     - The first advantage is that the developer can rely on the expertise of the S2I authors to make sure the image will be OpenShift compatible.
     - The second advantage is that developers can avoid writing and maintaining Dockerfiles and other configuration by using the S2I defaults. 
 
-
-
-
 **Hands-on Walkthroughs** 
 - How to build an app using S2I?
 > the source of this lesson will be in you Labs directory `/s2i/ruby/`
