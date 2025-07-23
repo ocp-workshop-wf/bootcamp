@@ -1,4 +1,4 @@
-FROM quay.io/projectquay/golang:1.15
+FROM quay.io/projectquay/golang:1.23
 RUN go get -u github.com/go-sql-driver/mysql
 ADD basic_reader.go ./
 RUN go build -o basic_reader 
