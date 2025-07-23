@@ -30,5 +30,5 @@
 - OpenShift Stroage (Volumes)
 - Advanced DeploymentConfigs
 
-### [Module 6]xxxx
+### [Module 6] xxxx
 
