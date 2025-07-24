@@ -272,5 +272,114 @@ In OpenShift, scaling refers to the process of dynamically adjusting the resourc
 
 ![scaling](/images/scaling.png)
 
----
+- How does the Auto-Scale works?
+The **Horizontal Pod Autoscaler (HPA)** automatically adjusts the number of pods in your application based on CPU usage to handle changing workloads. It **scales up** when resource usage is high and **scales down** when demand is low, helping optimize resource consumption.
 
+HPA uses a formula that considers:
+
+* **Current number of pods**
+* **Current CPU usage** (in millicores)
+* **Desired usage**, calculated from the target CPU utilization (percentage) and requested CPU (defined in the pod spec)
+
+The core idea:
+
+* If actual usage is higher than desired, HPA increases pods.
+* If usage is lower, it reduces pods.
+* New pod count = current pods × (current usage ÷ desired usage)
+
+
+**Hands-on Walkthroughs** 
+
+- How to manually scale your application?
+  - When your application starts, the initial number of pods is controlled by the number replicas property in the deployment config spec. The default is one for oc new-app applications. You can of course edit this by hand if you have your application in a template or YAML files.
+
+    ```bash
+    oc new-app quay.io/practicalopenshift/hello-world --as-deployment-config
+    ```
+    ```bash
+    oc describe dc/hello-world
+    ```
+    > output: 
+    ```yml
+    .....
+    Deployment #1 (latest):
+        Name:           hello-world-1
+        Created:        40 seconds ago
+        Status:         Complete
+        Replicas:       1 current / 1 desired
+    .....
+    ```
+    ```bash
+    oc scale dc/hello-world --replicas=3
+    ```
+    ```bash
+    oc describe dc/hello-world
+    ```
+    > output: 
+    ```yaml
+    .....
+    Deployment #1 (latest):
+        Name:           hello-world-1
+        Created:        3 minutes ago
+        Status:         Complete
+        Replicas:       3 current / 3 desired
+    .....
+    ```
+- How to create a HPA:
+  ```bash
+  oc autoscale dc/hello-world \
+  --min 1 \
+  --max 10 \
+  --cpu-percent=80
+  ```
+  > output: horizontalpodautoscaler.autoscaling/hello-world autoscaled
+
+  ```bash
+  oc get hpa
+  ```
+> output: includes all details about the HPA specially the Targets.
+  
+  ```bash
+  oc describe hpa/hello-world
+  ```  
+  ```bash
+  oc get -o yaml hpa/hello-world
+  ```
+
+### Quiz
+> Q1: You must have a HorizontalPodAutoscaler in order to scale up your application.
+- [ ] True 
+- [ ] False
+
+<details>
+  <summary> Answer </summary>
+
+    False, You can also do it manually
+  
+</details>
+
+> Q2: What command can you use to create a Horizontal Pod Autoscaler for a DeploymentConfig?
+- [ ] `oc scale--auto` 
+- [ ] `oc autoscale`
+- [ ] You have to create the HPA using `oc create -f`
+- [ ] `oc get HPA`
+
+<details>
+  <summary> Answer </summary>
+
+  `oc autoscale` 
+  
+</details>
+
+> Q3: What property in a DeploymentConfig can you use to set the number of initial replicas for its ReplicationController?
+- [ ] `initialReplicas`
+- [ ] `replicas`
+- [ ] `defaultReplicas`
+- [ ] `HPA`
+
+<details>
+  <summary> Answer </summary>
+
+  `replicas` 
+  
+</details>
