@@ -268,7 +268,9 @@ For volumes, you'll mount a secret as a volume.
 ---
 
 ### 5.3 Scaling Your Application
+In OpenShift, scaling refers to the process of dynamically adjusting the resources allocated to an application or the overall cluster to meet changing demands. This can involve increasing or decreasing the number of pods running an application (horizontal scaling), or adjusting the resources (CPU, memory) allocated to individual pods (vertical scaling).
 
--
+![scaling](/images/scaling.png)
+
 ---
 
