@@ -187,11 +187,12 @@ A template is a reusable definition of a set of OpenShift objects (like pods, se
 
 ### 🔬 Hands-on Lab: 
 For Templates, you will create your own parameterized template for a small REST API with a database backend. First, you will need to get the application working on OpenShift.
-    - For the REST API, you can use the `mysql-go-reader` directory in the labs project.
-    - For MySQL, you can use the `mysql` image and `oc new-app`.
-    - To get them working, you'll need to supply a few environment variables to both images. Specifically, you'll need to provide `MYSQL_USER`, `MYSQL_PASSWORD`, and `MYSQL_DATABASE`. Store these values in an OpenShift resource and use it to populate both sets of environment variables.
-    - Expose a route for the application
-    - Create an autoscaler that will scale the application from 3 to 10 pods depending on load
+    
+  - For the REST API, you can use the `mysql-go-reader` directory in the labs project.
+  - For MySQL, you can use the `mysql` image and `oc new-app`.
+  - To get them working, you'll need to supply a few environment variables to both images. Specifically, you'll need to provide `MYSQL_USER`, `MYSQL_PASSWORD`, and `MYSQL_DATABASE`. Store these values in an OpenShift resource and use it to populate both sets of environment variables.
+  - Expose a route for the application
+  - Create an autoscaler that will scale the application from 3 to 10 pods depending on load
 
 ### Checklist 📋: 
 - `MAX_PODS`: this should control the maximum number of pods for the REST API
