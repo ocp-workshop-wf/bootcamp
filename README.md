@@ -27,8 +27,10 @@
 ### [Module 5](https://github.com/ocp-workshop-wf/bootcamp/tree/main/module5): Advanced App Deployment
 
 - Source-to-image (S2I)
-- OpenShift Stroage (Volumes)
+- OpenShift Volumes
+- Scaling Your Application
+
+### [Module 6](https://github.com/ocp-workshop-wf/bootcamp/tree/main/module6): Mastering OpenShift
+
+- Templates
 - Advanced DeploymentConfigs
-
-### [Module 6] xxxx
-
