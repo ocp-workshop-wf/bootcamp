@@ -116,13 +116,15 @@ A template is a reusable definition of a set of OpenShift objects (like pods, se
   
     ```bash
     oc process hello-world -o yaml \
-  -p MESSAGE="Hello from oc process" \
-  > processed-objects.yaml
+    -p MESSAGE="Hello from oc process" \
+    > processed-objects.yaml
     ```
   - Check the file content 
+    
     ```bash
     head processed-objects.yaml
     ```
+    
     > output: 
 
     ```yml
@@ -170,9 +172,11 @@ A template is a reusable definition of a set of OpenShift objects (like pods, se
       - (optional) Add template parameters
 
 - How to use built-in Templates
+  
     ```bash
     oc get template -n openshift
     ```
+
     > output: list of templates.
 
     
