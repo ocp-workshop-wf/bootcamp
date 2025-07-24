@@ -49,7 +49,7 @@ OpenShift is Red Hat's enterprise Kubernetes platform. It automates deployment, 
 - Use case: OpenShift automates what vanilla Kubernetes leaves as "do it yourself".
 
 **Resource:**  
-- [Kubernetes vs OpenShift](https://www.youtube.com/watch?v=lwzpQK4-2H0)
+- [Kubernetes vs OpenShift](XXXXX)
 
 **Hands-on Walkthroughs**  
 - Explore and compare the UI and default tooling in both OpenShift and vanilla Kubernetes.

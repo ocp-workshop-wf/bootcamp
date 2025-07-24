@@ -28,9 +28,10 @@
 
 - Source-to-image (S2I)
 - OpenShift Volumes
-- Scaling Your Application
+- Scaling and Debuging Your Application
 
 ### [Module 6](https://github.com/ocp-workshop-wf/bootcamp/tree/main/module6): Mastering OpenShift
 
 - Templates
-- Advanced DeploymentConfigs
+- Triggers 
+- Health Check 

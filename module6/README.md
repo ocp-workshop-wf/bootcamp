@@ -257,7 +257,13 @@ True: `oc new-app` does support templates as arguments.
 
 
 ### 6.2 Advanced DeploymentConfigs
+Lets learn about basic automation for deployments, configuring the deployment process itself, and how to add health checks so that OpenShift can restart your pods if necessary.
 
+- Deployment Triggers:
+  - Image Change Trigger: This trigger watches an image stream in OpenShift. When the image stream or its image stream tag has a new image, if the deployment config is configured with an image change trigger,then the deployment config will roll out the new version of your application image automatically.
+
+
+  - 
 
 **Hands-on Walkthroughs** 
 

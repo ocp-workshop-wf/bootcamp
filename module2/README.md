@@ -9,15 +9,19 @@
 
 **Hands-on Walkthroughs:**  
 - Login using 
-  ```
+  
+  ```bash
   oc login
   ```
 - Create a project: 
-  ```
+  
+  ```bash
   oc new-project demo-project
   ```
-- List pods: 
-  ```
+
+- List pods:
+   
+  ```bash
   oc get pods
   ```
 
@@ -29,129 +33,130 @@
 **Hands-on Walkthroughs**  
 - Log in to the OpenShift Web Console.
 
-    > Check the status of OpenShift
-    > 
-    > ##### Log in, log out
-    ```
+    - Check the status of OpenShift: Log in, log out
+    
+    ```bash
     oc status
     ```
 
-    >> ##### Uses the pre-configured OpenShift cluster
-    ```
+    - Uses the pre-configured OpenShift cluster
+    
+    ```bash
     oc login
     ```
 
-    >> ##### Allows you to log in to any OpenShift cluster
-    ```
+  - Allows you to log in to any OpenShift cluster
+    
+    ```bash
     oc login <cluster address>
     ```
     
-    <br/>
-
-    >> ##### Check which user
-    ```
+- Check which user
+    
+    ```bash
     oc whoami
     ```
 
-    >> ##### Log out
-    ```
+- Log out
+    
+    ```bash
     oc logout
     ```
 
-    > #### Project Basics
+- Project Basics
 
-    >> ##### See current project
-    ```
+  - See current project
+    
+    ```bash
     oc project
     ```
 
-    >> ##### Create a new project
-    ```
+  - Create a new project
+    ```bash
     oc new-project myproject
     ```
 
-    >> ##### List all projects
-    ```
+  - List all projects
+    ```bash
     oc projects
     ```
 
-    >> ##### Switch projects
-    ```
+  - Switch projects
+    ```bash
     oc project <project name>
     ```
 ___
 
 - Identify the OpenShift components.
 
-    ##### Pod Documentation 
+  - Pod Documentation 
 
-    ```
+    ```bash
     oc explain pod
     ```
-    > ##### Get details on the pod's spec
-    ```
+  - Get details on the pod's spec
+    ```bash
     oc explain pod.spec
     ```
-    > ##### Get details on the pod's containers
-    ```
+  - Get details on the pod's containers
+    ```bash
     oc explain pod.spec.containers
     ```
     
-   ##### Creating Pod from files
-    >> ##### Create pod on OpenShift
-    ```
+- Creating Pod from files
+  - Create pod on OpenShift
+    ```bash
     oc create -f pods/pod.yaml
     ```
-    >> ##### Show all currently running Pods
-    ```
+  - Show all currently running Pods
+    ```bash
     oc get pods
     ```
 
-   ##### Accessing the Pod
-    >> ##### Access the shell inside the container 
-    ```
-    oc rsh <pod name>
-    ```
-    >> ##### Request localhost
+  - Accessing the Pod
+    - Access the shell inside the container 
+        ```bash
+        oc rsh <pod name>
+        ```
+-  Request localhost
 
-    ```
-    wget localhost:8080
-    ```
-    >> ##### Read the output file
+  ```bash
+  wget localhost:8080
+  ```
+   - Read the output file
      
-    ```
-    cat <file-name>
-    ```
+  ```bash    
+  cat <file-name>
+  ```
 
-   ##### Deleting a Pod
-    >> ##### Make sure to delete the pod by specifying the correct pod name
-    ```
+ - Deleting a Pod
+  - Make sure to delete the pod by specifying the correct pod name
+    ```bash
     oc delete pod <pod-name>
     ```
-    >> ##### Show all currently running pods
-    ```
+  - Show all currently running pods
+    ```bash
     oc get pods
     ```
 
-   ##### Watching a Pod use 2 different terminals.
-    >> ##### Run the pod watch command on Terminal 1 
-    ```
+- Watching a Pod use 2 different terminals.
+  - Run the pod watch command on Terminal 1 
+    ```bash
     oc get pods --watch
     ```
 
-    >> ##### Create the pod again! on Termnial 2
-    ```
+  - Create the pod again! on Termnial 2
+    ```bash
     oc create -f pods/pod.yaml
     ```
 
-    >> ##### Make sure to delete the pod by specifying the correct pod name on Terminal 2
-    ```
+  - Make sure to delete the pod by specifying the correct pod name on Terminal 2
+    ```bash
     oc delete pod <pod-name>
     ```
-  
-___
+  ___
 
-### 2.2 Creating and Managing Projects (Learning YAML)
+#### 2.2 Creating and Managing Projects (Learning YAML)
 
   ***YAML*** : Yaml Ain't Markup Language
   - What it is? **YAML** is a human friendly data serialization standard for all programming languages.
@@ -175,7 +180,7 @@ ___
     }
    }
   ```
-### Arrays in Yaml vs Json
+#### Arrays in Yaml vs Json
 
   | YAML    
 | -------- 
@@ -193,13 +198,13 @@ ___
     ]
   }
   ```
-### [Resource: Yaml.org](https://yaml.org/)
+#### [Resource: Yaml.org](https://yaml.org/)
 
 **Hands-on Walkthroughs**  
 
 - Use YAML to understand Pod defenations following objects such as `apiVersion, kind, spec`.
 
-    ##### Go ahead and open `/labs-repo/pods/pod.yaml`
+    - Go ahead and open `/labs-repo/pods/pod.yaml`
     
     ```yaml
     apiVersion: v1
@@ -211,9 +216,9 @@ ___
     spec:
       ..........
     ```
-    >> ##### Dive deeper into pods 
+    - Dive deeper into pods 
 
-    ```
+    ```bash
     oc explain pod.spec.containers.env
     ```
 
@@ -234,25 +239,25 @@ In this lab, you will create a custom Pod definition and upload it to OpenShift.
     oc port-forward pod/lab-pod 8080
     ```
 
-    > #### Port forwarding for Pods
-    >> ##### Open a local port that forwards traffic to a pod
-    ```
+  - Port forwarding for Pods
+  - Open a local port that forwards traffic to a pod
+    ```bash
     oc port-forward <pod name> <local port>:<pod port>
     ```
 
-    > #### Example of 8080 to 8080 for hello world
-    ```
+  - Example of 8080 to 8080 for hello world
+    ```bash
     oc port-forward hello-world-pod 8080:8080
     ```
 ---
-### Checklist 📋: 
+#### Checklist 📋: 
 Once you meet all of these criteria, you have successfully completed the lab. You will need to run the commands yourself in order to grade this lab.
 
 - Output from oc get pods contains the pod.
 
 - Output from oc describe pod/lab-pod has the correct name and MESSAGE environment value.
 
-- curl localhost:8080 prints the message.
+- `curl localhost:8080` prints the message.
 ---
 
 ### Quiz
