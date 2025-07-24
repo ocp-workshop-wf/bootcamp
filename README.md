@@ -1,5 +1,6 @@
-<img src="/images/openshift-training.png" alt="OpenShift Training" style="width:200px;"
-p align="center"/>
+<p align="center">
+<img src="/images/openshift-training.png" alt="OpenShift Training" style="width:200px; align="center"/>
+</p>
 
 ---
 ### [Module 1](https://github.com/ocp-workshop-wf/bootcamp/tree/main/module1): Introduction and Core Concepts 
