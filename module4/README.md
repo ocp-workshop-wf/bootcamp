@@ -160,7 +160,9 @@ type: Opaque
 ### 4.2 Images and Image Streams 
 An image is a self-contained package containing everything needed to run an application, including the code, runtime, system tools, libraries, and settings. An image stream, on the other hand, is a way to manage and track different versions of an image within OpenShift, acting as a virtual image repository. 
 
-![Image & Image Steams architecture](/images/image-imagestream.png)
+<p align="center">
+<img src="/images/image-imagestream.png" alt="Image & Image Streams Arch" style="width:200px; align="center"/>
+</p>
 
 **Hands-on Walkthroughs**  
 - How to create an ImageStream
@@ -726,10 +728,14 @@ Lets learn about basic automation for deployments, configuring the deployment pr
 
 - Deployment Triggers:
   - Image Change Trigger: This trigger watches an image stream in OpenShift. When the image stream or its image stream tag has a new image, if the deployment config is configured with an image change trigger,then the deployment config will roll out the new version of your application image automatically.
-<img src="/images/triggers.png" alt="Deployment Triggers" style="width:200px;"/>
+<p align="center">
+<img src="/images/triggers.png" alt="Triggers" style="width:200px; align="center"/>
+</p>
 - ConfigChange Triggers:With the ConfigChange Trigger,any change to the POD template will trigger a new rollout. If you add a volume or change the image stream tag in a pod spec, then the ConfigChange Trigger will cause your deployment to roll out another version.
-- 
-
+  
+<p align="center">
+<img src="/images/configchangetrigger.png" alt="ConfigChange Triggers" style="width:200px; align="center"/>
+</p>
 
   - 
 
