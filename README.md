@@ -24,14 +24,16 @@
 - Builds and BuildConfigs
 - Webhooks
 
-### [Module 5](https://github.com/ocp-workshop-wf/bootcamp/tree/main/module5): Advanced App Deployment
+### [Module 5](https://github.com/ocp-workshop-wf/bootcamp/tree/main/module5): Advanced Deployment Options
 
 - Source-to-image (S2I)
 - OpenShift Volumes
-- Scaling and Debuging Your Application
+# Scaling and Debuging Your Application
+# OpenShift Jobs
 
 ### [Module 6](https://github.com/ocp-workshop-wf/bootcamp/tree/main/module6): Mastering OpenShift
 
 - Templates
-- Triggers 
-- Health Check 
+# Triggers 
+# Health Check & Observability
+# Helm Charts
