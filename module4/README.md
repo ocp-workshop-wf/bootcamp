@@ -161,7 +161,7 @@ type: Opaque
 An image is a self-contained package containing everything needed to run an application, including the code, runtime, system tools, libraries, and settings. An image stream, on the other hand, is a way to manage and track different versions of an image within OpenShift, acting as a virtual image repository. 
 
 <p align="center">
-<img src="/images/image-imagestream.png" alt="Image & Image Streams Arch" style="width:200px; align="center"/>
+<img src="/images/image-imagestream.png" alt="Image & Image Streams Arch" style="width:500px; align="center"/>
 </p>
 
 **Hands-on Walkthroughs**  
@@ -539,7 +539,9 @@ Is a method for one application to automatically send real-time data to another 
 
 > The way the integration is set up is that the hook is exposed on the downstream system, OpenShift in our case, and the hook is configured on the upstream system. Your Git Repository is configured to call the endpoint that's exposed on OpenShift. To mitigate the risk of having a public endpoint on your OpenShift cluster, OpenShift requires Webhook clients to pass a special token string along with a request. This token value is automatically generated for BuildConfigs created with the `oc new-app` and the `oc new-build` command line tools. Once you have set up the Webhook correctly on the GitLab side, anytime a developer pushes an update GitLab will make an HTTPS request to the Webhook URL and pass along the token. When OpenShift gets the request it will start a new Build for the linked BuildConfig. This way, you can set up an automated pipeline allowing you to push automatically to your OpenShift cluster simply by pushing to a Git Repository.
 
-![WebHook](/images/webhook.png)
+<p align="center">
+<img src="/images/webhook.png" alt="Webhook" style="width:500px; align="center"/>
+</p>
 
 
 **Hands-on Walkthroughs**  
@@ -729,12 +731,12 @@ Lets learn about basic automation for deployments, configuring the deployment pr
 - Deployment Triggers:
   - Image Change Trigger: This trigger watches an image stream in OpenShift. When the image stream or its image stream tag has a new image, if the deployment config is configured with an image change trigger,then the deployment config will roll out the new version of your application image automatically.
 <p align="center">
-<img src="/images/triggers.png" alt="Triggers" style="width:200px; align="center"/>
+<img src="/images/triggers.png" alt="Triggers" style="width:500px; align="center"/>
 </p>
 - ConfigChange Triggers:With the ConfigChange Trigger,any change to the POD template will trigger a new rollout. If you add a volume or change the image stream tag in a pod spec, then the ConfigChange Trigger will cause your deployment to roll out another version.
   
 <p align="center">
-<img src="/images/configchangetrigger.png" alt="ConfigChange Triggers" style="width:200px; align="center"/>
+<img src="/images/configchangetrigger.png" alt="ConfigChange Triggers" style="width:500px; align="center"/>
 </p>
 
   - 
