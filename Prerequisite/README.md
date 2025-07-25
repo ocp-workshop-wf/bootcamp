@@ -1,12 +1,12 @@
-List of prerequisites:
-- [x] Text Editor
-- [x] Visual Studio code - Preferred
+## List of prerequisites:
+- [x] Visual Studio code (IDE)- Preferred
 - [x] OpenShift CLI 
-- [x] 9 GB RAM
-- [x] 10+ GB Disk Space
-- [x] 4 virtual CPUs recommended 
+- [x] Helm CLI
+- [x] OpenShift Namespace Quota (10 GB Memory, 4 Cores CPUs)
 
-### Common OpenShift Resource Types
+---
+
+### Common OpenShift Resource Types (Read offline)
 
 #### Pod:
 A Pod is the basic deployment unit in OpenShift and Kubernetes. It represents a single instance of an application and runs one or more containers.
