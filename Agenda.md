@@ -7,19 +7,25 @@
 ### ⏰ Schedule
 
 **8:00 AM – 9:00 AM** – Breakfast & Registration
+
 **9:00 AM – 9:15 AM** – Welcome & Workshop Overview
 
 ### 🔹 Module 1: Introduction and Core Concepts
 
 **9:15 AM – 9:45 AM** – 1.0 What You’ll Learn
+
 **9:45 AM – 10:15 AM** – 1.1 Introduction to OpenShift
+
 **10:15 AM – 10:45 AM** – 1.2 Difference between Kubernetes and OpenShift
+
 **10:45 AM – 11:00 AM** – Morning Break
 
 ### 🔹 Module 2: Working with OpenShift Interfaces
 
 **11:00 AM – 11:40 AM** – 2.1 OpenShift CLI and Web Console
+
 **11:40 AM – 12:20 PM** – 2.2 Creating and Managing Projects (YAML)
+
 **12:20 PM – 1:20 PM** – Lunch
 
 ### 🧪 Hands-On & Review
