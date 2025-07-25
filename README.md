@@ -4,7 +4,7 @@
 
 ### [Pre-Req](https://github.com/ocp-workshop-wf/bootcamp/tree/main/Prerequisite)
 ---
-### [Module 1](https://github.com/ocp-workshop-wf/bootcamp/tree/main/module1): Introduction and Core Concepts 
+### 🔹 [Module 1](https://github.com/ocp-workshop-wf/bootcamp/tree/main/module1): Introduction and Core Concepts 
 
 1.0 - What You’ll Learn 
 
@@ -12,13 +12,13 @@
 
 1.2 - Difference between Kubernetes and OpenShift
 
-### [Module 2](https://github.com/ocp-workshop-wf/bootcamp/tree/main/module2): Working with OpenShift Interfaces
+### 🔹 [Module 2](https://github.com/ocp-workshop-wf/bootcamp/tree/main/module2): Working with OpenShift Interfaces
 
 2.1 - OpenShift CLI and Web Console
 
 2.2 - Creating and Managing Projects (Learning YAML)
 
-### [Module 3](https://github.com/ocp-workshop-wf/bootcamp/tree/main/module3): Core OpenShift Resources
+### 🔹 [Module 3](https://github.com/ocp-workshop-wf/bootcamp/tree/main/module3): Core OpenShift Resources
 
 3.1 - OpenShift Resources Overview
 
@@ -28,7 +28,7 @@
 
 3.4 - OpenShift ConfigMaps
 
-### [Module 4](https://github.com/ocp-workshop-wf/bootcamp/tree/main/module4): Application Deployment and Management
+### 🔹 [Module 4](https://github.com/ocp-workshop-wf/bootcamp/tree/main/module4): Application Deployment and Management
 
 4.1 - Secrets
 
@@ -41,7 +41,7 @@
 4.5 - Triggers 
 
 
-### [Module 5](https://github.com/ocp-workshop-wf/bootcamp/tree/main/module5): Advanced Deployment Options
+### 🔹 [Module 5](https://github.com/ocp-workshop-wf/bootcamp/tree/main/module5): Advanced Deployment Options
 
 5.1 - Source-to-image (S2I)
 
@@ -52,7 +52,7 @@
 5.4 - Deployment Statgies and OpenShift Jobs 
 
 
-### [Module 6](https://github.com/ocp-workshop-wf/bootcamp/tree/main/module6): Mastering OpenShift
+### 🔹 [Module 6](https://github.com/ocp-workshop-wf/bootcamp/tree/main/module6): Mastering OpenShift
 
 6.1 - Templates
 
