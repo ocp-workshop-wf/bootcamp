@@ -13,7 +13,8 @@ These skills are designed for developers new to OpenShift and those familiar wit
 | -------- |
 | Resource Information  | 
 | Hands-on Walkthroughs |
-| Labs    | 
+| Hands-on Labs    | 
+| Checklist |
 | Quiz |
 
 Skills needed!
@@ -30,14 +31,27 @@ Skills needed!
 
 ### 1.1 Overview of OpenShift and its Architecture
 
-OpenShift is Red Hat's enterprise Kubernetes platform. It automates deployment, scaling, and management of containerized apps, adding rich features like a web UI, CI/CD, integrated security, and developer tools.
+OpenShift is Red Hat's enterprise Kubernetes platform. It automates deployment, scaling, and management of containerized apps, adding rich features like a web UI, CI/CD, integrated security, and developer tools. OpenShift has 4 different flavors: 
+- OpenShift origin, which is the original upstream open source project from which all other models are derived. 
+- The OpenShift online is Red hat's publicly hosted version of OpenShift origin, available for application development and hosting purposes. 
+- OpenShift dedicated is a managed private cluster on cloud platforms like AWS and Google. 
+- OpenShift enterprise is the on premise private pass offering of OpenShift.
+
+<p align="center">
+<img src="/images/openshift-flavors.png" alt="OpenShift Training" style="width:500px; align="center"/>
+</p>
+
+- In this course we will focus on OpenShift Origin, OpenShift origin is based on top of Docker containers and the Kubernetes Cluster Manager, with added developer and operational centric tools that enable rapid application development, deployment and lifecycle management.
 
 - **Key Features:**  
-  Integrated developer tools, security, operators, Service Mesh.
+  Integrated developer tools, security, operators.
 - **Core Architecture:**  
   Control Plane (API server, etcd), Worker Nodes, SDN, Registry, OAuth, Router, Monitoring/Logging.
-- **Diagram:**  
-![OpenShift Architecture](/images/ocp-arch.png)
+
+<p align="center">
+<img src="/images/ocp-arch.png" alt="OpenShift Training" style="width:500px; align="center"/>
+</p>
+
 
 **Resource:**  
 - [What is OpenShift?](https://youtu.be/KTN_QBuDplo)
