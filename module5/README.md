@@ -395,10 +395,11 @@ The core idea:
 | Custom Strategy | Start | Run custom deployment image | End |
 
 <p align="left">
-<img src="/images/rolling-strategy.png" alt="OpenShift Training" style="width:200px; align="left"/>
+<img src="/images/rolling-strategy.png" alt="OpenShift Training" style="width:400px; align="center"/>
 </p>
+
 <p align="right">
-<img src="/images/recreate-strategy.png" alt="OpenShift Training" style="width:200px; align="right"/>
+<img src="/images/recreate-strategy.png" alt="OpenShift Training" style="width:400px; align="center"/>
 </p>
 
 ***Resources***
