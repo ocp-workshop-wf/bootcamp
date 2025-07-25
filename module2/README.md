@@ -4,7 +4,7 @@
 
 - The **Web Console** offers tabs for Overview, Workloads, Networking, Builds, Storage, Monitoring, etc.
 - The **CLI (`oc`)** gives full control with extra features over `kubectl`.
-
+- [OpenShit CLI Cheat Sheet](https://github.com/ocp-workshop-wf/bootcamp/blob/main/ocpcli-cheatsheet.md)
 
 
 ---
