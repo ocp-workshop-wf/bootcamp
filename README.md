@@ -35,7 +35,7 @@
 
 4.4 - Webhooks 
 
-4.5 - Triggers <----
+4.5 - Triggers 
 
 
 ### [Module 5](https://github.com/ocp-workshop-wf/bootcamp/tree/main/module5): Advanced Deployment Options
