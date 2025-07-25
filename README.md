@@ -46,7 +46,7 @@
 
 5.3 - Scaling and Debuging Your Application <----
 
-5.4 - OpenShift Jobs <---
+5.4 - Deployment Statgies and OpenShift Jobs <---
 
 
 ### [Module 6](https://github.com/ocp-workshop-wf/bootcamp/tree/main/module6): Mastering OpenShift

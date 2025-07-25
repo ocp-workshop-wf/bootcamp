@@ -819,15 +819,6 @@ Lets learn about basic automation for deployments, configuring the deployment pr
     > output: you should find both `TYPE` in with the `VALUE` of true.
 
 
-    
-    
-    
-
-    
-    
-    
-    
-    
 ### 🔬 Hands-on Lab: 
 
 ### Checklist 📋: 

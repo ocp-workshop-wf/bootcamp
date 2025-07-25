@@ -386,10 +386,28 @@ The core idea:
 
 --- 
 
-# OpenShift Jobs: 
+### Deployment Statgies and OpenShift Jobs: 
+
+| Stategy Type | Step 1 | Step 2 | Step 3 |
+| ------------ | -------- | ----- | ------ |
+| Rolling Strategy "Default" | Start new version | Switch traffic to new version | Stop old version | 
+| Recreate Strategy | Stop the old version | Start new Version | Switch Traffic to new version |
+| Custom Strategy | Start | Run custom deployment image | End |
+
+<p align="left">
+<img src="/images/rolling-strategy.png" alt="OpenShift Training" style="width:200px; align="left"/>
+</p>
+<p align="right">
+<img src="/images/recreate-strategy.png" alt="OpenShift Training" style="width:200px; align="right"/>
+</p>
+
+***Resources***
+- [12 App Factor](https://12factor.net/)
+- [ Custom Strategy using custom Image ](https://docs.openshift.com/en/container-platform/3.11/dev_guide/deployments/deployment_strategies.html#custom-strategy)
 
 
 **Hands-on Walkthroughs** 
+- How to configure pre-deployment hook for `rolling strategy` you will need 2 windows terminals for this excersice.  
 
 ### 🔬 Hands-on Lab: 
 
