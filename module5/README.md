@@ -487,6 +487,31 @@ pre:
 
 - `volumes`: – volumes to mount (empty in this example)
 
+***Jobs in OpenShift*** is a Kubernetes resource used to run pods until a specified number of them successfully complete. It's designed for tasks that need to run to completion, unlike Deployments which maintain a desired state of pods. Jobs are useful for batch processing, periodic tasks, and other situations where a finite set of work needs to be done. A job, in contrast to a replication controller, runs a pod with any number of replicas to completion. 
+
+- Creating a Job: A job configuration consists of the following key parts:
+  - A pod template, which describes the application the pod will create.
+  - An optional `parallelism` parameter, which specifies how many pod replicas running in parallel should execute a job. If not specified, this defaults to the value in the `completions` parameter.
+  - An optional `completions` parameter, specifying how many concurrently running pods should execute a job. If not specified, this value defaults to one.
+  
+```yaml
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: pi
+spec:
+  parallelism: 1    # Optional value for how many pod replicas a job should run in parallel; defaults to `completions`.
+  completions: 1    # Optional value for how many successful pod completions are needed to mark a job completed; defaults to one.
+  template:         # Template for the pod the controller creates.
+    metadata:
+      name: pi
+    spec:
+      containers:
+      - name: pi
+        image: perl
+        command: ["perl",  "-Mbignum=bpi", "-wle", "print bpi(2000)"]
+      restartPolicy: OnFailure   # The restart policy of the pod. This does not apply to the job controller.
+```
 
 **Hands-on Walkthroughs** 
 - How to configure pre-deployment hook for `rolling strategy` you will need 2 windows terminals for this excersice.  
@@ -583,7 +608,29 @@ pre:
 
 > output:
 > Just as with the rolling strategy, OpenShift will start a deployment pod first. However, things start to change pretty quickly after that. Instead of starting the new replication controller and pods, first the old replication controller terminates and takes down its pods. Then the deployment config will schedule the new replication controller and start the new pods.
-    
+
+
+- Launch a job 
+
+```bash
+cd ./labs-repo/job
+```
+```bash
+oc create -f hello-job.yaml
+```
+> output: "job.batch/hello-job created"
+
+```bash
+oc decribe job
+```
+> output: 
+```bash
+Parallelism:      1
+Completions:      1
+Completion Mode:  NonIndexed
+Start Time:       Thu, 24 Jul 2025 20:54:52 -0700
+Pods Statuses:    1 Running / 0 Succeeded / 0 Failed
+```
 ---
     
 ### 🔬 Hands-on Lab: 
