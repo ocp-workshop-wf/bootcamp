@@ -2,7 +2,8 @@ List of prerequisites:
 - [x] vim or vi 
 - [x] Visual Studio code - Preferred
 - [x] OpenShift CLI 
-- [x] iterm terminal preferred for multi-terminal purposes.
+- [x] iterm terminal preferred for multi-terminal 
+
 
 ### Common OpenShift Resource Types
 

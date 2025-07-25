@@ -294,7 +294,43 @@ oc describe dc/hello-world
 </p>
 
 - What happens when Livness probes fail?
-- 
+- So lets set the trigger to an incorrect port, this will trigger the failer behavior and cause OpenShift to restart the pod.
+```bash
+# on terminal 1
+oc get pods -w
+```
+
+```bash
+# on terminal 2
+oc set probe dc/hello-world \
+  --liveness \
+  --open-tcp=8081
+```
+> output: After about `30` seconds, you should get a new line at the bottom of your oc get pods output. The pod is running, but you should have a new value of `one` in the `RESTARTS` column. 30 seconds gave OpenShift enough time to send three liveness checks to the pod.Because the pod failed all three checks, OpenShift decided to restart the pod and as you wait another 30 seconds and another, you'll get two and three restarts just like this. There is one more step in the pod lifecycle that we have not covered so far in this course. This pod will restart every 30 seconds until it goes into the CrashLoopBackOff. I'm going to wait a bit for it to go into the state, and then we'll reset the probe back to its original value, and here we have the CrashLoopBackOff state. This pod will restart every 30 seconds until it goes into `CrashLoopBackOff`.
+
+<p align="center">
+<img src="/images/crashloopbackoff.png" alt="OpenShift Training" style="width:500px; align="center"/>
+</p>
+
+- Now lets fix what we did.
+```bash
+# on terminal 1
+oc get pods -w
+```
+
+```bash
+# on terminal 2
+oc set probe dc/hello-world \
+  --liveness \
+  --open-tcp=8080
+```
+
+> output: the Pod is no longer broken and its running successfuly
+
+<p align="center">
+<img src="/images/healthy.png" alt="OpenShift Training" style="width:500px; align="center"/>
+</p>
+
 
 ### 🔬 Hands-on Lab: 
 For DeploymentConfigs, you will edit your readiness probe to be incorrect, then make curl requests to the route and observe the behavior.
