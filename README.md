@@ -51,6 +51,6 @@
 
 6.1 - Templates
 
-6.2 - Health Check & Observability <----
+6.2 - Health Check & Observability 
 
-6.3 - Helm Charts <-----
+6.3 - Helm Charts

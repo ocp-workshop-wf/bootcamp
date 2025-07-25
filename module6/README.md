@@ -373,31 +373,121 @@ For DeploymentConfigs, you will edit your readiness probe to be incorrect, then 
 --- 
 
 ### 6.2 HelmCharts
-Lets
+Helm Charts are packages of pre-configured Kubernetes resources, acting as a package manager for Kubernetes applications. They simplify the definition, installation, and upgrading of complex applications on a Kubernetes cluster.A Helm Chart typically consists of the following components.
 
-- D
+***Chart.yaml**
+This file defines the metadata of the chart, including its name, version, description, and any dependencies on other charts.
 
+***values.yaml***
+This file contains default values for the configurable parameters within the chart's templates. Users can override these values during installation or upgrade to customize the application's deployment.
 
-  - 
+***templates/directory***
+This directory holds the Kubernetes manifest files (e.g., Deployments, Services, ConfigMaps) written using Go templating language. These templates are rendered with the values from `values.yaml` (or user-provided overrides) to generate the final Kubernetes YAML manifests for deployment.
+
+- Helm example 
+```bash
+mychart/
+├── Chart.yaml
+├── values.yaml
+├── charts/
+│   └── (dependent charts go here)
+└── templates/
+    ├── NOTES.txt
+    ├── _helpers.tpl
+    ├── deployment.yaml
+    ├── service.yaml
+```
+
+---
 
 **Hands-on Walkthroughs** 
+- Access the labs directory and explore helm folder
+  
+```bash
+cd ./labs-repo/helm
+```
+  
 
 ### 🔬 Hands-on Lab: 
+For Helm you will need to be creative - either you follow the same pattern I got here into the Helm directory or you might want to create your own, here are the step by step recipe.
+
+- cd Create a personal Helm repository using a Github repo
+
+  - Create a new github repository
+
+  - Go to Settings > Pages tab
+
+  - Under "Source", select the main branch and save.
+
+  - Your repository should now have a public URL -> `https://<git-org>.github.io/<repo-name>/`
+  
+- Clone the git repo created above
+- Create a template helm chart
+  - `helm create <chart-name>`
+  - `helm create mysamp`
+- Lint the Chart
+  - `helm lint . [[comment: need to 'cd' to repo folder ]]`
+- Generate yaml from the chart 
+  - `helm template .`
+- Generate a `tgz` of your helm chart [[Make sure your out of the helm fold]]
+  - `helm package <chart-name>`
+- Generate / update `index.yaml` for your Helm repository
+  - `helm repo index --url <helm-repo-url> .` # Don't forget the `.`
+- Add, commit and push changes to git repo
+- Add a Helm repository locally
+  - `helm repo add <helm-repo-name> <helm-repo-url: not GitHub repo instead use github pages repo url> `
+- Refresh contents of remote Helm repositories
+  - `helm repo update`
+- Search for charts available in a Helm repository
+  - `helm search repo <helm-repo-name>`
 
 ### Checklist 📋: 
+- You should be able to see the tgz file on your github page.
+- You should be able to run `helm install <chart-name>`
+- If everything works please run `helm uninstall <chart-name>` to delete all.
 
 ### Quiz
-> Q1: 
-- [ ]  
-- [ ]
-- [ ]
-- [ ] 
+> Q1: How do you install a Helm chart?
+- [ ]  `helm install myrelease myrepo`
+- [ ] `helm install myrelease myrepo:latest`
+- [ ] `helm install myrelease myrepo/mychart`
+- [ ] `helm install myrelease latest`
 
 
 <details>
   <summary> Answer </summary>
 
-    
+  `helm install myrelease myrepo/mychart`
   
 
+</details>
+
+> Q2: How do you upgrade a Helm release?
+- [ ]  `helm upgrade myrelease myrepo/latest`
+- [ ] `helm upgrade myrelease myrepo/v1`
+- [ ] `helm upgrade myrelease latest`
+- [ ] `helm upgrade myrelease myrepo/mychart`
+
+
+<details>
+  <summary> Answer </summary>
+
+  `helm upgrade myrelease myrepo/mychart`
+  
+
+</details>
+
+> Q3: How do you create a new Helm chart?
+
+- [ ] `helm create mychart`
+- [ ] `helm get mychart`
+- [ ] `helm set mychart`
+- [ ] `helm add mychart`
+
+
+<details>
+  <summary> Answer </summary>
+
+  `helm create mychart`
+  
 </details>
