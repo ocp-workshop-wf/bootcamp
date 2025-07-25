@@ -301,7 +301,7 @@ The core idea:
   - When your application starts, the initial number of pods is controlled by the number replicas property in the deployment config spec. The default is one for oc new-app applications. You can of course edit this by hand if you have your application in a template or YAML files.
 
     ```bash
-    oc new-app quay.io/practicalopenshift/hello-world --as-deployment-config
+    oc new-app quay.io/practicalopenshift/hello-world --as-deployment-config # use Deployment
     ```
     ```bash
     oc describe dc/hello-world
@@ -332,13 +332,14 @@ The core idea:
         Replicas:       3 current / 3 desired
     .....
     ```
-- How to create a HPA:
-  ```bash
+- How to create a HPA:  "Explain more about CPU "
+
+```bash
   oc autoscale dc/hello-world \
   --min 1 \
   --max 10 \
   --cpu-percent=80
-  ```
+```
   > output: horizontalpodautoscaler.autoscaling/hello-world autoscaled
 
   ```bash

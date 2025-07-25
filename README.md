@@ -47,7 +47,7 @@
 
 5.2 - OpenShift Volumes
 
-5.3 - Scaling and Debuging Your Application 
+5.3 - Scaling and Debuging Your Application  <---
 
 5.4 - Deployment Statgies and OpenShift Jobs 
 
