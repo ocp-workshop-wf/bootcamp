@@ -18,8 +18,6 @@ Understand 15 types of OpenShift resources.
 Configure applications to follow OpenShift best practices.
 Develop advanced application templates.
 
-<p align="center">
-
 |💡 Modules Stucture  | 
 | -------- |
 | Resource Information  | 
@@ -28,7 +26,6 @@ Develop advanced application templates.
 | Checklist |
 | Quiz |
 
-</p>
 Skills needed!
 - `cd`: To navigate to a specific directory
 - `ls`: To list directory components
@@ -38,7 +35,6 @@ Skills needed!
 - `vi` or `vim`: Its a built in editor used to edit files.
 - `git`: To interact with your source control on github.
 - Other parameters and options we will learn throughout this course. 
-
 
 
 ### 1.1 Overview of OpenShift and its Architecture
@@ -78,6 +74,17 @@ OpenShift is Red Hat's enterprise Kubernetes platform. It automates deployment, 
 
 
 ### 1.2 Difference between Kubernetes and OpenShift
+
+| Criteria | OpenShift | Kubernetes| 
+| -------- | --------- | --------- | 
+| Architecture | Monolithic | Modular|
+| Product vs Project | Commerical Product | Open-Source Project |
+| User interface (UI) | Web console with login page | Kubernetes dashboard | 
+| Templates vs Helm | Project-specific templates | Helm charts for broader use | 
+| Image Registry | Built-in registry | No built-in registry | 
+| CICD | CI/CD tools integrated | Requires external tools | 
+| Community and support | commercial support available | Open-Source community support|
+| Networking | Rich set of networking features | Core Networking Features| 
 
 - OpenShift **includes** Kubernetes but adds a web UI, secure-by-default settings, integrated image management, CI/CD, and Service Mesh.
 - Use case: OpenShift automates what vanilla Kubernetes leaves as "do it yourself".
