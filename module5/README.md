@@ -363,9 +363,8 @@ oc get pods
 oc debug <pod name>
 ```
 <p align="center">
-<img src="/images/debug.png" alt="OpenShift Training" style="width:500px; align="center"/>
+<img src="/images/debug.png" alt="OpenShift Training"; align="center"/>
 </p>
-
 
 
 > output: your terminal will directly `rsh` in a Temporarily pod which has the same exact features and configurations of the orginial one, be aware once you exit that pod terminal it will automatically be terminated and all changes you've made will be lost.
