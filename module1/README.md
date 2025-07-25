@@ -18,6 +18,7 @@ Understand 15 types of OpenShift resources.
 Configure applications to follow OpenShift best practices.
 Develop advanced application templates.
 
+<p align="center">
 
 |💡 Modules Stucture  | 
 | -------- |
@@ -27,6 +28,7 @@ Develop advanced application templates.
 | Checklist |
 | Quiz |
 
+</p>
 Skills needed!
 - `cd`: To navigate to a specific directory
 - `ls`: To list directory components
