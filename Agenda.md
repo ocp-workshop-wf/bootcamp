@@ -39,30 +39,43 @@
 ### ⏰ Schedule
 
 **8:00 AM – 9:00 AM** – Breakfast
+
 **9:00 AM – 9:10 AM** – Day 1 Recap & Day 2 Objectives
 
 ### 🔹 Module 3: Core OpenShift Resources
 
 **9:10 AM – 9:40 AM** – 3.1 OpenShift Resources Overview
+
 **9:40 AM – 10:10 AM** – 3.2 How to Deploy Applications
+
 **10:10 AM – 10:40 AM** – 3.3 OpenShift Networking
+
 **10:40 AM – 11:00 AM** – Morning Break
+
 **11:00 AM – 11:30 AM** – 3.4 OpenShift ConfigMaps
 
 ### 🔹 Module 4: Application Deployment and Management
 
 **11:30 AM – 12:00 PM** – 4.1 Secrets
+
 **12:00 PM – 12:30 PM** – 4.2 Images and Image Streams
+
 **12:30 PM – 1:30 PM** – Lunch
+
 **1:30 PM – 2:00 PM** – 4.3 Builds and BuildConfigs
+
 **2:00 PM – 2:30 PM** – 4.4 Webhooks
+
 **2:30 PM – 3:00 PM** – 4.5 Triggers
 
 ### 🧪 Hands-On & Review
 
 **3:00 PM – 3:30 PM** – Build & Deploy Lab
+
 **3:30 PM – 4:00 PM** – Route Exposure & Webhook Demo
+
 **4:00 PM – 4:30 PM** – Quiz & Review – Modules 3 & 4
+
 **4:30 PM – 5:00 PM** – Wrap-Up, Pitfalls & Best Practices
 
 ###
@@ -74,29 +87,41 @@
 ### ⏰ Schedule
 
 **8:00 AM – 9:00 AM** – Breakfast
+
 **9:00 AM – 9:10 AM** – Day 2 Recap & Day 3 Objectives
 
 ### 🔹 Module 5: Advanced Deployment Options
 
 **9:10 AM – 9:40 AM** – 5.1 Source-to-Image (S2I)
+
 **9:40 AM – 10:10 AM** – 5.2 OpenShift Volumes
+
 **10:10 AM – 10:30 AM** – Morning Break
+
 **10:30 AM – 11:00 AM** – 5.3 Scaling & Debugging
+
 **11:00 AM – 11:30 AM** – 5.4 Deployment Strategies & OpenShift Jobs
 
 ### 🔹 Module 6: Mastering OpenShift
 
 **11:30 AM – 12:00 PM** – 6.1 Templates
+
 **12:00 PM – 1:00 PM** – Lunch
+
 **1:00 PM – 1:30 PM** – 6.2 Health Check & Observability
+
 **1:30 PM – 2:00 PM** – 6.3 Helm Charts
 
 ### 🧪 Hands-On & Review
 
 **2:00 PM – 2:40 PM** – Scaling, Debugging & Templates Lab
+
 **2:40 PM – 3:15 PM** – Helm & Observability Lab
+
 **3:15 PM – 3:45 PM** – Final Lab & Quiz – Modules 5 & 6
+
 **3:45 PM – 4:30 PM** – Survey & Feedback
+
 **4:30 PM – 5:00 PM** – Final Wrap-Up & Open Q\&A
 
 ###
