@@ -1,4 +1,4 @@
-## Module 3: Core OpenShift Resources
+## 🔹 Module 3: Core OpenShift Resources
 
 ### 3.1 OpenShift Resources Overview
 

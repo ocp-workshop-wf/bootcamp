@@ -1,4 +1,4 @@
-## Module 2: Working with OpenShift Interfaces 
+## 🔹 Module 2: Working with OpenShift Interfaces 
 
 ### 2.1 OpenShift CLI (oc) and Web Console
 

@@ -1,4 +1,4 @@
-## Module 4: Application Deployment and Management 
+## 🔹 Module 4: Application Deployment and Management 
 
 
 ### 4.1 Secrets

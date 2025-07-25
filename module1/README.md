@@ -1,4 +1,4 @@
-## Module 1: Introduction and Core Concepts 
+## 🔹 Module 1: Introduction and Core Concepts 
 
 ### 1.0 What You’ll Learn:
 From the course  "OpenShift 4," you will learn the following OpenShift Resources and soft skills:

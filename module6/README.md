@@ -1,4 +1,4 @@
-## Module 6: Mastering OpenShift
+## 🔹 Module 6: Mastering OpenShift
 ### 6.1 Templates
 A template is a reusable definition of a set of OpenShift objects (like pods, services, routes, etc.) that can be parameterized and instantiated to create those objects within a project. Essentially, it's a way to automate the creation of multiple related resources, making it easier to deploy and manage applications.
     ***Template Parts***
