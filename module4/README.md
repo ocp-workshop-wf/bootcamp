@@ -824,19 +824,34 @@ Lets learn about basic automation for deployments, configuring the deployment pr
 ### Checklist 📋: 
 
 ### Quiz
-> Q1: 
-- [ ]  
-- [ ]
-- [ ]
-- [ ] 
+> Q1: What command will disable deployment triggers?
+- [ ] `oc set triggers <dc name --remove>`
+- [ ] `oc set triggers <dc name> --none`
+- [ ] `oc remove triggers <dc name>`
+- [ ] `oc set triggers`
 
 
 <details>
   <summary> Answer </summary>
 
     
+  `oc set triggers <dc name --remove>`
+
+</details>
+
+> Q2: How many deployment triggers are enabled by default for oc new-app projects?
+- [ ] 1
+- [ ] 2
+- [ ] 3
+- [ ] 4
+
+
+<details>
+  <summary> Answer </summary>
+
+   2
   
 
 </details>
- 
+
 ---

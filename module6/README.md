@@ -256,34 +256,80 @@ True: `oc new-app` does support templates as arguments.
 ---
 
 
-
-
 ### 6.2 Health Check & Observability
-Lets
+***liveness probe*** in OpenShift (which leverages Kubernetes) is a mechanism used to determine if a container within a pod is still running and healthy. Its primary purpose is to detect and handle situations where an application might be running but has entered an unrecoverable state, such as a deadlock or a process hanging, and is no longer able to serve requests. It alos answer the question: 
+> Should we restart this Pod?
+> 
+- Default is to probe every 10 seconds
+- Restarts the pod after 3 failed Liveness checks.
 
-- D
+***Readiness probe*** in OpenShift (and Kubernetes) is a mechanism used to determine if a container within a pod is ready to accept incoming network traffic. Unlike a liveness probe, which indicates whether a container is alive and should be restarted if it fails, a readiness probe focuses on whether the application inside the container is fully initialized and capable of serving requests. It also answers the question: 
+> Should we send traffic to this pod?
 
+- **Use case**: If you have been developing applications for a while, you have probably had the pleasure of dealing with an application that crashed unexpectedly after running successfully for a while. When this happens to an OpenShift Application that has `liveness checks` configured, OpenShift will automatically restart the pod for many types of workloads..
 
-  - 
+- Both Readiness and Liveness Probes have a few options available. The most common option for `REST APIs` is the `HTTP GIT probe`. This type of probe makes HTTP requests to your pod at specified intervals and reports `success` if the response code is between `200` and `399`. This is a natural fit for arrest API, and it should be your go-to Readiness and Liveness Probe solution unless you have a good reason to do otherwise. For applications that aren't serving arrest API, there's also an escape hatch present in the form of the Command execution probe. Also we got the most common check which is `TCP check`.
 
 **Hands-on Walkthroughs** 
 
+- How to configure a Liveness Probe?
+
+```bash
+oc set probe dc/hello-world \
+  --liveness \
+  --open-tcp=8080
+#This liveness check that we're going to configure will try to set up a tcp connection to port 8080. If it succeeds, the probe succeeds,and if it fails, then the probe will fail.
+```
+> output: "deploymentconfig.apps.openshift.io/hello-world probes updated"
+
+- Lets verify the Probe is configured correctly on the DeploymentConfig
+
+```bash
+oc describe dc/hello-world
+```
+> output: "    Liveness:           tcp-socket :8080 delay=0s timeout=1s period=10s #success=1 #failure=3"
+
+<p align="center">
+<img src="/images/livenessprob.png" alt="OpenShift Training" style="width:500px; align="center"/>
+</p>
+
+- What happens when Livness probes fail?
+- 
+
 ### 🔬 Hands-on Lab: 
+For DeploymentConfigs, you will edit your readiness probe to be incorrect, then make curl requests to the route and observe the behavior.
+
+- Deploy the hello-world application
+
+- Create a route for the application
+
+- Add an invalid readiness check to your application
+
+  - Use an incorrect port, a command that always returns 1, etc.
+
+- Quickly after adding the check, make some requests to your application. They succeed--why? What's happening to the pods in the application?
+
+
 
 ### Checklist 📋: 
+- `oc get events` should contain several "Readiness probe failed" messages
+
+- `curl <your route>` still gives you the hello-world message
+
+- You understand why your application is still able to serve traffic
 
 ### Quiz
-> Q1: 
-- [ ]  
-- [ ]
-- [ ]
-- [ ] 
+> Q1: Which probe can cause pod restarts?
+- [ ] readiness
+- [ ] liveness
+- [ ] all the above
+- [ ] None 
 
 
 <details>
   <summary> Answer </summary>
 
-    
+    liveness
   
 
 </details>

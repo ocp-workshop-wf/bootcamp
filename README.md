@@ -1,5 +1,5 @@
 <p align="center">
-<img src="/images/openshift-training.png" alt="OpenShift Training" style="width:400px; align="center"/>
+<img src="/images/openshift-banner.webp" alt="OpenShift Training" style="width:400px; align="center"/>
 </p>
 
 ---
