@@ -1,11 +1,14 @@
 ![OpenShift Banner](images/openshift-banner.webp)
 
+### [BootCamp Agenda]()
 ---
 ### [Module 1](https://github.com/ocp-workshop-wf/bootcamp/tree/main/module1): Introduction and Core Concepts 
 
 1.0 - What You’ll Learn 
 
-1.1 - Difference between Kubernetes and OpenShift
+1.1 - Introduction to OpenShift
+
+1.2 - Difference between Kubernetes and OpenShift
 
 ### [Module 2](https://github.com/ocp-workshop-wf/bootcamp/tree/main/module2): Working with OpenShift Interfaces
 
