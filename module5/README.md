@@ -362,7 +362,20 @@ oc get pods
 ```bash
 oc debug <pod name>
 ```
+<p align="center">
+<img src="/images/debug.png" alt="OpenShift Training" style="width:500px; align="center"/>
+</p>
+
+
+
 > output: your terminal will directly `rsh` in a Temporarily pod which has the same exact features and configurations of the orginial one, be aware once you exit that pod terminal it will automatically be terminated and all changes you've made will be lost.
+
+```bash
+Starting pod/hello-world-8-zbcrx-debug, command was: /bin/sh -c go run hello-world.go
+Pod IP: 10.128.30.7
+If you don't see a command prompt, try pressing enter.
+~ $ 
+```
 
 ### Quiz
 > Q1: You must have a HorizontalPodAutoscaler in order to scale up your application.
