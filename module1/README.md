@@ -1,13 +1,23 @@
 ## Module 1: Introduction and Core Concepts 
 
-### 1.0 Bootcamp outline:
-From the course "Practical OpenShift for Developers - OpenShift 4," you will gain the following skills:
+### 1.0 What You’ll Learn:
+From the course  "OpenShift 4," you will learn the following OpenShift Resources and soft skills:
+||||||
+|-|-|-|-|-| 
+| OCP CLI | OCP UI | Projects | Pods | Yaml | 
+| JSON | Deployment | DeploymentConfig | Services| Route |
+| ImageStream | Labels | S2I | Build | BuildConfig| 
+| Rollout | Rollback | ReplicationController| ReplicaSet| ConfigMaps |
+| Secrets| Webhooks | Deployment Triggers | ConfigChange Triggers | Volumes | 
+| Horizontal Scalling | Vertical Scaling | AutoScaling | Rolling Strategy | Recreate Strategy | 
+| Custom Strategy | Deduging | OpenShift Jobs | Templates | Health Checks |
+| liveness Probe | Readiness probe| HelmCharts | Packaging | Trouble Shooting |
 
 Deploy existing applications to OpenShift.
 Understand 15 types of OpenShift resources.
 Configure applications to follow OpenShift best practices.
 Develop advanced application templates.
-These skills are designed for developers new to OpenShift and those familiar with Kubernetes.
+
 
 |💡 Modules Stucture  | 
 | -------- |
@@ -51,6 +61,14 @@ OpenShift is Red Hat's enterprise Kubernetes platform. It automates deployment, 
 <p align="center">
 <img src="/images/ocp-arch.png" alt="OpenShift Training"; align="center"/>
 </p>
+
+* **Master Node**: Manages the cluster with components like API, scheduler, and etcd (data store).
+* **Worker Nodes**: Run containerized applications (pods) on RHEL.
+* **Developers** use Git and CI/CD to deploy apps; **Operations** use automation tools for management.
+* **Routing Layer** handles external traffic; **Service Layer** manages internal communication.
+* **Persistent Storage** and **Registry** support stateful apps and image management.
+* Supports **physical, virtual, private, public, and hybrid** deployments.
+
 
 
 **Resource:**  

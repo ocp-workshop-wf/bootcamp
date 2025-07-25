@@ -3,7 +3,7 @@
 ---
 ### [Module 1](https://github.com/ocp-workshop-wf/bootcamp/tree/main/module1): Introduction and Core Concepts 
 
-1.0 - Overview of OpenShift and its Architecture
+1.0 - What You’ll Learn 
 
 1.1 - Difference between Kubernetes and OpenShift
 
