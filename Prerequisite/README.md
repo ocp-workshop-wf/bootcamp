@@ -2,7 +2,6 @@ List of prerequisites:
 - [x] vim or vi 
 - [x] Visual Studio code - Preferred
 - [x] OpenShift CLI 
-- [x] iterm terminal preferred for multi-terminal - Preferred
 - [x] 9 GB RAM
 - [x] 10+ GB Disk Space
 - [x] 4 virtual CPUs recommended 
