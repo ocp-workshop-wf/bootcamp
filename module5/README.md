@@ -287,6 +287,12 @@ The core idea:
 * If usage is lower, it reduces pods.
 * New pod count = current pods × (current usage ÷ desired usage)
 
+***Debuging in OpenShift*** provides a powerful way to troubleshoot and debug issues within your cluster, particularly for pods and nodes.When used with a pod, `oc debug` creates a new, temporary pod based on the existing pod's image and configuration, but with the ability to inject debugging tools or run commands within its environment. This allows you to:
+- Attach to a running container: Gain a shell prompt inside a container to inspect its file system, processes, or configuration.
+- Install debugging tools such as `strace`, or other utilities to analyze application behavior
+- Modify container environment: Temporarily change environment variables or mount paths for testing or debugging
+ 
+[Debug Resource](http://redhat.com/en/blog/how-oc-debug-works#:~:text=If%20you%20have%20used%20relatively,to%20display%20its%20YAML%20output.)
 
 **Hands-on Walkthroughs** 
 
@@ -346,6 +352,17 @@ The core idea:
   oc get -o yaml hpa/hello-world
   ```
 
+- Lets debug the existing pod.
+```bash
+oc get pods
+```
+> output: copy the pod name
+
+```bash
+oc debug <pod name>
+```
+> output: your terminal will directly `rsh` in a Temporarily pod which has the same exact features and configurations of the orginial one, be aware once you exit that pod terminal it will automatically be terminated and all changes you've made will be lost.
+
 ### Quiz
 > Q1: You must have a HorizontalPodAutoscaler in order to scale up your application.
 - [ ] True 
@@ -381,6 +398,19 @@ The core idea:
   <summary> Answer </summary>
 
   `replicas` 
+  
+</details>
+
+> Q4: What command we use to debug a pod.
+- [ ] `oc get debug`
+- [ ] `oc set debug <pod name>`
+- [ ] `oc debug <pod name>`
+- [ ] `oc get pod debug`
+
+<details>
+  <summary> Answer </summary>
+
+  `oc debug <pod name>`
   
 </details>
 
