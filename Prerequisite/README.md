@@ -1,5 +1,5 @@
 List of prerequisites:
-- [x] vim or vi 
+- [x] Text Editor
 - [x] Visual Studio code - Preferred
 - [x] OpenShift CLI 
 - [x] 9 GB RAM
