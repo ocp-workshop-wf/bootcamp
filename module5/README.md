@@ -495,22 +495,27 @@ pre:
   - An optional `completions` parameter, specifying how many concurrently running pods should execute a job. If not specified, this value defaults to one.
   
 ```yaml
-apiVersion: batch/v1
+apiVersion: batch/v1 # its a kubernetes resource not OpenShift
 kind: Job
 metadata:
-  name: pi
+  name: hello-world-job
 spec:
   parallelism: 1    # Optional value for how many pod replicas a job should run in parallel; defaults to `completions`.
   completions: 1    # Optional value for how many successful pod completions are needed to mark a job completed; defaults to one.
   template:         # Template for the pod the controller creates.
     metadata:
-      name: pi
+      name: hello-world-job
     spec:
       containers:
-      - name: pi
-        image: perl
-        command: ["perl",  "-Mbignum=bpi", "-wle", "print bpi(2000)"]
+      - name: hello-world-job
+        image: <image url>
       restartPolicy: OnFailure   # The restart policy of the pod. This does not apply to the job controller.
+```
+- When defining a Job, you can define its maximum duration by setting the `activeDeadlineSeconds` field. It is specified in seconds and is not set by default. When not set, there is no maximum duration enforced.
+
+```bash
+  spec:
+    activeDeadlineSeconds: 1800 # 30 min
 ```
 
 **Hands-on Walkthroughs** 
@@ -631,6 +636,8 @@ Completion Mode:  NonIndexed
 Start Time:       Thu, 24 Jul 2025 20:54:52 -0700
 Pods Statuses:    1 Running / 0 Succeeded / 0 Failed
 ```
+
+- 
 ---
     
 ### 🔬 Hands-on Lab: 
