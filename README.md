@@ -52,7 +52,7 @@
 5.4 - Deployment Statgies and OpenShift Jobs 
 
 
-### 🔹 [Module 6](https://github.com/ocp-workshop-wf/bootcamp/tree/main/module6): Mastering OpenShift
+### [🔹](https://github.com/ocp-workshop-wf/bootcamp/tree/main/module6) Module 6: Mastering OpenShift
 
 6.1 - Templates
 
