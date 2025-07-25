@@ -397,6 +397,9 @@ mychart/
     ├── deployment.yaml
     ├── service.yaml
 ```
+<p align="center">
+<img src="/images/helmworkflow.webp" alt="OpenShift Training" style="width:500px; align="center"/>
+</p>
 
 ---
 
@@ -406,7 +409,6 @@ mychart/
 ```bash
 cd ./labs-repo/helm
 ```
-  
 
 ### 🔬 Hands-on Lab: 
 For Helm you will need to be creative - either you follow the same pattern I got here into the Helm directory or you might want to create your own, here are the step by step recipe.
