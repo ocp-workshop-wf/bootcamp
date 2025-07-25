@@ -394,11 +394,11 @@ The core idea:
 | Recreate Strategy | Stop the old version | Start new Version | Switch Traffic to new version |
 | Custom Strategy | Start | Run custom deployment image | End |
 
-<p align="left">
+<p align="center">
 <img src="/images/rolling-strategy.png" alt="OpenShift Training" style="width:400px; align="center"/>
 </p>
 
-<p align="right">
+<p align="center">
 <img src="/images/recreate-strategy.png" alt="OpenShift Training" style="width:400px; align="center"/>
 </p>
 
