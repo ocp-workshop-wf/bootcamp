@@ -267,7 +267,8 @@ For volumes, you'll mount a secret as a volume.
 
 ---
 
-# 5.3 Scaling and Debuging Your Application 
+### 5.3 Scaling and Debuging Your Application 
+
 In OpenShift, scaling refers to the process of dynamically adjusting the resources allocated to an application or the overall cluster to meet changing demands. This can involve increasing or decreasing the number of pods running an application (horizontal scaling), or adjusting the resources (CPU, memory) allocated to individual pods (vertical scaling).
 
 ![scaling](/images/scaling.png)
@@ -292,7 +293,7 @@ The core idea:
 - Install debugging tools such as `strace`, or other utilities to analyze application behavior
 - Modify container environment: Temporarily change environment variables or mount paths for testing or debugging
  
-[Debug Resource](http://redhat.com/en/blog/how-oc-debug-works#:~:text=If%20you%20have%20used%20relatively,to%20display%20its%20YAML%20output.)
+* [Debug Resource](http://redhat.com/en/blog/how-oc-debug-works#:~:text=If%20you%20have%20used%20relatively,to%20display%20its%20YAML%20output.)
 
 **Hands-on Walkthroughs** 
 
