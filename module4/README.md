@@ -739,10 +739,95 @@ Lets learn about basic automation for deployments, configuring the deployment pr
 <img src="/images/configchangetrigger.png" alt="ConfigChange Triggers" style="width:500px; align="center"/>
 </p>
 
-  - 
+--- 
 
 **Hands-on Walkthroughs** 
+  
+- How the ConfigChange Trigger works?
+    - In this exmaple you need 2 windows terminals.
 
+    ```bash
+    oc new-app quay.io/practicalopenshift/hello-world --as-deployment-config
+    ```
+    ```bash
+    oc describe dc/hello-world
+    ```
+    > output: look for `Triggers:       Config, Image(hello-world@latest, auto=true)` 
+  -  we're going to modify the pod template, which will trigger a redeploy due to the ConfigChange trigger configured for our deployment config.
+    ```bash
+    # on terminal 1 
+    oc get pods --watch
+    ```
+    ```bash
+   # on terminal 2
+    oc set volume dc/hello-world \
+  --add \
+  --type emptyDir \
+  --mount-path /config-change-demo
+    ```
+
+- How to add and Remove DeploymentConfigs triggers:
+  -  You learned that both the config change trigger and the image change trigger are configured by default for applications created with OC new app.
+  - Lets learn how to use the `oc set triggers` command to modify the triggers with no arguments, `oc set triggers will simply print the trigger associated with the deployment config.
+    
+    ```bash
+    oc set triggers dc/hello-world
+    ```
+    > output: should contain `type` config, image to `true`
+
+    - To remove the triggers 
+    ```bash
+    oc set triggers dc/hello-world \ --remove --from-config
+    ```
+    > output: "deploymentconfig.apps.openshift.io/hello-world triggers updated"
+
+    ```bash
+    oc set triggers dc/hello-world
+    # to list the triggers
+    ```
+    > output: You should see `TYPE` config `VALUE` false.
+
+    ```bash
+    # to re-add the config change trigger you don't need to type `--add` once you set the trigger it Automatically adds it back
+    oc set triggers dc/hello-world --from-config
+    ```
+    ```bash
+    oc set triggers dc/hello-world
+    ```
+    > output: both `VALUES` are true.
+
+- Lets replicate that with the image change trigger:
+
+    ```bash
+    oc set triggers dc/hello-world \
+  --remove\
+  --from-image hello-world:latest
+    ```
+    ```bash
+    oc set triggers dc/hello-world
+    ```
+    > output: on the list you will find only the config trigger and you will no loger find the image trigger
+
+    - So lets reverse that!
+  
+    ```bash
+    oc set triggers dc/hello-world --from-image hello-world:latest -c hello-world
+    ```
+    ```bash
+    oc set triggers dc/hello-world
+    ```
+    > output: you should find both `TYPE` in with the `VALUE` of true.
+
+
+    
+    
+    
+
+    
+    
+    
+    
+    
 ### 🔬 Hands-on Lab: 
 
 ### Checklist 📋: 
