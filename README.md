@@ -1,6 +1,8 @@
 ![OpenShift Banner](images/openshift-banner.webp)
 
 ### [BootCamp Agenda](https://github.com/ocp-workshop-wf/bootcamp/blob/main/Agenda.md)
+
+### [Pre-Req](https://github.com/ocp-workshop-wf/bootcamp/tree/main/Prerequisite)
 ---
 ### [Module 1](https://github.com/ocp-workshop-wf/bootcamp/tree/main/module1): Introduction and Core Concepts 
 
