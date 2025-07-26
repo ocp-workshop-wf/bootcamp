@@ -106,7 +106,7 @@ oc get pods
     oc create -f pods/pod.yaml
     ```
     <p align="center">
-    <img src="/images/podcreated.png" alt="OpenShift Training" style="width:400px; align="center"/>
+    <img src="/images/podcreated.png" alt="OpenShift Training" style="width:500px; align="center"/>
     </p>
       
   - Show all currently running Pods
@@ -133,7 +133,7 @@ oc get pods
       cat <file-name>
       ```
       <p align="center">
-      <img src="/images/index.png" alt="OpenShift Training" style="width:400px; align="center"/>
+      <img src="/images/index.png" alt="OpenShift Training" style="width:500px; align="center"/>
       </p>
 
  - Deleting a Pod
@@ -159,7 +159,7 @@ oc get pods
     oc create -f pods/pod.yaml
     ```
       <p align="center">
-      <img src="/images/pod-creation-process.png" alt="OpenShift Training" style="width:400px; align="center"/>
+      <img src="/images/pod-creation-process.png" alt="OpenShift Training" style="width:500px; align="center"/>
       </p>
 
 - Clean up: Make sure to delete the pod by specifying the correct pod name on Terminal 2
