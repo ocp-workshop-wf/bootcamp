@@ -1,9 +1,7 @@
 ![OpenShift Banner](images/openshift-banner.webp)
 
-https://img.shields.io/badge/just%20the%20message-8A2BE2
+![Static Badge](https://img.shields.io/badge/Agenda-red?link=https%3A%2F%2Fgithub.com%2Focp-workshop-wf%2Fbootcamp%2Fblob%2Fmain%2FAgenda.md)
 
-
-- [BootCamp Agenda](https://github.com/ocp-workshop-wf/bootcamp/blob/main/Agenda.md)
 
 
 - [Pre-Requisites](https://github.com/ocp-workshop-wf/bootcamp/blob/main/prerequisites.md)
