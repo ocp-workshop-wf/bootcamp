@@ -176,7 +176,7 @@ oc delete pod <pod-name>
   - What's the difference between json and yaml? <br/>
   ***YAML*** can handle more tasks than JSON, also it supports data types like integers and floats, while JSON doesn't. In Addition JSON uses { curly brackets } to list, ***YAML*** doesn't.
 <br/>
-- Lets take a look at Objects along with the key value pairs in both:
+- Lets take a look at Objects and child objects along with the `-` key value pairs in both:
 
 
 | YAML    
@@ -232,11 +232,16 @@ oc delete pod <pod-name>
     spec:
       ..........
     ```
+
+    <p align="center">
+    <img src="/images/podyamldef.png" alt="OpenShift Training" style="width:500px; align="center"/>
+    </p>
+
     - Dive deeper into pods 
 
-    ```bash
-    oc explain pod.spec.containers.env
-    ```
+      ```bash
+      oc explain pod.spec.containers.env
+      ```
 
 ### 🔬 Hands-on Lab: 
 In this lab, you will create a custom Pod definition and upload it to OpenShift. This will test your skills in writing and debugging Pod YAML for the OpenShift platform.
@@ -329,7 +334,7 @@ Once you meet all of these criteria, you have successfully completed the lab. Yo
 > Q5: What is the YAML type of pod.spec.containers
 - [ ] String
 - [ ] squence or list
-- [ ] <[]object>
+- [ ] <[ ]object>
 - [ ] object
 <details>
   <summary> Answer </summary>
