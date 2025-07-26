@@ -229,26 +229,26 @@ oc delete pod <pod-name>
 
     - Go ahead and open `/labs-repo/pods/pod.yaml`
     
-    ```yaml
-    apiVersion: v1
-    kind: Pod 
-    metadata:
-      name: hello-world-pod
-      labels:
-        app: hello-world-pod
-    spec:
-      ..........
-    ```
-
+      ```yaml
+      apiVersion: v1
+      kind: Pod 
+      metadata:
+        name: hello-world-pod
+        labels:
+          app: hello-world-pod
+      spec:
+        ..........
+      ```
+  - Adding another env-varaible to the container child object.
     <p align="center">
     <img src="/images/podyamldef.png" alt="OpenShift Training" style="width:500px; align="center"/>
     </p>
 
-    - Dive deeper into pods 
+  - Dive deeper into pods 
 
-      ```bash
-      oc explain pod.spec.containers.env
-      ```
+    ```bash
+    oc explain pod.spec.containers.env
+    ```
 
 ### 🔬 Hands-on Lab: 
 In this lab, you will create a custom Pod definition and upload it to OpenShift. This will test your skills in writing and debugging Pod YAML for the OpenShift platform.
