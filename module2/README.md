@@ -10,13 +10,12 @@
 ---
 
 **Hands-on Walkthroughs:**  
+- Login using 
 
   <p align="left">
   <img src="/images/login.png" alt="OpenShift Training" style="width:200px; align="left"/>
   </p>
 
-- Login using 
-  
 ```bash
 oc login -u <username> -p <password> <url>
 ```
