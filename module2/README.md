@@ -172,10 +172,17 @@ oc delete pod <pod-name>
 
   ***YAML*** : Yaml Ain't Markup Language
   - What it is? **YAML** is a human friendly data serialization standard for all programming languages. YAML is the defacto standard for storing Kubernetes and OpenShift resource definiations.
+  
   </br>
-  - What's the difference between json and yaml? <br/>
+
+  - What's the difference between json and yaml? 
+  
+  <br/>
+
   ***YAML*** can handle more tasks than JSON, also it supports data types like integers and floats, while JSON doesn't. In Addition JSON uses { curly brackets } to list, ***YAML*** doesn't.
+
 <br/>
+
 - Lets take a look at Objects and child objects along with the `-` key value pairs in both:
 
 
