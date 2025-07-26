@@ -14,7 +14,22 @@
   - Lifecycle hooks
   - Health Checks
 - **Replicas:** Is the number of desired replicas.
-![Deployment](/images/deployment.png)
+
+- DeploymentConfig VS Deployment
+
+| Point | Deployment Config | Deployment | 
+| ----- | ----------------- | ---------- |
+| Design | It prefers consistency. As deployer pod goes down, its not replaced but waits for it to come up again | It prefers availability over consistency. The controller manager runs in high availability mode. Hence if one controller goes down, other leader is elected. |
+| Automatic Rollbacks | Supported | Not Supported | 
+| Automatic trigger on config changes | Has to be mentioned explicity in resource definition | Implicit |
+| Lifecycle hooks | Supported | Not Supported |
+| Custom Deployment Strategies | Supported | Not Supported| 
+
+
+
+<p align="center">
+<img src="/images/deployment.png" alt="OpenShift Training"; align="center"/>
+</p>
 
 ---
 

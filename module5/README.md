@@ -332,7 +332,7 @@ The core idea:
         Replicas:       3 current / 3 desired
     .....
     ```
-- How to create a HPA:  "Explain more about CPU "
+- How to create a HPA:  "Explain more about CPU add some files to run to demonstrate the HPA"
 
 ```bash
   oc autoscale dc/hello-world \
@@ -342,9 +342,9 @@ The core idea:
 ```
   > output: horizontalpodautoscaler.autoscaling/hello-world autoscaled
 
-  ```bash
+```bash
   oc get hpa
-  ```
+```
 > output: includes all details about the HPA specially the Targets.
   
   ```bash

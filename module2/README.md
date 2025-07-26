@@ -6,20 +6,33 @@
 - The **CLI (`oc`)** gives full control with extra features over `kubectl`.
 - [OpenShit CLI Cheat Sheet](https://github.com/ocp-workshop-wf/bootcamp/blob/main/ocpcli-cheatsheet.md)
 
-
+***[Resource OpenShit CLI](https://www.youtube.com/watch?v=MYH8nX9J1lc)***
 ---
 
 **Hands-on Walkthroughs:**  
+
+<p align="center">
+<img src="/images/login.png" alt="OpenShift Training" style="width:500px; align="center"/>
+</p>
 - Login using 
   
   ```bash
-  oc login
+  oc login -u <username> -p <password> <url>
   ```
-- Create a project: 
+- Create a [project](https://docs.redhat.com/en/documentation/openshift_container_platform/4.9/html/building_applications/projects): 
+
+<p align="center">
+<img src="/images/projectUI.png" alt="OpenShift Training" style="width:400px; align="center"/>
+</p>
   
   ```bash
   oc new-project demo-project
   ```
+<p align="center">
+<img src="/images/project.png" alt="OpenShift Training" style="width:400px; align="center"/>
+</p>
+
+> OpenShift uses project to divide up applications. Projects also allow OpenShift to guarantee resource availability for applications through the use of quotas. In this case, the quota represents an upper bound on the CPU, RAM and persistent storage that all pods in the project can use. Quotas prevent any single project from taking over all of the OpenShift's resources. While a quota does limit the amount of resources available to your application, it also guarantees the availability of those same resources.
 
 - List pods:
    
