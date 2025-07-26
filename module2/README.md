@@ -22,9 +22,9 @@ oc login -u <username> -p <password> <url>
 ```
 - Create a [project](https://docs.redhat.com/en/documentation/openshift_container_platform/4.9/html/building_applications/projects): 
 
-<p align="left">
-<img src="/images/projectUI.png" alt="OpenShift Training" style="width:400px; align="left"/>
-</p>
+  <p align="left">
+  <img src="/images/projectUI.png" alt="OpenShift Training" style="width:400px; align="left"/>
+  </p>
   
 ```bash
 oc new-project demo-project
