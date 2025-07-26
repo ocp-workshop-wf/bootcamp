@@ -2,7 +2,7 @@
 
 - [BootCamp Agenda](https://github.com/ocp-workshop-wf/bootcamp/blob/main/Agenda.md)
 
-- [Pre-Requisites](https://github.com/ocp-workshop-wf/bootcamp/tree/main/Prerequisite)
+- [Pre-Requisites](https://github.com/ocp-workshop-wf/bootcamp/blob/main/prerequisites.md)
 ---
 ### 🔹 [Module 1](https://github.com/ocp-workshop-wf/bootcamp/tree/main/module1): Introduction and Core Concepts 
 
