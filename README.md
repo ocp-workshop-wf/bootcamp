@@ -1,10 +1,8 @@
 ![OpenShift Banner](images/openshift-banner.webp)
 
-![Static Badge](https://img.shields.io/badge/Agenda-red?link=https%3A%2F%2Fgithub.com%2Focp-workshop-wf%2Fbootcamp%2Fblob%2Fmain%2FAgenda.md)
+![Static Badge](https://img.shields.io/badge/Agenda-red?link=https%3A%2F%2Fgithub.com%2Focp-workshop-wf%2Fbootcamp%2Fblob%2Fmain%2FAgenda.md)![Static Badge](https://img.shields.io/badge/PreRequisites-blue?style=flat&logoSize=auto&link=https%3A%2F%2Fgithub.com%2Focp-workshop-wf%2Fbootcamp%2Fblob%2Fmain%2Fprerequisites.md)
 
 
-
-- [Pre-Requisites](https://github.com/ocp-workshop-wf/bootcamp/blob/main/prerequisites.md)
 ---
 ### 🔹 [Module 1](https://github.com/ocp-workshop-wf/bootcamp/tree/main/module1): Introduction and Core Concepts 
 
