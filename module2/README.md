@@ -11,9 +11,9 @@
 
 **Hands-on Walkthroughs:**  
 
-<p align="left">
-<img src="/images/login.png" alt="OpenShift Training" style="width:200px; align="left"/>
-</p>
+  <p align="left">
+  <img src="/images/login.png" alt="OpenShift Training" style="width:200px; align="left"/>
+  </p>
 
 - Login using 
   
