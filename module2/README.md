@@ -51,17 +51,17 @@ oc get pods
       oc status
       ```
     
-- Check which user
-    
-    ```bash
-    oc whoami
-    ```
+    - Check which user
+        
+        ```bash
+        oc whoami
+        ```
 
-- Log out
-    
-    ```bash
-    oc logout
-    ```
+    - Log out
+        
+        ```bash
+        oc logout
+        ```
 
 - Project Basics
 
@@ -133,7 +133,7 @@ oc get pods
       cat <file-name>
       ```
       <p align="center">
-      <img src="/images/rchpod.png" alt="OpenShift Training" style="width:400px; align="center"/>
+      <img src="/images/index.png" alt="OpenShift Training" style="width:400px; align="center"/>
       </p>
 
  - Deleting a Pod
