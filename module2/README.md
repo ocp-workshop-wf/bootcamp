@@ -28,8 +28,8 @@ oc login -u <username> -p <password> <url>
 ```bash
 oc new-project demo-project
 ```
-  <p align="left">
-  <img src="/images/project.png" alt="OpenShift Training" style="width:400px; align="left"/>
+  <p align="center">
+  <img src="/images/project.png" alt="OpenShift Training" style="width:400px; align="center"/>
   </p>
 
   > OpenShift uses project to divide up applications. Projects also allow OpenShift to guarantee resource availability for applications through the use of quotas. In this case, the quota represents an upper bound on the CPU, RAM and persistent storage that all pods in the project can use. Quotas prevent any single project from taking over all of the OpenShift's resources. While a quota does limit the amount of resources available to your application, it also guarantees the availability of those same resources.
