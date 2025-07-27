@@ -11,11 +11,12 @@
 
 **DeploymentConfig:** Define the template for a pod and manages deploying new images or configuration changes. The Deployment Config template for a pod uses the same format for its pod template. This template is found in the Deployment Config spec under the template property. The other important thing that Deployment Configs have is the replicas parameter in the spec field. This configuration option tells the DeploymentConfig how many instances of a pod it needs to run. If the DeploymentConfig sees that there are ot enough instancs, it will start new pods according to the template until it reaches the number specified in the replica's field. Similarly, if you change the replica's value to a lower number, the DeploymentConfig will start deleting pods until it reaches the target number.There is a lot of other behavior that DeploymentConfigs will handle for you,such as automatically triggering new deployments, controlling details about how deployments are conducted, and adding custom behavior using lifecycle hooks.
 
+</br>
+
   <p align="left">
   <img src="/images/dc.png" alt="OpenShift Training" style="width:300px;/>
   </p>
 
-</br>
 
   | In This Module | Advanced Module | 
   | -------------- | --------------- | 
