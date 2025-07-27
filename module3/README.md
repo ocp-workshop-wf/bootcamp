@@ -62,14 +62,8 @@
     > output: 
     ```bash
     pod "hello-world-5b784bc45f-9f87f" deleted
-    pod "workspace5c94070bd88b404c-77b85bf67c-bqt5g" deleted
     service "hello-world" deleted
-    service "modelmesh-serving" deleted
-    service "workspace5c94070bd88b404c-service" deleted
     deployment.apps "hello-world" deleted
-    deployment.apps "workspace5c94070bd88b404c" deleted
-    replicaset.apps "workspace5c94070bd88b404c-77b85bf67c" deleted
-    W0726 17:54:29.659722   56463 warnings.go:70] apps.openshift.io/v1 DeploymentConfig is deprecated in v4.14+, unavailable in v4.10000+
     imagestream.image.openshift.io "hello-world" deleted
     ```
     - Re-run the same command but add `--as-deployment-config`
@@ -210,11 +204,14 @@
 
 - Direct deployment Git (for GitHub)
 - Source-to-Image (S2I) "Later in this course!"
-- OpenShift Pipelines (Tekton)
+- OpenShift Pipelines (Tekton) "will not be covered in this course"
 
 #### Direct deployment using Git
+As long as your source code is available online, `oc new-app` can build an image based on your application in the Git repository.
 
-![Git Deployment](/images/deployfromgit.png)
+  <p align="center">
+  <img src="/images/deployfromgit.png" alt="OpenShift Training" style="width:400px; align="center"/>
+  </p>
 
 ---
 
