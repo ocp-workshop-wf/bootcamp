@@ -37,7 +37,7 @@
 
 
 <p align="center">
-<img src="/images/deployment.png" alt="OpenShift Training"; align="center"/>
+<img src="/images/deployment.png" alt="OpenShift Training" style="width:400px; align="center"/>
 </p>
 
 ---
