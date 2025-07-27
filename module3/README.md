@@ -1,25 +1,27 @@
 [![Static Badge](https://img.shields.io/badge/CheatSheet-purple?style=flat&logoSize=auto)
 ](https://github.com/ocp-workshop-wf/bootcamp/blob/main/CheatSheet.md)  [![Static Badge](https://img.shields.io/badge/OCP-CLI-red?style=flat&logoSize=auto)
 ](https://github.com/ocp-workshop-wf/bootcamp/blob/main/ocpcli-cheatsheet.md)   [![Static Badge](https://img.shields.io/badge/Labs-maroon?style=flat&logoSize=auto)
-](https://github.com/ocp-workshop-wf/bootcamp/tree/main/labs-repo)  [![Static Badge](https://img.shields.io/badge/RedHat-OpenShift-maroon?style=flat&logo=Redhat&logoSize=auto)
-](https://docs.redhat.com/en/documentation/openshift_container_platform/4.19)   [![Static Badge](https://img.shields.io/badge/Kubernetes-black?style=flat&logo=Kubernetes&logoSize=auto)
-](https://kubernetes.io/docs/home/)
+](https://github.com/ocp-workshop-wf/bootcamp/tree/main/labs-repo)  [![Static Badge](https://img.shields.io/badge/Kubernetes-black?style=flat&logo=Kubernetes&logoSize=auto)
+](https://kubernetes.io/docs/home/) [![Static Badge](https://img.shields.io/badge/RedHat-OpenShift-maroon?style=flat&logo=Redhat&logoSize=auto)
+](https://docs.redhat.com/en/documentation/openshift_container_platform/4.19)  
+
 ## 🔹 Module 3: Core OpenShift Resources
 
 ### 3.1 OpenShift Resources Overview
 
-- **DeploymentConfig:** Define the template for a pod and manages deploying new images or configuration changes.
-  - Depoly images.
-  - Deploy from Git.
-  - ReplicationControllers
-  - Basic Configuration
+- **DeploymentConfig:** Define the template for a pod and manages deploying new images or configuration changes. The Deployment Config template for a pod uses the same format for its pod template. This template is found in the Deployment Config spec under the template property. The other important thing that Deployment Configs have is the replicas parameter in the spec field. This configuration option tells the DeploymentConfig how many instances of a pod it needs to run. If the DeploymentConfig sees that there are ot enough instancs, it will start new pods according to the template until it reaches the number specified in the replica's field. Similarly, if you change the replica's value to a lower number, the DeploymentConfig will start deleting pods until it reaches the target number.There is a lot of other behavior that DeploymentConfigs will handle for you,such as automatically triggering new deployments, controlling details about how deployments are conducted, and adding custom behavior using lifecycle hooks.
 
-  #### Advanced Deployment configs
+| In This Module | Advanced Module | 
+| -------------- | --------------- | 
+| Deploy Images | | 
+| Deploy from Git | Deploy Triggers |
+| ReplicationControllers | Lifecycle hooks  |
+| Basic Configurations| Health Check|
 
-  - Deploy Triggers
-  - Lifecycle hooks
-  - Health Checks
-- **Replicas:** Is the number of desired replicas.
+
+<p align="left">
+<img src="/images/dc.png" alt="OpenShift Training" style="width:300px;/>
+</p>
 
 - DeploymentConfig VS Deployment
 
