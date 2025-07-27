@@ -1,3 +1,8 @@
+[![Static Badge](https://img.shields.io/badge/CheatSheet-purple?style=flat&logoSize=auto)
+](https://github.com/ocp-workshop-wf/bootcamp/blob/main/CheatSheet.md)  [![Static Badge](https://img.shields.io/badge/OCP-CLI-red?style=flat&logoSize=auto)
+](https://github.com/ocp-workshop-wf/bootcamp/blob/main/ocpcli-cheatsheet.md)   [![Static Badge](https://img.shields.io/badge/Labs-maroon?style=flat&logoSize=auto)
+](https://github.com/ocp-workshop-wf/bootcamp/tree/main/labs-repo)
+
 ## 🔹 Module 2: Working with OpenShift Interfaces 
 
 ### 2.1 OpenShift CLI (oc) and Web Console

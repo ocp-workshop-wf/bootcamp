@@ -6,8 +6,6 @@
 ](https://github.com/ocp-workshop-wf/bootcamp/blob/main/ocpcli-cheatsheet.md)   [![Static Badge](https://img.shields.io/badge/Labs-maroon?style=flat&logoSize=auto)
 ](https://github.com/ocp-workshop-wf/bootcamp/tree/main/labs-repo)
 
-
-
 ---
 ### 🔹 [Module 1](https://github.com/ocp-workshop-wf/bootcamp/tree/main/module1): Introduction and Core Concepts 
 

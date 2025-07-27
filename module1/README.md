@@ -1,3 +1,8 @@
+[![Static Badge](https://img.shields.io/badge/CheatSheet-purple?style=flat&logoSize=auto)
+](https://github.com/ocp-workshop-wf/bootcamp/blob/main/CheatSheet.md)  [![Static Badge](https://img.shields.io/badge/OCP-CLI-red?style=flat&logoSize=auto)
+](https://github.com/ocp-workshop-wf/bootcamp/blob/main/ocpcli-cheatsheet.md)   [![Static Badge](https://img.shields.io/badge/Labs-maroon?style=flat&logoSize=auto)
+](https://github.com/ocp-workshop-wf/bootcamp/tree/main/labs-repo)
+
 ## 🔹 Module 1: Introduction and Core Concepts 
 
 ### 1.0 What You’ll Learn:
