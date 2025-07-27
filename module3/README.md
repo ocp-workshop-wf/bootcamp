@@ -209,10 +209,6 @@
 #### Direct deployment using Git
 As long as your source code is available online, `oc new-app` can build an image based on your application in the Git repository.
 
-  <p align="center">
-  <img src="/images/deployfromgit.png" alt="OpenShift Training" style="width:400px; align="center"/>
-  </p>
-
 ---
 
 **Hands-on Walkthroughs**  
