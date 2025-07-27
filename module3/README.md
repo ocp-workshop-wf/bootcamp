@@ -20,7 +20,7 @@
 
 
   <p align="left">
-  <img src="/images/dc.png" alt="OpenShift Training" style="width:300px;/>
+  <img src="/images/dc.png" alt="OpenShift Training" style="width:300px; align="left"/>
   </p>
 
 
