@@ -1,3 +1,6 @@
+[![Static Badge](https://img.shields.io/badge/RedHat-OpenShift-red?style=flat&logo=redhat&logoSize=auto)](https://docs.redhat.com/en/documentation/openshift_container_platform/4.19)   [![Static Badge](https://img.shields.io/badge/Kubernetes-black?style=flat&logo=Kubernetes&logoSize=auto)
+](https://kubernetes.io/docs/home/)
+
 ## List of prerequisites:
 - [x] Visual Studio code (IDE)- Preferred
 - [x] OpenShift CLI 

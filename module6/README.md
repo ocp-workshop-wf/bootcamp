@@ -3,6 +3,8 @@
 ](https://github.com/ocp-workshop-wf/bootcamp/blob/main/ocpcli-cheatsheet.md)   [![Static Badge](https://img.shields.io/badge/Labs-maroon?style=flat&logoSize=auto)
 ](https://github.com/ocp-workshop-wf/bootcamp/tree/main/labs-repo)
 
+[![Static Badge](https://img.shields.io/badge/RedHat-OpenShift-red?style=flat&logo=redhat&logoSize=auto)](https://docs.redhat.com/en/documentation/openshift_container_platform/4.19)   [![Static Badge](https://img.shields.io/badge/Kubernetes-black?style=flat&logo=Kubernetes&logoSize=auto)
+](https://kubernetes.io/docs/home/)
 ## 🔹 Module 6: Mastering OpenShift
 ### 6.1 Templates
 A template is a reusable definition of a set of OpenShift objects (like pods, services, routes, etc.) that can be parameterized and instantiated to create those objects within a project. Essentially, it's a way to automate the creation of multiple related resources, making it easier to deploy and manage applications.

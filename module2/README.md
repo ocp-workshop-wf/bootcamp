@@ -3,6 +3,8 @@
 ](https://github.com/ocp-workshop-wf/bootcamp/blob/main/ocpcli-cheatsheet.md)   [![Static Badge](https://img.shields.io/badge/Labs-maroon?style=flat&logoSize=auto)
 ](https://github.com/ocp-workshop-wf/bootcamp/tree/main/labs-repo)
 
+[![Static Badge](https://img.shields.io/badge/RedHat-OpenShift-red?style=flat&logo=redhat&logoSize=auto)](https://docs.redhat.com/en/documentation/openshift_container_platform/4.19)   [![Static Badge](https://img.shields.io/badge/Kubernetes-black?style=flat&logo=Kubernetes&logoSize=auto)
+](https://kubernetes.io/docs/home/)
 ## 🔹 Module 2: Working with OpenShift Interfaces 
 
 ### 2.1 OpenShift CLI (oc) and Web Console
