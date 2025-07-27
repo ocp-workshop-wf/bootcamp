@@ -323,35 +323,55 @@ As long as your source code is available online, `oc new-app` can build an image
   - You need 2 different split terminals
   - Make sure that your application is running on the OCP cluster.
 
-    ```
+    ```bash
     oc new-app quay.io/practicalopenshift/hello-world --as-deployment-config
     ```
 
   - Terminal 1:
 
-    ```
+    ```bash
     oc get pods --watch 
     ```
 
     or
 
-    ```
+    ```bash
     oc get pods -w
     ```
 
   - Terminal 2:
 
-    ```
+    ```bash
     oc rollout latest dc/hello-world
     ```
 
-    - The first thing OCP does is to start a new deployment `starting from, Pending - ContainerCreating - Running` once its Running the previous version `Terminating` "Start new - Stop old"
+    > output: The first thing OCP does is to start a new deployment `starting from, Pending - ContainerCreating - Running` once its Running the previous version `Terminating` "Start new - Stop old. This is very difficult to do manually, but OpenShift contains sensible defaults that will handle the deployment for you.
 
-    ```
+  <p align="center">
+  <img src="/images/rollout.png" alt="OpenShift Training" style="width:400px; align="center"/>
+  </p>
+    <p align="center">
+  <img src="/images/rollout2.png" alt="OpenShift Training" style="width:400px; align="center"/>
+  </p>
+      <p align="center">
+  <img src="/images/rollout3.png" alt="OpenShift Training" style="width:400px; align="center"/>
+  </p>
+  
+
+  - Lets say that you've deployed a new version of your application, but you have monitoring in place and you've detected that you application's new version has an error. In this case you need to run `rollback`
+
+    ```bash
     oc rollback dc/hello-world
     ```
 
-    - It is very similar process "Start the previous version, and Stop current"
+  > output: It is very similar process "Start the previous version, and Stops the current"
+    <p align="center">
+    <img src="/images/rollback0.png" alt="OpenShift Training" style="width:400px; align="center"/>
+    </p>
+
+    <p align="center">
+    <img src="/images/rollback1.png" alt="OpenShift Training" style="width:400px; align="center"/>
+    </p>
 
 ---
 
