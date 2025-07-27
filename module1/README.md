@@ -108,3 +108,8 @@ OpenShift is Red Hat's enterprise Kubernetes platform. It automates deployment, 
     <img src="/images/nexticon.webp" alt="OpenShift Training" style="width:25px;" />
   </a>
 </p>
+<p align="left">
+  <a href="https://github.com/ocp-workshop-wf/bootcamp/tree/main" target="_blank">
+    <img src="/images/backicon.png" alt="OpenShift Training" style="width:25px;" />
+  </a>
+</p>

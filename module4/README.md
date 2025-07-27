@@ -867,3 +867,9 @@ Lets learn about basic automation for deployments, configuring the deployment pr
     <img src="/images/nexticon.webp" alt="OpenShift Training" style="width:25px;" />
   </a>
 </p>
+
+<p align="left">
+  <a href="https://github.com/ocp-workshop-wf/bootcamp/tree/main/module3" target="_blank">
+    <img src="/images/backicon.png" alt="OpenShift Training" style="width:25px;" />
+  </a>
+</p>

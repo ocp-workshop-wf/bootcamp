@@ -389,3 +389,9 @@ Once you meet all of these criteria, you have successfully completed the lab. Yo
     <img src="/images/nexticon.webp" alt="OpenShift Training" style="width:25px;" />
   </a>
 </p>
+
+<p align="left">
+  <a href="https://github.com/ocp-workshop-wf/bootcamp/tree/main/module1" target="_blank">
+    <img src="/images/backicon.png" alt="OpenShift Training" style="width:25px;" />
+  </a>
+</p>
