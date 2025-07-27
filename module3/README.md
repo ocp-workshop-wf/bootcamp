@@ -23,6 +23,7 @@
   <img src="/images/dc.png" alt="OpenShift Training" style="width:300px;/>
   </p>
 
+
 - DeploymentConfig VS Deployment
 
 | Point | Deployment Config | Deployment | 
@@ -33,7 +34,7 @@
 | Lifecycle hooks | Supported | Not Supported |
 | Custom Deployment Strategies | Supported | Not Supported| 
 
-
+</br>
 
 <p align="center">
 <img src="/images/deployment.png" alt="OpenShift Training"; align="center"/>
