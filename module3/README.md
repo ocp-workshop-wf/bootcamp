@@ -34,11 +34,7 @@
 | Lifecycle hooks | Supported | Not Supported |
 | Custom Deployment Strategies | Supported | Not Supported| 
 
-</br>
 
-<p align="center">
-<img src="/images/deployment.png" alt="OpenShift Training"; align="center"/>
-</p>
 
 ---
 
