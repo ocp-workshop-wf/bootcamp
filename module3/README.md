@@ -217,12 +217,32 @@ As long as your source code is available online, `oc new-app` can build an image
 
 **Hands-on Walkthroughs**  
 
-- Deploy the app:
+- Deploy the app from a Git Repo:
 
-    ```
+    ```bash
     oc new-app https://gitlab.com/therayy1/hello-world.git --as-deployment-config 
     ```
+  > output: When you run OC new-app with a Git repository, OpenShift will try to build the image from the Dockerfile,For that reason, OpenShift will attempt to download the golang:alpine image that we specified in the docker from instruction. When OpenShift imports an image into its internal registry,it creates an image stream tag as explained in this output the 2nd line says that docker build using source code from Git repo will be created, and thats why it take longer time to get deployed! 
 
+  ```bash
+      Tags: base rhel8
+
+      * An image stream tag will be created as "golang:1.17" that will track the source image
+      * A Docker build using source code from https://gitlab.com/therayy1/hello-world.git will be created
+        * The resulting image will be pushed to image stream tag "hello-world:latest"
+        * Every time "golang:1.17" changes a new build will be triggered
+      * This image will be deployed in deployment config "hello-world"
+      * Port 8080/tcp will be load balanced by service "hello-world"
+        * Other containers can access this service through the hostname "hello-world"
+      * WARNING: Image "quay.io/projectquay/golang:1.17" runs as the 'root' user which may not be permitted by your cluster administrator
+  --> Creating resources ...
+      imagestream.image.openshift.io "golang" created
+      imagestream.image.openshift.io "hello-world" created
+      buildconfig.build.openshift.io "hello-world" created
+      deploymentconfig.apps.openshift.io "hello-world" created
+      service "hello-world" created
+  --> Success
+  ```
   - When you run this command, OpenShift automatically creates a BuildConfig for your application. The BuildConfig contains all necessary instructions for building the image, similar to how Docker build commands operate.
   - OpenShift will then clone the repository from the provided Git URL and proceed to build the image by executing the Dockerfile steps contained in your application. Each step results in an intermediate container.
   - Once the build successfully completes, OpenShift pushes the built image to an ImageStream, which you can utilize for deployment purposes.
