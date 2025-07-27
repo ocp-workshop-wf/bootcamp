@@ -222,7 +222,6 @@ As long as your source code is available online, `oc new-app` can build an image
     ```bash
     oc new-app https://gitlab.com/therayy1/hello-world.git --as-deployment-config 
     ```
-  > output: When you run OC new-app with a Git repository, OpenShift will try to build the image from the Dockerfile,For that reason, OpenShift will attempt to download the golang:alpine image that we specified in the docker from instruction. When OpenShift imports an image into its internal registry,it creates an image stream tag as explained in this output the 2nd line says that docker build using source code from Git repo will be created, and thats why it take longer time to get deployed! 
 
   ```bash
       Tags: base rhel8
@@ -243,52 +242,80 @@ As long as your source code is available online, `oc new-app` can build an image
       service "hello-world" created
   --> Success
   ```
-  - When you run this command, OpenShift automatically creates a BuildConfig for your application. The BuildConfig contains all necessary instructions for building the image, similar to how Docker build commands operate.
-  - OpenShift will then clone the repository from the provided Git URL and proceed to build the image by executing the Dockerfile steps contained in your application. Each step results in an intermediate container.
-  - Once the build successfully completes, OpenShift pushes the built image to an ImageStream, which you can utilize for deployment purposes.
-
-- Track the progress of the build
-
-    ```
-    oc status
-    ```
+  > output: When you run OC new-app with a Git repository, OpenShift will try to build the image from the Dockerfile,For that reason, OpenShift will attempt to download the golang:alpine image that we specified in the docker from instruction. When OpenShift imports an image into its internal registry,it creates an image stream tag as explained in this output the 2nd line says that docker build using source code from Git repo will be created, and thats why it take longer time to get deployed! Not only can OpenShift download image stream tag from repositories on the internet, but it can also create new image stream tags as a result of builds. OpenShift also sets up a trigger for the `golang:alpine` image that will start a new build when the `golang:alpine` image stream tag changes. The next line says that this will deploy to a new deployment config called `hello-world `port `8080` will be load balanced by a service. 
 
   - Check the line for `bc` "BuildConfig"
 
-    ```
+    ```bash
     oc logs -f bc/hello-world
     ```
+  > output: 1st OpenShift will clone the repo, after cloning it will go step by step through the same dockerfile build process, after the build command succeeds OpenShift will push the image up the `hello-world` image stream. 
+
+    - lets check our status to list what was deployed
+    ```bash
+    oc status
+    ```
+  > output: Its the same as we saw before but with an additional `buildconfig` - `bc` and we will learn about BuildConfig and Builds later in this course.
+  ```bash
+    svc/hello-world - 172.30.20.13:8080
+    dc/hello-world deploys istag/hello-world:latest <-
+    bc/hello-world docker builds https://gitlab.com/therayy1/hello-world.git on istag/golang:1.17 
+    deployment #1 deployed 14 minutes ago - 1 pod
+  ```
 
   - Lets go delete all and check the output
 
-    ```
+    ```bash
     oc delete all -l app=hello-world
     ```
 
-  - You must see that `buildconfig, build & golang imagestream` got delete along with the others.
+  > output: You must see that `buildconfig, build & golang imagestream` got delete along with the others.
+  ```bash
+  replicationcontroller "hello-world-1" deleted
+  service "hello-world" deleted
+  deploymentconfig.apps.openshift.io "hello-world" deleted
+  buildconfig.build.openshift.io "hello-world" deleted
+  imagestream.image.openshift.io "golang" deleted
+  imagestream.image.openshift.io "hello-world" deleted
+  ```
 
 ---
 
 - ReplicationControllers: DeploymentConfigs use ReplicationControllers to run their pods.
-  - Deploy the application!
 
-    ```
+  <p align="center">
+  <img src="/images/replicationcontroller.png" alt="OpenShift Training" style="width:400px; align="center"/>
+  </p>
+
+  - Deploy the application and check the UI!
+
+    ```bash
     oc new-app quay.io/practicalopenshift/hello-world --as-deployment-config
     ```
 
-  - We need to look into more options into our DeploymentConfig
+  - We need to look into more options into our DeploymentConfig yaml - either from the Terminal by running the following command or from the UI from `YAML` tab.
 
     ```
     oc get -o yaml dc/hello-world
     ```
+  > output: scroll to the top and you should see the following, The `replicationcontrollers` only job is to run a certain number of pods according to the `template`, where as the `deploymentconfig` has a number of other jobs related to orchestrating deployments. when the `deploymentconfig` is first created, it created a `replicationcontroller` and the `replicationcontroller` will start the pods. When you deploy a new version of your application using `deploymentconfig` will create a new `replicationcontroller` with the new version of the pod. Once the `replicationController` is ready the `deploymentConfig` will switch traffic over to the new `replicationController` pods, and then delete the old `replicationController`. This is the default behavior but ofcourse its configurable.
+  ```yaml
+  ....
+  spec:
+    replicas: 1
+  ....
+  ```
 
-  - Lets get the ReplicationController
+  - Lets list the ReplicationController
 
-    ```
+    ```bash
     oc get rc
     ```
+  > output: Your output should include your ReplicationController.
 
-    - Your output should include your ReplicationController.
+  <p align="center">
+  <img src="/images/rc-complete.png" alt="OpenShift Training" style="width:400px; align="center"/>
+  </p>
 
 ---
 
