@@ -36,6 +36,10 @@
 
 
 
+<p align="center">
+<img src="/images/deployment.png" alt="OpenShift Training"; align="center"/>
+</p>
+
 ---
 
 **Hands-on Walkthroughs**  
