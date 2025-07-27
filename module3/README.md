@@ -49,10 +49,10 @@
       ```bash
     oc new-app quay.io/practicalopenshift/hello-world 
     ```
-    > output
+    > output: check your cluster ui and find your deployment yaml
 
     <p align="center">
-    <img src="/images/deployment-ui.png" alt="OpenShift Training" style="width:400px; align="center"/>
+    <img src="/images/deployment-ui.png" alt="OpenShift Training" style="width:500px; align="center"/>
     </p>
 
 
