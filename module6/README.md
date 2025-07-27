@@ -510,6 +510,6 @@ For Helm you will need to be creative - either you follow the same pattern I got
 
 <p align="left">
   <a href="https://github.com/ocp-workshop-wf/bootcamp/tree/main/module5" target="_blank">
-    <img src="/images/backicon.png" alt="OpenShift Training" style="width:25px;" />
+    <img src="/images/backred1.png" alt="OpenShift Training" style="width:25px;" />
   </a>
 </p>

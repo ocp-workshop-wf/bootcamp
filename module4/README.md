@@ -870,6 +870,6 @@ Lets learn about basic automation for deployments, configuring the deployment pr
 
 <p align="left">
   <a href="https://github.com/ocp-workshop-wf/bootcamp/tree/main/module3" target="_blank">
-    <img src="/images/backicon.png" alt="OpenShift Training" style="width:25px;" />
+    <img src="/images/backred1.png" alt="OpenShift Training" style="width:25px;" />
   </a>
 </p>
