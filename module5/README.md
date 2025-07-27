@@ -712,3 +712,10 @@ For Deployment Hooks, you will add a mid-deployment hook for the recreate strate
 
 </details>
 
+---
+
+<p align="right">
+  <a href="https://github.com/ocp-workshop-wf/bootcamp/tree/main/module6" target="_blank">
+    <img src="/images/nexticon.webp" alt="OpenShift Training" style="width:25px;" />
+  </a>
+</p>

@@ -499,3 +499,11 @@ For Helm you will need to be creative - either you follow the same pattern I got
   `helm create mychart`
   
 </details>
+
+---
+
+<p align="right">
+  <a href="https://github.com/ocp-workshop-wf/bootcamp/tree/main" target="_blank">
+    <img src="/images/complete.webp" alt="OpenShift Training" style="width:25px;" />
+  </a>
+</p>

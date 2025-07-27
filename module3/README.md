@@ -569,43 +569,48 @@ In the DeploymentConfig lab, you will create a custom DeploymentConfig based on 
 
     > You should get the same output and thats the first step of learning Bash Scripting.
 
+- Clean up
+  ```bash
+  oc delete all -l app=hello-world
+  ```
 ____
 
-- Exposing a Route:
+***Route*** Openshift external network interface, it gives an external DNS name to a `service`.
 
-```
-oc status
-```
+- How to create a Route:
+  ```bash
+  oc new-app quay.io/practicalopenshift/hello-world 
+  ```
+  ```bash
+  oc expose svc/hello-world
+  ```
+  > output: "route.route.openshift.io/hello-world exposed"
 
-```
-oc new-app quay.io/practicalopenshift/hello-world --as-deployment-config
-```
+  ```bash
+  oc status
+  ```
+  > output: you should see that you got a `svc` exposed to a specific `url` lets `curl` that one!
 
-```
-oc expose svc/hello-world
-```
+  ```bash
+  # for this example I got `svc/hello-world-pod - http://hello-world-raafat-dev.apps.rm3.7wse.p1.openshiftapps.com` that what I will be using.
+  curl http://hello-world-raafat-dev.apps.rm3.7wse.p1.openshiftapps.com
+  ```
+  > output: "Welcome! You can change this message by editing the MESSAGE environment variable. "
 
-  > You should that the expose happened
+- Lets dig a bit deeper in Routes: 
+  **Routes** are not part of Kubernetes they are new to OpenShift.
 
-```
-oc status
-```
+  - Lets take a look at the `route` yaml either from the UI or cli.
 
-> On the first line you will fine the `http-URL` copy that!
+    ```bash
+    oc get -o yaml route/hello-world
+    ```
+    <p align="center">
+    <img src="/images/route-yml.png" alt="OpenShift Training" style="width:400px; align="center"/>
+    </p>
 
-```
-curl <route from oc status>
-```
+    > output: Simple resource looking at the `spec` you will see a `host` "Domain Name of your route", this is something you can control in real-life projects, a `targetport`, and a `target` specified in the `to` field, the object in the `to` field has a `kind`, `name` & `weight` for this `route` the `kind` is the `service` and the `name` in this section identifies the service that the `route` should use. And the `weight` can be used to balance against more than one backend target. For now, this `route` only uses 1 `service` so the `weight` is `100`, and all requests will go to the `service` regardless of the `weight`.
 
-> You should get a Welcome! Message.
-
-- Dig deeper:
-
-```
-oc get -o yaml route/hello-world
-```
-
-> Looking at the host its a compination of the app-name-<project-name>.IP-address.
 ---
 
 ### 🔬 Hands-on Lab
@@ -1052,3 +1057,9 @@ metadata:
 </details>
 
 ---
+
+<p align="right">
+  <a href="https://github.com/ocp-workshop-wf/bootcamp/tree/main/module4" target="_blank">
+    <img src="/images/nexticon.webp" alt="OpenShift Training" style="width:25px;" />
+  </a>
+</p>

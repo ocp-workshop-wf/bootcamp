@@ -381,3 +381,11 @@ Once you meet all of these criteria, you have successfully completed the lab. Yo
    `oc rsh <pod-name>`
 
 </details>
+
+--- 
+
+<p align="right">
+  <a href="https://github.com/ocp-workshop-wf/bootcamp/tree/main/module3" target="_blank">
+    <img src="/images/nexticon.webp" alt="OpenShift Training" style="width:25px;" />
+  </a>
+</p>
