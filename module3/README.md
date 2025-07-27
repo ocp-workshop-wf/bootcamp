@@ -476,11 +476,8 @@ In the DeploymentConfig lab, you will create a custom DeploymentConfig based on 
 
 ### 3.3 OpenShift Networking
 
-- **Servcies** They are Kubernetes resources that expose a set of pods as a network service. They provide a stable endpoint for accessing applications running within the cluster, even as individual pods are created, destroyed, or scaled. OpenShift tells us about `service` its a named abstraction of <u>software service</u> , no matter whether your application runs on one pod or 100 pods, you will need just one `service` to expose all of those pods to the network. External applications don't know how many pods are running in your application. Instead, all they know is that there's a `service` that they can call in order to access it. That's the abstraction the `service` will do the hardwork of splitting up traffic among all of those pods. Also the `service` depends on a `proxy` and a `selector` by `proxy` the application referring to the internally exposed IP and port that the `services` listens on. <u>This IP is only available to routing inside the OpenShift cluster."Virtual IPs"</u> Along with the `Virtual IPs`, `services` will also expose a port for example `80:80`. Virtual IPs ad Port are great for internal use, but in order to reach a service from Outside the cluster you will need to use another OpenShift resource type called the `route`.
+- [Servcies](https://docs.redhat.com/en/documentation/openshift_container_platform/3.11/html/architecture/core-concepts#services) They are Kubernetes resources that expose a set of pods as a network service. They provide a stable endpoint for accessing applications running within the cluster, even as individual pods are created, destroyed, or scaled. OpenShift tells us about `service` its a named abstraction of <u>software service</u> , no matter whether your application runs on one pod or 100 pods, you will need just one `service` to expose all of those pods to the network. External applications don't know how many pods are running in your application. Instead, all they know is that there's a `service` that they can call in order to access it. That's the abstraction the `service` will do the hardwork of splitting up traffic among all of those pods. Also the `service` depends on a `proxy` and a `selector` by `proxy` the application referring to the internally exposed IP and port that the `services` listens on. <u>This IP is only available to routing inside the OpenShift cluster."Virtual IPs"</u> Along with the `Virtual IPs`, `services` will also expose a port for example `80:80`. Virtual IPs ad Port are great for internal use, but in order to reach a service from Outside the cluster you will need to use another OpenShift resource type called the [Route](https://docs.redhat.com/en/documentation/openshift_container_platform/3.11/html/developer_guide/dev-guide-routes).
 
-- **Routes** Exposes a service at a hostname so that external clients can reach it. Routes are essentially DNS entries that map a hostname to a service within the OpenShift cluster - [RedHat Documentation](https://docs.redhat.com/en/documentation/openshift_container_platform/3.11/html/developer_guide/dev-guide-routes)
-
-![OpenShift Network](/images/network.png)
 
 ---
 
@@ -488,61 +485,90 @@ In the DeploymentConfig lab, you will create a custom DeploymentConfig based on 
 
 - Dig into the Service `spec`.
 
- ```bash
- oc explain svc.spec
- ```
-> output: The first field that was given is the Cluster IP, this IP is the `virtual IP` assigned to the service by OpenShift that is only exposed "This is how other pods in OpenShift will access your `service` " also looking at the `ports` object this is the list of ports exposed by the `service`, and you should have the `selector`, which explains a bit more about how `selectors work` - `selectors` use the same labels that we learned about before for `deployment`
+  ```bash
+  oc explain svc.spec
+  ```
+  > output: The first field that was given is the Cluster IP, this IP is the `virtual IP` assigned to the service by OpenShift that is only exposed "This is how other pods in OpenShift will access your `service` " also looking at the `ports` object this is the list of ports exposed by the `service`, and you should have the `selector`, which explains a bit more about how `selectors work` - `selectors` use the same labels that we learned about before for `deployment`
 
 - Lets create a manual service:
 
-  ```
-  cd <lab-directory>
-  ```
-
-  ```
-  oc create -f pods/pod.yaml
+  ```bash
+  oc create -f labs-repo/pods/pod.yaml
   ```
 
-  ```
+  ```bash
   oc expose pod/hello-world-pod
   ```
 
-    > "you should see an error as you need to spicify the port!"
-  
+  > output: "you should see an error as you need to spicify the port!" 
+  ```bash
+  error: couldn't find port via --port flag or introspection
+  See 'oc expose -h' for help and examples
   ```
-  oc expose --port 8080 pod/hellp-world-pod
-  ```
-
-  ```
-  oc status
-  ```
-
-  ```
-  oc create -f pods/pod2.yaml
-  ```
-
-    > We need to open a shell in the 2nd Pod
-
-  ```
-  oc rsh hello-world-pod-2
-  ```
+  - We will expose using the port `80:80`
+    ```bash
+    oc expose --port 8080 pod/hello-world-pod
+    ```
+    > output: "service/hello-world-pod exposed"
 
     ```bash
-    $wget -qO- <service IP / Port>
+    oc status
+    ```
+    > output: if you see this that means you did expose it correctly
+    ```bash
+    svc/hello-world-pod - 172.30.71.69:8080
+      pod/hello-world-pod runs quay.io/practicalopenshift/hello-world
+    ```
+  - Lets create another pod and make a network request from the 2nd pod to the 1st one. 
+    ```bash
+    oc create -f labs-repo/pods/pod2.yaml
     ```
 
-  - Accessing a Service:
+    > output: "pod/hello-world-pod-2 created"
+
+  - We need to open a shell in the 2nd pod
+    ```bash
+    oc rsh hello-world-pod-2
+    ```
+  > output: `$`
+  - run the following to make sure your at the `go` directory. 
+    ```bash
+    pwd
+    ```
+    > output: `/go` if not please `cd` into `/go` directory
+
+  - For out 1st request, we will use the data from `oc status` to make the network request between the two pods."in this case `172.30.71.69:8080` FYI, the hello-world pods don't have `curl` installed instead we will have to use `wget` command.
+    ```bash
+    # wget -qO- <service IP / Port> "you should have your own" 
+    # `-qO-` option to print to standard output instead of to a file. 
+    wget -qO- 172.30.71.69:8080
+    ```
+    > output: "Hi! I'm an environment varible"
+
+      <p align="center">
+      <img src="/images/svc-req1.png" alt="OpenShift Training" style="width:400px; align="center"/>
+      </p>
+    
+  - Accessing a Service using environment variables:
+    - Environment variables are another set of key value pairs that are available in your pods. The valuse will be a mix of present values from the operating system, valuse specified in the `ENV` instruction in your dockerfile, and valuse injected by OpenShift
+
+    - List all of the values from inside the pod by running the following command: 
 
     ```bash
     env
     ```
+    > output: Because services can expose multiple ports, each one get a seprate environment variable with a port number, we can find the `address` we used for the `wget` command. By using a couple of these environment varaibles, the first is the Port `80:80 TCP address`. "this is the same IP printed out in the `oc status`"
+    "HELLO_WORLD_POD_PORT_8080_TCP_PORT=8080"
+    "HELLO_WORLD_POD_PORT_8080_TCP_ADDR=172.30.71.69"
+
+    - The advantage to using environment variables rather than the direct IP is that IP may change overtime or between clusters "so lets try!"
 
     ```bash
     $wget -qO- $HELLO_WORLD_POD_PORT_8080_TCP_ADDR:$HELLO_WORLD_POD_PORT_8080_TCP_PORT
     ```
 
     > You should get the same output and thats the first step of learning Bash Scripting.
-  >
+
 ____
 
 - Exposing a Route:
