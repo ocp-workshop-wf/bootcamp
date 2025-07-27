@@ -19,8 +19,8 @@
   | Basic Configurations| Health Check|
 
 
-  <p align="left">
-  <img src="/images/dc.png" alt="OpenShift Training" style="width:300px; align="left"/>
+  <p align="center">
+  <img src="/images/dc.png" alt="OpenShift Training" style="width:300px; align="center"/>
   </p>
 
 
@@ -36,8 +36,8 @@
 
 
 
-<p align="left">
-<img src="/images/deployment.png" alt="OpenShift Training" style="width:400px; align="left"/>
+<p align="center">
+<img src="/images/deployment.png" alt="OpenShift Training" style="width:400px; align="center"/>
 </p>
 
 ---
