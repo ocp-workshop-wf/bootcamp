@@ -606,8 +606,9 @@ ____
     oc get -o yaml route/hello-world
     ```
     <p align="center">
-    <img src="/images/route-yml.png" alt="OpenShift Training" style="width:400px; align="center"/>
+      <img src="/images/route-yml.png" alt="OpenShift Training" style="width:400px; display:block; margin:auto;" />
     </p>
+
 
     > output: Simple resource looking at the `spec` you will see a `host` "Domain Name of your route", this is something you can control in real-life projects, a `targetport`, and a `target` specified in the `to` field, the object in the `to` field has a `kind`, `name` & `weight` for this `route` the `kind` is the `service` and the `name` in this section identifies the service that the `route` should use. And the `weight` can be used to balance against more than one backend target. For now, this `route` only uses 1 `service` so the `weight` is `100`, and all requests will go to the `service` regardless of the `weight`.
 
@@ -713,9 +714,19 @@ Once you meet all of these criteria, you have successfully completed the lab. Yo
 
 ### 3.4 OpenShift ConfigMaps
 
-- **Configmaps:** a fundamental way to manage configuration data for applications. They are Kubernetes API objects that store configuration data as key-value pairs, allowing you to decouple configuration from your application code and keep your containers portable. This means you can change an application's behavior without rebuilding its container image.
+- **Configmaps:** are a very useful resource type that OpenShift borrows from Kubernetes. ConfigMaps hold configuration data for pods to consume. This data is held in the ConfigMap separately from your running pod in OpenShift. Holding data for pods to consume is much less active job than some other types of resources in Kubernetes like `pods`, `deploymentconfigs` and `services` so when to use `ConfigMaps`
 
-    ![ConfigMaps Stucture](/images/configmap.png)
+  | Component         | Development | Production               |
+  |------------------|-------------|---------------------------|
+  | REST API Server  | localhost   | example-api.com           |
+  | Database         | localhost   | db-host.internal.com      |
+
+  > A common case where ConfigMaps become useful is when you deploy your application to different environments. For Local development, you may wish to run non-application dependencies such as REST service or database on your machine as well, in order to simplify the development environment to connect to this REST sercice or database your application will need to use valuse that point to these local versions you can use ConfigMaps to get that kind of felxibility in OpenShift. 
+
+<p align="center">
+  <img src="/images/cm.png" alt="OpenShift Training" style="width:400px; display:block; margin:auto;" />
+</p>
+
 
 > - Not for sensitive data
 > - 1MB limit
