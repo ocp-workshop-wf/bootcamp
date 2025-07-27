@@ -45,11 +45,20 @@
 **Hands-on Walkthroughs**  
 
 - Deploy an existing image based on its tag: `oc new-app <image tag>`
-  - For this lesson
+  - For this lesson lets deploy using an image from quay.io lets start deploying using Kubernetes Resource first which is Deployment
+      ```bash
+    oc new-app quay.io/practicalopenshift/hello-world 
+    ```
+    > output
 
-  ```
-  oc new-app quay.io/practicalopenshift/hello-world --as-deployment-config
-  ```
+    <p align="center">
+    <img src="/images/deployment-ui.png" alt="OpenShift Training" style="width:400px; align="center"/>
+    </p>
+
+
+    ```bash
+    oc new-app quay.io/practicalopenshift/hello-world --as-deployment-config
+    ```
 
 - Check running resources:
 
