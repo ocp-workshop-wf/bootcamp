@@ -476,7 +476,8 @@ In the DeploymentConfig lab, you will create a custom DeploymentConfig based on 
 
 ### 3.3 OpenShift Networking
 
-- **Servcies** They are Kubernetes resources that expose a set of pods as a network service. They provide a stable endpoint for accessing applications running within the cluster, even as individual pods are created, destroyed, or scaled.
+- **Servcies** They are Kubernetes resources that expose a set of pods as a network service. They provide a stable endpoint for accessing applications running within the cluster, even as individual pods are created, destroyed, or scaled. OpenShift tells us about `service` its a named abstraction of <u>software service</u> , no matter whether your application runs on one pod or 100 pods, you will need just one `service` to expose all of those pods to the network. External applications don't know how many pods are running in your application. Instead, all they know is that there's a `service` that they can call in order to access it. That's the abstraction the `service` will do the hardwork of splitting up traffic among all of those pods. Also the `service` depends on a `proxy` and a `selector` by `proxy` the application referring to the internally exposed IP and port that the `services` listens on. <u>This IP is only available to routing inside the OpenShift cluster."Virtual IPs"</u> Along with the `Virtual IPs`, `services` will also expose a port for example `80:80`. Virtual IPs ad Port are great for internal use, but in order to reach a service from Outside the cluster you will need to use another OpenShift resource type called the `route`.
+
 - **Routes** Exposes a service at a hostname so that external clients can reach it. Routes are essentially DNS entries that map a hostname to a service within the OpenShift cluster - [RedHat Documentation](https://docs.redhat.com/en/documentation/openshift_container_platform/3.11/html/developer_guide/dev-guide-routes)
 
 ![OpenShift Network](/images/network.png)
@@ -485,17 +486,12 @@ In the DeploymentConfig lab, you will create a custom DeploymentConfig based on 
 
 **Hands-on Walkthroughs**  
 
-- As always lets read about our new resource:
+- Dig into the Service `spec`.
 
- ```
- oc explain svc
- ```
-
-- Dig into the Spec.
-
- ```
+ ```bash
  oc explain svc.spec
  ```
+> output: The first field that was given is the Cluster IP, this IP is the `virtual IP` assigned to the service by OpenShift that is only exposed "This is how other pods in OpenShift will access your `service` " also looking at the `ports` object this is the list of ports exposed by the `service`, and you should have the `selector`, which explains a bit more about how `selectors work` - `selectors` use the same labels that we learned about before for `deployment`
 
 - Lets create a manual service:
 
