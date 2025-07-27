@@ -55,83 +55,109 @@
     <img src="/images/deployment-ui.png" alt="OpenShift Training" style="width:500px; align="center"/>
     </p>
 
-
+  - Now lets clean all and re-deploy using OpenShift Resource DeploymentConfig.
     ```bash
-    oc new-app quay.io/practicalopenshift/hello-world --as-deployment-config
+    oc delete all --all
     ```
-
-- Check running resources:
-
-  ```
-  oc status
-  ```
-
-- Check pods:
-
-  ```
-  oc get pods
-  ```
-
----
-
-- Cleaning Up after testing things out: `oc status` to make sure that your deployment is still running
-  - Get to see the service:
-
+    > output: 
+    ```bash
+    pod "hello-world-5b784bc45f-9f87f" deleted
+    pod "workspace5c94070bd88b404c-77b85bf67c-bqt5g" deleted
+    service "hello-world" deleted
+    service "modelmesh-serving" deleted
+    service "workspace5c94070bd88b404c-service" deleted
+    deployment.apps "hello-world" deleted
+    deployment.apps "workspace5c94070bd88b404c" deleted
+    replicaset.apps "workspace5c94070bd88b404c-77b85bf67c" deleted
+    W0726 17:54:29.659722   56463 warnings.go:70] apps.openshift.io/v1 DeploymentConfig is deprecated in v4.14+, unavailable in v4.10000+
+    imagestream.image.openshift.io "hello-world" deleted
     ```
-    oc get svc
-    ```
+    - Re-run the same command but add `--as-deployment-config`
+      ```bash
+      oc new-app quay.io/practicalopenshift/hello-world --as-deployment-config
+      ```
+      > output: When DeploymentConfig is deployed it deploys an `ImageStream`, `Service` and `Pods` lets checkout the YAML of DeploymentConfig through the UI
 
-  - Get to see the deployment config:
+    - Check running resources:
 
-    ```
-    oc get dc
-    ```
-
-  - Get to see image stream:
-
-    ```
-    oc get istag
-    ```
-
-  - Let delete using full name of the resource:
-
-    ```
-    oc delete svc/hello-world
-    ```
-
-    ```
-    oc get svc
-    ```
-
-  - Check the status again and see what was effected:
-
-    ```
-    oc delete dc/hello-world
-    ```
-
-    ```
-    oc status
-    ```
-
+      ```bash
+      oc status
+      ```
+    - Check pods:
+      ```bash
+      oc get pods
+      ```
+    - Get to see the service:
+      ```bash
+      oc get svc
+      ```
+    - Get to see the deployment config:
+      ```bash
+      oc get dc
+      ```
+    - Get to see image stream:
+      ```bash
+      oc get istag
+      ```
+    - Let delete using full name of the resource:
+      ```bash
+      oc delete svc/hello-world
+      ```
+      ```bash
+      oc get svc
+      ```
+    - Check the status again and see what was effected:
+      ```bash
+      oc status
+      ```
+    - Delete specific DeploymentConfig
+      ```bash
+      oc get dc
+      ```
+    - Copy your DeploymentConfig name you need to delete in this case its `hello-world`
+      ```bash
+      oc delete dc/hello-world
+      ```
+    - Check Status again
+      ```bash
+      oc status
+      ```
+    - Clean up if something is leftover by running 
+      ```bash
+      oc delete all --all
+      ```
 ---
 
 - More advance way to clean up:
   - Run the application again:
 
-    ```
+    ```bash
     oc new-app quay.io/practicalopenshift/hello-world --as-deployment-config
     ```
 
-  - Check the detatils for that DeploymentConfig:
+  - Another way to Check the detatils for that DeploymentConfig and find the `label`:
 
-    ```
+    ```bash
     oc describe dc/hello-world
     ```
+    <p align="center">
+    <img src="/images/dc-label.png" alt="OpenShift Training" style="width:400px; align="center"/>
+    </p>
 
-  - Clean up using a label selector:
-
+    ```yaml
+    metadata:
+      .......
+      labels:
+        app: hello-world
+      ......
+    spec:
+    ......
     ```
-    oc delete all -l <label-selector>
+
+  - Clean up using a label selector in this case it is `app=hello-world`
+
+    ```bash
+    oc delete all -l app=hello-world
     ```
 
 ---
