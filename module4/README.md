@@ -112,10 +112,10 @@ oc get -o yaml dc/hello-world
   .....
  - env:
         - name: MESSAGE
-          valueFrom:
+          valueFrom: # refrence
             secretKeyRef:
-              key: MESSAGE
-              name: message-secret
+              key: MESSAGE # env
+              name: message-secret # secret value
         image: quay.io/practicalopenshift/hello-world@sha256:2311b7a279608de9547454d1548e2de7e37e981b6f84173f2f452854d81d1b7e
         imagePullPolicy: Always
         name: hello-world
