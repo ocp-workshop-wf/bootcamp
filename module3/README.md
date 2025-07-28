@@ -727,24 +727,31 @@ Once you meet all of these criteria, you have successfully completed the lab. Yo
   <img src="/images/cm.png" alt="OpenShift Training" style="width:400px; display:block; margin:auto;" />
 </p>
 
+  > There is one piece of vocabulary you need to know when working with ConfigMaps. To <u>CONSUME</u> a configmap just means that you use the data inside of a ConfigMap from a Pod. Once the ConfigMap exists on OpenShift, you can consume or use the ConfigMap in a pod by referring to the ConfigMap in the pod definition. The word consume makes it seem like consuming a ConfigMap should use it up somehow,but this is not the case. You can consume ConfigMaps from many different pods. A common i.e  "database name" shared between an application defination and the database pod. This can help you to centralize you configuration in <u>ONE PLACE</u> and then you can update the ConfigMap, all of your pods will use the updated configuration.
 
-> - Not for sensitive data
-> - 1MB limit
+  <p align="center">
+    <img src="/images/cm2.png" alt="OpenShift Training" style="width:400px; display:block; margin:auto;" />
+  </p>
+
+- OpenShift give you several tools to create ConfigMaps: 
+  - Command line
+  - Files
+  - Entire directories.
+  > You also need to talk about sensitive data any resource in your OpenShift Project can read the data in a ConfigMap. For this reason, you should not store any sensitive data in the ConfigMap. OpenShift has another resource type called the `Secret` that is used for sensitive date. Also there is one more limitation of ConfigMaps that you should keep in mind, ConfigMaps have a `1MB` storage size limit. If your data could grow above the `1MB` limit you may not want to use Configmaps.
+
 
 - ConfigMap Example:
 
     ```yaml
-    apiVersion: v1
+    apiVersion: v1 #kubernetes resource
     data:
-    MESSAGE: Hello from ConfigMap
+    MESSAGE: Hello from ConfigMap #data 
     kind: ConfigMap
     metadata:
-    creationTimestamp: 2025-06-11T11:40:41Z
     name: message-map
-    namespace: myproject
+    namespace: myproject #namespace
     resourceVersion: "2827192"
     selfLink: /api/v1/namespaces/myproject/configmaps/message-map
-    uid: 60dc0569-abd8-11ea-9133-080027c1c30a
     ```
 
 **Hands-on Walkthroughs**  
@@ -753,230 +760,239 @@ Once you meet all of these criteria, you have successfully completed the lab. Yo
 
 ```bash
 oc create configmap message-map --from-literal MESSAGE="Hello from ConfigMap"
+# type - name of resource - to give some data -(Varaible) = data
 ```
-
-> `configmap/message-map created`
+> output: "configmap/message-map created"
 
 ```bash
+# listing configmaps
 oc get cm
 ```
 
-```bash
-message-map         1      42s
-```
-
+> output:
+  ```bash
+  message-map         1      42s # 1 means that we have only 1 key value pair inside the configmap
+  ```
+- Lets check the ConfigMap yaml from UI and CLI
 ```bash
 oc get -o yaml cm/message-map
 ```
-
-```yaml
-apiVersion: v1
-data:
-  MESSAGE: Hello from ConfigMap
-kind: ConfigMap
-metadata:
-  creationTimestamp: "2025-07-18T01:09:39Z"
-  name: message-map
-  namespace: <your-namespace>
-  resourceVersion: "3298865818"
-  uid: 7c32526a-8837-48ba-ab36-bade0095b35b
-```
-
-- Consuming ConfigMaps:
-
-```bash
-oc new-app quay.io/practicalopenshift/hello-world --as-deployment-config
-```
-
-> Once app created go ahead and expouse the service!
-
-```bash
-oc expose service/hello-world
-```
-
-> Once expose was done lets run status to get the URL
-
-```bash
-oc status
-```
-
-> We will Curl before and after configmap being applied to the application, at first it should give us the default message, at 2nd it should give us the message from inside the configmap!
-
-```bash
-curl <url from oc status>
-```
-
 > output:
-"Welcome! You can change this message by editing the MESSAGE environment variable."
+  ```yaml
+  apiVersion: v1
+  data: # instead of spec field we got data field here
+    MESSAGE: Hello from ConfigMap # varaible we configured earlier 
+  kind: ConfigMap
+  metadata:
+    creationTimestamp: "2025-07-18T01:09:39Z"
+    name: message-map # configmap name 
+    namespace: <your-namespace> # namespace/Project
+    resourceVersion: "3298865818"
+    uid: 7c32526a-8837-48ba-ab36-bade0095b35b
+  ```
 
-- Consuming a ConfigMap to the application
 
-```bash
-oc set env dc/hello-world --from cm/message-map
-```
+- Consuming ConfigMaps: We'll test it out by making sure that the Hello World resonse changes after we consume the configmap 1st lets deploy our application.
 
-> output: `deploymentconfig.apps.openshift.io/hello-world updated`
+  ```bash
+  oc new-app quay.io/practicalopenshift/hello-world --as-deployment-config
+  ```
 
-```bash
-curl <url from oc status>
-```
+  > Once app created go ahead and expouse the service!
 
-> output: "Hello from ConfigMap"
+  ```bash
+  oc expose service/hello-world
+  ```
 
-```bash
-oc get -o yaml dc/hello-world
-```
+  > Once expose was done lets run status to get the URL
 
-```yaml
-    .....
-    spec:
-      containers:
-      - env:
-        - name: MESSAGE
-          valueFrom:
-            configMapKeyRef:
-              key: MESSAGE
-              name: message-map
-              ........
-```
+  ```bash
+  oc status
+  ```
 
-- Create ConfigMaps from Files:
+  > We will Curl before and after configmap being applied to the application, at first it should give us the default message, at 2nd it should give us the message from inside the configmap!
 
-```bash
-echo "Hello from ConfigMap file" > MESSAGE.txt
-```
+  ```bash
+  curl <url from oc status>
+  ```
 
-```bash
-cat MESSAGE.txt
-```
+  > output:
+  "Welcome! You can change this message by editing the MESSAGE environment variable."
 
-> output:"Hello from ConfigMap file"
+- Consuming a ConfigMap to the application from the  **command line**
 
-```bash
-oc create configmap file-map --from-file=MESSAGE.txt
-```
+  ```bash
+  oc set env dc/hello-world --from cm/message-map 
+  # ENV is just like in a dockerfile it sets an env variable based on the keys and pairs in the ConfigMap.
+  ```
 
----
+  > output: `deploymentconfig.apps.openshift.io/hello-world updated`
 
-> output: "configmap/file-map created"
+  ```bash
+  curl <url from oc status>
+  ```
 
-```bash
-oc get -o yaml cm/file-map
-```
+  > output: "Hello from ConfigMap"
 
-```yaml
-apiVersion: v1
-data:
-  MESSAGE.txt: |
-    Hello from ConfigMap file
-kind: ConfigMap
-metadata:
-.........
-```
+  ```bash
+  oc get -o yaml dc/hello-world
+  ```
 
-> output: "data.MESSAGE.txt: this is the wrong syntax as it doesn't match the key in the Hello-world application"
+  ```yaml
+      .....
+      spec:
+        containers:
+        - env: # the ENV we set 
+          - name: MESSAGE # consumed from Configmap
+            valueFrom:
+              configMapKeyRef: # that is how it consumed from configmap
+                key: MESSAGE
+                name: message-map #configmap name
+                ........
+  ```
 
-```bash
-oc create configmap file-map-2 --from-file=MESSAGE=MESSAGE.txt
-```
+- Create ConfigMaps from **Files**:
 
-> output: "configmap/file-map created"
+  ```bash
+  echo "Hello from ConfigMap file" > MESSAGE.txt
+  # creating a simple txt file 
+  ```
 
-```bash
-oc get -o yaml cm/file-map
-```
+  ```bash
+  cat MESSAGE.txt
+  # just to verify
+  ```
 
-```yaml
-apiVersion: v1
-data:
-  MESSAGE: |
-    Hello from ConfigMap file
-kind: ConfigMap
-metadata:
-```
+  > output:"Hello from ConfigMap file"
 
-> output: Now as you see the data.MESSAGE: follows the same pattern for the Hello-world application.
+  ```bash
+  oc create configmap file-map --from-file=MESSAGE.txt
+  # create based on the txt file.
+  ```
 
-```bash
-oc set env dc/hello-world --from cm/file-map-2
-```
+  > output: "configmap/file-map created"
 
-> output: "deploymentconfig.apps.openshift.io/hello-world updated"
+  ```bash
+  oc get -o yaml cm/file-map
+  ```
 
-```bash
-curl < URL from oc status>
-```
+  ```yaml
+  apiVersion: v1
+  data:
+    MESSAGE.txt: | # confirms it was taken from the file
+      Hello from ConfigMap file
+  kind: ConfigMap
+  metadata:
+  .........
+  ```
 
-> output: Hello from ConfigMap file.
+  > output: "data.MESSAGE.txt: this is the wrong syntax as it doesn't match the key in the Hello-world application to match it we need to run the following command"
 
-- Create ConfigMaps from Directories:
+  ```bash
+  oc create configmap file-map-2 --from-file=MESSAGE=MESSAGE.txt
+  # this time we specified the env variable = the file name
+  ```
 
-```bash
-cd ./labs
-```
+  > output: "configmap/file-map created"
 
-```bash
-oc create configmap pods-example --from-file=pods
-```
+  ```bash
+  oc get -o yaml cm/file-map
+  ```
 
-> output: "configmap/pods-example created!"
+  ```yaml
+  apiVersion: v1
+  data:
+    MESSAGE: | # now its fixed 
+      Hello from ConfigMap file
+  kind: ConfigMap
+  metadata:
+  ```
 
-```bash
-oc get -o yaml configmap/pods-example
-```
+  > output: Now as you see the data.MESSAGE: follows the same pattern for the Hello-world application.
 
-> output:
+  ```bash
+  oc set env dc/hello-world --from cm/file-map-2
+  # lets update the deploymentconfig to point at this configmap-2 the correct one 
+  ```
 
-```yaml
-apiVersion: v1
-data:
-  pod.yaml: |
-    apiVersion: v1
-    kind: Pod
-    metadata:
-      name: hello-world-pod
-      labels:
-        app: hello-world-pod
-    spec:
-      containers:
-      - env:
-        - name: MESSAGE
-          value: Hi! I'm an environment variable
-        image: quay.io/practicalopenshift/hello-world
-        imagePullPolicy: Always
-        name: hello-world-override
-        resources: {}
-  pod2.yaml: |
-    apiVersion: v1
-    kind: Pod
-    metadata:
-      name: hello-world-pod-2
-      labels:
-        app: hello-world-pod-2
-    spec:
-      containers:
-      - env:
-        - name: MESSAGE
-          value: Hi! I'm an environment variable in pod 2
-        image: quay.io/practicalopenshift/hello-world
-        imagePullPolicy: Always
-        name: hello-world-override
-        resources: {}
-  service.yaml: |
-    apiVersion: v1
-    kind: Service
-    metadata:
-      name: hello-world-pod-service
-    spec:
-      selector:
-        app: hello-world-pod
-      ports:
-        - protocol: TCP
-          port: 80
-          targetPort: 8080
-kind: ConfigMap
+  > output: "deploymentconfig.apps.openshift.io/hello-world updated"
 
-```
+  ```bash
+  curl < URL from oc status>
+  ```
+
+  > output: "Hello from ConfigMap file."
+
+
+- Create ConfigMaps from **Directories**:
+
+  ```bash
+  cd ./labs
+  ```
+
+  ```bash
+  oc create configmap pods-example --from-file=pods
+  # same but ending up with the name of the directory
+  ```
+
+  > output: "configmap/pods-example created!"
+
+  ```bash
+  oc get -o yaml configmap/pods-example
+  ```
+
+  > output:
+
+  ```yaml
+  apiVersion: v1
+  data:
+    pod.yaml: | # pod 1
+      apiVersion: v1
+      kind: Pod
+      metadata:
+        name: hello-world-pod
+        labels:
+          app: hello-world-pod
+      spec:
+        containers:
+        - env: # seeing this here
+          - name: MESSAGE # env varaible 
+            value: Hi! I'm an environment variable
+          image: quay.io/practicalopenshift/hello-world
+          imagePullPolicy: Always
+          name: hello-world-override
+          resources: {}
+    pod2.yaml: | # pod 2 
+      apiVersion: v1
+      kind: Pod
+      metadata:
+        name: hello-world-pod-2
+        labels:
+          app: hello-world-pod-2
+      spec:
+        containers:
+        - env:
+          - name: MESSAGE # message from pod 2 
+            value: Hi! I'm an environment variable in pod 2
+          image: quay.io/practicalopenshift/hello-world
+          imagePullPolicy: Always
+          name: hello-world-override
+          resources: {}
+    service.yaml: |
+      apiVersion: v1
+      kind: Service
+      metadata:
+        name: hello-world-pod-service
+      spec:
+        selector:
+          app: hello-world-pod
+        ports:
+          - protocol: TCP
+            port: 80
+            targetPort: 8080
+  kind: ConfigMap
+
+  ```
 
 ---
 
