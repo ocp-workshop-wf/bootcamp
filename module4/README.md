@@ -80,47 +80,47 @@ type: Opaque
 
 - How to use a Secret as environment variables
 
-```bash
-# If you don't have the app already deployed.
-oc new-app quay.io/practicalopenshift/hello-world --as-deployment-config
-```
-```bash
-oc expose svc/hello-world /
-oc status
-```
-```bash
-curl <url from oc status> 
-```
+  ```bash
+  # If you don't have the app already deployed.
+  oc new-app quay.io/practicalopenshift/hello-world --as-deployment-config
+  ```
+  ```bash
+  oc expose svc/hello-world /
+  oc status
+  ```
+  ```bash
+  curl <url from oc status> 
+  ```
 
-> output: "Welcome! You can change this message by editing the MESSAGE environment variable."
+  > output: "Welcome! You can change this message by editing the MESSAGE environment variable."
 
-```bash
-# Supply a secret 
-oc set env dc/hello-world --from secret/message-secret
-```
-> output: "deploymentconfig.apps.openshift.io/hello-world updated"
+  ```bash
+  # Supply a secret 
+  oc set env dc/hello-world --from secret/message-secret
+  ```
+  > output: "deploymentconfig.apps.openshift.io/hello-world updated"
 
-```bash
-curl <URL from oc status>
-```
-> output: "secret message"
+  ```bash
+  curl <URL from oc status>
+  ```
+  > output: "secret message"
 
-```bash
-oc get -o yaml dc/hello-world
-```
-```yaml
-  .....
- - env:
-        - name: MESSAGE
-          valueFrom: # refrence
-            secretKeyRef:
-              key: MESSAGE # env
-              name: message-secret # secret value
-        image: quay.io/practicalopenshift/hello-world@sha256:2311b7a279608de9547454d1548e2de7e37e981b6f84173f2f452854d81d1b7e
-        imagePullPolicy: Always
-        name: hello-world
-      .......
-```
+  ```bash
+  oc get -o yaml dc/hello-world
+  ```
+  ```yaml
+    .....
+  - env:
+          - name: MESSAGE
+            valueFrom: # refrence
+              secretKeyRef:
+                key: MESSAGE # env
+                name: message-secret # secret value
+          image: quay.io/practicalopenshift/hello-world@sha256:2311b7a279608de9547454d1548e2de7e37e981b6f84173f2f452854d81d1b7e
+          imagePullPolicy: Always
+          name: hello-world
+        .......
+  ```
 ---
 
 ### 🔬 Hands-on Lab: 
