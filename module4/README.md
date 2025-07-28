@@ -18,16 +18,16 @@
 <img src="/images/opaque.png" alt="Image & Image Streams Arch" style="width:400px; align="center"/>
 </p>
 
-> **Opaque or generic secrets** have no restrictions on their structure, meaning that they can have any key value pairs inside. The word Opaque refers to the fact that Opaque secrets do not have any sort of special integrations into other parts of OpenShift. OpenShift won't know what to do with these secrets and it's up to your applications to use them correctly. This is the type of secret that you would use for authenticating to a database or a custom application. A common **<u>non-Opaque</u>** secret type is the Kubernetes `service account token` secret type.
+**Opaque or generic secrets** have no restrictions on their structure, meaning that they can have any key value pairs inside. The word Opaque refers to the fact that Opaque secrets do not have any sort of special integrations into other parts of OpenShift. OpenShift won't know what to do with these secrets and it's up to your applications to use them correctly. This is the type of secret that you would use for authenticating to a database or a custom application. A common **<u>non-Opaque</u>** secret type is the Kubernetes `service account token` secret type.
 
 <p align="center">
 <img src="/images/serviceaccount.png" alt="Image & Image Streams Arch" style="width:400px; align="center"/>
 </p>
 
-> **Service Accounts** are a mechanism that Kubernetes and OpenShift use in order to allow pods to authenticate against internal OpenShift or Kubernetes APIs. You can use service account tokens to allow pods to access the same API that you use with the `oc-cli` tool. 
+ **Service Accounts** are a mechanism that Kubernetes and OpenShift use in order to allow pods to authenticate against internal OpenShift or Kubernetes APIs. You can use service account tokens to allow pods to access the same API that you use with the `oc-cli` tool. 
 
 > 💡 **NOTE** 
-> OpenShift security model restricts all permissions by default, so you will need to grant the service accounts permissions before they will be able to do anything interesting in the OpenShift API. 
+> OpenShift security model restricts all permissions by default, so you will need to grant the service accounts permissions before they will be able to do anything interesting in the OpenShift API.
 
 **Hands-on Walkthroughs**  
 - Create an Opaque secret
