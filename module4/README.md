@@ -12,7 +12,8 @@
 - Secrets: a Kubernetes resource designed to hold sensitive information like passwords, API keys, certificates, and other credentials.
   - Basic Auth
   - SSH Key 
-  - TLS Auth
+  - TLS Auth 
+- All the above are commonly used to authenticate to private secrets outside OpenShift, such as GitHub repository. You will need to pick the right one depending on the authentication used on the private server.
 
 <p align="center">
 <img src="/images/opaque.png" alt="Image & Image Streams Arch" style="width:400px; align="center"/>
@@ -30,19 +31,29 @@
 > OpenShift security model restricts all permissions by default, so you will need to grant the service accounts permissions before they will be able to do anything interesting in the OpenShift API.
 
 **Hands-on Walkthroughs**  
-- Create an Opaque secret
+
+- Create an Opaque secret.
+  - It is very similar to the `configmap` 
+<p align="center">
+<img src="/images/cmvss.png" alt="Image & Image Streams Arch" style="width:400px; align="center"/>
+</p>
+
+> 💡 **NOTE** 
+> While configmaps take the name as the argument directly after `oc create configmap`, secrets require another argument which will be the type of secret you're creating. In this case, we're creating an opaque or generic secret, these types of secrets, use the generic argument right after `oc create secret` command, after generic you'll put in the name of the secret, `oc create secret` takes the same kinds of options for initializin the secret as `oc create configmap`.
 
 ```bash
 oc create secret generic message-secret --from-literal MESSAGE="secret message"
+# for this we are using Literal but we can also use file. 
 ```
-> output: secret/message-secret created
+> output: "secret/message-secret created"
 
-- Lets find out where it is!
+- Lets list the secrets!
 
 ```bash
 oc get secret
 ```
 > output: "message-secret        Opaque            10s"
+Unlike other types of OpenShift resources that we've worked with so far OpenShift Projects come with several secrets already initialized including `dockercfg` for the internal docker registry and service account tokens for `builder-token` default and deployer service accounts. 
 
 - Lets open the yaml for that secret.
 
@@ -51,24 +62,26 @@ oc get -o yaml secrete/message-secret
 ```
 > output:
 
+<p align="center">
+<img src="/images/secretyaml.png" alt="Image & Image Streams Arch" style="width:400px; align="center"/>
+</p>
+
+
 ```yaml
 apiVersion: v1
-data:
-  MESSAGE: c2VjcmV0IG1lc3NhZ2U=
+data: 
+  MESSAGE: c2VjcmV0IG1lc3NhZ2U= #base64 incoded version NOT ENCRYPTION 
 kind: Secret
 metadata:
-  creationTimestamp: "2025-07-19T03:42:04Z"
   name: message-secret
   namespace: raafat-dev
-  resourceVersion: "3334020540"
-  uid: d1e28fce-ab5d-45a3-8e9f-526f83d20135
 type: Opaque
 ```
-- This message is base64.
 
 - How to use a Secret as environment variables
 
 ```bash
+# If you don't have the app already deployed.
 oc new-app quay.io/practicalopenshift/hello-world --as-deployment-config
 ```
 ```bash
@@ -82,6 +95,7 @@ curl <url from oc status>
 > output: "Welcome! You can change this message by editing the MESSAGE environment variable."
 
 ```bash
+# Supply a secret 
 oc set env dc/hello-world --from secret/message-secret
 ```
 > output: "deploymentconfig.apps.openshift.io/hello-world updated"
