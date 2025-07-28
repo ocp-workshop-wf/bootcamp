@@ -34,49 +34,49 @@
 
 - Create an Opaque secret.
   - It is very similar to the `configmap` 
-<p align="center">
-<img src="/images/cmvss.png" alt="Image & Image Streams Arch" style="width:400px; align="center"/>
-</p>
+  <p align="center">
+  <img src="/images/cmvss.png" alt="Image & Image Streams Arch" style="width:400px; align="center"/>
+  </p>
 
-> 💡 **NOTE** 
-> While configmaps take the name as the argument directly after `oc create configmap`, secrets require another argument which will be the type of secret you're creating. In this case, we're creating an opaque or generic secret, these types of secrets, use the generic argument right after `oc create secret` command, after generic you'll put in the name of the secret, `oc create secret` takes the same kinds of options for initializin the secret as `oc create configmap`.
+  > 💡 **NOTE** 
+  > While configmaps take the name as the argument directly after `oc create configmap`, secrets require another argument which will be the type of secret you're creating. In this case, we're creating an opaque or generic secret, these types of secrets, use the generic argument right after `oc create secret` command, after generic you'll put in the name of the secret, `oc create secret` takes the same kinds of options for initializin the secret as `oc create configmap`.
 
-```bash
-oc create secret generic message-secret --from-literal MESSAGE="secret message"
-# for this we are using Literal but we can also use file. 
-```
-> output: "secret/message-secret created"
+  ```bash
+  oc create secret generic message-secret --from-literal MESSAGE="secret message"
+  # for this we are using Literal but we can also use file. 
+  ```
+  > output: "secret/message-secret created"
 
-- Lets list the secrets!
+  - Lets list the secrets!
 
-```bash
-oc get secret
-```
-> output: "message-secret        Opaque            10s"
-Unlike other types of OpenShift resources that we've worked with so far OpenShift Projects come with several secrets already initialized including `dockercfg` for the internal docker registry and service account tokens for `builder-token` default and deployer service accounts. 
+  ```bash
+  oc get secret
+  ```
+  > output: "message-secret        Opaque            10s"
+  Unlike other types of OpenShift resources that we've worked with so far OpenShift Projects come with several secrets already initialized including `dockercfg` for the internal docker registry and service account tokens for `builder-token` default and deployer service accounts. 
 
-- Lets open the yaml for that secret.
+  - Lets open the yaml for that secret.
 
-```bash
-oc get -o yaml secrete/message-secret
-```
-> output:
+  ```bash
+  oc get -o yaml secrete/message-secret
+  ```
+  > output:
 
-<p align="center">
-<img src="/images/secretyaml.png" alt="Image & Image Streams Arch" style="width:400px; align="center"/>
-</p>
+  <p align="center">
+  <img src="/images/secretyaml.png" alt="Image & Image Streams Arch" style="width:400px; align="center"/>
+  </p>
 
 
-```yaml
-apiVersion: v1
-data: 
-  MESSAGE: c2VjcmV0IG1lc3NhZ2U= #base64 incoded version NOT ENCRYPTION 
-kind: Secret
-metadata:
-  name: message-secret
-  namespace: raafat-dev
-type: Opaque
-```
+  ```yaml
+  apiVersion: v1
+  data: 
+    MESSAGE: c2VjcmV0IG1lc3NhZ2U= #base64 incoded version NOT ENCRYPTION 
+  kind: Secret
+  metadata:
+    name: message-secret
+    namespace: raafat-dev
+  type: Opaque
+  ```
 
 - How to use a Secret as environment variables
 
