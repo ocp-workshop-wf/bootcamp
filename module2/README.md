@@ -6,6 +6,22 @@
 ](https://kubernetes.io/docs/home/)
 ## 🔹 Module 2: Working with OpenShift Interfaces 
 
+## Table of Contents 
+
+- [2.0 - OpenShift Container Lifecycle](#20-openshift-container-lifecycle)
+- [2.1 - OpenShift CLI and Web Consol](#21-openshift-cli-oc-and-web-console)
+- [2.2 - Creating and Managing Projects (Learning YAML)](#22-creating-and-managing-projects-learning-yaml) 
+
+### 2.0 OpenShift Container Lifecycle
+
+   <p align="center">
+    <img src="/images/lifecycle.png" alt="OpenShift Training" style="width:500px; align="center"/>
+    </p>
+
+  > So this diagram shows how everything is connected in a Kubernetes or OpenShift environment. It starts with the cluster, which manages `deployments` and contains `nodes` where the actual workloads run. `Deployments` create `ReplicaSets` or `ReplicationControllers`, which make sure the right number of pods are running. Each `pod` holds one or more containers, and `services` expose these pods and route traffic to them, even providing static IPs and load balancing. Finally, `routes` are used to expose services to the outside world so users can access the apps. So continuing from there—this setup ensures high availability and scalability. For example, if a `pod` crashes, the `ReplicaSet` or `ReplicationController` automatically replaces it to keep the application running smoothly. `Services` play a critical role in making pods accessible by abstracting the backend details, so you don’t have to know the exact `pod` IP to connect to an app. And with `routes` in OpenShift, you can expose those `services` externally, enabling users to reach your apps over the internet or your corporate network. All of this happens within the `cluster`, which acts like the brain coordinating everything, from managing deployments to distributing workloads across nodes and maintaining desired state. It's a powerful system for automating and managing containerized applications.
+
+
+---
 ### 2.1 OpenShift CLI (oc) and Web Console
 
 - The **Web Console** offers tabs for Overview, Workloads, Networking, Builds, Storage, Monitoring, etc.
@@ -173,7 +189,7 @@ oc delete pod <pod-name>
 ```
   ___
 
-#### 2.2 Creating and Managing Projects (Learning YAML)
+### 2.2 Creating and Managing Projects (Learning YAML)
 
   ***YAML*** : Yaml Ain't Markup Language
   - What it is? **YAML** is a human friendly data serialization standard for all programming languages. YAML is the defacto standard for storing Kubernetes and OpenShift resource definiations.

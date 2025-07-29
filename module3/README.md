@@ -7,6 +7,15 @@
 
 ## 🔹 Module 3: Core OpenShift Resources
 
+## Table of Contents 
+- [3.1 - OpenShift Resources Overview](#31-openshift-resources-overview)
+ 
+- [3.2 - OpenShift and how to deploy applications](#32-openshift-and-how-to-deploy-applications)
+
+- [3.3 - OpenShift Networking](#33-openshift-networking)
+
+- [3.4 - OpenShift ConfigMaps](#34-openshift-configmaps)
+
 ### 3.1 OpenShift Resources Overview
 
 **DeploymentConfig:** Define the template for a pod and manages deploying new images or configuration changes. The DeploymentConfig template for a pod uses the same format for its pod template. This template is found in the DeploymentConfig `spec` under the `template` property. The other important thing that DeploymentConfigs have is the `replicas` parameter in the `spec` field. This configuration option tells the DeploymentConfig how many instances of a `pod` it needs to run. If the DeploymentConfig sees that there are not enough instancs, it will start new pods according to the `template` until it reaches the number specified in the replica's field. Similarly, if you change the replica's value to a lower number, the DeploymentConfig will start deleting pods until it reaches the target number.There is a lot of other behavior that DeploymentConfigs will handle for you,such as automatically triggering new deployments, controlling details about how deployments are conducted, and adding custom behavior using lifecycle hooks.

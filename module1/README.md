@@ -7,10 +7,10 @@
 ## 🔹 Module 1: Introduction and Core Concepts 
 
 ## Table of Contents
-- [What You’ll Learn](#10-what-youll-learn)
-- [Introduction to OpenShift](#11-overview-of-openshift-and-its-architecture)
-- [Difference between Kubernetes and OpenShift](#12-difference-between-kubernetes-and-openshift)
-- [OpenShift Container Lifecycle](#13-openshift-container-lifecycle)
+- [1.0 - What You’ll Learn](#10-what-youll-learn)
+- [1.1 - Introduction to OpenShift](#11-overview-of-openshift-and-its-architecture)
+- [1.2 - Difference between Kubernetes and OpenShift](#12-difference-between-kubernetes-and-openshift)
+
 
 
 ### 1.0 What You’ll Learn:
@@ -108,16 +108,7 @@ OpenShift is Red Hat's enterprise Kubernetes platform. It automates deployment, 
 - Explore and compare the UI and default tooling in both OpenShift and vanilla Kubernetes.
 
 ---
-### 1.3 OpenShift Container Lifecycle
 
-   <p align="center">
-    <img src="/images/lifecycle.png" alt="OpenShift Training" style="width:500px; align="center"/>
-    </p>
-
-  > So this diagram shows how everything is connected in a Kubernetes or OpenShift environment. It starts with the cluster, which manages `deployments` and contains `nodes` where the actual workloads run. `Deployments` create `ReplicaSets` or `ReplicationControllers`, which make sure the right number of pods are running. Each `pod` holds one or more containers, and `services` expose these pods and route traffic to them, even providing static IPs and load balancing. Finally, `routes` are used to expose services to the outside world so users can access the apps. So continuing from there—this setup ensures high availability and scalability. For example, if a `pod` crashes, the `ReplicaSet` or `ReplicationController` automatically replaces it to keep the application running smoothly. `Services` play a critical role in making pods accessible by abstracting the backend details, so you don’t have to know the exact `pod` IP to connect to an app. And with `routes` in OpenShift, you can expose those `services` externally, enabling users to reach your apps over the internet or your corporate network. All of this happens within the `cluster`, which acts like the brain coordinating everything, from managing deployments to distributing workloads across nodes and maintaining desired state. It's a powerful system for automating and managing containerized applications.
-
-
----
 
 <p align="right">
   <a href="https://github.com/ocp-workshop-wf/bootcamp/tree/main/module2" target="_blank">

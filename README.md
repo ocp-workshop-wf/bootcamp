@@ -18,9 +18,11 @@
 
 1.2 - Difference between Kubernetes and OpenShift
 
-1.3 - OpenShift Container Lifecycle
+
 
 ### 🔹 [Module 2](https://github.com/ocp-workshop-wf/bootcamp/tree/main/module2): Working with OpenShift Interfaces
+
+2.0 - OpenShift Container Lifecycle
 
 2.1 - OpenShift CLI and Web Console
 
@@ -55,7 +57,7 @@
 
 5.2 - OpenShift Volumes
 
-5.3 - Scaling and Debuging Your Application  <---
+5.3 - Scaling and Debuging Your Application 
 
 5.4 - Deployment Statgies and OpenShift Jobs 
 
