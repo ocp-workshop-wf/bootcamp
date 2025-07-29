@@ -13,79 +13,79 @@
 - [Day 3](#️-day-3-advanced-deployments--observability)
 ---
 
-## 🗓️ Day 1: Introduction & Interfaces
+## 🗓️ Day 1: Introduction & Interfacesc (Tuesday)
 
 
 
-**8:00 AM – 9:00 AM** – Breakfast & Registration
+**8:00 AM – 9:00 AM**   – Breakfast & Registration
 
-**9:00 AM – 9:15 AM** – Welcome & Workshop Overview
+**9:00 AM – 9:15 AM**   – Welcome & Workshop Overview
 
-### 🔹 Module 1: Introduction and Core Concepts
+**9:15 AM – 9:45 AM**   – What You’ll Learn
 
-**9:15 AM – 9:45 AM** – 1.0 What You’ll Learn
+**9:45 AM – 10:45 AM**  – Module 1 
 
-**9:45 AM – 11:00 AM** – Module 1 
+**10:45 AM - 11:00 AM** - Break 
 
-**11:15 AM - 11:30 AM** - Break 
-
-**11:00 AM – 11:30 AM** – 2.2 Creating and Managing Projects (YAML)
+**11:00 AM – 11:30 AM** – Module 2
 
 **11:30 AM – 12:30 PM** – Lunch
 
-**12:30 PM – 1:00 PM** – Continue Module 2 
+**12:30 PM – 1:00 PM**  – Module 2 Continue
 
-**1:00 PM – 3:00 PM** – Module 3
+**1:00 PM – 3:00 PM**   – Module 3
 
-**3:00 PM – 3:15 PM** – Afternoon Break
+**3:00 PM – 3:15 PM**   – Afternoon Break
+
+**3:15 PM - 3:30 PM**   - Module 3 Continue
 
 
-## 🗓️ Day 2: Core Resources & Application Deployment
+## 🗓️ Day 2: Core Resources & Application Deployment (Wednesday)
 
 
-**8:00 AM – 9:00 AM** – Breakfast
+**8:00 AM – 9:00 AM**   – Breakfast
 
-**9:00 AM – 9:10 AM** – Day 1 Recap & Day 2 Objectives
+**9:00 AM – 9:10 AM**   – Day 1 Recap & Day 2 Objectives
 
-**9:10 AM – 11:00 AM** – Module 4 
+**9:10 AM – 11:00 AM**  – Module 4 
 
-**11:40 AM – 11:15 AM** – Break
+**11:00 AM – 11:15 AM** – Break
 
-**11:15 AM - 12:00PM** - Module 4 continue 
+**11:15 AM - 12:00PM**  - Module 4 continue 
 
-**12:00 PM – 1:00 PM** – Lunch
+**12:00 PM – 1:00 PM**  – Lunch
 
-**1:00 PM – 3:00 PM** – Module 5
+**1:00 PM – 3:00 PM**   – Module 5
 
-**3:00 PM – 3:15 PM** – Break
+**3:00 PM – 3:15 PM**   – Break
 
-**3:15 PM - 5:00 PM** - Module 5 continue 
+**3:15 PM - 5:00 PM**   - Module 5 continue 
 
 ###
 
 ---
 
-## 🗓️ Day 3: Advanced Deployments & Observability
+## 🗓️ Day 3: Advanced Deployments & Observability (Thursday)
 
-**8:00 AM – 9:00 AM** – Breakfast
+**8:00 AM – 9:00 AM**   – Breakfast
 
-**9:00 AM – 9:10 AM** – Day 2 Recap & Day 3 Objectives
+**9:00 AM – 9:10 AM**   – Day 2 Recap & Day 3 Objectives
 
-**9:10 AM – 11:00 AM** - Module 6
+**9:10 AM – 11:00 AM**  - Module 6
 
 **11:00 AM – 11:15 AM** – Break 
 
-**11:10 AM – 12:00 PM** Module 6 continue 
+**11:10 AM – 12:00 PM** - Module 6 continue 
 
-**12:00 PM - 1:00 PM** - Lunch 
+**12:00 PM - 1:00 PM**  - Lunch 
 
-**1:00 PM – 3:00 PM** – Overview - Recap
+**1:00 PM – 3:00 PM**   – Overview - Recap
 
-**3:00 PM – 3:15 PM** – Break
+**3:00 PM – 3:15 PM**   – Break
 
-**3:15 PM - 3:30 PM** - Survey & Feedback
+**3:15 PM - 3:30 PM**   - Survey & Feedback
 
-**3:30 PM – 5:00 PM** – Final Wrap-Up & Open Q\&A
+**3:30 PM – 5:00 PM**   – Final Wrap-Up & Open Q\&A
 
 ###
 
