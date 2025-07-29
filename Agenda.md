@@ -37,7 +37,7 @@
 
 **3:00 PM – 3:15 PM**   – Break ☕🥯
 
-**3:15 PM - 3:30 PM**   - Module 3 Continue
+**3:15 PM - 5:00 PM**   - Module 3 Continue
 
 
 ## 🗓️ Day 2: Core Resources & Application Deployment (Wednesday)
