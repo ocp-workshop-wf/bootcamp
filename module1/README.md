@@ -6,6 +6,13 @@
 ](https://kubernetes.io/docs/home/)
 ## 🔹 Module 1: Introduction and Core Concepts 
 
+## Table of Contents
+- [What You’ll Learn](#10-what-youll-learn)
+- [Introduction to OpenShift](#11-overview-of-openshift-and-its-architecture)
+- [Difference between Kubernetes and OpenShift](#12-difference-between-kubernetes-and-openshift)
+- [OpenShift Container Lifecycle](#13-openshift-container-lifecycle)
+
+
 ### 1.0 What You’ll Learn:
 From the course  "OpenShift 4," you will learn the following OpenShift Resources and soft skills:
 ||||||
