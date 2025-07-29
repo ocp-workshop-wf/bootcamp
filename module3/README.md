@@ -636,26 +636,103 @@ ____
 
   - Re-encrypt Route: Where we have a different ceritificate on the outside and a different certificate on the inside "they are really complicated and not recommended"
 
- ### Route yaml definition
-  ├── metadata                   # Metadata about the route
-  │   ├── name                   # Name of the route object
-  │   ├── namespace             # Kubernetes/OpenShift project where the route exists
-  │   └── annotations           # Optional metadata to customize behavior (e.g., timeouts, load balancing)
-  ├── spec                      # Desired configuration of the route
-  │   ├── host                  # Public hostname exposed by the route (e.g., myapp.example.com)
-  │   ├── to                    # Specifies the target backend object the route points to
-  │   │   ├── kind              # Type of target, typically "Service"
-  │   │   ├── name              # Name of the service the route will send traffic to
-  │   │   └── weight            # Traffic distribution weight (used in canary or blue-green deployments)
-  │   ├── port                  # Port configuration for the backend service
-  │   │   └── targetPort        # Port on the service to direct traffic to (e.g., 8080)
-  │   └── tls                   # TLS/SSL configuration for secure routes
-  │       ├── termination       # Type of TLS termination: edge, passthrough, or reencrypt
-  │       └── insecureEdgeTerminationPolicy  # Policy for handling HTTP when TLS is enabled (None, Allow, Redirect)
-  └── status (auto-generated)   # System-generated status information (e.g., admitted routers, conditions)
+- Route yaml sample 
+```yaml
+apiVersion: route.openshift.io/v1  # API group and version specific to OpenShift Route resource
+kind: Route                        # Declares this is a Route object
+metadata:
+  name: my-app-route              # Name of the Route (used for identification within the project)
+  labels:
+    app: my-app                   # Labels help in selecting, grouping, or querying related objects
+spec:
+  to:
+    kind: Service                 # Defines the type of backend this route sends traffic to
+    name: my-app-service          # Name of the target service (must match an existing Kubernetes service)
+    weight: 100                   # Optional: traffic weight if multiple backends (used in A/B deployments)
+  port:
+    targetPort: 8080             # Target port exposed by the backend service (matches container port)
+  tls:
+    termination: edge            # TLS termination strategy: edge, passthrough, or re-encrypt
+    insecureEdgeTerminationPolicy: Redirect
+                                 # Defines behavior for insecure (HTTP) traffic. Options: None, Allow, Redirect
+  wildcardPolicy: None           # Whether subdomain wildcards are allowed. Options: None, Subdomain
 
-  - Additional metadata to control timeout, Load balancing type, Cookies disabling, TLS termination (Edge vs Passthrough)
+```
 
+**Hands-on Walkthroughs**  
+
+- Lets use the deployed application: 
+  ```bash
+  # list the pods
+  oc get pods 
+  ```
+  ```bash
+  # list the services
+  oc get svc
+  ```
+  - Expose insecure route (HTTP - HTTP)
+    ```bash
+    oc expose svc hello-world 
+    ```
+    > output: `http://hello-world-<namespace>.apps.....openshiftapps.com`
+
+    ```bash
+    oc describe pod # grab the pod IP 
+    ```
+    ```bash
+    oc describe route # grab the endpoints IP 
+    ```
+    > output: comparing both you will see its the same which means the Route connects you directly to the Pod not the service.
+
+  - Edge route (HTTPS - HTTP)
+    > If you don't provide a certificate key then OpenShift is going to generate a self signed certificate and use that. Also you can create your own and use it to do that follow along:
+
+    - Create the Root CA Certificate and Key:
+    ```bash
+      # Generate the CA private key
+      openssl genrsa -aes256 -out ca-key.pem 4096
+
+      # Create the CA root certificate (self-signed)
+      openssl req -x509 -new -nodes -key ca-key.pem -sha256 -days 3650 -out ca-cert.pem
+    ```
+    - Create the Server Private Key and Certificate Signing Request (CSR):
+    ```bash
+    # Generate the server private key
+    openssl genrsa -out server-key.pem 2048
+
+    # Create the server Certificate Signing Request (CSR)
+    openssl req -new -key server-key.pem -out server-csr.pem
+    ```
+    - Sign the Server CSR with the CA:
+    ```bash
+    # Sign the server CSR with the CA
+    openssl x509 -req -in server-csr.pem -CA ca-cert.pem -CAkey ca-key.pem -CAcreateserial -out server-cert.pem -days 365 -sha256
+    ```
+    - Create an Edge route
+      - You can lookup the edge-help to get familiar with all options
+        ```bash
+        oc get route edge --help
+        ```
+    ```bash
+    oc create route edge app-route-edge --service hello-world
+    ```
+    > output: 
+      <p align="center">
+      <img src="/images/edge.png" alt="OpenShift Training" style="width:400px; display:block; margin:auto;" />
+      </p>
+    ```bash
+    oc get route
+    ```
+    > output: you will see the route has an `edge` termination option.
+  
+  - Passthrough Route (HTTPS - HTTPS same!): 
+    > The communication is secure on the outside as well as in the inside, so there are 2 ports that communicate to each other over the secure channel, to do this what you need is to understand that your application should support SSL, also you need to know where are the secrets going to be kept inside the application, for example there is a certificate and key you need to provide to your application, so you need to mount it into the Pod, we will cover that in the Volumes chapter. Steps are: 
+      1 - We will mount the certificate to `volumeMounts.mountPath:` inside the `spec.containers` for example `/usr/local/etc/ssl/certs`
+      2 - Create a TLS `secret` for example `todo-ssl` "we will cover secrets in this course too" and it will contain the `key` and the `certificate`
+      3 - Create the route
+        ```bash
+        oc create route passthrough --service hello-world
+        ```
 
 ---
 
@@ -755,6 +832,33 @@ Once you meet all of these criteria, you have successfully completed the lab. Yo
 
 </details>
 
+> Q6: Which Route is secure from the outside and not secure from the inside?
+
+- [ ] Edge
+- [ ] Passthrough
+- [ ] Unsecure
+- [ ] Re-encrypt
+
+<details>
+  <summary> Answer </summary>
+
+   Edge
+
+</details>
+
+> Q7: Which Route is secure from the outside and secure from the inside?
+
+- [ ] Edge
+- [ ] Passthrough
+- [ ] Passthrough and Re-encrypt
+- [ ] Re-encrypt
+
+<details>
+  <summary> Answer </summary>
+
+   Passthrough 
+
+</details>
 ---
 
 ### 3.4 OpenShift ConfigMaps
