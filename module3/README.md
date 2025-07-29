@@ -621,6 +621,29 @@ ____
 
     > output: Simple resource looking at the `spec` you will see a `host` "Domain Name of your route", this is something you can control in real-life projects, a `targetport`, and a `target` specified in the `to` field, the object in the `to` field has a `kind`, `name` & `weight` for this `route` the `kind` is the `service` and the `name` in this section identifies the service that the `route` should use. And the `weight` can be used to balance against more than one backend target. For now, this `route` only uses 1 `service` so the `weight` is `100`, and all requests will go to the `service` regardless of the `weight`.
 
+- Advanced Routing options:
+
+  Route                          # Top-level object representing the route definition
+  ├── metadata                   # Metadata about the route
+  │   ├── name                   # Name of the route object
+  │   ├── namespace             # Kubernetes/OpenShift project where the route exists
+  │   └── annotations           # Optional metadata to customize behavior (e.g., timeouts, load balancing)
+  ├── spec                      # Desired configuration of the route
+  │   ├── host                  # Public hostname exposed by the route (e.g., myapp.example.com)
+  │   ├── to                    # Specifies the target backend object the route points to
+  │   │   ├── kind              # Type of target, typically "Service"
+  │   │   ├── name              # Name of the service the route will send traffic to
+  │   │   └── weight            # Traffic distribution weight (used in canary or blue-green deployments)
+  │   ├── port                  # Port configuration for the backend service
+  │   │   └── targetPort        # Port on the service to direct traffic to (e.g., 8080)
+  │   └── tls                   # TLS/SSL configuration for secure routes
+  │       ├── termination       # Type of TLS termination: edge, passthrough, or reencrypt
+  │       └── insecureEdgeTerminationPolicy  # Policy for handling HTTP when TLS is enabled (None, Allow, Redirect)
+  └── status (auto-generated)   # System-generated status information (e.g., admitted routers, conditions)
+
+  - Additional metadata to control timeout, Load balancing type, Cookies disabling, TLS termination (Edge vs Passthrough)
+
+
 ---
 
 ### 🔬 Hands-on Lab
