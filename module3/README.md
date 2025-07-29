@@ -635,8 +635,8 @@ ____
   - Passthrough Route: Which is secure on the outside and using the same certificate is seccure on the inside.
 
   - Re-encrypt Route: Where we have a different ceritificate on the outside and a different certificate on the inside "they are really complicated and not recommended"
-  
- ### Top-level object representing the route definition
+
+ ### Route yaml definition
   ├── metadata                   # Metadata about the route
   │   ├── name                   # Name of the route object
   │   ├── namespace             # Kubernetes/OpenShift project where the route exists
