@@ -623,6 +623,19 @@ ____
 
 - Advanced Routing options:
 
+  <p align="center">
+  <img src="/images/advanceroute.png" alt="OpenShift Training" style="width:400px; display:block; margin:auto;" />
+  </p>
+
+- Routes connect directly to pods, they don't connect to service if they do the process will get even longer, OpenShift has a router which takes care of this essentially what you do is you connect to your OpenShift cluster's IP address. OpenShift will check the URL and redirect you to a particular port so all the URLs are essentially connection you to the same IP but using the `cookies` and other methods you get redirected to a particular port depending upon which URL you connected to. This URL your connected to can be: 
+  - Insecure Route:  Which is HTTP protocol "everything is in plain text" connection between you and the cluster is insecure and between the cluster to the pod is also insecure
+
+  -  Edge Route : Which uses `HTTPS` outside the connection between you and OpenShift cluster is Secure, but the connection within the cluster to the pod is insecure. 
+
+  - Passthrough Route: Which is secure on the outside and using the same certificate is seccure on the inside.
+
+  - Re-encrypt Route: Where we have a different ceritificate on the outside and a different certificate on the inside "they are really complicated and not recommended"
+
   Route                          # Top-level object representing the route definition
   ├── metadata                   # Metadata about the route
   │   ├── name                   # Name of the route object
