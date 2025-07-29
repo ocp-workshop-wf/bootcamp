@@ -40,11 +40,11 @@ oc new-project demo-project
 
   > OpenShift uses project to divide up applications. Projects also allow OpenShift to guarantee resource availability for applications through the use of quotas. In this case, the quota represents an upper bound on the CPU, RAM and persistent storage that all pods in the project can use. Quotas prevent any single project from taking over all of the OpenShift's resources. While a quota does limit the amount of resources available to your application, it also guarantees the availability of those same resources.
 
-- List pods:
-   
-```bash
-oc get pods
-```
+- List Pods?:
+
+  ```bash
+  oc get pods
+  ```
 
 ---
 
@@ -93,7 +93,6 @@ oc get pods
 - Identify the OpenShift components.
 
   - Pod Documentation 
-
     ```bash
     oc explain pod
     ```
