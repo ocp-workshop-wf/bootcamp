@@ -718,11 +718,13 @@ spec:
     ```
     > output: 
       <p align="center">
-      <img src="/images/edge.png" alt="OpenShift Training" style="width:400px; display:block; margin:auto;" />
+      <img src="/images/edge.png" alt="OpenShift Training" style="width:200px; display:block; margin:auto;" />
       </p>
+
     ```bash
     oc get route
     ```
+
     > output: you will see the route has an `edge` termination option.
   
   - Passthrough Route (HTTPS - HTTPS same!): 
@@ -730,9 +732,10 @@ spec:
       1 - We will mount the certificate to `volumeMounts.mountPath:` inside the `spec.containers` for example `/usr/local/etc/ssl/certs`
       2 - Create a TLS `secret` for example `todo-ssl` "we will cover secrets in this course too" and it will contain the `key` and the `certificate`
       3 - Create the route
-        ```bash
-        oc create route passthrough --service hello-world
-        ```
+
+      ```bash
+      oc create route passthrough --service hello-world
+      ```
 
 ---
 

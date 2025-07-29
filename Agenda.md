@@ -6,11 +6,11 @@
 
 ## Index 
 
-- [Day 1](#️-day-1-introduction--interfaces)
+- [Day 1](#️-day-1-introduction--interfacesc-tuesday)
 
-- [Day 2](#️-day-2-core-resources--application-deployment)
+- [Day 2](#️-day-2-core-resources--application-deployment-wednesday)
 
-- [Day 3](#️-day-3-advanced-deployments--observability)
+- [Day 3](#️-day-3-advanced-deployments--observability-thursday)
 ---
 
 ## 🗓️ Day 1: Introduction & Interfacesc (Tuesday)
