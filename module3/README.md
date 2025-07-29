@@ -66,7 +66,7 @@
 
   - Now lets clean all and re-deploy using OpenShift Resource DeploymentConfig.
     ```bash
-    oc delete all --all
+    oc delete all -l app=hello-world
     ```
     > output: 
     ```bash
@@ -75,7 +75,7 @@
     deployment.apps "hello-world" deleted
     imagestream.image.openshift.io "hello-world" deleted
     ```
-    - Re-run the same command but add `--as-deployment-config`
+    - Re-run the same command but add `--as-deployment-config` 
       ```bash
       oc new-app quay.io/practicalopenshift/hello-world --as-deployment-config
       ```
@@ -127,7 +127,7 @@
       ```
     - Clean up if something is leftover by running 
       ```bash
-      oc delete all --all
+      oc delete all -l app=hello-world
       ```
 ---
 

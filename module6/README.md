@@ -66,7 +66,7 @@ A template is a reusable definition of a set of OpenShift objects (like pods, se
     ```
 - Clean up:
   ```bash
-  oc delete all --all
+  oc delete all -l app=hello-world
   ```
 - Lets set some parameter values:
 
@@ -123,7 +123,7 @@ A template is a reusable definition of a set of OpenShift objects (like pods, se
   - Clean up:
 
     ```bash
-    oc delete all --all
+    oc delete all -l app=hello-world
     ```
 
 - How to use the output from `oc process` to actually create objects on the server.
