@@ -9,13 +9,13 @@
 
 ## Table of Contents 
 
-- [5.1 - Source-to-image (S2I)](#51-source-to-image-s2i)
+- [5.1 - Source-to-image (S2I)](#51-source-to-image-s2i) | [Lab](#-hands-on-lab-s2i) | [Quiz](#quiz-s2i)
 
-- [5.2 - OpenShift Volumes](#52-openshift-volumes)
+- [5.2 - OpenShift Volumes](#52-openshift-volumes) | [Lab](#-hands-on-lab-volumes) | [Quiz](#quiz-volumes)
 
-- [5.3 - Scaling and Debuging Your Application](#53-scaling-and-debuging-your-application)
+- [5.3 - Scaling and Debuging Your Application](#53-scaling-and-debuging-your-application) | [Quiz](#quiz-scaling) 
 
-- [5.4 - OpenShift Jobs](#openshift-jobs)
+- [5.4 - OpenShift Jobs](#openshift-jobs) 
 
 
 ### 5.1 Source-to-image (S2I)
@@ -81,7 +81,7 @@ curl <URL>
     ![S2I Strategy](/images/S2I-visualselection.png)
 
 
-### 🔬 Hands-on Lab: 
+### 🔬 Hands-on Lab (S2I): 
 For S2I, you'll deploy a Python application without a Dockerfile and override an S2I script.
 
 - If you haven't pushed your own version of the labs project to your GitLab account, you should follow the steps in the Builds lab to push your own version of the labs repository
@@ -93,13 +93,13 @@ For S2I, you'll deploy a Python application without a Dockerfile and override an
 
 ---
 
-### Checklist 📋: 
+### Checklist 📋 (S2I): 
 - `curl <your route>` returns the Python hello world message
 - `oc status` has a Route, Service, DeploymentConfig, and BuildConfig
 - `oc logs <your Pod>` output contains the message you put in the override in step 5
 
 ---
-### Quiz
+### Quiz (S2I)
 > Q1: What is the syntax to specify a builder image to your oc new-app command?
 - [ ] Put the image name before the Git repo URL with the % character in between them
 - [ ] Put the image name before the Git repo URL with the ~ character in between them
@@ -229,7 +229,7 @@ So we need to access the pod's terminal.
     .....
     ```
 
-### 🔬 Hands-on Lab: 
+### 🔬 Hands-on Lab (Volumes): 
 For volumes, you'll mount a secret as a volume. 
 
 - Create a new project named `volumes-lab`
@@ -239,13 +239,13 @@ For volumes, you'll mount a secret as a volume.
 
 ---
 
-### Checklist 📋: 
+### Checklist 📋 (Volumes): 
 
 - After you shell into the pod, `ls /secret-volume` shows you the two pod files.
 - You can get the original contents of the pod files with `cat`
 
 ---
-### Quiz
+### Quiz (Volumes)
 > Q1: The emptyDir volume type can persist its data through a Pod restart
 - [ ] True 
 - [ ] False
@@ -415,7 +415,7 @@ If you don't see a command prompt, try pressing enter.
 ~ $ 
 ```
 
-### Quiz
+### Quiz (Scaling)
 > Q1: You must have a HorizontalPodAutoscaler in order to scale up your application.
 - [ ] True 
 - [ ] False

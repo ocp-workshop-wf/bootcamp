@@ -9,9 +9,9 @@
 
 ## Table of Contents 
 
-- [6.1 - Health Check & Observability](#61-health-check--observability)
+- [6.1 - Health Check & Observability](#61-health-check--observability) | [Lab](#-hands-on-lab-health-check) | [Quiz](#quiz-health-check)
 
-- [6.2 - Helm Charts](#62-helmcharts)
+- [6.2 - Helm Charts](#62-helmcharts) | [Lab](#-hands-on-lab-helm) | [Quiz](#quiz-helm)
 
 ---
 
@@ -98,7 +98,7 @@ oc set probe dc/hello-world \
 </p>
 
 
-### 🔬 Hands-on Lab: 
+### 🔬 Hands-on Lab (Health Check): 
 For DeploymentConfigs, you will edit your readiness probe to be incorrect, then make curl requests to the route and observe the behavior.
 
 - Deploy the hello-world application
@@ -113,14 +113,14 @@ For DeploymentConfigs, you will edit your readiness probe to be incorrect, then 
 
 
 
-### Checklist 📋: 
+### Checklist 📋 (Health Check): 
 - `oc get events` should contain several "Readiness probe failed" messages
 
 - `curl <your route>` still gives you the hello-world message
 
 - You understand why your application is still able to serve traffic
 
-### Quiz
+### Quiz (Health Check)
 > Q1: Which probe can cause pod restarts?
 - [ ] readiness
 - [ ] liveness
@@ -183,7 +183,7 @@ mychart/
 cd ./labs-repo/helm
 ```
 
-### 🔬 Hands-on Lab: 
+### 🔬 Hands-on Lab (Helm): 
 For Helm you will need to be creative - either you follow the same pattern I got here into the Helm directory or you might want to create your own, here are the step by step recipe.
 
 - cd Create a personal Helm repository using a Github repo
@@ -216,12 +216,12 @@ For Helm you will need to be creative - either you follow the same pattern I got
 - Search for charts available in a Helm repository
   - `helm search repo <helm-repo-name>`
 
-### Checklist 📋: 
+### Checklist 📋 (Helm): 
 - You should be able to see the tgz file on your github page.
 - You should be able to run `helm install <chart-name>`
 - If everything works please run `helm uninstall <chart-name>` to delete all.
 
-### Quiz
+### Quiz (Helm)
 > Q1: How do you install a Helm chart?
 - [ ]  `helm install myrelease myrepo`
 - [ ] `helm install myrelease myrepo:latest`
