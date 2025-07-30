@@ -234,22 +234,43 @@ The OpenShift ImageStream and ImageStreamTag resources may sound like they do so
 
 **Hands-on Walkthroughs**  
 - How to create an ImageStream
+  ```bash
+  oc delete all -l app=hello-world
+  # just to make sure we got a clean env
+  ```
+  ```bash
+  oc new-app quay.io/practicalopenshift/hello-world 
+  # creating a deployment
+  ```
+  > output: you should see the following 
+    ```bash
+    --> Creating resources ...
+    imagestream.image.openshift.io "hello-world" created
+    deployment.apps "hello-world" created
+    service "hello-world" created
+    ```
 
   ```bash
   oc get is
   ```
-  > output: 
+  > output: Looking at the Image Repository Column it starts with a long domain name, this host refers to the internal container image registry hosted versions on OpenShift
 
   | Name  | IMAGE REPOSITORY |  TAGS |UPDATED|
   | -------- | ------- | ------- | -----| 
   | Hello-World  | `default-route-openshift-image-registry..` | latest | 27 hours ago|          
-  ---
+
+  ```bash
+  #list all the imagestreamtag
+  oc get imagestreamtag 
+  # or oc get istag
+  ```
+
   ```bash
   oc delete is/hello-world
   ```
   > output: "imagestream.image.openshift.io "hello-world" deleted"
 
-  - Lets import the image now.
+- Lets import the image now.
 
   ```bash
   oc import-image --confirm quay.io/practicalopenshift/hello-world
@@ -283,9 +304,9 @@ The OpenShift ImageStream and ImageStreamTag resources may sound like they do so
   > you can easier to deploy a new app using that image
 
   ```bash
-  oc new-app myproject/hello-world --as-deployment-config
+  oc new-app myproject/hello-world 
   ```
-  - How to add more ImageStreamTags
+- How to add more ImageStreamTags!
   ```bash
   oc tag quay.io/image-name:tag image-name:tag
   ```
@@ -327,13 +348,15 @@ The OpenShift ImageStream and ImageStreamTag resources may sound like they do so
   ```bash
   docker build -t quay.io/$REGISTRY_USERNAME/private-repo .
   ```
-  >output "[+] Building 16.8s (5/5) FINISHED"
+  > output "[+] Building 16.8s (5/5) FINISHED" If you got an error make sure your in the right directory 
 
   ```bash 
   docker login quay.io
   ```
   - Push 
-  ```docker push quay.io/$REGISTRY_USERNAME/private-repo
+
+  ```bash
+  docker push quay.io/$REGISTRY_USERNAME/private-repo
   ```
   > output: Access your quay.io and look for private-repo with a red lock on it which means its private, also on your terminal you should see something like this: 
 
@@ -351,10 +374,16 @@ The OpenShift ImageStream and ImageStreamTag resources may sound like they do so
   ```
 
 
+<p align="center">
+<img src="/images/dockerpush.png" alt="Image & Image Streams Arch" style="width:400px; align="center"/>
+</p>
+
+
+
   - How to run this private image to OpenShift?
 
   ```bash
-  oc new-app quay.io/$REGISTRY_USERNAME/private-repo --as-deployment-config
+  docker build -t quay.io/$REGISTRY_USERNAME/private-repo .
   ```
   > output: 
   ```bash
@@ -363,15 +392,20 @@ The OpenShift ImageStream and ImageStreamTag resources may sound like they do so
       service "private-repo" created
   ......
   ```
-  - In case you get an Authentication error, you need to run the following command
-  ```bash
-  oc create secret docker-registry \ demo-image-pull-secret \
-  --docker-server=$REGISTRY_HOST \
-  --docker-username=$REGISTRY_USERNAME \
-  --docker-password=$REGISTRY_PASSWORD \ 
-  --docker-email=$REGISTRY_EMAIL
-  ```
-  > output: secret created
+  <p align="center">
+  <img src="/images/dockerbuild.png" alt="Image & Image Streams Arch" style="width:400px; align="center"/>
+  </p>
+
+  - Lets create a secret using the our docker credentials
+
+    ```bash
+    oc create secret docker-registry \ demo-image-pull-secret \
+    --docker-server=$REGISTRY_HOST \
+    --docker-username=$REGISTRY_USERNAME \
+    --docker-password=$REGISTRY_PASSWORD \ 
+    --docker-email=$REGISTRY_EMAIL
+    ```
+    > output: secret created
 
   - creating a secret is not enough you need to link that secret to let openshift use it to pull the image.
 
@@ -379,32 +413,32 @@ The OpenShift ImageStream and ImageStreamTag resources may sound like they do so
   oc secrets link default demo-image-pull-secret --for=pull
   ```
   - dafault here is the service account that openshift will use, using pull because we want that secret to pull an image.
-  ```bash
-  oc describe serviceaccount/default
-  ```
+    ```bash
+    oc describe serviceaccount/default
+    ```
 
-  > output: you should see something like this
+    > output: you should see something like this
 
-  ```bash
-  .......
-  Image pull secrets:  default-dockercfg-stnvn
-                      demo-image-pull-secret
-  .....
-  ```
+    ```bash
+    .......
+    Image pull secrets:  default-dockercfg-stnvn
+                        demo-image-pull-secret
+    .....
+    ```
   - lets confirm everything went well
-  ```bash
-  oc new-app quay.io/$REGISTRY_USERNAME/private-repo --as-deployment-config
-  ```
-  ```bash
-  oc expose service/private-repo
-  ```
-  ```bash
-  oc status
-  ```
-  ```bash
-  curl <URL from oc status>
-  ```
-  > output: "Hello from private image registry"
+    ```bash
+    oc new-app quay.io/$REGISTRY_USERNAME/private-repo 
+    ```
+    ```bash
+    oc expose service/private-repo
+    ```
+    ```bash
+    oc status
+    ```
+    ```bash
+    curl <URL from oc status>
+    ```
+    > output: "Hello from private image registry"
 
 ---
 
@@ -767,7 +801,7 @@ Lets learn about basic automation for deployments, configuring the deployment pr
     - In this exmaple you need 2 windows terminals.
 
     ```bash
-    oc new-app quay.io/practicalopenshift/hello-world --as-deployment-config
+    oc new-app quay.io/practicalopenshift/hello-world
     ```
     ```bash
     oc describe dc/hello-world
