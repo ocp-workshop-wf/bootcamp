@@ -706,11 +706,12 @@ For Deployment Hooks, you will add a mid-deployment hook for the recreate strate
 
 ### 6.2 Triggers
 
-<p align="left">
-  <a href="https://github.com/ocp-workshop-wf/bootcamp/tree/main/module4" target="_blank">
+<p align="right">
+  <a href="https://github.com/ocp-workshop-wf/bootcamp/tree/main/module4#-module-4-application-deployment-and-management" target="_blank">
     <img src="/images/top.png" alt="OpenShift Training" style="width:25px;" />
   </a>
 </p>
+
 Lets learn about basic automation for deployments, configuring the deployment process itself, and how to add health checks so that OpenShift can restart your pods if necessary.
 
 - Deployment Triggers:
