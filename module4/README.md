@@ -789,7 +789,7 @@ When using the `oc new-app` command with a Git repository, OpenShift automatical
     </br>
 
     <p align="center">
-    <img src="/images/blue-green-deployment-model.gif" alt="OpenShift Training" style="width:500px; align="center"/>
+    <img src="/images/blue-green-deployment.gif" alt="OpenShift Training" style="width:500px; align="center"/>
     </p>
 
 **Hands-on Walkthroughs**  
@@ -898,6 +898,11 @@ In OpenShift, Routes can be used to direct traffic to multiple backends with wei
     4. Continue until 0/100 to fully promote.
     5. Remove the old version when your done.
     > By following these steps you will have a very low risk exposure, easy to monitor real-time behavior of the new version, and can be automated for rollout.
+
+    <p align="center">
+    <img src="/images/canary-deployment-slow.gif" alt="OpenShift Training" style="width:500px; align="center"/>
+    </p>
+
 
   - Lets try it out:
       ```bash
