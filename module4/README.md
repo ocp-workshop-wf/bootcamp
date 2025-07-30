@@ -959,7 +959,7 @@ Lets learn about basic automation for deployments, configuring the deployment pr
     - In this exmaple you need 2 windows terminals.
 
     ```bash
-    oc new-app quay.io/practicalopenshift/hello-world
+    oc new-app quay.io/practicalopenshift/hello-world --as-deploymentconfig
     ```
     ```bash
     oc describe dc/hello-world
