@@ -9,13 +9,13 @@
 ## 🔹 Module 3: Core OpenShift Resources
 
 ## Table of Contents 
-- [3.1 - OpenShift Resources Overview](#31-openshift-resources-overview)
+- [3.1 - OpenShift Resources Overview](#31-openshift-resources-overview) 
  
-- [3.2 - OpenShift and how to deploy applications](#32-openshift-and-how-to-deploy-applications)
+- [3.2 - OpenShift and how to deploy applications](#32-openshift-and-how-to-deploy-applications) | [Lab](#-hands-on-lab-deploying-application) | [Quiz](#quiz-deploying-application)
 
-- [3.3 - OpenShift Networking](#33-openshift-networking)
+- [3.3 - OpenShift Networking](#33-openshift-networking) | [Lab](#-hands-on-lab-network) | [Quiz](#quiz-network)
 
-- [3.4 - OpenShift ConfigMaps](#34-openshift-configmaps)
+- [3.4 - OpenShift ConfigMaps](#34-openshift-configmaps) | [Lab](#-hands-on-lab-configmap) | [Quiz](#quiz-configmap)
 
 ### 3.1 OpenShift Resources Overview
 
@@ -393,7 +393,7 @@ As long as your source code is available online, `oc new-app` can build an image
 
 ---
 
-### 🔬 Hands-on Lab
+### 🔬 Hands-on Lab (Deploying Application)
 
 In the DeploymentConfig lab, you will create a custom DeploymentConfig based on the hello-world image by changing some parameters.
 
@@ -407,7 +407,7 @@ In the DeploymentConfig lab, you will create a custom DeploymentConfig based on 
 
 ---
 
-### Checklist 📋
+### Checklist 📋 Deploying Application
 
 - Output from `oc get pods` contains two pods
 
@@ -422,7 +422,7 @@ In the DeploymentConfig lab, you will create a custom DeploymentConfig based on 
 
 ---
 
-### Quiz
+### Quiz Deploying Application
 
 > Q1: What is the command to deploy the hello-world image to OpenShift as a deployment config?
 
@@ -759,7 +759,7 @@ spec:
 
 ---
 
-### 🔬 Hands-on Lab
+### 🔬 Hands-on Lab (Network)
 
 For networking, you'll need to make some modifications to get a route to load balance between two pods.
 
@@ -771,7 +771,7 @@ For networking, you'll need to make some modifications to get a route to load ba
 
 ---
 
-### Checklist 📋
+### Checklist 📋 (Network)
 
 Once you meet all of these criteria, you have successfully completed the lab. You will need to run the commands yourself in order to grade this lab.
 
@@ -781,7 +781,7 @@ Once you meet all of these criteria, you have successfully completed the lab. Yo
 
 ---
 
-### Quiz
+### Quiz (Network)
 
 > Q1: What mechanism do services use to figure out which pods to send traffic to?
 
@@ -1174,7 +1174,7 @@ oc get -o yaml cm/message-map
 
 ---
 
-### 🔬 Hands-on Lab
+### 🔬 Hands-on Lab (ConfigMap)
 
 For ConfigMaps, you'll get some hands-on practice working with YAML. Start with the following ConfigMap definition:
 
@@ -1205,7 +1205,7 @@ metadata:
 
 ---
 
-### Quiz
+### Quiz (ConfigMap)
 >
 > Q1: What is the maximum amount of data that you can store in a ConfigMap?
 

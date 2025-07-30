@@ -11,7 +11,7 @@
 
 - [2.0 - OpenShift Container Lifecycle](#20-openshift-container-lifecycle)
 - [2.1 - OpenShift CLI and Web Consol](#21-openshift-cli-oc-and-web-console)
-- [2.2 - Creating and Managing Projects (Learning YAML)](#22-creating-and-managing-projects-learning-yaml) 
+- [2.2 - Creating and Managing Projects (Learning YAML)](#22-creating-and-managing-projects-learning-yaml) | [Lab](#-hands-on-lab-yaml) | [Quiz](#quiz-yaml)
 
 ### 2.0 OpenShift Container Lifecycle
 
@@ -292,7 +292,7 @@ ___
     oc explain pod.spec.containers.env
     ```
 
-### 🔬 Hands-on Lab: 
+### 🔬 Hands-on Lab (YAML): 
 In this lab, you will create a custom Pod definition and upload it to OpenShift. This will test your skills in writing and debugging Pod YAML for the OpenShift platform.
 
 - First, create a new file under the labs project. The path will be pods/lab-pod.yaml
@@ -320,7 +320,7 @@ In this lab, you will create a custom Pod definition and upload it to OpenShift.
     oc port-forward hello-world-pod 8080:8080
     ```
 ---
-#### Checklist 📋: 
+#### Checklist 📋 YAML: 
 Once you meet all of these criteria, you have successfully completed the lab. You will need to run the commands yourself in order to grade this lab.
 
 - Output from oc get pods contains the pod.
@@ -330,7 +330,7 @@ Once you meet all of these criteria, you have successfully completed the lab. Yo
 - `curl localhost:8080` prints the message.
 ---
 
-### Quiz
+### Quiz (YAML)
 
 > Q1: What is the command to log in to OpenShift on the command line?
 - [ ] `oc log on <cluster URL>`

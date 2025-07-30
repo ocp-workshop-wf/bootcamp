@@ -8,15 +8,15 @@
 ## 🔹 Module 4: Application Deployment and Management 
 
 ## Table of Contents 
-- [4.1 - Secrets](#41-secrets)
+- [4.1 - Secrets](#41-secrets) | [Lab](#-hands-on-lab-secrets) | [Quiz](#quiz-secrets)
 
-- [4.2 - Images and Image Streams](#42-images-and-image-streams)
+- [4.2 - Images and Image Streams](#42-images-and-image-streams) | [Lab](#-hands-on-lab-images) | [Quiz](#quiz-images)
 
-- [4.3 - Builds and BuildConfigs](#43-builds-and-buildconfigs)
+- [4.3 - Builds and BuildConfigs](#43-builds-and-buildconfigs) | [Lab]() | [Quiz]()
 
-- [4.4 - Deployment Statgies](#44-deployment-statgies)
+- [4.4 - Deployment Strategies](#44-deployment-strategies) | [Lab](#-hands-on-lab-deployment-strategies) | [Quiz](#quiz-deployment-strategies)
 
-- [4.5 - Triggers](#45-triggers)
+- [4.5 - Triggers](#45-triggers) | [Quiz](#quiz-triggers)
 
 ### 4.1 Secrets
 <p align="right">
@@ -136,7 +136,7 @@
   ```
 ---
 
-### 🔬 Hands-on Lab: 
+### 🔬 Hands-on Lab (Secrets): 
 For secrets, you will update a secret value by modifying its definition. Start with the following secret:
 
 ```yaml
@@ -155,7 +155,7 @@ type: Opaque
 - Set the MESSAGE environment varaible using the secret.
 ---
 
-### Checklist 📋: 
+### Checklist 📋 (Secrets): 
 - Output from `oc get secret` contains your new Secret
 
 - Output from `oc get -o yaml dc/hello-world` contains the string "secretKeyRef"
@@ -163,7 +163,7 @@ type: Opaque
 - When you run `curl <your route>` you get the value you put in the Secret
 
 ---
-### Quiz
+### Quiz (Secrets)
 > Q1: You can use all the same inputs for ConfigMaps in order to create Secrets.
 - [ ] Fales
 - [ ] True
@@ -394,7 +394,7 @@ curl <URL from oc status>
 
 ---
 
-### 🔬 Hands-on Lab: 
+### 🔬 Hands-on Lab (Images): 
 For images, you'll import your own private image and tag into OpenShift.
 
 - Create a new project called `images-lab`
@@ -407,14 +407,14 @@ For images, you'll import your own private image and tag into OpenShift.
 - Deploy an application based on the images-lab:private-tag image
 ---
 
-### Checklist 📋: 
+### Checklist 📋 (Images): 
 - `oc get is` returns a single ImageStream
 - `oc get istag`returns 2 tags for `images-lab`
 - `oc get secret` shows your authentication secret
 - `curl <your route>` gives you the message you supplied in step 4.
 
 ---
-### Quiz
+### Quiz (Images)
 > Q1: OpenShift has its own image registry built in.
 - [ ] Fales
 - [ ] True
@@ -591,7 +591,7 @@ oc cancel-build bc/hello-world
 
 ---
 
-### 4.4 Deployment Statgies 
+### 4.4 Deployment Strategies 
 
 <p align="right">
   <a href="https://github.com/ocp-workshop-wf/bootcamp/tree/main/module4#-module-4-application-deployment-and-management" target="_blank">
@@ -657,7 +657,7 @@ oc cancel-build bc/hello-world
 
 ---
 
-### 🔬 Hands-on Lab: 
+### 🔬 Hands-on Lab (Deployment strategies): 
 For Deployment Hooks, you will add a mid-deployment hook for the recreate strategy
 
 - Create a new project called "advanced-dc-labs"
@@ -670,13 +670,13 @@ For Deployment Hooks, you will add a mid-deployment hook for the recreate strate
 
 - Roll out a new version of your application
 
-### Checklist 📋: 
+### Checklist 📋 (Deployment strategies): 
 
 - `oc get events` output contains your message from step 4
 
 - `oc describe dc/hello-world` shows the Recreate strategy and hook
 
-### Quiz
+### Quiz (Deployment strategies)
 > Q1: Which deployment strategy always has downtime during the deployment?
 - [ ] Rolling
 - [ ] Recreate
@@ -825,7 +825,7 @@ Lets learn about basic automation for deployments, configuring the deployment pr
     > output: you should find both `TYPE` in with the `VALUE` of true.
 
 
-### Quiz
+### Quiz (Triggers)
 > Q1: What command will disable deployment triggers?
 - [ ] `oc set triggers <dc name --remove>`
 - [ ] `oc set triggers <dc name> --none`
