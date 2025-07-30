@@ -735,7 +735,7 @@ When using the `oc new-app` command with a Git repository, OpenShift automatical
 - A rolling strategy supports pre and post hooks. The pre hook runs, of course, before the deployment Config, starts a new version and the post hook runs after the deployment Config stops the old version.
 
 <p align="center">
-<img src="/images/recreate-strategy.png" alt="OpenShift Training" style="width:500px; align="center"/>
+<img src="/images/Recreate-Deployment.jpg" alt="OpenShift Training" style="width:500px; align="center"/>
 </p>
 
 - The recreate strategy, on the other hand, supports pre and post hooks, as well as a mid hook that is executed while no Pods are running. That is, after the recreate strategy stops the old version, but before it starts the new one.
