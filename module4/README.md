@@ -19,11 +19,11 @@
 - [4.5 - Triggers](#45-triggers)
 
 ### 4.1 Secrets
-<p align="right">
-  <a href="https://github.com/ocp-workshop-wf/bootcamp/tree/main/module4#-module-4-application-deployment-and-management" target="_blank">
-    <img src="/images/top.png" alt="OpenShift Training" style="width:25px; float:right; margin-left:10px;" />
-  </a>
-</p>
+
+<a href="https://github.com/ocp-workshop-wf/bootcamp/tree/main/module4#-module-4-application-deployment-and-management" target="_blank">
+  <img src="/images/top.png" alt="OpenShift Training" style="width:25px; float: right; margin-left: 10px; margin-bottom: 5px;" />
+</a>
+
 
 
 
