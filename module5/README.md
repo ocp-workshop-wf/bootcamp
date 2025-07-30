@@ -152,6 +152,9 @@ OpenShift can make files available to containers from many sources, such as secr
 Empty directory volumes always start out empty. The worker node that runs your application provides some temporary storage along with other information for the Pod. If the Pod is removed from a node, the EmptyDirectory contents will be deleted. 
     - Most common problems is when you run rolling out a new version, updating, configuration or changing a Pod in any way.
 
+<p align="center">
+<img src="/images/volumes.png" alt="OpenShift Training" style="width:400px; align="center"/>
+</p>
 
 **Hands-on Walkthroughs** 
 - Define and use an empty directory:
@@ -348,10 +351,10 @@ The core idea:
   - When your application starts, the initial number of pods is controlled by the number replicas property in the deployment config spec. The default is one for oc new-app applications. You can of course edit this by hand if you have your application in a template or YAML files.
 
     ```bash
-    oc new-app quay.io/practicalopenshift/hello-world --as-deployment-config # use Deployment
+    oc new-app quay.io/practicalopenshift/hello-world 
     ```
     ```bash
-    oc describe dc/hello-world
+    oc describe deployment/hello-world
     ```
     > output: 
     ```yml
@@ -382,7 +385,7 @@ The core idea:
 - How to create a HPA:  "Explain more about CPU add some files to run to demonstrate the HPA"
 
 ```bash
-  oc autoscale dc/hello-world \
+  oc autoscale deployment/hello-world \
   --min 1 \
   --max 10 \
   --cpu-percent=80
