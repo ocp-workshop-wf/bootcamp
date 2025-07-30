@@ -28,7 +28,9 @@
 
  It is a toolkit and workflow that automates the process of building container images from source code. It takes a builder image (containing necessary build tools and dependencies) and source code, then combines them to create a runnable application image. S2I is used to create reproducible container images, making it easier for developers to deploy and manage applications in various environments, including OpenShift. 
 
- ![Source-to-Imag](/images/s2i-concept.webp)
+<p align="center">
+<img src="/images/s2i-concept.webp" alt="OpenShift Training" style="width:400px; align="center"/>
+</p>
 
  > It uses `Assemble` script vs `Run` from Docker and `Run` vs `CMD` from Docker.
 
@@ -45,11 +47,11 @@
 cd ./s2i/ruby
 ```
 ```bash
-oc new-app ruby~https://gitlab.com/therayy1/openshif-labs.git --context-dir s2i/ruby --as-deployment-config
+oc new-app ruby~https://gitlab.com/therayy1/openshif-labs.git --context-dir s2i/ruby 
 ```
 
 ```bash
-oc logs -f bc/openshif-labs
+oc logs -f deployment/openshif-labs
 ```
 > output: push successful 
 
@@ -78,7 +80,10 @@ curl <URL>
 
   - When you start a build with OpenShift, OpenShift will first look for a dockerfile. If it finds one it will build usig something called the Docker Strategy. If OpenShift does not find a dockerfile it will attempt to use the Source Strategy instead.
    
-    ![S2I Strategy](/images/S2I-visualselection.png)
+<p align="center">
+<img src="/images/S2I_Build_Process_Regenerated.png" alt="OpenShift Training" style="width:300px; align="center"/>
+</p>
+
 
 
 ### 🔬 Hands-on Lab (S2I): 
@@ -309,7 +314,6 @@ For volumes, you'll mount a secret as a volume.
 
 In OpenShift, scaling refers to the process of dynamically adjusting the resources allocated to an application or the overall cluster to meet changing demands. This can involve increasing or decreasing the number of pods running an application (horizontal scaling), or adjusting the resources (CPU, memory) allocated to individual pods (vertical scaling).
 
-![scaling](/images/scaling.png)
 
 - How does the Auto-Scale works?
 The **Horizontal Pod Autoscaler (HPA)** automatically adjusts the number of pods in your application based on CPU usage to handle changing workloads. It **scales up** when resource usage is high and **scales down** when demand is low, helping optimize resource consumption.
@@ -325,6 +329,11 @@ The core idea:
 * If actual usage is higher than desired, HPA increases pods.
 * If usage is lower, it reduces pods.
 * New pod count = current pods × (current usage ÷ desired usage)
+
+<p align="center">
+<img src="/images/hpa-overview.png" alt="OpenShift Training" style="width:500px; align="center"/>
+</p>
+
 
 ***Debuging in OpenShift*** provides a powerful way to troubleshoot and debug issues within your cluster, particularly for pods and nodes.When used with a pod, `oc debug` creates a new, temporary pod based on the existing pod's image and configuration, but with the ability to inject debugging tools or run commands within its environment. This allows you to:
 - Attach to a running container: Gain a shell prompt inside a container to inspect its file system, processes, or configuration.
