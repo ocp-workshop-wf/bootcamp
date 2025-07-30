@@ -1,4 +1,5 @@
-[![Static Badge](https://img.shields.io/badge/CheatSheet-purple?style=flat&logoSize=auto)
+[![Static Badge](https://img.shields.io/badge/Agenda-green?style=flat&logoSize=auto)
+](https://github.com/ocp-workshop-wf/bootcamp/blob/main/Agenda.md)[![Static Badge](https://img.shields.io/badge/CheatSheet-purple?style=flat&logoSize=auto)
 ](https://github.com/ocp-workshop-wf/bootcamp/blob/main/CheatSheet.md)  [![Static Badge](https://img.shields.io/badge/OCP-CLI-red?style=flat&logoSize=auto)
 ](https://github.com/ocp-workshop-wf/bootcamp/blob/main/ocpcli-cheatsheet.md)   [![Static Badge](https://img.shields.io/badge/Labs-maroon?style=flat&logoSize=auto)
 ](https://github.com/ocp-workshop-wf/bootcamp/tree/main/labs-repo)  [![Static Badge](https://img.shields.io/badge/RedHat-OpenShift-maroon?style=flat&logo=Redhat&logoSize=auto)
