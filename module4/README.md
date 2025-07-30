@@ -19,9 +19,11 @@
 - [4.5 - Triggers](#45-triggers)
 
 ### 4.1 Secrets
-[![Static Badge](https://img.shields.io/badge/TOP-yellow?logo=top)](#-module-4-application-deployment-and-management)
-
-
+<p align="right">
+  <a href="https://github.com/ocp-workshop-wf/bootcamp/tree/main/module4#-module-4-application-deployment-and-management" target="_blank">
+    <img src="/images/top.png" alt="OpenShift Training" style="width:25px;" />
+  </a>
+</p>
 
 - Secrets: a Kubernetes resource designed to hold sensitive information like passwords, API keys, certificates, and other credentials.
   - Basic Auth
@@ -29,11 +31,6 @@
   - TLS Auth 
 - All the above are commonly used to authenticate to private secrets outside OpenShift, such as GitHub repository. You will need to pick the right one depending on the authentication used on the private server.
 
-<p align="right">
-  <a href="https://github.com/ocp-workshop-wf/bootcamp/tree/main/module4#-module-4-application-deployment-and-management" target="_blank">
-    <img src="/images/top.png" alt="OpenShift Training" style="width:25px;" />
-  </a>
-</p>
 
 **Opaque or generic secrets** have no restrictions on their structure, meaning that they can have any key value pairs inside. The word Opaque refers to the fact that Opaque secrets do not have any sort of special integrations into other parts of OpenShift. OpenShift won't know what to do with these secrets and it's up to your applications to use them correctly. This is the type of secret that you would use for authenticating to a database or a custom application. A common **<u>non-Opaque</u>** secret type is the Kubernetes `service account token` secret type.
 
