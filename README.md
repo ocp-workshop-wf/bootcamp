@@ -46,7 +46,7 @@
 
 4.3 - Builds and BuildConfigs
 
-4.4 - Webhooks 
+4.4 - Deployment Statgies 
 
 4.5 - Triggers 
 
@@ -59,7 +59,7 @@
 
 5.3 - Scaling and Debuging Your Application 
 
-5.4 - Deployment Statgies and OpenShift Jobs 
+5.4 - OpenShift Jobs 
 
 
 ### 🔹 [Module 6](https://github.com/ocp-workshop-wf/bootcamp/tree/main/module6): Mastering OpenShift
