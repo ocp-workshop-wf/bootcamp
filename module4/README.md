@@ -723,6 +723,7 @@ When using the `oc new-app` command with a Git repository, OpenShift automatical
 | Recreate Strategy | Stop the old version | Start new Version | Switch Traffic to new version |
 | Custom Strategy | Start | Run custom deployment image | End |
 
+
 ***Resources***
 - [12 App Factor](https://12factor.net/)
 - [ Custom Strategy using custom Image ](https://docs.openshift.com/en/container-platform/3.11/dev_guide/deployments/deployment_strategies.html#custom-strategy)
@@ -773,6 +774,93 @@ When using the `oc new-app` command with a Git repository, OpenShift automatical
 
 - `volumes`: – volumes to mount (empty in this example)
 
+- Blue-Green Deployment:
+  Blue-Green deployment is a strategy where two identical environments (called "blue" and "green") are maintained. The "blue" environment is the live/production system, and the "green" is the staging version running the new code. When a new version is ready:
+
+  - It’s deployed to the green environment.
+
+  - After testing and validation, traffic is switched from blue to green.
+
+  - If issues arise, rollback is as simple as redirecting traffic back to blue.
+
+  - How it works in OpenShift: 
+    - Traffic switch is achieved using `Routes`, you can update the route's `spec.to.name` field to point to a different `service` (e.g from `my-blue-app` to `my-green-app`).
+    
+    </br>
+
+    <p align="center">
+    <img src="/images/blue-green-deployment-model.gif" alt="OpenShift Training" style="width:500px; align="center"/>
+    </p>
+
+**Hands-on Walkthroughs**  
+  ```yaml
+  # Route pointing initially to blue
+  apiVersion: route.openshift.io/v1
+  kind: Route
+  metadata:
+    name: my-app
+  spec:
+    to:
+      kind: Service
+      name: my-app-blue
+  ```
+  > once testing on the green environment is complete, switch:
+
+  ```yaml
+  spec:
+  to:
+    kind: Service
+    name: my-app-green
+  ```
+  - You can also Patch your route by running the following command
+  ```bash
+  oc patch route my-app -p '{"spec":{"to":{"name":"my-green-app"}}}'
+  ```
+  > output: Quick rollback or just re-point the route, with that your now able to test in production-like environment, and also you reduced the risk of downtime during deployment.
+
+- Lets try to do it ourseleves:
+  ```bash
+  # deploy blue
+  oc new-app quay.io/practicalopenshift/hello-world --name=blue-app
+  ```
+  ```bash
+  # expose blue
+  oc expose service/blue-app
+  ```
+  ```bash
+  # deploy green
+  oc new-app quay.io/practicalopenshift/hello-world --name=green-app
+  ```
+  ```bash
+  # expose green
+  oc expose service/green-app
+  ```
+  - Before switching :
+
+    <p align="center">
+    <img src="/images/blue.png" alt="OpenShift Training" style="width:500px; align="center"/>
+    </p>
+
+  - Lets switch route to green 
+
+    ```bash
+    oc patch route blue-app -p '{"spec":{"to":{"name":"green-app"}}}'
+    ```
+    > output: "route.route.openshift.io/blue-app patched"
+  
+  - After switching: 
+
+    <p align="center">
+    <img src="/images/afterblue.png" alt="OpenShift Training" style="width:500px; align="center"/>
+    </p>
+
+  - Rollback 
+    ```bash
+    oc patch route blue-app -p '{"spec":{"to":{"name":"blue-app"}}}'
+    ```
+    > output: it should be the same as the `Before Switching Image` 
+
+ ***Resource*** [RedHat Documentation](https://www.redhat.com/en/topics/devops/what-is-blue-green-deployment)
 ---
 
 ### 🔬 Hands-on Lab (Deployment strategies): 
