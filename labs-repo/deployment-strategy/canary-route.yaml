@@ -1,0 +1,13 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: canary-route
+spec:
+  to:
+    kind: Service
+    name: app-v1
+    weight: 90
+  alternateBackends:
+    - kind: Service
+      name: app-v2
+      weight: 10

@@ -774,7 +774,7 @@ When using the `oc new-app` command with a Git repository, OpenShift automatical
 
 - `volumes`: – volumes to mount (empty in this example)
 
-- Blue-Green Deployment:
+**Blue-Green Deployment**:
   Blue-Green deployment is a strategy where two identical environments (called "blue" and "green") are maintained. The "blue" environment is the live/production system, and the "green" is the staging version running the new code. When a new version is ready:
 
   - It’s deployed to the green environment.
@@ -861,6 +861,111 @@ When using the `oc new-app` command with a Git repository, OpenShift automatical
     > output: it should be the same as the `Before Switching Image` 
 
  ***Resource*** [RedHat Documentation](https://www.redhat.com/en/topics/devops/what-is-blue-green-deployment)
+
+ **Canary Release**: 
+ Is a deployment strategy where a new version of the application is released to a small subset of users first. If no issues are detected, traffic is gradually increased to the new version until it becomes fully live.
+The name comes from the "canary in the coal mine" analogy — testing in a low-risk environment before exposing to all users.
+
+- How it works in OpenShift: 
+In OpenShift, Routes can be used to direct traffic to multiple backends with weights, allowing a portion of traffic to be sent to a new version. This works well when:
+
+  - You have two versions of the same app deployed (v1 and v2).
+  - You use a single Route with traffic weights defined.
+
+**Hands-on Walkthroughs**  
+  - In this example we are looking at a weighted routing.
+  ```yaml
+    apiVersion: route.openshift.io/v1
+    kind: Route
+    metadata:
+      name: my-app
+    spec:
+      to:
+        kind: Service
+        name: my-app-v1
+        weight: 80 # app v1 
+      alternateBackends:
+        - kind: Service
+          name: my-app-v2
+          weight: 20 # app v2  
+  ```
+  > In this example 80% of traffic goes to V1, 20% is routed to V2. You can always adjust the weights (e.g, 60/40, 50/50, 0/100).
+
+  - The Ideal way to use Canary:
+    1. Start with 90/10 split.
+    2. Monitor for errors, latency and logs.
+    3. If stable, move to 70/30, then 50/50.
+    4. Continue until 0/100 to fully promote.
+    5. Remove the old version when your done.
+    > By following these steps you will have a very low risk exposure, easy to monitor real-time behavior of the new version, and can be automated for rollout.
+
+  - Lets try it out:
+      ```bash
+      # deploy v1
+      oc new-app quay.io/practicalopenshift/hello-world --name=app-v1
+      ```
+      ```bash
+      oc expose service/app-v1
+      ```
+      ```bash
+      # deploy v2
+      oc new-app quay.io/practicalopenshift/hello-world --name=app-v2
+      ```
+      > after deploying app v2 we have to craft our route with the desired weights in this example ill do 90/10
+
+      - The weight yaml 
+      ```yaml
+      apiVersion: route.openshift.io/v1
+      kind: Route
+      metadata:
+        name: my-app
+      spec:
+        to:
+          kind: Service
+          name: app-v1
+          weight: 90
+        alternateBackends:
+          - kind: Service
+            name: app-v2
+            weight: 10
+      ```
+      > once you have your yaml ready you will have to `Apply` it to your cluster in this case, we will save the file as `canary-route.yaml`
+      ```bash
+      oc apply -f canary.yaml
+      ```
+      > output "route.route.openshift.io/canary-route created"
+
+    - Lets monitor the traffic now 
+      ```bash
+      oc logs -f deployment/app-v2
+      ```
+      ```bash
+      # curl the url 
+      curl http://canary-route-raafat-dev.apps.rm3.7wse.p1.openshiftapps.com
+      ```
+      > output: " Welcome! You can change this message by editing the MESSAGE environment variable."  
+
+    - Increase traffic gradually:
+
+      <p align="center">
+      <img src="/images/canarybefore.png" alt="OpenShift Training" style="width:500px; align="center"/>
+      </p>
+
+      ```bash
+      # 70/30
+      oc patch route canary-route -p '{"spec":{"to":{"weight":70},"alternateBackends":[{"kind":"Service","name":"app-v2","weight":30}]}}'
+      ```
+      
+      <p align="center">
+      <img src="/images/canaryafter.png" alt="OpenShift Training" style="width:500px; align="center"/>
+      </p>
+
+    - Clean up:
+      ```bash
+      oc delete all -l app=hello-world
+      ```
+     
+
 ---
 
 ### 🔬 Hands-on Lab (Deployment strategies): 
@@ -927,6 +1032,37 @@ For Deployment Hooks, you will add a mid-deployment hook for the recreate strate
   
 
 </details>
+
+> Q4: A deployment Strategy that allows you to smoothly switch traffic 
+- [ ] Blue-Green 
+- [ ] Rolling Strategy
+- [ ] Canary Strategy
+- [ ] Recreate Strategy
+
+
+<details>
+  <summary> Answer </summary>
+
+   Canary Strategy
+  
+
+</details>
+
+> Q4: A deployment Strategy that allows you to switch traffic between to running application at the same time. 
+- [ ] Blue-Green 
+- [ ] Rolling Strategy
+- [ ] Canary Strategy
+- [ ] Recreate Strategy
+
+
+<details>
+  <summary> Answer </summary>
+
+   Blue-Green 
+  
+
+</details>
+
 
 --- 
 
