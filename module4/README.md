@@ -523,111 +523,121 @@ For images, you'll import your own private image and tag into OpenShift.
   </a>
 </p>
 
-Builds represent the process of transforming input (like source code) into a runnable image, while BuildConfigs define the entire build process for an application. A BuildConfig acts as a template, specifying how to build an image, including the source code, build strategy, and output location. 
-- A build is a specific instance of a build process triggered by a BuildConfig. 
-- A BuildConfig is a resource in OpenShift that defines the build process for an application. 
+Builds in OpenShift are managed by a resource type called **BuildConfig**.
+
+The `BuildConfig`:
+- Defines **how** the image should be built from the source code.
+- Is similar in concept to the flags and options used with `docker build`.
+
+## How Are Builds Triggered?
+
+When using the `oc new-app` command with a Git repository, OpenShift automatically:
+- Creates the `BuildConfig`.
+- Initiates a build process.
+- Sets up an image stream and deployment configuration.
 
 **Hands-on Walkthroughs**  
 
 - lets create a new build 
 
-```bash
-oc new-build <Git URL>
-```
+  ```bash
+  #oc new-build <Git URL>
+  oc new-build https://gitlab.com/therayy1/hello-world
+  ```
 
-> output: "buildconfig.build.openshift.io "hello-world" created"
+  > output: "buildconfig.build.openshift.io "hello-world" created"
 
-- Lets see whats inside the buildconfig
+  - Lets see whats inside the buildconfig
 
-```bash
-oc get -o yaml buildconfig/hello-world
-```
-> output: 
+  ```bash
+  oc get -o yaml buildconfig/hello-world
+  ```
+  > output: 
 
-```yaml
-apiVersion: build.openshift.io/v1
-kind: BuildConfig
-metadata:
-  annotations:
-    openshift.io/generated-by: OpenShiftNewBuild
-  creationTimestamp: "2025-07-19T22:53:53Z"
-  generation: 2
-  labels:
-    build: hello-world
-  name: hello-world
-  namespace: raafat-dev
-  resourceVersion: "3357388343"
-  uid: 0d5acd9e-e53c-4d3e-a7da-50aaeda9a832
-spec:
-  failedBuildsHistoryLimit: 5
-  nodeSelector: null
-  output:
-    to:
-      kind: ImageStreamTag
-      name: hello-world:latest
-  postCommit: {}
-  resources: {}
-  runPolicy: Serial
-  source:
-    git:
-      uri: https://gitlab.com/therayy1/hello-world.git
-    type: Git
-  strategy:
-    dockerStrategy:
-      from:
+  ```yaml
+  apiVersion: build.openshift.io/v1 # that an OpenShift type
+  kind: BuildConfig
+  metadata:
+    annotations:
+      openshift.io/generated-by: OpenShiftNewBuild
+    generation: 2
+    labels:
+      build: hello-world
+    name: hello-world
+    namespace: raafat-dev
+  spec:
+    failedBuildsHistoryLimit: 5
+    nodeSelector: null
+    output: # tells OpenShift, What to do once it builds an image
+      to:
         kind: ImageStreamTag
-        name: golang:1.17
-    type: Docker
-  successfulBuildsHistoryLimit: 5
-  triggers:
-  - github:
-      secret: uEN_9w-Ftp5rVSR3Q_35
-    type: GitHub
-  - generic:
-      secret: 8R972EmKLVDCPF5N6y7O
-    type: Generic
-  - type: ConfigChange
-  - imageChange: {}
-    type: ImageChange
-```
-- Lets look at the builds
+        name: hello-world:latest
+    postCommit: {}
+    resources: {}
+    runPolicy: Serial
+    source: # What OpenShift should use to create your build.
+      git:
+        uri: https://gitlab.com/therayy1/hello-world.git
+      type: Git
+    strategy: 
+      dockerStrategy:
+        from:
+          kind: ImageStreamTag
+          name: golang:1.17
+      type: Docker 
+    successfulBuildsHistoryLimit: 5
+    triggers: # Triggers are already configured.
+    - github:
+        secret: uEN_9w-Ftp5rVSR3Q_35
+      type: GitHub
+    - generic:
+        secret: 8R972EmKLVDCPF5N6y7O
+      type: Generic
+    - type: ConfigChange
+    - imageChange: {}
+      type: ImageChange
+  ```
+  - Lets look at the builds
 
-```bash
-oc get build
-```
-> output: 
+    ```bash
+    oc get build
+    ```
+    > output: 
 
-| NAME | TYPE | FROM | STATUS | STARTED | DURATION|
-| ---- | ---- | ---- | ------ | ------- | ------- |
-|hello-world-1| Docker | Git@9e4d905 | Complete | 39 minutes ago | 56s|'
+    | NAME | TYPE | FROM | STATUS | STARTED | DURATION|
+    | ---- | ---- | ---- | ------ | ------- | ------- |
+    |hello-world-1| Docker | Git@9e4d905 | Complete | 39 minutes ago | 56s|'
 
-- Checking build logs
+  - Checking build logs to dignose probelems 
 
-```bash
-oc get buildconfig
-```
-```bash
-oc logs -f buildconfig/hello-world
-```
+    ```bash
+    oc get buildconfig
+    ```
 
-> output: Docker steps and pushs the image!
+    > output: Hello-world Docker Git 1 
+
+    ```bash
+    oc logs -f buildconfig/hello-world
+    ```
+
+    > output: Docker steps and pushs the image!
 
 - How to start a build "use 2 terminals"
 
-on Terminal 1
-```oc get pods -w
-```
-on Terminal 2
-```bash
-oc start-build bc/hello-world
-```
-> output: "build.build.openshift.io/hello-world-2 started" also on Terminal 1 you will see many events happening.
+  on Terminal 1
+  ```oc get pods -w
+  ```
+  on Terminal 2
+  ```bash
+  oc start-build bc/hello-world
+  ```
+  > output: "build.build.openshift.io/hello-world-2 started" also on Terminal 1 you will see many events happening.
 
-```bash
-oc describe is/hello-world
-```
+  ```bash
+  oc describe is/hello-world
+  ```
 
-> output: "you will find there is 2 changes happened by the time you started the build, this example we didn't push anything new - in real life example most common this would create a build based on the newest source code allowing you to test your changes."
+  > output: "you will find there is 2 changes happened by the time you started the build, this example we didn't push anything new - in real life example most common this would create a build based on the newest source code allowing you to test your changes."
 
 - Cancelling Builds:
 
