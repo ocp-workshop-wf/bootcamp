@@ -12,7 +12,7 @@
 
 - [4.2 - Images and Image Streams](#42-images-and-image-streams) | [Lab](#-hands-on-lab-images) | [Quiz](#quiz-images)
 
-- [4.3 - Builds and BuildConfigs](#43-builds-and-buildconfigs) | [Lab]() | [Quiz]()
+- [4.3 - Builds and BuildConfigs](#43-builds-and-buildconfigs) | [Lab](#-hands-on-lab-build-and-buildconfig) | [Quiz](#quiz-build---buildconfig)
 
 - [4.4 - Deployment Strategies](#44-deployment-strategies) | [Lab](#-hands-on-lab-deployment-strategies) | [Quiz](#quiz-deployment-strategies)
 
@@ -620,18 +620,29 @@ When using the `oc new-app` command with a Git repository, OpenShift automatical
     oc logs -f buildconfig/hello-world
     ```
 
-    > output: Docker steps and pushs the image!
+    > output: Build clones the repo, runs the docker steps and pushes the resulting image up to the image repo hosted in OpenShift 
 
-- How to start a build "use 2 terminals"
+    <p align="center">
+    <img src="/images/buildlogs.png" alt="Image & Image Streams Arch" style="width:500px; align="center"/>
+    </p>
+
+- How to start a build "use 2 terminals" this is used to start an existing buildconfig, as it creates a single build object based on an existing buildconfig.
 
   on Terminal 1
-  ```oc get pods -w
+
+  ```bash
+  oc get pods -w
   ```
   on Terminal 2
+
   ```bash
   oc start-build bc/hello-world
   ```
-  > output: "build.build.openshift.io/hello-world-2 started" also on Terminal 1 you will see many events happening.
+  > output: "build.build.openshift.io/hello-world-2 started" also on Terminal 1 you will see many events happening. 
+
+    <p align="center">
+    <img src="/images/stat-build.png" alt="Image & Image Streams Arch" style="width:500px; align="center"/>
+    </p>
 
   ```bash
   oc describe is/hello-world
@@ -641,11 +652,60 @@ When using the `oc new-app` command with a Git repository, OpenShift automatical
 
 - Cancelling Builds:
 
-```bash
-oc cancel-build bc/hello-world
-```
+  ```bash
+  oc cancel-build bc/hello-world
+  ```
 
-> output: "build.build.openshift cancelled"
+  > output: "build.build.openshift cancelled"
+
+
+### 🔬 Hands-on Lab (Build and BuildConfig): 
+  For images, you'll import your own private image and tag into OpenShift.
+
+  - Create a new repository under your GitLab account (https://docs.gitlab.com/ee/gitlab-basics/create-project.html)
+  - Add the new repository as a remote for the labs project (https://git-scm.com/book/en/v2/Git-Basics-Working-with-Remotes)
+  - Push the labs repository to this new remote
+  - Create a new branch in the labs repository named builds-lab
+  - Modify the Dockerfile in the `build-lab` directory to change the MESSAGE environment variable
+  - Commit the change and push it to GitLab
+  - Create a BuildConfig for this updated `build-lab` directory in the builds-lab branch
+  - Deploy the application based on the resulting ImageStream
+
+---
+
+### Checklist 📋 (Build - Buildconfig): 
+- `oc logs <your BuildConfig>` contains your MESSAGE value 
+- `curl <your app>` shows you the MESSAGE value from step 5
+
+---
+### Quiz (Build - Buildconfig)
+> Q1: What is the command to create a new BuildConfig for a Git URL? 
+- [ ] `oc start-build <Git URL>`
+- [ ] `oc new-build <Git URL>`
+- [ ] `oc import-image <Git URL>`
+- [ ] `oc new-app <Git URL>`
+
+<details>
+  <summary> Answer </summary>
+
+  `oc new-build <Git URL>`
+
+</details>
+
+
+> Q2: What is the option used for build commands to build from a subdirectory of a Git project?
+
+- [ ] --subdirectory
+- [ ] --context-directory
+- [ ] --subdir
+- [ ] --context-dir
+
+<details>
+  <summary> Answer </summary>
+
+  --context-dir
+
+</details>
 
 ---
 
