@@ -18,6 +18,13 @@
 
 
 ### 5.1 Source-to-image (S2I)
+
+<p align="right">
+  <a href="https://github.com/ocp-workshop-wf/bootcamp/tree/main/module5#-module-5-advanced-deployment-options" target="_blank">
+    <img src="/images/top.png" alt="OpenShift Training" style="width:25px;" />
+  </a>
+</p>
+
  It is a toolkit and workflow that automates the process of building container images from source code. It takes a builder image (containing necessary build tools and dependencies) and source code, then combines them to create a runnable application image. S2I is used to create reproducible container images, making it easier for developers to deploy and manage applications in various environments, including OpenShift. 
 
  ![Source-to-Imag](/images/s2i-concept.webp)
@@ -121,6 +128,13 @@ For S2I, you'll deploy a Python application without a Dockerfile and override an
 ---
 
 ### 5.2 OpenShift Volumes
+
+<p align="right">
+  <a href="https://github.com/ocp-workshop-wf/bootcamp/tree/main/module5#-module-5-advanced-deployment-options" target="_blank">
+    <img src="/images/top.png" alt="OpenShift Training" style="width:25px;" />
+  </a>
+</p>
+
 Volumes allow you to manage mounted file systems in your pods using a variety of different suppliers.
     
     - Filesystem mounted in Pods
@@ -286,6 +300,12 @@ For volumes, you'll mount a secret as a volume.
 
 ### 5.3 Scaling and Debuging Your Application 
 
+<p align="right">
+  <a href="https://github.com/ocp-workshop-wf/bootcamp/tree/main/module5#-module-5-advanced-deployment-options" target="_blank">
+    <img src="/images/top.png" alt="OpenShift Training" style="width:25px;" />
+  </a>
+</p>
+
 In OpenShift, scaling refers to the process of dynamically adjusting the resources allocated to an application or the overall cluster to meet changing demands. This can involve increasing or decreasing the number of pods running an application (horizontal scaling), or adjusting the resources (CPU, memory) allocated to individual pods (vertical scaling).
 
 ![scaling](/images/scaling.png)
@@ -448,6 +468,12 @@ If you don't see a command prompt, try pressing enter.
 --- 
 
 ### OpenShift Jobs: 
+
+<p align="right">
+  <a href="https://github.com/ocp-workshop-wf/bootcamp/tree/main/module5#-module-5-advanced-deployment-options" target="_blank">
+    <img src="/images/top.png" alt="OpenShift Training" style="width:25px;" />
+  </a>
+</p>
 
 **Jobs in OpenShift** is a Kubernetes resource used to run pods until a specified number of them successfully complete. It's designed for tasks that need to run to completion, unlike Deployments which maintain a desired state of pods. Jobs are useful for batch processing, periodic tasks, and other situations where a finite set of work needs to be done. A job, in contrast to a replication controller, runs a pod with any number of replicas to completion. 
 

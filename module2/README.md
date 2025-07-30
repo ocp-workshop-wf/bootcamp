@@ -14,6 +14,12 @@
 
 ### 2.0 OpenShift Container Lifecycle
 
+<p align="right">
+  <a href="https://github.com/ocp-workshop-wf/bootcamp/tree/main/module2#-module-2-working-with-openshift-interfaces" target="_blank">
+    <img src="/images/top.png" alt="OpenShift Training" style="width:25px;" />
+  </a>
+</p>
+
    <p align="center">
     <img src="/images/lifecycle.png" alt="OpenShift Training" style="width:500px; align="center"/>
     </p>
@@ -24,170 +30,178 @@
 ---
 ### 2.1 OpenShift CLI (oc) and Web Console
 
+<p align="right">
+  <a href="https://github.com/ocp-workshop-wf/bootcamp/tree/main/module2#-module-2-working-with-openshift-interfaces" target="_blank">
+    <img src="/images/top.png" alt="OpenShift Training" style="width:25px;" />
+  </a>
+</p>
+
+
 - The **Web Console** offers tabs for Overview, Workloads, Networking, Builds, Storage, Monitoring, etc.
 - The **CLI (`oc`)** gives full control with extra features over `kubectl`.
 - [OpenShit CLI Cheat Sheet](https://github.com/ocp-workshop-wf/bootcamp/blob/main/ocpcli-cheatsheet.md)
 
-***[Resource OpenShit CLI](https://www.youtube.com/watch?v=MYH8nX9J1lc)***
+  **[Resource OpenShit CLI](https://www.youtube.com/watch?v=MYH8nX9J1lc)**
+
 ---
 
 **Hands-on Walkthroughs:**  
-- Login using 
+  - Login using 
 
-  <p align="left">
-  <img src="/images/login.png" alt="OpenShift Training" style="width:200px; align="left"/>
-  </p>
-
-```bash
-oc login -u <username> -p <password> <url>
-```
-- Create a [project](https://docs.redhat.com/en/documentation/openshift_container_platform/4.9/html/building_applications/projects): 
-
-  <p align="left">
-  <img src="/images/projectUI.png" alt="OpenShift Training" style="width:500px; align="left"/>
-  </p>
-  
-```bash
-oc new-project demo-project
-```
-  <p align="center">
-  <img src="/images/project.png" alt="OpenShift Training" style="width:500px; align="center"/>
-  </p>
-
-  > OpenShift uses project to divide up applications. Projects also allow OpenShift to guarantee resource availability for applications through the use of quotas. In this case, the quota represents an upper bound on the CPU, RAM and persistent storage that all pods in the project can use. Quotas prevent any single project from taking over all of the OpenShift's resources. While a quota does limit the amount of resources available to your application, it also guarantees the availability of those same resources.
-
-- List Pods?:
+    <p align="left">
+    <img src="/images/login.png" alt="OpenShift Training" style="width:200px; align="left"/>
+    </p>
 
   ```bash
-  oc get pods
+  oc login -u <username> -p <password> <url>
   ```
+  - Create a [project](https://docs.redhat.com/en/documentation/openshift_container_platform/4.9/html/building_applications/projects): 
 
----
-
-**Hands-on Walkthroughs**  
-- Log in to the OpenShift Web Console.
-
-    - Check the status of OpenShift: Log in, log out
-    
-      ```bash
-      oc status
-      ```
-    
-    - Check which user
-        
-        ```bash
-        oc whoami
-        ```
-
-    - Log out
-        
-        ```bash
-        oc logout
-        ```
-
-- Project Basics
-
-  - See current project
-    
-    ```bash
-    oc project
-    ```
-  - List all projects
-    ```bash
-    oc projects
-    ```
-  - Create a new project
-    ```bash
-    oc new-project myproject
-    ```
-  - Switch projects
-    ```bash
-    oc project <project name>
-    ```
----
-
-- Identify the OpenShift components.
-
-  - Pod Documentation 
-    ```bash
-    oc explain pod
-    ```
-  - Get details on the pod's spec
-    ```bash
-    oc explain pod.spec
-    ```
-  - Get details on the pod's containers
-    ```bash
-    oc explain pod.spec.containers
-    ```
-    
-- Creating Pod from files
-  - Create pod on OpenShift
-    ```bash
-    oc create -f pods/pod.yaml
-    ```
-    <p align="center">
-    <img src="/images/podcreated.png" alt="OpenShift Training" style="width:500px; align="center"/>
+    <p align="left">
+    <img src="/images/projectUI.png" alt="OpenShift Training" style="width:500px; align="left"/>
     </p>
-      
-  - Show all currently running Pods
+    
+  ```bash
+  oc new-project demo-project
+  ```
+    <p align="center">
+    <img src="/images/project.png" alt="OpenShift Training" style="width:500px; align="center"/>
+    </p>
+
+    > OpenShift uses project to divide up applications. Projects also allow OpenShift to guarantee resource availability for applications through the use of quotas. In this case, the quota represents an upper bound on the CPU, RAM and persistent storage that all pods in the project can use. Quotas prevent any single project from taking over all of the OpenShift's resources. While a quota does limit the amount of resources available to your application, it also guarantees the availability of those same resources.
+
+  - List Pods?:
+
     ```bash
     oc get pods
     ```
-    > output: list pods that are deployed on your current namespace "Project"
 
-  - Accessing the Pod
-    - Access the shell inside the container 
-        ```bash
-        oc rsh <pod name>
-        ```
-      > output: `$`
-    -  Request localhost
+  ---
 
-        ```bash
-        wget localhost:8080
-        ```
-        > output: "Connecting to locathost:8080 ......" index.html saved
-    - Read the output file
+  **Hands-on Walkthroughs**  
+  - Log in to the OpenShift Web Console.
+
+      - Check the status of OpenShift: Log in, log out
       
-      ```bash    
-      cat <file-name>
+        ```bash
+        oc status
+        ```
+      
+      - Check which user
+          
+          ```bash
+          oc whoami
+          ```
+
+      - Log out
+          
+          ```bash
+          oc logout
+          ```
+
+  - Project Basics
+
+    - See current project
+      
+      ```bash
+      oc project
+      ```
+    - List all projects
+      ```bash
+      oc projects
+      ```
+    - Create a new project
+      ```bash
+      oc new-project myproject
+      ```
+    - Switch projects
+      ```bash
+      oc project <project name>
+      ```
+  ---
+
+  - Identify the OpenShift components.
+
+    - Pod Documentation 
+      ```bash
+      oc explain pod
+      ```
+    - Get details on the pod's spec
+      ```bash
+      oc explain pod.spec
+      ```
+    - Get details on the pod's containers
+      ```bash
+      oc explain pod.spec.containers
+      ```
+      
+  - Creating Pod from files
+    - Create pod on OpenShift
+      ```bash
+      oc create -f pods/pod.yaml
       ```
       <p align="center">
-      <img src="/images/index.png" alt="OpenShift Training" style="width:500px; align="center"/>
+      <img src="/images/podcreated.png" alt="OpenShift Training" style="width:500px; align="center"/>
       </p>
-
- - Deleting a Pod
-    - Make sure to delete the pod by specifying the correct pod name
-      ```bash
-      oc delete pod <pod-name>
-      ```
-    - Show all currently running pods
+        
+    - Show all currently running Pods
       ```bash
       oc get pods
       ```
+      > output: list pods that are deployed on your current namespace "Project"
 
-- Watching a Pod use 2 different terminals.
-  - Run the pod watch command on Terminal 1 
-    ```bash
-    # Terminal 1
-    oc get pods --watch
-    ```
+    - Accessing the Pod
+      - Access the shell inside the container 
+          ```bash
+          oc rsh <pod name>
+          ```
+        > output: `$`
+      -  Request localhost
 
-  - Create the pod again! on Termnial 2
-    ```bash
-    # Terminal 2
-    oc create -f pods/pod.yaml
-    ```
-      <p align="center">
-      <img src="/images/pod-creation-process.png" alt="OpenShift Training" style="width:500px; align="center"/>
-      </p>
+          ```bash
+          wget localhost:8080
+          ```
+          > output: "Connecting to locathost:8080 ......" index.html saved
+      - Read the output file
+        
+        ```bash    
+        cat <file-name>
+        ```
+        <p align="center">
+        <img src="/images/index.png" alt="OpenShift Training" style="width:500px; align="center"/>
+        </p>
 
-- Clean up: Make sure to delete the pod by specifying the correct pod name on Terminal 2
-```bash
-oc delete pod <pod-name>
-```
-  ___
+  - Deleting a Pod
+      - Make sure to delete the pod by specifying the correct pod name
+        ```bash
+        oc delete pod <pod-name>
+        ```
+      - Show all currently running pods
+        ```bash
+        oc get pods
+        ```
+
+  - Watching a Pod use 2 different terminals.
+    - Run the pod watch command on Terminal 1 
+      ```bash
+      # Terminal 1
+      oc get pods --watch
+      ```
+
+    - Create the pod again! on Termnial 2
+      ```bash
+      # Terminal 2
+      oc create -f pods/pod.yaml
+      ```
+        <p align="center">
+        <img src="/images/pod-creation-process.png" alt="OpenShift Training" style="width:500px; align="center"/>
+        </p>
+
+  - Clean up: Make sure to delete the pod by specifying the correct pod name on Terminal 2
+  ```bash
+  oc delete pod <pod-name>
+  ```
+___
 
 ### 2.2 Creating and Managing Projects (Learning YAML)
 
@@ -198,6 +212,12 @@ oc delete pod <pod-name>
 
   - What's the difference between json and yaml? 
   
+<p align="right">
+  <a href="https://github.com/ocp-workshop-wf/bootcamp/tree/main/module2#-module-2-working-with-openshift-interfaces" target="_blank">
+    <img src="/images/top.png" alt="OpenShift Training" style="width:25px;" />
+  </a>
+</p>
+
   <br/>
 
   ***YAML*** can handle more tasks than JSON, also it supports data types like integers and floats, while JSON doesn't. In Addition JSON uses { curly brackets } to list, ***YAML*** doesn't.

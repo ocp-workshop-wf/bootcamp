@@ -12,8 +12,14 @@
 - [1.2 - Difference between Kubernetes and OpenShift](#12-difference-between-kubernetes-and-openshift)
 
 
-
 ### 1.0 What You’ll Learn:
+
+<p align="right">
+  <a href="https://github.com/ocp-workshop-wf/bootcamp/tree/main/module1#-module-1-introduction-and-core-concepts" target="_blank">
+    <img src="/images/top.png" alt="OpenShift Training" style="width:25px;" />
+  </a>
+</p>
+
 From the course  "OpenShift 4," you will learn the following OpenShift Resources and soft skills:
 ||||||
 |-|-|-|-|-| 
@@ -31,26 +37,32 @@ Understand 15 types of OpenShift resources.
 Configure applications to follow OpenShift best practices.
 Develop advanced application templates.
 
-|💡 Modules Stucture  | 
-| -------- |
-| Resource Information  | 
-| Hands-on Walkthroughs |
-| Hands-on Labs    | 
-| Checklist |
-| Quiz |
+  |💡 Modules Stucture  | 
+  | -------- |
+  | Resource Information  | 
+  | Hands-on Walkthroughs |
+  | Hands-on Labs    | 
+  | Checklist |
+  | Quiz |
 
 Skills needed!
-- `cd`: To navigate to a specific directory
-- `ls`: To list directory components
-- `cat`: To read out a specific file
-- `curl`: Client for URLs to transfer data to or from server using various network protocols such as HTTP, HTTPS, FTP & more.
-- `echo`: To echo a parameter given
-- `vi` or `vim`: Its a built in editor used to edit files.
-- `git`: To interact with your source control on github.
-- Other parameters and options we will learn throughout this course. 
+  - `cd`: To navigate to a specific directory
+  - `ls`: To list directory components
+  - `cat`: To read out a specific file
+  - `curl`: Client for URLs to transfer data to or from server using various network protocols such as HTTP, HTTPS, FTP & more.
+  - `echo`: To echo a parameter given
+  - `vi` or `vim`: Its a built in editor used to edit files.
+  - `git`: To interact with your source control on github.
+  - Other parameters and options we will learn throughout this course. 
 
 
 ### 1.1 Overview of OpenShift and its Architecture
+
+<p align="right">
+  <a href="https://github.com/ocp-workshop-wf/bootcamp/tree/main/module1#-module-1-introduction-and-core-concepts" target="_blank">
+    <img src="/images/top.png" alt="OpenShift Training" style="width:25px;" />
+  </a>
+</p>
 
 OpenShift is Red Hat's enterprise Kubernetes platform. It automates deployment, scaling, and management of containerized apps, adding rich features like a web UI, CI/CD, integrated security, and developer tools. OpenShift has 4 different flavors: 
 - OpenShift origin, which is the original upstream open source project from which all other models are derived. 
@@ -73,20 +85,26 @@ OpenShift is Red Hat's enterprise Kubernetes platform. It automates deployment, 
 <img src="/images/ocp-arch.png" alt="OpenShift Training"; align="center"/>
 </p>
 
-* **Master Node**: Manages the cluster with components like API, scheduler, and etcd (data store).
-* **Worker Nodes**: Run containerized applications (pods) on RHEL.
-* **Developers** use Git and CI/CD to deploy apps; **Operations** use automation tools for management.
-* **Routing Layer** handles external traffic; **Service Layer** manages internal communication.
-* **Persistent Storage** and **Registry** support stateful apps and image management.
-* Supports **physical, virtual, private, public, and hybrid** deployments.
+  * **Master Node**: Manages the cluster with components like API, scheduler, and etcd (data store).
+  * **Worker Nodes**: Run containerized applications (pods) on RHEL.
+  * **Developers** use Git and CI/CD to deploy apps; **Operations** use automation tools for management.
+  * **Routing Layer** handles external traffic; **Service Layer** manages internal communication.
+  * **Persistent Storage** and **Registry** support stateful apps and image management.
+  * Supports **physical, virtual, private, public, and hybrid** deployments.
 
 
 
-**Resource:**  
-- [What is OpenShift?](https://youtu.be/KTN_QBuDplo)
+  **Resource:**  
+  - [What is OpenShift?](https://youtu.be/KTN_QBuDplo)
 
 
 ### 1.2 Difference between Kubernetes and OpenShift
+
+<p align="right">
+  <a href="https://github.com/ocp-workshop-wf/bootcamp/tree/main/module1#-module-1-introduction-and-core-concepts" target="_blank">
+    <img src="/images/top.png" alt="OpenShift Training" style="width:25px;" />
+  </a>
+</p>
 
 | Criteria | OpenShift | Kubernetes| 
 | -------- | --------- | --------- | 
