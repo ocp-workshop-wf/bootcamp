@@ -729,7 +729,7 @@ When using the `oc new-app` command with a Git repository, OpenShift automatical
 - [ Custom Strategy using custom Image ](https://docs.openshift.com/en/container-platform/3.11/dev_guide/deployments/deployment_strategies.html#custom-strategy)
 
 <p align="center">
-<img src="/images/rolling-strategy.png" alt="OpenShift Training" style="width:500px; align="center"/>
+<img src="/images/rollingdeploymentgif.gif" alt="OpenShift Training" style="width:500px; align="center"/>
 </p>
 
 - A rolling strategy supports pre and post hooks. The pre hook runs, of course, before the deployment Config, starts a new version and the post hook runs after the deployment Config stops the old version.
