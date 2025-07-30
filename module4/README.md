@@ -25,9 +25,6 @@
   </a>
 </p>
 
-
-
-
 - Secrets: a Kubernetes resource designed to hold sensitive information like passwords, API keys, certificates, and other credentials.
   - Basic Auth
   - SSH Key 
