@@ -375,7 +375,7 @@ The OpenShift ImageStream and ImageStreamTag resources may sound like they do so
 
 
 <p align="center">
-<img src="/images/dockerpush.png" alt="Image & Image Streams Arch" style="width:400px; align="center"/>
+<img src="/images/dockerpush.png" alt="Image & Image Streams Arch" style="width:500px; align="center"/>
 </p>
 
 
@@ -393,7 +393,7 @@ The OpenShift ImageStream and ImageStreamTag resources may sound like they do so
   ......
   ```
   <p align="center">
-  <img src="/images/dockerbuild.png" alt="Image & Image Streams Arch" style="width:400px; align="center"/>
+  <img src="/images/dockerbuild.png" alt="Image & Image Streams Arch" style="width:500px; align="center"/>
   </p>
 
   - Lets create a secret using the our docker credentials
