@@ -15,7 +15,7 @@
 
 - [4.4 - Deployment Statgies](#44-deployment-statgies)
 
-- [4.5 - Triggers](#62-triggers)
+- [4.5 - Triggers](#45-triggers)
 
 ### 4.1 Secrets
 [![Static Badge](https://img.shields.io/badge/TOP-yellow?logo=top)](#-module-4-application-deployment-and-management)
@@ -28,8 +28,10 @@
   - TLS Auth 
 - All the above are commonly used to authenticate to private secrets outside OpenShift, such as GitHub repository. You will need to pick the right one depending on the authentication used on the private server.
 
-<p align="center">
-<img src="/images/opaque.png" alt="Image & Image Streams Arch" style="width:400px; align="center"/>
+<p align="right">
+  <a href="https://github.com/ocp-workshop-wf/bootcamp/tree/main/module4#-module-4-application-deployment-and-management" target="_blank">
+    <img src="/images/top.png" alt="OpenShift Training" style="width:25px;" />
+  </a>
 </p>
 
 **Opaque or generic secrets** have no restrictions on their structure, meaning that they can have any key value pairs inside. The word Opaque refers to the fact that Opaque secrets do not have any sort of special integrations into other parts of OpenShift. OpenShift won't know what to do with these secrets and it's up to your applications to use them correctly. This is the type of secret that you would use for authenticating to a database or a custom application. A common **<u>non-Opaque</u>** secret type is the Kubernetes `service account token` secret type.
@@ -205,6 +207,13 @@ type: Opaque
 ---
 
 ### 4.2 Images and Image Streams 
+
+<p align="right">
+  <a href="https://github.com/ocp-workshop-wf/bootcamp/tree/main/module4#-module-4-application-deployment-and-management" target="_blank">
+    <img src="/images/top.png" alt="OpenShift Training" style="width:25px;" />
+  </a>
+</p>
+
 An image is a self-contained package containing everything needed to run an application, including the code, runtime, system tools, libraries, and settings. An image stream, on the other hand, is a way to manage and track different versions of an image within OpenShift, acting as a virtual image repository. 
 
 <p align="center">
@@ -461,6 +470,13 @@ For images, you'll import your own private image and tag into OpenShift.
 ---
 
 ### 4.3 Builds and BuildConfigs
+
+<p align="right">
+  <a href="https://github.com/ocp-workshop-wf/bootcamp/tree/main/module4#-module-4-application-deployment-and-management" target="_blank">
+    <img src="/images/top.png" alt="OpenShift Training" style="width:25px;" />
+  </a>
+</p>
+
 Builds represent the process of transforming input (like source code) into a runnable image, while BuildConfigs define the entire build process for an application. A BuildConfig acts as a template, specifying how to build an image, including the source code, build strategy, and output location. 
 - A build is a specific instance of a build process triggered by a BuildConfig. 
 - A BuildConfig is a resource in OpenShift that defines the build process for an application. 
@@ -578,6 +594,12 @@ oc cancel-build bc/hello-world
 ---
 
 ### 4.4 Deployment Statgies 
+
+<p align="right">
+  <a href="https://github.com/ocp-workshop-wf/bootcamp/tree/main/module4#-module-4-application-deployment-and-management" target="_blank">
+    <img src="/images/top.png" alt="OpenShift Training" style="width:25px;" />
+  </a>
+</p>
 
 | Stategy Type | Step 1 | Step 2 | Step 3 |
 | ------------ | -------- | ----- | ------ |
@@ -704,7 +726,7 @@ For Deployment Hooks, you will add a mid-deployment hook for the recreate strate
 
 --- 
 
-### 6.2 Triggers
+### 4.5 Triggers
 
 <p align="right">
   <a href="https://github.com/ocp-workshop-wf/bootcamp/tree/main/module4#-module-4-application-deployment-and-management" target="_blank">
