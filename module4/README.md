@@ -964,6 +964,7 @@ In OpenShift, Routes can be used to direct traffic to multiple backends with wei
       ```bash
       oc delete all -l app=hello-world
       ```
+  **Resource** [Redhat Documentation](https://developers.redhat.com/articles/2024/03/26/canary-deployment-strategy-openshift-service-mesh#products_canary_deployment)
      
 
 ---
