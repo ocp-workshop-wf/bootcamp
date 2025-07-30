@@ -14,7 +14,7 @@
 
 - [5.3 - Scaling and Debuging Your Application](#53-scaling-and-debuging-your-application)
 
-- [5.4 - Deployment Statgies and OpenShift Jobs](#deployment-statgies-and-openshift-jobs)
+- [5.4 - OpenShift Jobs](#openshift-jobs)
 
 
 ### 5.1 Source-to-image (S2I)
@@ -447,65 +447,9 @@ If you don't see a command prompt, try pressing enter.
 
 --- 
 
-### Deployment Statgies and OpenShift Jobs: 
+### OpenShift Jobs: 
 
-| Stategy Type | Step 1 | Step 2 | Step 3 |
-| ------------ | -------- | ----- | ------ |
-| Rolling Strategy "Default" | Start new version | Switch traffic to new version | Stop old version | 
-| Recreate Strategy | Stop the old version | Start new Version | Switch Traffic to new version |
-| Custom Strategy | Start | Run custom deployment image | End |
-
-***Resources***
-- [12 App Factor](https://12factor.net/)
-- [ Custom Strategy using custom Image ](https://docs.openshift.com/en/container-platform/3.11/dev_guide/deployments/deployment_strategies.html#custom-strategy)
-
-<p align="center">
-<img src="/images/rolling-strategy.png" alt="OpenShift Training" style="width:500px; align="center"/>
-</p>
-
-- A rolling strategy supports pre and post hooks. The pre hook runs, of course, before the deployment Config, starts a new version and the post hook runs after the deployment Config stops the old version.
-
-<p align="center">
-<img src="/images/recreate-strategy.png" alt="OpenShift Training" style="width:500px; align="center"/>
-</p>
-
-- The recreate strategy, on the other hand, supports pre and post hooks, as well as a mid hook that is executed while no Pods are running. That is, after the recreate strategy stops the old version, but before it starts the new one.
-
-- This image defines a Strategy Hook in OpenShift using a YAML-style syntax, specifically for a pre hook during a deployment strategy. Here's a regenerated clean version of the example for reference or use in documentation:
-
-```yml
-pre:
-  failurePolicy: Abort
-  execNewPod:
-    containerName: hello-world
-    command: ["/bin/echo", "Hello from pre-hook"]
-    env:
-      - name: DEMO_ENV_VAR
-        value: DEMO_VALUE
-    volumes: []
-```
-
-- `pre`: – Indicates the hook will run before the strategy (rolling or recreate).
-
-- `failurePolicy`: – Controls what happens if the hook fails. Options are:
-
-- `Abort` – stop the deployment
-
-- `Retry` – try again
-
-- `Ignore` – continue regardless
-
-- `execNewPod`: – Runs the hook in a new pod with:
-
-- `containerName`: – the target container
-
-- `command`: – command to execute (in this case, a simple echo)
-
-- `env`: – environment variables
-
-- `volumes`: – volumes to mount (empty in this example)
-
-***Jobs in OpenShift*** is a Kubernetes resource used to run pods until a specified number of them successfully complete. It's designed for tasks that need to run to completion, unlike Deployments which maintain a desired state of pods. Jobs are useful for batch processing, periodic tasks, and other situations where a finite set of work needs to be done. A job, in contrast to a replication controller, runs a pod with any number of replicas to completion. 
+**Jobs in OpenShift** is a Kubernetes resource used to run pods until a specified number of them successfully complete. It's designed for tasks that need to run to completion, unlike Deployments which maintain a desired state of pods. Jobs are useful for batch processing, periodic tasks, and other situations where a finite set of work needs to be done. A job, in contrast to a replication controller, runs a pod with any number of replicas to completion. 
 
 - Creating a Job: A job configuration consists of the following key parts:
   - A pod template, which describes the application the pod will create.
@@ -654,74 +598,6 @@ Completion Mode:  NonIndexed
 Start Time:       Thu, 24 Jul 2025 20:54:52 -0700
 Pods Statuses:    1 Running / 0 Succeeded / 0 Failed
 ```
-
-- 
----
-    
-### 🔬 Hands-on Lab: 
-For Deployment Hooks, you will add a mid-deployment hook for the recreate strategy
-
-- Create a new project called "advanced-dc-labs"
-
-- Deploy the hello-world application
-
-- Switch your application to use the Recreate strategy
-
-- Add a mid-deployment hook that prints out "Hello from mid-Deployment hook."
-
-- Roll out a new version of your application
-
-### Checklist 📋: 
-
-- `oc get events` output contains your message from step 4
-
-- `oc describe dc/hello-world` shows the Recreate strategy and hook
-
-### Quiz
-> Q1: Which deployment strategy always has downtime during the deployment?
-- [ ] Rolling
-- [ ] Recreate
-- [ ] Custom
-- [ ] All the above
-
-
-<details>
-  <summary> Answer </summary>
-
-    Recreate 
-  
-
-</details>
-
-> Q2: How many deployment strategy hooks does the rolling strategy have?
-- [ ] 1
-- [ ] 2
-- [ ] 3
-- [ ] 4
-
-
-<details>
-  <summary> Answer </summary>
-
-   2 `pre & post` deployment
-  
-
-</details>
-
-> Q3: What is the oc command to change from rolling to recreate strategy?
-- [ ] `oc set deployment-strategy <deployment name>`
-- [ ] `oc set deployment-strategy --recreate <deployment name>`
-- [ ] `oc set strategy <deployment name>`
-- [ ] There isn't one
-
-
-<details>
-  <summary> Answer </summary>
-
-   There isn't one
-  
-
-</details>
 
 ---
 

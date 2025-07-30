@@ -13,11 +13,16 @@
 
 - [4.3 - Builds and BuildConfigs](#43-builds-and-buildconfigs)
 
-- [4.4 - Webhooks](#44-webhooks)
+- [4.4 - Deployment Statgies](#44-deployment-statgies)
 
 - [4.5 - Triggers](#62-triggers)
 
 ### 4.1 Secrets
+<p align="right">
+  <a href="https://github.com/ocp-workshop-wf/bootcamp/tree/main/module4" target="_blank">
+    <img src="/images/top.png" alt="OpenShift Training" style="width:25px;" />
+  </a>
+</p>
 
 - Secrets: a Kubernetes resource designed to hold sensitive information like passwords, API keys, certificates, and other credentials.
   - Basic Auth
@@ -574,196 +579,128 @@ oc cancel-build bc/hello-world
 
 ---
 
-### 4.4 Webhooks
-Is a method for one application to automatically send real-time data to another application when a specific event occurs. It's essentially an automated messaging system that allows applications to communicate with each other without needing to constantly "poll" or check for updates. And this is one of the key features that enables CICD!
+### 4.4 Deployment Statgies 
 
-| OpenShift | Git Repo |
-| ---------- | ------ |
-| Exposes HTTPS endpoint that starts when called | Calls endpoint when developers push code|
+| Stategy Type | Step 1 | Step 2 | Step 3 |
+| ------------ | -------- | ----- | ------ |
+| Rolling Strategy "Default" | Start new version | Switch traffic to new version | Stop old version | 
+| Recreate Strategy | Stop the old version | Start new Version | Switch Traffic to new version |
+| Custom Strategy | Start | Run custom deployment image | End |
 
-> The way the integration is set up is that the hook is exposed on the downstream system, OpenShift in our case, and the hook is configured on the upstream system. Your Git Repository is configured to call the endpoint that's exposed on OpenShift. To mitigate the risk of having a public endpoint on your OpenShift cluster, OpenShift requires Webhook clients to pass a special token string along with a request. This token value is automatically generated for BuildConfigs created with the `oc new-app` and the `oc new-build` command line tools. Once you have set up the Webhook correctly on the GitLab side, anytime a developer pushes an update GitLab will make an HTTPS request to the Webhook URL and pass along the token. When OpenShift gets the request it will start a new Build for the linked BuildConfig. This way, you can set up an automated pipeline allowing you to push automatically to your OpenShift cluster simply by pushing to a Git Repository.
+***Resources***
+- [12 App Factor](https://12factor.net/)
+- [ Custom Strategy using custom Image ](https://docs.openshift.com/en/container-platform/3.11/dev_guide/deployments/deployment_strategies.html#custom-strategy)
 
 <p align="center">
-<img src="/images/webhook.png" alt="Webhook" style="width:500px; align="center"/>
+<img src="/images/rolling-strategy.png" alt="OpenShift Training" style="width:500px; align="center"/>
 </p>
 
+- A rolling strategy supports pre and post hooks. The pre hook runs, of course, before the deployment Config, starts a new version and the post hook runs after the deployment Config stops the old version.
 
-**Hands-on Walkthroughs**  
+<p align="center">
+<img src="/images/recreate-strategy.png" alt="OpenShift Training" style="width:500px; align="center"/>
+</p>
 
-- How to call a Webhook Manually? We need 2 pieces of data!
-  - Secret Token
-  - Webhook URL
+- The recreate strategy, on the other hand, supports pre and post hooks, as well as a mid hook that is executed while no Pods are running. That is, after the recreate strategy stops the old version, but before it starts the new one.
 
-```bash
-oc get -o yaml buildconfig/hello-world
-```
-> output: Look for `triggers.generic.secret` grab that copy and now you have your token.
+- This image defines a Strategy Hook in OpenShift using a YAML-style syntax, specifically for a pre hook during a deployment strategy. Here's a regenerated clean version of the example for reference or use in documentation:
 
-```bash
-export GENERIC_SECRET=<SECRET-FROM-BUILDCONFIG>
-```
-- Now we need to get the URL information 
+  ```yml
+  pre:
+    failurePolicy: Abort
+    execNewPod:
+      containerName: hello-world
+      command: ["/bin/echo", "Hello from pre-hook"]
+      env:
+        - name: DEMO_ENV_VAR
+          value: DEMO_VALUE
+      volumes: []
+  ```
 
-```bash 
-oc describe bc/hello-world
-```
-> output: look for `Webhook Generic.URL` copy and generate a variable as well.
+- `pre`: – Indicates the hook will run before the strategy (rolling or recreate).
 
-```bash
-export WEBHOOK_URL=https://api.rm3.7wse.p1.openshiftapps.com:6443/apis/build.openshift.io/v1/namespaces/raafat-dev/buildconfigs/hello-world/webhooks/$GENERIC_SECRET/generic
-```
-- Then we need to curl that URL
+- `failurePolicy`: – Controls what happens if the hook fails. Options are:
 
-```bash
-curl -X POST -k $WEBHOOK_URL
-```
-> output: we should see status `Success`
+- `Abort` – stop the deployment
 
-- Building from the update-message branch
+- `Retry` – try again
 
-```bash
-oc new-build oc new-build https://gitlab.com/therayy1/hello-world.git#update-message
-```
-> output: we need to check the logs to verify we are at the correct branch
+- `Ignore` – continue regardless
 
-```bash
-oc logs -f bc/helloworld
-```
-> output: on `step 3` ENV MESSAGE "Welcome! I was changed in a branch."
+- `execNewPod`: – Runs the hook in a new pod with:
 
-- Use --context-dir to build from a subdirectory to deploy a specific project in case you got many projects.
+- `containerName`: – the target container
 
-```bash
-oc new-build https://gitlab.com/practical-openshift/labs.git --context-dir hello-world
-```
+- `command`: – command to execute (in this case, a simple echo)
 
-- Configuring build hooks
-  - First we need to clean our cluster from any builds and run `oc status` to make sure.
+- `env`: – environment variables
 
-```bash
-oc new-build https://gitlab.com/therayy1/hello-world.git 
-```
-> output: "Success"
+- `volumes`: – volumes to mount (empty in this example)
 
-```bash
-oc set build-hook bc/hello-world \
-  --post-commit \
-  --script="echo Hello from build hook"
-```
-> output: "buildconfig.build.openshift.io/hello-world hooks updated"
-
-```bash
-oc describe bc/hello-world
-```
-> output: 
-```yaml
-.....
-Strategy:               Docker
-URL:                    https://gitlab.com/therayy1/hello-world.git
-From Image:             ImageStreamTag golang:1.17
-Output to:              ImageStreamTag hello-world:latest
-Post Commit Hook:       ["/bin/sh", "-ic", "echo Hello from build hook"]
-....
-```
-- Lets run a build and verify that this message shows up in the output
-
-```bash
-oc start-build bc/hello-world
-```
-> output: "build.build.openshift.io/hello-world-2 started"
-
-- Now get the logs and check it out!
-
-```bash
-oc logs -f bc/hello-world
-```
-> output:
-
-```yaml
-[2/3] STEP 2/2: RUN /bin/sh -ic 'echo Hello from build hook'
-sh: cannot set terminal process group (-1): Inappropriate ioctl for device
-sh: no job control in this shell
-Hello from build hook
-```
-- Clean up - remove build hook 
-
-```bash
-oc set build-hook bc/hello-world \
-  --post-commit \
-  --remove
-```
+---
 
 ### 🔬 Hands-on Lab: 
-For builds, you will make a small tweak to an application, push it to GitLab, and then run it on your OpenShift instance.
+For Deployment Hooks, you will add a mid-deployment hook for the recreate strategy
 
-- Create a new repository under your GitLab account (https://docs.gitlab.com/ee/gitlab-basics/create-project.html)
-- Add the new repository as a remote for the labs project (https://git-scm.com/book/en/v2/Git-Basics-Working-with-Remotes)
-- Create a new branch in the labs repository named `builds-lab`
-- Modify the Dockerfile in the `hello-world-go` directory to change the `MESSAGE` environment variable
-- Commit the change and push it to GitLab
-- Create a BuildConfig for this updated `hello-world-go` directory in the `builds-lab` branch
-- Add a build hook that prints the value of the `MESSAGE` environment variable
-- Deploy the application based on the resulting ImageStream
----
+- Create a new project called "advanced-dc-labs"
+
+- Deploy the hello-world application
+
+- Switch your application to use the Recreate strategy
+
+- Add a mid-deployment hook that prints out "Hello from mid-Deployment hook."
+
+- Roll out a new version of your application
 
 ### Checklist 📋: 
-- oc logs `<your BuildConfig>` contains the build hook output with your `MESSAGE` value from step 5
-- `curl <your app>` shows you the `MESSAGE` value from step 5
-- You can start the build using the webhook manually
 
----
+- `oc get events` output contains your message from step 4
+
+- `oc describe dc/hello-world` shows the Recreate strategy and hook
+
 ### Quiz
-> Q1: What is the command to create a new BuildConfig for a Git URL?
-- [ ] `oc start-build <GIT URL>`
-- [ ] `oc new-build <GIT URL>`
-- [ ] `oc import-image <GIT URL>`
-- [ ] `oc new-app build <GIT URL>`
+> Q1: Which deployment strategy always has downtime during the deployment?
+- [ ] Rolling
+- [ ] Recreate
+- [ ] Custom
+- [ ] All the above
+
 
 <details>
   <summary> Answer </summary>
 
-  `oc new-build <GIT URL>`
+    Recreate 
+  
 
 </details>
 
-> Q2: What is the option used for build commands to build from a subdirectory of a Git project?
-- [ ] `--subdirectory`
-- [ ] `context-directory`
-- [ ] `subdir`
-- [ ] `context-dir`
+> Q2: How many deployment strategy hooks does the rolling strategy have?
+- [ ] 1
+- [ ] 2
+- [ ] 3
+- [ ] 4
+
 
 <details>
   <summary> Answer </summary>
 
-  `context-dir`
+   2 `pre & post` deployment
+  
 
 </details>
 
-> Q3: What is the option used to build based on a branch in a Git repository?
+> Q3: What is the oc command to change from rolling to recreate strategy?
+- [ ] `oc set deployment-strategy <deployment name>`
+- [ ] `oc set deployment-strategy --recreate <deployment name>`
+- [ ] `oc set strategy <deployment name>`
+- [ ] There isn't one
 
-- [ ] Add #branch-name to the end of the URL
-- [ ] Add =branch-name to the end of the URL
-- [ ] Add @branch-name to the end of the URL
-- [ ] Add -b branch-name to the end of the URL
-
-<details>
-  <summary> Answer </summary>
-
-  Add #branch-name to the end of the URL
-
-</details>
-
-> Q4: What can you use to automatically trigger BuildConfigs to run a new build in OpenShift when events happen in a Git repository like GitLab or GitHub?
-
-- [ ] Set cron to execute `oc new-build` every few minutes
-- [ ] Webhooks
-- [ ] DeploymentConfig Triggers
-- [ ] There is noway we can do that!
 
 <details>
   <summary> Answer </summary>
 
-  WebHook
+   There isn't one
+  
 
 </details>
 
@@ -862,10 +799,6 @@ Lets learn about basic automation for deployments, configuring the deployment pr
     ```
     > output: you should find both `TYPE` in with the `VALUE` of true.
 
-
-### 🔬 Hands-on Lab: 
-
-### Checklist 📋: 
 
 ### Quiz
 > Q1: What command will disable deployment triggers?
