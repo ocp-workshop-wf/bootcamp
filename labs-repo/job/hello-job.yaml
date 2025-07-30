@@ -3,12 +3,10 @@ kind: Job
 metadata:
   name: hello-job
 spec:
-  selector: {}
   template:
-    metadata:
-      name: hello-world-job
     spec:
       containers:
-        - name: hello-world-job
-          image: quay.io/practicalopenshift/hello-world
-      restartPolicy: OnFailure
+      - name: process
+        image: busybox
+        command: ["sh", "-c", "echo Starting job... && sleep 5 && echo Job complete."]
+      restartPolicy: Never

@@ -793,6 +793,103 @@ When using the `oc new-app` command with a Git repository, OpenShift automatical
     </p>
 
 **Hands-on Walkthroughs**  
+
+- How to configure pre-deployment hook for `rolling strategy` you will need 2 windows terminals for this excersice.  
+
+    ```bash
+    # on terminal 1
+    oc get pods --watch
+    ```
+    ```bash
+    # on terminal 2
+    oc rollout latest deployment/hello-world
+    ```
+    > output: you should see the rolling strategy getting applied as the new version is getting deployed then switched the network to the new one and terminating the old one!
+
+  - Lets add a deployment hook to the application, and trigger another rollout.
+    
+    ```bash
+    oc set deployment-hook dc/hello-world --pre -c hello-world -- /bin/echo hello from pre-deploy hook
+    ```
+    ```bash
+    oc describe dc/hello-world
+    ```
+    > output: "Strategy:       Rolling
+  Pre-deployment hook (pod type, failure policy: Ignore):" + `Container:  hello-world` & `Command:    /bin/echo hello from pre-deploy hoo`
+
+- Now that we-ve verified out hook is configured, let's run the `oc rollout` command once again, just as we did before.
+  
+    ```bash
+    oc rollout latest dc/hello-world
+    ```
+    > output: you will see a pod ends with `pre` and `deploy` pods and again same process normal rolling deployment after the `pre` was done!
+
+    - In case, the deployment hook pod exited very quickly, so we're going to check the OpenShift event logs in order to validate. 
+      - The events are a list of various OpenShift activities that have recently occurred this includes some basic deployment hook information.
+        
+        ```bash
+        oc get events
+        ```
+        > output: confirm that the `pre-hook` ran successfully.
+         
+- How to configure the Recreate Deployment Strategy
+  - Configuring the recreated strategy is a bit different from most of the commands that you have learned so far in this course. There's no command, such as `oc set deployment strategy`. Instead you need to modify the resource definition `YAML` directly. There are a couple of ways to do this.You can download a copy of the resource with `oc get -o YAML`, make changes and `re-upload` the changed definition using `oc create`. The oc tool provides a utility that automates all of these steps called `oc edit`.
+    
+    ```bash
+    oc edit dc/hello-world
+    ```
+    > output: all you have to do is remove all of the keys except for the type, replace it with `Recreate`.
+    
+    ```yml
+      strategy:
+        type: Recreate # CHANGE HERE!
+        rollingParams:
+          updatePeriodSeconds: 1
+          intervalSeconds: 1
+          timeoutSeconds: 600
+          maxUnavailable: 25%
+          maxSurge: 25%
+          pre:
+            failurePolicy: Ignore
+            execNewPod:
+              command:
+                - /bin/echo
+                - hello
+                - from
+                - pre-deploy
+                - hook
+              containerName: hello-world
+        resources: {}
+        activeDeadlineSeconds: 21600
+    ```
+<p align="center">
+<img src="/images/strategy-change.png" alt="OpenShift Training" style="width:500px; align="center"/>
+</p>
+
+- Lets check the changes
+  
+    ```bash
+    oc describe dc/hello-world
+    ```
+    > output: you should see `Strategy:       Recreate`
+
+- Now that you have updated the strategy to recreate, lets watch the pods as you trigger a deployment. The deployment should follow the recreate order as described earlier.
+
+    ```bash
+    # terminal 1
+    oc get pods -w
+    ```
+    ```bash
+    oc rollout latest dc/hello-world
+    ```
+<p align="center">
+<img src="/images/pods-recreate.png" alt="OpenShift Training" style="width:500px; align="center"/>
+</p>
+
+> output:
+> Just as with the rolling strategy, OpenShift will start a deployment pod first. However, things start to change pretty quickly after that. Instead of starting the new replication controller and pods, first the old replication controller terminates and takes down its pods. Then the deployment config will schedule the new replication controller and start the new pods.
+
+- Blue Green Deployment 
   ```yaml
   # Route pointing initially to blue
   apiVersion: route.openshift.io/v1

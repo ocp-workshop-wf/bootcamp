@@ -32,6 +32,27 @@
 <img src="/images/s2i-concept.webp" alt="OpenShift Training" style="width:400px; align="center"/>
 </p>
 
+Koniko (Buildpacks / Konica Buildpack Implementation)
+Koniko refers to a Cloud Native Buildpacks-based toolset, typically used in platforms like Heroku and Paketo. It:
+  - Detects your application type automatically
+  - Selects appropriate buildpacks
+  - Produces OCI-compliant images without needing a Dockerfile
+  - Emphasizes build phase separation (detect, build, and export)
+
+| Feature                        | S2I (Source-to-Image)                   | Koniko (Buildpacks)                         |
+|-------------------------------|-----------------------------------------|---------------------------------------------|
+| **Build Method**              | Uses builder image + app source         | Uses buildpacks (detect/build/export flow)  |
+| **Dockerfile Needed**         | ❌ Not required                          | ❌ Not required                              |
+| **Language Detection**        | Manual or via image tag                 | ✅ Automatic                                 |
+| **Layer Caching**             | Basic layer reuse                       | ✅ Advanced layer caching & reuse            |
+| **Custom Logic**              | Allows `assemble`, `run`, `save-artifacts` scripts | Builtpack hooks for full customization   |
+| **OpenShift Native**          | ✅ Fully integrated                      | ⚠️ Needs Paketo/Stack-based integration     |
+| **Output Image Format**       | Docker/OCI-compatible                   | OCI-compatible                              |
+| **Use Case Fit**              | Great for OpenShift CI/CD pipelines     | Great for cloud-native CI systems like Tekton, GitHub Actions |
+
+
+  > Both S2I and Koniko offer Dockerfile-less image creation. While S2I is tailored for OpenShift with native support and scripting hooks, Koniko leverages Cloud Native Buildpacks for broader platform compatibility and better caching. 
+
  > It uses `Assemble` script vs `Run` from Docker and `Run` vs `CMD` from Docker.
 
  - FAQ: Why do I want another way to build and run applications?so what advantage does S2I have?
@@ -519,102 +540,19 @@ spec:
     activeDeadlineSeconds: 1800 # 30 min
 ```
 
+- While jobs don't have strategies like deployment, you can:
+  - Use `initContainers` for setup before the main container runs.
+  - Run cleanup via another job after completion
+  ```yaml
+   initContainers:
+   - name: setup
+     image: busybox
+     command: ['sh', '-c', 'echo Setup running...']
+  ```
+  > That your accessing the shell and running the command echo.
+
+
 **Hands-on Walkthroughs** 
-- How to configure pre-deployment hook for `rolling strategy` you will need 2 windows terminals for this excersice.  
-
-    ```bash
-    # on terminal 1
-    oc get pods --watch
-    ```
-    ```bash
-    # on terminal 2
-    oc rollout latest dc/hello-world
-    ```
-    > output: you should see the rolling strategy getting applied as the new version is getting deployed then switched the network to the new one and terminating the old one!
-
-  - Lets add a deployment hook to the application, and trigger another rollout.
-    
-    ```bash
-    oc set deployment-hook dc/hello-world --pre -c hello-world -- /bin/echo hello from pre-deploy hook
-    ```
-    ```bash
-    oc describe dc/hello-world
-    ```
-    > output: "Strategy:       Rolling
-  Pre-deployment hook (pod type, failure policy: Ignore):" + `Container:  hello-world` & `Command:    /bin/echo hello from pre-deploy hoo`
-
-- Now that we-ve verified out hook is configured, let's run the `oc rollout` command once again, just as we did before.
-  
-    ```bash
-    oc rollout latest dc/hello-world
-    ```
-    > output: you will see a pod ends with `pre` and `deploy` pods and again same process normal rolling deployment after the `pre` was done!
-
-    - In case, the deployment hook pod exited very quickly, so we're going to check the OpenShift event logs in order to validate. 
-      - The events are a list of various OpenShift activities that have recently occurred this includes some basic deployment hook information.
-        
-        ```bash
-        oc get events
-        ```
-        > output: confirm that the `pre-hook` ran successfully.
-         
-- How to configure the Recreate Deployment Strategy
-  - Configuring the recreated strategy is a bit different from most of the commands that you have learned so far in this course. There's no command, such as `oc set deployment strategy`. Instead you need to modify the resource definition `YAML` directly. There are a couple of ways to do this.You can download a copy of the resource with `oc get -o YAML`, make changes and `re-upload` the changed definition using `oc create`. The oc tool provides a utility that automates all of these steps called `oc edit`.
-    
-    ```bash
-    oc edit dc/hello-world
-    ```
-    > output: all you have to do is remove all of the keys except for the type, replace it with `Recreate`.
-    
-    ```yml
-      strategy:
-        type: Recreate # CHANGE HERE!
-        rollingParams:
-          updatePeriodSeconds: 1
-          intervalSeconds: 1
-          timeoutSeconds: 600
-          maxUnavailable: 25%
-          maxSurge: 25%
-          pre:
-            failurePolicy: Ignore
-            execNewPod:
-              command:
-                - /bin/echo
-                - hello
-                - from
-                - pre-deploy
-                - hook
-              containerName: hello-world
-        resources: {}
-        activeDeadlineSeconds: 21600
-    ```
-<p align="center">
-<img src="/images/strategy-change.png" alt="OpenShift Training" style="width:500px; align="center"/>
-</p>
-
-- Lets check the changes
-  
-    ```bash
-    oc describe dc/hello-world
-    ```
-    > output: you should see `Strategy:       Recreate`
-
-- Now that you have updated the strategy to recreate, lets watch the pods as you trigger a deployment. The deployment should follow the recreate order as described earlier.
-
-    ```bash
-    # terminal 1
-    oc get pods -w
-    ```
-    ```bash
-    oc rollout latest dc/hello-world
-    ```
-<p align="center">
-<img src="/images/pods-recreate.png" alt="OpenShift Training" style="width:500px; align="center"/>
-</p>
-
-> output:
-> Just as with the rolling strategy, OpenShift will start a deployment pod first. However, things start to change pretty quickly after that. Instead of starting the new replication controller and pods, first the old replication controller terminates and takes down its pods. Then the deployment config will schedule the new replication controller and start the new pods.
-
 
 - Launch a job 
 
@@ -622,7 +560,7 @@ spec:
 cd ./labs-repo/job
 ```
 ```bash
-oc create -f hello-job.yaml
+oc apply -f hello-job.yaml
 ```
 > output: "job.batch/hello-job created"
 
