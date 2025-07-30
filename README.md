@@ -46,7 +46,7 @@
 
 4.3 - Builds and BuildConfigs
 
-4.4 - Deployment Statgies 
+4.4 - Deployment Strategies 
 
 4.5 - Triggers 
 
