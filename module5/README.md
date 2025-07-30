@@ -409,14 +409,23 @@ The core idea:
   oc autoscale deployment/hello-world \
   --min 1 \
   --max 10 \
-  --cpu-percent=80
+  --cpu-percent=10
 ```
   > output: horizontalpodautoscaler.autoscaling/hello-world autoscaled
-
 ```bash
-  oc get hpa
+# access the pod terminal and run this command to increase cpu 
+while true; do sha1sum /dev/zero; done
+```
+```bash
+# In terminal 2
+  watch oc get hpa
 ```
 > output: includes all details about the HPA specially the Targets.
+
+<p align="center">
+<img src="/images/hpa-scaling.png" alt="OpenShift Training" style="width:500px; align="center"/>
+</p>
+
   
   ```bash
   oc describe hpa/hello-world
@@ -575,7 +584,45 @@ Completion Mode:  NonIndexed
 Start Time:       Thu, 24 Jul 2025 20:54:52 -0700
 Pods Statuses:    1 Running / 0 Succeeded / 0 Failed
 ```
+### Quiz (Jobs)
+> Q1: What does an OpenShift Job do?
+- [ ] Runs infinitely 
+- [ ] Creates a pod for monitoring
+- [ ] Runs a task to completion
+- [ ] Deploys a web server 
 
+<details>
+  <summary> Answer </summary>
+
+    Runs a task to completion
+  
+</details>
+
+> Q2: Which field ensures a Job won’t restart the pod after failure?
+- [ ] `replicas`
+- [ ] `restartPolicy: Never`
+- [ ] `strategy: Recreate`
+- [ ] `podSelector`
+
+<details>
+  <summary> Answer </summary>
+
+   `restartPolicy: Never`
+  
+</details>
+
+> Q3: How do you view logs of a job’s pod?
+- [ ] `oc describe job <name>`
+- [ ] `oc logs <job-name>`
+- [ ] `oc logs -l job-name=<name>`
+- [ ] `oc get events`
+
+<details>
+  <summary> Answer </summary>
+
+  `oc logs -l job-name=<name>`
+  
+</details>
 ---
 
 <p align="right">
