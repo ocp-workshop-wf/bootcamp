@@ -9,7 +9,6 @@
 ](https://docs.redhat.com/en/documentation/openshift_container_platform/4.19)   [![Static Badge](https://img.shields.io/badge/Kubernetes-black?style=flat&logo=Kubernetes&logoSize=auto)
 ](https://kubernetes.io/docs/home/)
 
----
 
 ## 🔴  OpenShift Bootcamp Modules
 
