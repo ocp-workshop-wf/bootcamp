@@ -11,7 +11,7 @@
 
 - [6.1 - Health Check & Observability](#61-health-check--observability) | [Lab](#-hands-on-lab-health-check) | [Quiz](#quiz-health-check)
 
-- [6.2 - Helm Charts](#62-helmcharts) | [Lab](#-hands-on-lab-helm) | [Quiz](#quiz-helm)
+- [6.2 - Helm Charts](#62-HelmCharts) | [Lab](#-hands-on-lab-helm) | [Quiz](#quiz-helm)
 
 ---
 

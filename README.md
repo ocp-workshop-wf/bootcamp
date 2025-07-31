@@ -20,7 +20,7 @@
 
 - **1.1** - [Introduction to OpenShift](https://github.com/ocp-workshop-wf/bootcamp/tree/main/module1#11-overview-of-openshift-and-its-architecture)
 
-- **1.2** - [Difference between Kubernetes and OpenShift](#12-difference-between-kubernetes-and-openshift)
+- **1.2** - [Difference between Kubernetes and OpenShift](https://github.com/ocp-workshop-wf/bootcamp/tree/main/module1#12-difference-between-kubernetes-and-openshift)
 
 
 ### 🔹 [Module 2](https://github.com/ocp-workshop-wf/bootcamp/tree/main/module2): Working with OpenShift Interfaces
@@ -62,4 +62,4 @@
 ### 🔹 [Module 6](https://github.com/ocp-workshop-wf/bootcamp/tree/main/module6): Mastering OpenShift
 
 - **6.1** – [Health Checks and Observability](https://github.com/ocp-workshop-wf/bootcamp/tree/main/module6#61-health-check--observability)
-- **6.2** – [Helm Charts](#62-helmcharts)
+- **6.2** – [Helm Charts](https://github.com/ocp-workshop-wf/bootcamp/tree/main/module6#62-HelmCharts)
