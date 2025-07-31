@@ -45,16 +45,6 @@ From the course  "OpenShift 4," you will learn the following OpenShift Resources
   | Checklist 📋|
   | Quiz |
 
-Skills needed!
-  - `cd`: To navigate to a specific directory
-  - `ls`: To list directory components
-  - `cat`: To read out a specific file
-  - `curl`: Client for URLs to transfer data to or from server using various network protocols such as HTTP, HTTPS, FTP & more.
-  - `echo`: To echo a parameter given
-  - `vi` or `vim`: Its a built in editor used to edit files.
-  - `git`: To interact with your source control on github.
-  - Other parameters and options we will learn throughout this course. 
-
 
 ### 1.1 Overview of OpenShift and its Architecture
 
