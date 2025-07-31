@@ -22,7 +22,7 @@
 
 - **1.2** - [Difference between Kubernetes and OpenShift](ttps://github.com/ocp-workshop-wf/bootcamp/tree/main/module1#12-difference-between-kubernetes-and-openshift)
 
-### 🔹 [Module 2: Working with OpenShift Interfaces](https://github.com/ocp-workshop-wf/bootcamp/tree/main/module2)
+### 🔹 [Module 2](https://github.com/ocp-workshop-wf/bootcamp/tree/main/module2): Working with OpenShift Interfaces
 
 - **2.0** – [OpenShift Container Lifecycle](https://github.com/ocp-workshop-wf/bootcamp/tree/main/module2#20-openshift-container-lifecycle)  
 - **2.1** – [OpenShift CLI and Web Consol](https://github.com/ocp-workshop-wf/bootcamp/tree/main/module2#21-openshift-cli-oc-and-web-console)  
@@ -30,7 +30,7 @@
 
 ---
 
-### 🔹 [Module 3: Core OpenShift Resources](https://github.com/ocp-workshop-wf/bootcamp/tree/main/module3)
+### 🔹 [Module 3](https://github.com/ocp-workshop-wf/bootcamp/tree/main/module3): Core OpenShift Resources
 
 - **3.1** – [OpenShift Resources Overview](https://github.com/ocp-workshop-wf/bootcamp/tree/main/module3#31-openshift-resources-overview)
 - **3.2** – [Application Deployment in OpenShift](https://github.com/ocp-workshop-wf/bootcamp/tree/main/module3#32-openshift-and-how-to-deploy-applications)
@@ -39,7 +39,7 @@
 
 ---
 
-### 🔹 [Module 4: Application Deployment and Management](https://github.com/ocp-workshop-wf/bootcamp/tree/main/module4)
+### 🔹 [Module 4](https://github.com/ocp-workshop-wf/bootcamp/tree/main/module4): Application Deployment and Management
 
 - **4.1** – [Managing Secrets](https://github.com/ocp-workshop-wf/bootcamp/tree/main/module4#41-secrets) 
 - **4.2** – [Images and Image Streams](https://github.com/ocp-workshop-wf/bootcamp/tree/main/module4#42-images-and-image-streams)
@@ -49,7 +49,7 @@
 
 ---
 
-### 🔹 [Module 5: Advanced Deployment Options](https://github.com/ocp-workshop-wf/bootcamp/tree/main/module5)
+### 🔹 [Module 5](https://github.com/ocp-workshop-wf/bootcamp/tree/main/module5): Advanced Deployment Options
 
 - **5.1** – [Source-to-Image (S2I)](https://github.com/ocp-workshop-wf/bootcamp/tree/main/module5#51-source-to-image-s2i)
 - **5.2** – [OpenShift Storage and Volumes](https://github.com/ocp-workshop-wf/bootcamp/tree/main/module5#52-openshift-volumes)
@@ -58,7 +58,7 @@
 
 ---
 
-### 🔹 [Module 6: Mastering OpenShift](https://github.com/ocp-workshop-wf/bootcamp/tree/main/module6)
+### 🔹 [Module 6](https://github.com/ocp-workshop-wf/bootcamp/tree/main/module6): Mastering OpenShift
 
 - **6.1** – [Health Checks and Observability](https://github.com/ocp-workshop-wf/bootcamp/tree/main/module6#61-health-check--observability)
 - **6.2** – [Helm Charts](#62-helmcharts)
