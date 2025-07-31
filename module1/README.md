@@ -37,12 +37,12 @@ From the course  "OpenShift 4," you will learn the following OpenShift Resources
 - You will be able to configure applications to follow OpenShift best practices.
 - Develop advanced application deployments.
 
-  |💡 **Modules Stucture**  | 
+  |💡 **Modules Stucture** | 
   | -------- |
   | Resource Information  | 
   | Hands-on Walkthroughs |
-  | Hands-on Labs    | 
-  | Checklist |
+  | 🔬 Hands-on Labs    | 
+  | Checklist 📋|
   | Quiz |
 
 Skills needed!
