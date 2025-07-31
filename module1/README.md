@@ -24,16 +24,16 @@
 From the course  "OpenShift 4," you will learn the following OpenShift Resources and soft skills:
 ||||||
 |-|-|-|-|-| 
-| OCP CLI | OCP UI | Projects | Pods | Yaml | 
-| JSON | Deployment | DeploymentConfig | Services| Route |
-| ImageStream | Labels | S2I | Build | BuildConfig| 
-| Rollout | Rollback | ReplicationController| ReplicaSet| ConfigMaps |
-| Secrets| Webhooks | Deployment Triggers | ConfigChange Triggers | Volumes | 
-| Horizontal Scalling | Vertical Scaling | AutoScaling | Rolling Strategy | Recreate Strategy | 
-| Custom Strategy | Deduging | OpenShift Jobs | StartUp Probe | Health Checks |
+| OCP CLI | OCP UI | `Projects` | `Pods` | Yaml | 
+| JSON | `Deployment` | `DeploymentConfig` | `Services` | `Route` |
+| `ImageStream` | Labels | `S2I` |`Build` | `BuildConfig`| 
+| `Rollout` | `Rollback` | `ReplicationController`| `ReplicaSet`| `ConfigMaps` |
+| `Secrets`| Trouble-Shooting | Packadging | Index charts | `Volumes` | 
+| `Horizontal Scalling` | Vertical Scaling | AutoScaling | Rolling Strategy | Recreate Strategy | 
+| Custom Strategy | `Deduging` | OpenShift Jobs | StartUp Probe | Health Checks |
 | liveness Probe | Readiness probe| HelmCharts | Canary Strategy | Green-Blue Strategy |
 
-Deploy existing applications to OpenShift.
+
 Understand 15 types of OpenShift resources.
 Configure applications to follow OpenShift best practices.
 Develop advanced application templates.
