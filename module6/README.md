@@ -23,18 +23,34 @@
   </a>
 </p>
 
+
+
+If such a probe is configured, it disables liveness and readiness checks until it succeeds.
+
+This type of probe is only executed at startup, unlike liveness and readiness probes, which are run periodically.
+
 **liveness probe** in OpenShift (which leverages Kubernetes) is a mechanism used to determine if a container within a pod is still running and healthy. Its primary purpose is to detect and handle situations where an application might be running but has entered an unrecoverable state, such as a deadlock or a process hanging, and is no longer able to serve requests. It alos answer the question: 
 > Should we restart this Pod?
-> 
+
 - Default is to probe every 10 seconds
 - Restarts the pod after 3 failed Liveness checks.
 
-***Readiness probe*** in OpenShift (and Kubernetes) is a mechanism used to determine if a container within a pod is ready to accept incoming network traffic. Unlike a liveness probe, which indicates whether a container is alive and should be restarted if it fails, a readiness probe focuses on whether the application inside the container is fully initialized and capable of serving requests. It also answers the question: 
+**Readiness probe** in OpenShift (and Kubernetes) is a mechanism used to determine if a container within a pod is ready to accept incoming network traffic. Unlike a liveness probe, which indicates whether a container is alive and should be restarted if it fails, a readiness probe focuses on whether the application inside the container is fully initialized and capable of serving requests. It also answers the question: 
 > Should we send traffic to this pod?
 
 - **Use case**: If you have been developing applications for a while, you have probably had the pleasure of dealing with an application that crashed unexpectedly after running successfully for a while. When this happens to an OpenShift Application that has `liveness checks` configured, OpenShift will automatically restart the pod for many types of workloads..
 
 - Both Readiness and Liveness Probes have a few options available. The most common option for `REST APIs` is the `HTTP GIT probe`. This type of probe makes HTTP requests to your pod at specified intervals and reports `success` if the response code is between `200` and `399`. This is a natural fit for arrest API, and it should be your go-to Readiness and Liveness Probe solution unless you have a good reason to do otherwise. For applications that aren't serving arrest API, there's also an escape hatch present in the form of the Command execution probe. Also we got the most common check which is `TCP check`.
+
+**Startup probe** A startup probe verifies whether the application within a container is started. This can be used to adopt liveness checks on slow starting containers, avoiding them getting killed by the kubelet before they are up and running.
+
+<p align="center">
+<img src="/images/probes.gif" alt="OpenShift Training" style="width:500px; align="center"/>
+</p>
+
+
+
+**Resource**: [Kubernetes Documentation](https://kubernetes.io/docs/concepts/configuration/liveness-readiness-startup-probes/)
 
 **Hands-on Walkthroughs** 
 
@@ -112,7 +128,6 @@ For DeploymentConfigs, you will edit your readiness probe to be incorrect, then 
 - Quickly after adding the check, make some requests to your application. They succeed--why? What's happening to the pods in the application?
 
 
-
 ### Checklist 📋 (Health Check): 
 - `oc get events` should contain several "Readiness probe failed" messages
 
@@ -151,10 +166,10 @@ Helm Charts are packages of pre-configured Kubernetes resources, acting as a pac
 ***Chart.yaml**
 This file defines the metadata of the chart, including its name, version, description, and any dependencies on other charts.
 
-***values.yaml***
+**values.yaml**
 This file contains default values for the configurable parameters within the chart's templates. Users can override these values during installation or upgrade to customize the application's deployment.
 
-***templates/directory***
+**templates/directory**
 This directory holds the Kubernetes manifest files (e.g., Deployments, Services, ConfigMaps) written using Go templating language. These templates are rendered with the values from `values.yaml` (or user-provided overrides) to generate the final Kubernetes YAML manifests for deployment.
 
 - Helm example 
@@ -180,11 +195,16 @@ mychart/
 - Access the labs directory and explore helm folder
   
 ```bash
-cd ./labs-repo/helm
+cd ./labs-repo/helm/mq-helm
+```
+```bash
+helm install my-release --dry-run . > all.yaml    
 ```
 
 ### 🔬 Hands-on Lab (Helm): 
 For Helm you will need to be creative - either you follow the same pattern I got here into the Helm directory or you might want to create your own, here are the step by step recipe.
+
+- Use the `service` / `route` of hello-world application and build up your own helm-chart.
 
 - cd Create a personal Helm repository using a Github repo
 
