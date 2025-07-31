@@ -30,8 +30,8 @@ From the course  "OpenShift 4," you will learn the following OpenShift Resources
 | Rollout | Rollback | ReplicationController| ReplicaSet| ConfigMaps |
 | Secrets| Webhooks | Deployment Triggers | ConfigChange Triggers | Volumes | 
 | Horizontal Scalling | Vertical Scaling | AutoScaling | Rolling Strategy | Recreate Strategy | 
-| Custom Strategy | Deduging | OpenShift Jobs | Templates | Health Checks |
-| liveness Probe | Readiness probe| HelmCharts | Packaging | Trouble Shooting |
+| Custom Strategy | Deduging | OpenShift Jobs | StartUp Probe | Health Checks |
+| liveness Probe | Readiness probe| HelmCharts | Canary Strategy | Green-Blue Strategy |
 
 Deploy existing applications to OpenShift.
 Understand 15 types of OpenShift resources.
