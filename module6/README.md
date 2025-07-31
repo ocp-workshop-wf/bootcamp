@@ -43,12 +43,61 @@ This type of probe is only executed at startup, unlike liveness and readiness pr
 - Both Readiness and Liveness Probes have a few options available. The most common option for `REST APIs` is the `HTTP GIT probe`. This type of probe makes HTTP requests to your pod at specified intervals and reports `success` if the response code is between `200` and `399`. This is a natural fit for arrest API, and it should be your go-to Readiness and Liveness Probe solution unless you have a good reason to do otherwise. For applications that aren't serving arrest API, there's also an escape hatch present in the form of the Command execution probe. Also we got the most common check which is `TCP check`.
 
 **Startup probe** A startup probe verifies whether the application within a container is started. This can be used to adopt liveness checks on slow starting containers, avoiding them getting killed by the kubelet before they are up and running.
+  - Why use a Startup Probe? 
+  > Without it, a liveness probe might kill your container before it has even fully started, especially in cases like: Application with long initialization phases, or containers waiting for external services
 
 <p align="center">
 <img src="/images/probes.gif" alt="OpenShift Training" style="width:500px; align="center"/>
 </p>
 
+  -  Deployment example using a startup probe
+  
+  ```yaml
+  apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    name: hello-world-app
+  spec:
+    replicas: 1
+    selector:
+      matchLabels:
+        app: hello-world-app
+    template:
+      metadata:
+        labels:
+          app: hello-world-app
+      spec:
+        containers:
+        - name: hello-world
+          image: hello-world:latest
+          ports:
+          - containerPort: 80
+          startupProbe: # here we define the startupProbe
+            httpGet:
+              path: /
+              port: 80
+            failureThreshold: 30 # means it will try 3 times 
+            periodSeconds: 10 # it will try every 10 sec.
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80
+            periodSeconds: 5 
+            initialDelaySeconds: 10 
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 80
+            periodSeconds: 10 
+            initialDelaySeconds: 20
+  ```
+  > startupProbe: Makes an HTTP GET to / on port 80. It allows up to 30 failures (i.e., ~5 minutes) before declaring the container failed. Once the startup probe succeeds once, Kubelet stops checking startupProbe and switches to liveness and readiness checks.
 
+  - If you get an error you should see this:
+
+  <p align="center">
+  <img src="/images/startup-error.png" alt="OpenShift Training" style="width:500px; align="center"/>
+  </p>
 
 **Resource**: [Kubernetes Documentation](https://kubernetes.io/docs/concepts/configuration/liveness-readiness-startup-probes/)
 
