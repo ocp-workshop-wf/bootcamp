@@ -251,7 +251,10 @@ helm install my-release --dry-run . > all.yaml
 ```
 
 ### 🔬 Hands-on Lab (Helm): 
-For Helm you will need to be creative - either you follow the same pattern I got here into the Helm directory or you might want to create your own, here are the step by step recipe.
+For Helm you will need to be creative - either you follow the same pattern I got here into the Helm directory or you might want to create your own, here are the step by step recipe. using 
+  ```bash
+  helm create bootcamp
+  ```
 
 - Use the `service` / `route` of hello-world application and build up your own helm-chart.
 

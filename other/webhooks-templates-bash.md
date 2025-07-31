@@ -1,4 +1,4 @@
-### 4.4 Webhooks
+### Webhooks
 Is a method for one application to automatically send real-time data to another application when a specific event occurs. It's essentially an automated messaging system that allows applications to communicate with each other without needing to constantly "poll" or check for updates. And this is one of the key features that enables CICD!
 
 | OpenShift | Git Repo |
@@ -191,7 +191,7 @@ For builds, you will make a small tweak to an application, push it to GitLab, an
 
 </details>
 
-### 6.1 Templates
+### Templates
 A template is a reusable definition of a set of OpenShift objects (like pods, services, routes, etc.) that can be parameterized and instantiated to create those objects within a project. Essentially, it's a way to automate the creation of multiple related resources, making it easier to deploy and manage applications.
     ***Template Parts***
         - Preamble: is just a header identifying the file as a template file. i.e(basic metadata: `name`, `kind`).
@@ -325,11 +325,6 @@ A template is a reusable definition of a set of OpenShift objects (like pods, se
     > output: list of templates.
 
 
-
-
-
-
-
 ### 🔬 Hands-on Lab: 
 For Templates, you will create your own parameterized template for a small REST API with a database backend. First, you will need to get the application working on OpenShift.
 
@@ -399,3 +394,265 @@ True: `oc new-app` does support templates as arguments.
 </details>
 
 ---
+### Bash scripting 
+Bash scripting is a way to automate tasks on Unix-like systems. It allows users to write sequences of commands in a file and execute them as a single script. Bash (Bourne Again SHell) is the most commonly used shell in Linux. Key Concepts:
+
+  - Shebang (#!/bin/bash)
+
+  - Variables and parameters
+
+  - Conditionals (if, else, elif)
+
+  - Loops (for, while, until)
+
+  - Functions
+
+  - Input/output (stdin, stdout, stderr)
+
+  - File operations and redirection
+
+**Resources:**
+
+  - [GNU Bash Manual](https://www.gnu.org/software/bash/manual/)
+
+  - [ShellCheck – Linter for Bash scripts](https://www.shellcheck.net/)
+
+  - [TLDP Bash Guide](https://tldp.org/LDP/Bash-Beginners-Guide/html/)
+
+**Hands-on Walkthroughs** 
+- Your first script
+
+  ```bash
+  #!/bin/bash
+  echo "Hello, Bash!"
+  ```
+- Save this as hello.sh, then run:
+  ```bash
+  chmod +x hello.sh
+  ./hello.sh
+  ```
+  > output: "Hello, Bash!"
+
+- Variables and parameters
+
+  ```bash
+  #!/bin/bash
+  NAME="World"
+  echo "Hello, $NAME!"
+  ```
+- Save this as hello_var.sh, then run:
+  ```bash
+  chmod +x hello_var.sh
+  ./hello_var.sh
+  ```
+  > output: "Hello, World!"  
+
+- Conditionals
+
+  ```bash
+  #!/bin/bash
+  if [ "$1" == "hello" ]; then
+      echo "Hello, World!"
+  else
+      echo "Goodbye, World!"
+  fi
+  ``` 
+- Save this as conditional.sh, then run:
+  ```bash
+  chmod +x conditional.sh
+  ./conditional.sh hello
+  ```
+  > output: "Hello, World!"
+  ```bash
+  ./conditional.sh goodbye
+  ```
+  > output: "Goodbye, World!"
+  
+  ```bash  
+  ./conditional.sh
+  ```
+  > output: "Goodbye, World!" (default case)
+
+- Loops
+
+  ```bash
+  #!/bin/bash
+  for i in {1..5}; do
+      echo "Iteration $i"
+  done
+  ```
+- Save this as loop.sh, then run:
+  ```bash
+  chmod +x loop.sh
+  ./loop.sh
+  ```
+  > output:
+  ```
+  Iteration 1
+  Iteration 2
+  Iteration 3
+  Iteration 4
+  Iteration 5
+  ```
+- Functions
+
+  ```bash
+  #!/bin/bash
+  greet() {
+      echo "Hello, $1!"
+  }
+  greet "Bash"
+  ```
+- Save this as functions.sh, then run:
+  ```bash
+  chmod +x functions.sh
+  ./functions.sh
+  ```
+  > output: "Hello, Bash!"
+
+- Input/output
+
+  ```bash
+  #!/bin/bash
+  echo "Enter your name:"
+  read NAME
+  echo "Hello, $NAME!"
+  ```
+- Save this as input_output.sh, then run:
+  ```bash
+  chmod +x input_output.sh
+  ./input_output.sh
+  ```
+  > output: "Enter your name:" (then type your name and press Enter)
+  ```
+  Hello, YourName!
+  ```
+- File operations and redirection
+
+  ```bash
+  #!/bin/bash
+  echo "This is a test file." > testfile.txt
+  cat testfile.txt
+  ```
+- Save this as file_ops.sh, then run:
+  ```bash
+  chmod +x file_ops.sh
+  ./file_ops.sh
+  ```
+  > output: "This is a test file."
+
+- Clean up created files:
+  ```bash
+  rm hello.sh hello_var.sh conditional.sh loop.sh functions.sh input_output.sh file_ops.sh
+  rm testfile.txt
+  ```
+- Resources:
+
+  - [GNU Bash Manual](https://www.gnu.org/software/bash/manual/)
+
+  - [ShellCheck – Linter for Bash scripts](https://www.shellcheck.net/)
+
+  - [TLDP Bash Guide](https://tldp.org/LDP/Bash-Beginners-Guide/html/)
+
+### 🔬 Hands-on Lab:
+For Bash scripting, you will create a simple script that automates a task on your OpenShift cluster.
+- Create a script that does the following:
+  - Lists all pods in your project
+  - Checks the status of each pod
+  - If a pod is not running, it should print a message indicating which pod is not running
+  - If all pods are running, it should print a success message
+```bash
+#!/bin/bash
+pods=$(oc get pods -o jsonpath='{.items[*].status.phase}')
+all_running=true
+for pod in $pods; do
+  if [ "$pod" != "Running" ]; then
+    echo "Pod $pod is not running."
+    all_running=false
+  fi
+done
+if $all_running; then
+  echo "All pods are running."
+else
+  echo "Some pods are not running."
+fi
+```
+- Save this script as `check_pods.sh`, then run:
+```bash
+chmod +x check_pods.sh
+./check_pods.sh
+```
+> output: Depending on the status of your pods, it will either list the pods that are
+not running or print "All pods are running."
+- Clean up:
+```bash
+rm check_pods.sh
+```
+### Checklist 📋
+- The script lists all pods in your project
+- The script checks the status of each pod
+- The script prints a message for each pod that is not running
+- The script prints a success message if all pods are running  
+
+### Quiz
+> Q1: What is the shebang line in a Bash script?
+- [ ] `#!/bin/bash`
+- [ ] `#!/usr/bin/env bash`
+- [ ] `#!/bin/sh`
+- [ ] `#!/bin/bash-script`
+<details>
+  <summary> Answer </summary>
+
+  `#!/bin/bash` or `#!/usr/bin/env bash` are both valid shebang lines.
+</details>
+> Q2: How do you declare a variable in Bash?
+- [ ] `var_name = value`
+- [ ] `var_name:value`
+- [ ] `var_name=value`
+- [ ] `var_name: value`
+<details>
+  <summary> Answer </summary>
+  `var_name=value` is the correct syntax for declaring a variable in Bash.
+</details>
+> Q3: How do you read user input in a Bash script?
+- [ ] `read input`
+- [ ] `input = read`
+- [ ] `input: read`
+- [ ] `input = read()`
+<details>
+  <summary> Answer </summary>
+  `read input` is the correct way to read user input in a Bash script.
+</details>
+> Q4: How do you create a function in Bash?
+- [ ] `function_name() { commands }`
+- [ ] `function function_name { commands }`
+- [ ] `function_name { commands }`
+- [ ] `function_name() { commands; }`
+<details>
+  <summary> Answer </summary>
+  `function_name() { commands }` is the correct syntax for creating a function in Bash.
+</details>
+### Resources:
+- [GNU Bash Manual](https://www.gnu.org/software/bash/manual/)
+- [ShellCheck – Linter for Bash scripts](https://www.shellcheck.net/)
+- [TLDP Bash Guide](https://tldp.org/LDP/Bash-Beg
+inners-Guide/html/)
+- [Bash Scripting Tutorial](https://ryanstutorials.net/bash-scripting-tutorial/)
+- [Advanced Bash-Scripting Guide](https://tldp.org/LDP/abs/html/)
+- [Bash Cheat Sheet](https://devhints.io/bash)
+- [Bash Scripting for Beginners](https://www.freecodecamp.org/news/bash-scripting-for-beginners/)
+- [Bash Scripting Tutorial](https://linuxconfig.org/bash-scripting-tutorial-for
+-beginners)
+- [Bash Scripting Best Practices](https://www.digitalocean.com/community/tutorials
+/best-practices-for-bash-scripts)
+- [Bash Scripting Guide](https://tldp.org/LDP/Bash-Beginners-Guide/html/)
+- [Bash Scripting Cheat Sheet](https://devhints.io/bash)
+- [Bash Scripting Examples](https://www.shellscript.sh/)
+- [Bash Scripting Tips](https://www.cyberciti.biz/tips/bash scripting-tips.html)
+- [Bash Scripting for DevOps](https://www.udemy.com/course/bash-scripting-for-devops/)
+- [Bash Scripting for System Administrators](https://www.udemy.com/course/bash-scripting-for-system-administrators/)
+- [Bash Scripting for Data Scientists](https://www.udemy.com/course/bash-scripting-for-data-scientists/)
+- [Bash Scripting for Web Developers](https://www.udemy.com/course/bash-scripting-for-web-developers/)
+- [Bash Scripting for Network Engineers](https://www.udemy.com/course/bash-scripting-for-network-engineers/)
+- [Bash Scripting for Cloud Engineers](https://www.udemy.com/course/bash-scripting-for-cloud-engineers/)
+- [Bash Scripting for Security Professionals](https://www.udemy.com/course/bash-scripting-for-security-professionals/)
