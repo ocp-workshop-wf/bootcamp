@@ -75,17 +75,17 @@
 
 **11:00 AM – 11:15 AM** – Break ☕🥯
 
-**11:10 AM – 12:00 PM** - Module 6 continue 
+**11:10 AM – 1:00 PM** - Module 6 continue 
 
-**12:00 PM - 1:00 PM**  - Lunch 🍽️
+**1:00 PM - 2:00 PM**  - Lunch 🍽️
 
-**1:00 PM – 3:00 PM**   – Overview - Recap
+**2:00 PM – 3:30 PM**   – Overview - Recap
 
-**3:00 PM – 3:15 PM**   – Break ☕🥯
+**3:30 PM – 3:45 PM**   – Break ☕🥯
 
-**3:15 PM - 3:30 PM**   - Survey & Feedback 📝
+**3:45 PM - 4:00 PM**   - Survey & Feedback 📝
 
-**3:30 PM – 5:00 PM**   – Final Wrap-Up & Open Q\&A
+**4:00 PM – 5:00 PM**   – Final Wrap-Up & Open Q\&A
 
 ###
 
