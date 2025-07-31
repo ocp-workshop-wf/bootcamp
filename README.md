@@ -20,7 +20,7 @@
 
 - **1.1** - [Introduction to OpenShift](https://github.com/ocp-workshop-wf/bootcamp/tree/main/module1#11-overview-of-openshift-and-its-architecture)
 
-- **1.2** - [Difference between Kubernetes and OpenShift](ttps://github.com/ocp-workshop-wf/bootcamp/tree/main/module1#12-difference-between-kubernetes-and-openshift)
+- **1.2** -[Difference between Kubernetes and OpenShift](#12-difference-between-kubernetes-and-openshift)
 
 
 ### 🔹 [Module 2](https://github.com/ocp-workshop-wf/bootcamp/tree/main/module2): Working with OpenShift Interfaces
