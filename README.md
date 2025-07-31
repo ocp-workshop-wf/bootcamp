@@ -22,6 +22,7 @@
 
 - **1.2** - [Difference between Kubernetes and OpenShift](ttps://github.com/ocp-workshop-wf/bootcamp/tree/main/module1#12-difference-between-kubernetes-and-openshift)
 
+
 ### 🔹 [Module 2](https://github.com/ocp-workshop-wf/bootcamp/tree/main/module2): Working with OpenShift Interfaces
 
 - **2.0** – [OpenShift Container Lifecycle](https://github.com/ocp-workshop-wf/bootcamp/tree/main/module2#20-openshift-container-lifecycle)  
