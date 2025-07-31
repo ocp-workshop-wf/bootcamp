@@ -32,14 +32,14 @@
 <img src="/images/s2i-concept.webp" alt="OpenShift Training" style="width:400px; align="center"/>
 </p>
 
-Koniko (Buildpacks / Konica Buildpack Implementation)
-Koniko refers to a Cloud Native Buildpacks-based toolset, typically used in platforms like Heroku and Paketo. It:
+Kaniko (Buildpacks / Konica Buildpack Implementation)
+Kaniko refers to a Cloud Native Buildpacks-based toolset, typically used in platforms like Heroku and Paketo. It:
   - Detects your application type automatically
   - Selects appropriate buildpacks
   - Produces OCI-compliant images without needing a Dockerfile
   - Emphasizes build phase separation (detect, build, and export)
 
-| Feature                        | S2I (Source-to-Image)                   | Koniko (Buildpacks)                         |
+| Feature                        | S2I (Source-to-Image)                   | Kaniko (Buildpacks)                         |
 |-------------------------------|-----------------------------------------|---------------------------------------------|
 | **Build Method**              | Uses builder image + app source         | Uses buildpacks (detect/build/export flow)  |
 | **Dockerfile Needed**         | ❌ Not required                          | ❌ Not required                              |
@@ -51,7 +51,7 @@ Koniko refers to a Cloud Native Buildpacks-based toolset, typically used in plat
 | **Use Case Fit**              | Great for OpenShift CI/CD pipelines     | Great for cloud-native CI systems like Tekton, GitHub Actions |
 
 
-  > Both S2I and Koniko offer Dockerfile-less image creation. While S2I is tailored for OpenShift with native support and scripting hooks, Koniko leverages Cloud Native Buildpacks for broader platform compatibility and better caching. 
+  > Both S2I and Kaniko offer Dockerfile-less image creation. While S2I is tailored for OpenShift with native support and scripting hooks, Kaniko leverages Cloud Native Buildpacks for broader platform compatibility and better caching. 
 
  > It uses `Assemble` script vs `Run` from Docker and `Run` vs `CMD` from Docker.
 
