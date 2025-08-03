@@ -64,7 +64,7 @@ OpenShift is Red Hat's enterprise Kubernetes platform. It automates deployment, 
 <img src="/images/openshift-flavors.png" alt="OpenShift Training" style="width:500px; align="center"/>
 </p>
 
-- In this course we will focus on OpenShift Origin, OpenShift origin is based on top of Docker containers and the Kubernetes Cluster Manager, with added developer and operational centric tools that enable rapid application development, deployment and lifecycle management.
+- In this course, we will focus on OpenShift Origin—the open-source upstream of Red Hat OpenShift. It’s built on top of Kubernetes and previously used Docker as its container runtime (now replaced by CRI-O), and includes additional developer and operational tools that enable rapid application development, deployment, and lifecycle management.
 
 - **Key Features:**  
   Integrated developer tools, security, operators.
