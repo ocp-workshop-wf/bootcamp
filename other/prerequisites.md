@@ -52,8 +52,10 @@ A ReplicationController is the predecessor to ReplicaSet and ensures that a spec
 A Job is used to run a Pod to completion. It is used to run batch jobs that complete and then terminate.
 #### CronJob:
 A CronJob is used to run Jobs on a time-based schedule.
+
 #### BuildConfig:
 A BuildConfig is an OpenShift specific resource for defining build configurations. (OpenShift specific)
+
 #### Build:
 A Build is an OpenShift specific resource that represents a single build of an application. (OpenShift specific)
 
