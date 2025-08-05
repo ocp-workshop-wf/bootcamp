@@ -9,6 +9,8 @@ spec:
   - env:
     - name: MESSAGE
       value: Hi! I'm an environment variable
+    - name: MESSAGE
+      value: Hi! I'm an environment variable 2 
     image: quay.io/practicalopenshift/hello-world
     imagePullPolicy: Always
     name: hello-world-override
