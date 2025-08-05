@@ -457,7 +457,7 @@ In the DeploymentConfig lab, you will create a custom DeploymentConfig based on 
 - [ ] `oc new-build https://github.com/practical-openshift/hello-world`
 - [ ] `oc start-build quay.io/practicalopenshift/hello-world`
 - [ ] `oc new-deploy quay.io/practicalopenshift/hello-world`
-- [ ] `oc new-app https://github.com/practical-openshift/hello-world`
+- [ ] `oc new-app https://github.com/practical-openshift/hello-world --as-deployment-config`
 
 <details>
   <summary> Answer </summary>
