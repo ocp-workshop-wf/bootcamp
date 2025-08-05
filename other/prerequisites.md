@@ -56,10 +56,13 @@ A CronJob is used to run Jobs on a time-based schedule.
 A BuildConfig is an OpenShift specific resource for defining build configurations. (OpenShift specific)
 #### Build:
 A Build is an OpenShift specific resource that represents a single build of an application. (OpenShift specific)
+
 #### ImageStream:
 An ImageStream is an OpenShift specific resource for managing sets of images. (OpenShift specific)
+
 #### ImageStreamTag:
 An ImageStreamTag is an OpenShift specific resource for accessing individual tags in an #### ImageStream. (OpenShift specific)
+
 #### ImageStreamImport:
 An ImageStreamImport is an OpenShift specific resource for importing images from external registries. (OpenShift specific)
 
