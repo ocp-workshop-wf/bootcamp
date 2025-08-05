@@ -424,7 +424,7 @@ In the DeploymentConfig lab, you will create a custom DeploymentConfig based on 
 
 ### Quiz Deploying Application
 
-> Q1: What is the command to deploy the hello-world image to OpenShift as a deployment config?
+> Q1: What is the command to deploy the hello-world image to OpenShift as a deployment?
 
 - [ ] `oc new-app quay.io/practicalopenshift/hello-world`
 - [ ] `oc start-app quay.io/practicalopenshift/hello-world`
