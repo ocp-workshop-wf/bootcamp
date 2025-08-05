@@ -40,7 +40,7 @@
 
 - The **Web Console** offers tabs for Overview, Workloads, Networking, Builds, Storage, Monitoring, etc.
 - The **CLI (`oc`)** gives full control with extra features over `kubectl`.
-- [OpenShit CLI Cheat Sheet](https://github.com/ocp-workshop-wf/bootcamp/blob/main/ocpcli-cheatsheet.md)
+- [OpenShit CLI Cheat Sheet](https://github.com/ocp-workshop-wf/bootcamp/blob/main/other/ocpcli-cheatsheet.md)
 
   **[Resource OpenShit CLI](https://www.youtube.com/watch?v=MYH8nX9J1lc)**
 
@@ -73,7 +73,7 @@
 
     > OpenShift uses project to divide up applications. Projects also allow OpenShift to guarantee resource availability for applications through the use of quotas. In this case, the quota represents an upper bound on the CPU, RAM and persistent storage that all pods in the project can use. Quotas prevent any single project from taking over all of the OpenShift's resources. While a quota does limit the amount of resources available to your application, it also guarantees the availability of those same resources.
 
-  - List Pods?:
+  - List Pods:
 
     ```bash
     oc get pods
