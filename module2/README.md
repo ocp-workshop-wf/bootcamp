@@ -66,7 +66,7 @@
   oc new-project demo-project
   ```
 
-    <p align="center">
+   <p align="center">
     <img src="/images/project.png" alt="OpenShift Training" style="width:500px; align="center"/>
     </p>
 
