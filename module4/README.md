@@ -95,7 +95,7 @@
 
   ```bash
   # If you don't have the app already deployed.
-  oc new-app quay.io/practicalopenshift/hello-world --as-deployment-config
+  oc new-app quay.io/practicalopenshift/hello-world 
   ```
   ```bash
   oc expose svc/hello-world /
@@ -109,7 +109,7 @@
 
   ```bash
   # Supply a secret 
-  oc set env dc/hello-world --from secret/message-secret
+  oc set env deployment/hello-world --from secret/message-secret
   ```
   > output: "deploymentconfig.apps.openshift.io/hello-world updated"
 
@@ -119,7 +119,7 @@
   > output: "secret message"
 
   ```bash
-  oc get -o yaml dc/hello-world
+  oc get -o yaml deployment/hello-world
   ```
   ```yaml
     .....
@@ -158,7 +158,7 @@ type: Opaque
 ### Checklist 📋 (Secrets): 
 - Output from `oc get secret` contains your new Secret
 
-- Output from `oc get -o yaml dc/hello-world` contains the string "secretKeyRef"
+- Output from `oc get -o yaml deployment/hello-world` contains the string "secretKeyRef"
 
 - When you run `curl <your route>` you get the value you put in the Secret
 
@@ -809,10 +809,10 @@ When using the `oc new-app` command with a Git repository, OpenShift automatical
   - Lets add a deployment hook to the application, and trigger another rollout.
     
     ```bash
-    oc set deployment-hook dc/hello-world --pre -c hello-world -- /bin/echo hello from pre-deploy hook
+    oc set deployment-hook deployment/hello-world --pre -c hello-world -- /bin/echo hello from pre-deploy hook
     ```
     ```bash
-    oc describe dc/hello-world
+    oc describe deployment/hello-world
     ```
     > output: "Strategy:       Rolling
   Pre-deployment hook (pod type, failure policy: Ignore):" + `Container:  hello-world` & `Command:    /bin/echo hello from pre-deploy hoo`
@@ -820,7 +820,7 @@ When using the `oc new-app` command with a Git repository, OpenShift automatical
 - Now that we-ve verified out hook is configured, let's run the `oc rollout` command once again, just as we did before.
   
     ```bash
-    oc rollout latest dc/hello-world
+    oc rollout latest deployment/hello-world
     ```
     > output: you will see a pod ends with `pre` and `deploy` pods and again same process normal rolling deployment after the `pre` was done!
 
@@ -836,7 +836,7 @@ When using the `oc new-app` command with a Git repository, OpenShift automatical
   - Configuring the recreated strategy is a bit different from most of the commands that you have learned so far in this course. There's no command, such as `oc set deployment strategy`. Instead you need to modify the resource definition `YAML` directly. There are a couple of ways to do this.You can download a copy of the resource with `oc get -o YAML`, make changes and `re-upload` the changed definition using `oc create`. The oc tool provides a utility that automates all of these steps called `oc edit`.
     
     ```bash
-    oc edit dc/hello-world
+    oc edit deployment/hello-world
     ```
     > output: all you have to do is remove all of the keys except for the type, replace it with `Recreate`.
     
@@ -869,7 +869,7 @@ When using the `oc new-app` command with a Git repository, OpenShift automatical
 - Lets check the changes
   
     ```bash
-    oc describe dc/hello-world
+    oc describe deployment/hello-world
     ```
     > output: you should see `Strategy:       Recreate`
 
@@ -880,7 +880,7 @@ When using the `oc new-app` command with a Git repository, OpenShift automatical
     oc get pods -w
     ```
     ```bash
-    oc rollout latest dc/hello-world
+    oc rollout latest deployment/hello-world
     ```
 <p align="center">
 <img src="/images/pods-recreate.png" alt="OpenShift Training" style="width:500px; align="center"/>
@@ -1088,7 +1088,7 @@ For Deployment Hooks, you will add a mid-deployment hook for the recreate strate
 
 - `oc get events` output contains your message from step 4
 
-- `oc describe dc/hello-world` shows the Recreate strategy and hook
+- `oc describe deployment/hello-world` shows the Recreate strategy and hook
 
 ### Quiz (Deployment strategies)
 > Q1: Which deployment strategy always has downtime during the deployment?
@@ -1198,10 +1198,10 @@ Lets learn about basic automation for deployments, configuring the deployment pr
     - In this exmaple you need 2 windows terminals.
 
     ```bash
-    oc new-app quay.io/practicalopenshift/hello-world --as-deploymentconfig
+    oc new-app quay.io/practicalopenshift/hello-world 
     ```
     ```bash
-    oc describe dc/hello-world
+    oc describe deployment/hello-world
     ```
     > output: look for `Triggers:       Config, Image(hello-world@latest, auto=true)` 
   -  we're going to modify the pod template, which will trigger a redeploy due to the ConfigChange trigger configured for our deployment config.
@@ -1211,7 +1211,7 @@ Lets learn about basic automation for deployments, configuring the deployment pr
     ```
     ```bash
    # on terminal 2
-    oc set volume dc/hello-world \
+    oc set volume deployment/hello-world \
   --add \
   --type emptyDir \
   --mount-path /config-change-demo
@@ -1222,50 +1222,50 @@ Lets learn about basic automation for deployments, configuring the deployment pr
   - Lets learn how to use the `oc set triggers` command to modify the triggers with no arguments, `oc set triggers will simply print the trigger associated with the deployment config.
     
     ```bash
-    oc set triggers dc/hello-world
+    oc set triggers deployment/hello-world
     ```
     > output: should contain `type` config, image to `true`
 
     - To remove the triggers 
     ```bash
-    oc set triggers dc/hello-world \ --remove --from-config
+    oc set triggers deployment/hello-world \ --remove --from-config
     ```
     > output: "deploymentconfig.apps.openshift.io/hello-world triggers updated"
 
     ```bash
-    oc set triggers dc/hello-world
+    oc set triggers deployment/hello-world
     # to list the triggers
     ```
     > output: You should see `TYPE` config `VALUE` false.
 
     ```bash
     # to re-add the config change trigger you don't need to type `--add` once you set the trigger it Automatically adds it back
-    oc set triggers dc/hello-world --from-config
+    oc set triggers deployment/hello-world --from-config
     ```
     ```bash
-    oc set triggers dc/hello-world
+    oc set triggers deployment/hello-world
     ```
     > output: both `VALUES` are true.
 
 - Lets replicate that with the image change trigger:
 
     ```bash
-    oc set triggers dc/hello-world \
+    oc set triggers deployment/hello-world \
   --remove\
   --from-image hello-world:latest
     ```
     ```bash
-    oc set triggers dc/hello-world
+    oc set triggers deployment/hello-world
     ```
     > output: on the list you will find only the config trigger and you will no loger find the image trigger
 
     - So lets reverse that!
   
     ```bash
-    oc set triggers dc/hello-world --from-image hello-world:latest -c hello-world
+    oc set triggers deployment/hello-world --from-image hello-world:latest -c hello-world
     ```
     ```bash
-    oc set triggers dc/hello-world
+    oc set triggers deployment/hello-world
     ```
     > output: you should find both `TYPE` in with the `VALUE` of true.
 
