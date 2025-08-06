@@ -973,7 +973,7 @@ oc get -o yaml cm/message-map
 - Consuming ConfigMaps: We'll test it out by making sure that the Hello World resonse changes after we consume the configmap 1st lets deploy our application.
 
   ```bash
-  oc new-app quay.io/practicalopenshift/hello-world --as-deployment-config
+  oc new-app quay.io/practicalopenshift/hello-world 
   ```
 
   > Once app created go ahead and expouse the service!
@@ -1000,11 +1000,11 @@ oc get -o yaml cm/message-map
 - Consuming a ConfigMap to the application from the  **command line**
 
   ```bash
-  oc set env dc/hello-world --from cm/message-map 
+  oc set env deployment/hello-world --from cm/message-map 
   # ENV is just like in a dockerfile it sets an env variable based on the keys and pairs in the ConfigMap.
   ```
 
-  > output: `deploymentconfig.apps.openshift.io/hello-world updated`
+  > output: `deployment.apps.openshift.io/hello-world updated`
 
   ```bash
   curl <url from oc status>
@@ -1089,11 +1089,11 @@ oc get -o yaml cm/message-map
   > output: Now as you see the data.MESSAGE: follows the same pattern for the Hello-world application.
 
   ```bash
-  oc set env dc/hello-world --from cm/file-map-2
-  # lets update the deploymentconfig to point at this configmap-2 the correct one 
+  oc set env deployment/hello-world --from cm/file-map-2
+  # lets update the deployment to point at this configmap-2 the correct one 
   ```
 
-  > output: "deploymentconfig.apps.openshift.io/hello-world updated"
+  > output: "deployment.apps.openshift.io/hello-world updated"
 
   ```bash
   curl < URL from oc status>
@@ -1190,7 +1190,7 @@ metadata:
 - Modify this YAML so that the ConfigMap will have the proper key fro the hello-world application
 - Us `oc create` to create the ConfigMap from the file
 - Deploy the `quay.io/practicalopenshift/hello-world` image using `oc new-app`
-- Change the message that the `DeploymentConfig` uses to the ConfigMap value using the `oc set env` command
+- Change the message that the `Deployment` uses to the ConfigMap value using the `oc set env` command
 - Expose a route for your application.
 
 ---
