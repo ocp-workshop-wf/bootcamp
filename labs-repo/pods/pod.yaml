@@ -12,4 +12,10 @@ spec:
     image: quay.io/practicalopenshift/hello-world
     imagePullPolicy: Always
     name: hello-world-override
-    resources: {}
+    resources:
+      requests:
+        cpu: "250m" # Requests 250 millicores of CPU
+        memory: "128Mi" # Requests 128 MiB of memory
+      limits:
+        cpu: "500m" # Limits to 500 millicores of CPU
+        memory: "256Mi" # Limits to 256 MiB of memory
