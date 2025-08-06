@@ -106,7 +106,7 @@ This type of probe is only executed at startup, unlike liveness and readiness pr
 - How to configure a Liveness Probe?
 
 ```bash
-oc set probe dc/hello-world \
+oc set probe deployment/hello-world \
   --liveness \
   --open-tcp=8080
 #This liveness check that we're going to configure will try to set up a tcp connection to port 8080. If it succeeds, the probe succeeds,and if it fails, then the probe will fail.
@@ -116,7 +116,7 @@ oc set probe dc/hello-world \
 - Lets verify the Probe is configured correctly on the DeploymentConfig
 
 ```bash
-oc describe dc/hello-world
+oc describe deployment/hello-world
 ```
 > output: "    Liveness:           tcp-socket :8080 delay=0s timeout=1s period=10s #success=1 #failure=3"
 
@@ -133,7 +133,7 @@ oc get pods -w
 
 ```bash
 # on terminal 2
-oc set probe dc/hello-world \
+oc set probe deployment/hello-world \
   --liveness \
   --open-tcp=8081
 ```
@@ -151,7 +151,7 @@ oc get pods -w
 
 ```bash
 # on terminal 2
-oc set probe dc/hello-world \
+oc set probe deployment/hello-world \
   --liveness \
   --open-tcp=8080
 ```

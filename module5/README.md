@@ -388,10 +388,10 @@ The core idea:
     .....
     ```
     ```bash
-    oc scale dc/hello-world --replicas=3
+    oc scale deployment/hello-world --replicas=3
     ```
     ```bash
-    oc describe dc/hello-world
+    oc describe deployment/hello-world
     ```
     > output: 
     ```yaml
