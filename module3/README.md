@@ -579,7 +579,7 @@ In the DeploymentConfig lab, you will create a custom DeploymentConfig based on 
       </p>
     
   - Accessing a Service using environment variables:
-    - Environment variables are another set of key value pairs that are available in your pods. The valuse will be a mix of present values from the operating system, valuse specified in the `ENV` instruction in your dockerfile, and valuse injected by OpenShift
+    - Environment variables are another set of key value pairs that are available in your pods. The values will be a mix of present values from the operating system, values specified in the `ENV` instruction in your dockerfile, and values injected by OpenShift
 
     - List all of the values from inside the pod by running the following command: 
 
