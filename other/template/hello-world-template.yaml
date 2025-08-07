@@ -92,15 +92,6 @@ objects:
       name: latest
       referencePolicy:
         type: Source
-  status:
-    dockerImageRepository: 172.30.1.1:5000/templates/hello-world
-    tags:
-    - items:
-      - created: 2020-07-26T18:03:42Z
-        dockerImageReference: quay.io/practicalopenshift/hello-world@sha256:2311b7a279608de9547454d1548e2de7e37e981b6f84173f2f452854d81d1b7e
-        generation: 2
-        image: sha256:2311b7a279608de9547454d1548e2de7e37e981b6f84173f2f452854d81d1b7e
-      tag: latest
 - apiVersion: v1
   kind: Service
   metadata:
