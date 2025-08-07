@@ -60,3 +60,4 @@
 
 - **6.1** – [Health Checks and Observability](https://github.com/ocp-workshop-wf/bootcamp/tree/main/module6#61-health-check--observability)
 - **6.2** – [Helm Charts](https://github.com/ocp-workshop-wf/bootcamp/tree/main/module6#62-HelmCharts)
+- **6.3** – [Useful Resources](https://github.com/ocp-workshop-wf/bootcamp/tree/main/module6#63-useful-resources)

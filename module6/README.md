@@ -340,6 +340,25 @@ For Helm you will need to be creative - either you follow the same pattern I got
 </details>
 
 ---
+### 6.3 Useful Resources
+
+<p align="right">
+  <a href="https://github.com/ocp-workshop-wf/bootcamp/tree/main/module6#-module-6-mastering-openshift" target="_blank">
+    <img src="/images/top.png" alt="OpenShift Training" style="width:25px;" />
+  </a>
+</p>
+
+- [KodeKloud - Mohammed Mummabeth](https://www.youtube.com/@KodeKloud)
+
+- [TechWorld with Nana](https://www.youtube.com/@TechWorldwithNana)
+
+
+# CONGRATULATIONS! 🎉
+## Let's connect on LinkedIn
+  <p align="center">
+  <img src="/images/qr.png" alt="OpenShift Training" style="width:250px; align="center"/>
+  </p>
+
 
 <p align="right">
   <a href="https://github.com/ocp-workshop-wf/bootcamp/tree/main" target="_blank">
@@ -354,9 +373,3 @@ For Helm you will need to be creative - either you follow the same pattern I got
 </p>
 
 ---
-
-# CONGRATULATIONS! 🎉
-## Let's connect on LinkedIn
-  <p align="center">
-  <img src="/images/qr.png" alt="OpenShift Training" style="width:500px; align="center"/>
-  </p>
