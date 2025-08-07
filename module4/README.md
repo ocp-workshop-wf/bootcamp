@@ -1222,25 +1222,25 @@ Lets learn about basic automation for deployments, configuring the deployment pr
   - Lets learn how to use the `oc set triggers` command to modify the triggers with no arguments, `oc set triggers will simply print the trigger associated with the deployment config.
     
     ```bash
-    oc set triggers deployment/hello-world
+    oc set triggers dc/hello-world
     ```
     > output: should contain `type` config, image to `true`
 
     - To remove the triggers 
     ```bash
-    oc set triggers deployment/hello-world \ --remove --from-config
+    oc set triggers dc/hello-world \ --remove --from-config
     ```
     > output: "deploymentconfig.apps.openshift.io/hello-world triggers updated"
 
     ```bash
-    oc set triggers deployment/hello-world
+    oc set triggers dc/hello-world
     # to list the triggers
     ```
     > output: You should see `TYPE` config `VALUE` false.
 
     ```bash
     # to re-add the config change trigger you don't need to type `--add` once you set the trigger it Automatically adds it back
-    oc set triggers deployment/hello-world --from-config
+    oc set triggers dc/hello-world --from-config
     ```
     ```bash
     oc set triggers deployment/hello-world
@@ -1262,16 +1262,16 @@ Lets learn about basic automation for deployments, configuring the deployment pr
     - So lets reverse that!
   
     ```bash
-    oc set triggers deployment/hello-world --from-image hello-world:latest -c hello-world
+    oc set triggers dc/hello-world --from-image hello-world:latest -c hello-world
     ```
     ```bash
-    oc set triggers deployment/hello-world
+    oc set triggers dc/hello-world
     ```
     > output: you should find both `TYPE` in with the `VALUE` of true.
 
 
 ### Quiz (Triggers)
-> Q1: What command will disable deployment triggers?
+> Q1: What command will disable dc triggers?
 - [ ] `oc set triggers <dc name --remove>`
 - [ ] `oc set triggers <dc name> --none`
 - [ ] `oc remove triggers <dc name>`

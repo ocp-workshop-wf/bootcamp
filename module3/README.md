@@ -899,7 +899,7 @@ Once you meet all of these criteria, you have successfully completed the lab. Yo
   | REST API Server  | localhost   | example-api.com           |
   | Database         | localhost   | db-host.internal.com      |
 
-  > A common case where ConfigMaps become useful is when you deploy your application to different environments. For Local development, you may wish to run non-application dependencies such as REST service or database on your machine as well, in order to simplify the development environment to connect to this REST sercice or database your application will need to use valuse that point to these local versions you can use ConfigMaps to get that kind of felxibility in OpenShift. 
+  > A common case where ConfigMaps become useful is when you deploy your application to different environments. For Local development, you may wish to run non-application dependencies such as REST service or database on your machine as well, in order to simplify the development environment to connect to this REST service or database your application will need to use values that point to these local versions you can use ConfigMaps to get that kind of flexibility in OpenShift. 
 
 <p align="center">
   <img src="/images/cm.png" alt="OpenShift Training" style="width:400px; display:block; margin:auto;" />

@@ -29,7 +29,7 @@ If such a probe is configured, it disables liveness and readiness checks until i
 
 This type of probe is only executed at startup, unlike liveness and readiness probes, which are run periodically.
 
-**liveness probe** in OpenShift (which leverages Kubernetes) is a mechanism used to determine if a container within a pod is still running and healthy. Its primary purpose is to detect and handle situations where an application might be running but has entered an unrecoverable state, such as a deadlock or a process hanging, and is no longer able to serve requests. It alos answer the question: 
+**liveness probe** in OpenShift (which leverages Kubernetes) is a mechanism used to determine if a container within a pod is still running and healthy. Its primary purpose is to detect and handle situations where an application might be running but has entered an unrecoverable state, such as a deadlock or a process hanging, and is no longer able to serve requests. It also answer the question: 
 > Should we restart this Pod?
 
 - Default is to probe every 10 seconds
