@@ -91,7 +91,7 @@ This type of probe is only executed at startup, unlike liveness and readiness pr
             periodSeconds: 10 
             initialDelaySeconds: 20
   ```
-  > startupProbe: Makes an HTTP GET to / on port 80. It allows up to 30 failures (i.e., ~5 minutes) before declaring the container failed. Once the startup probe succeeds once, Kubelet stops checking startupProbe and switches to liveness and readiness checks.
+  > startupProbe: Makes an HTTP GIT to / on port 80. It allows up to 30 failures (i.e., ~5 minutes) before declaring the container failed. Once the startup probe succeeds once, Kubelet stops checking startupProbe and switches to liveness and readiness checks.
 
   - If you get an error you should see this:
 
@@ -212,7 +212,7 @@ For DeploymentConfigs, you will edit your readiness probe to be incorrect, then 
 
 Helm Charts are packages of pre-configured Kubernetes resources, acting as a package manager for Kubernetes applications. They simplify the definition, installation, and upgrading of complex applications on a Kubernetes cluster.A Helm Chart typically consists of the following components.
 
-***Chart.yaml**
+**Chart.yaml**
 This file defines the metadata of the chart, including its name, version, description, and any dependencies on other charts.
 
 **values.yaml**
