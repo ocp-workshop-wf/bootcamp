@@ -94,5 +94,3 @@ A: `helm upgrade myrelease myrepo/mychart`
 A: `helm create mychart`
 
 ---
-
-_For more details, see the module READMEs
