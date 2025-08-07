@@ -352,3 +352,11 @@ For Helm you will need to be creative - either you follow the same pattern I got
     <img src="/images/backred1.png" alt="OpenShift Training" style="width:25px;" />
   </a>
 </p>
+
+---
+
+# CONGRATULATIONS! 🎉
+## Let's connect on LinkedIn
+  <p align="center">
+  <img src="/images/qr.png" alt="OpenShift Training" style="width:500px; align="center"/>
+  </p>
