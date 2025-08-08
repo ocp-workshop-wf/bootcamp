@@ -513,48 +513,59 @@ In the DeploymentConfig lab, you will create a custom DeploymentConfig based on 
 
   **Hands-on Walkthroughs**
 
-  - Create a Resource Quota:
+  - Check-out a Resource Quota:
 
-  ```bash
-  oc create quota my-quota --hard=pods=10,requests.cpu=4,requests.memory=8Gi,limits.cpu=4,limits.memory=8Gi
+  ```yaml
+    kind: ResourceQuota
+    apiVersion: v1
+    metadata:
+      name: compute-deploy
+      namespace: raafatadly23-dev
+    spec:
+      hard:
+        limits.cpu: '30' # Total CPU limit for the project
+        limits.memory: 30Gi # Total memory limit for the project
+        requests.cpu: '3' # Total CPU requests for the project
+        requests.memory: 30Gi # Total memory requests for the project
+      scopes:
+        - NotTerminating
   ``` 
-  
-  > output: "quota/my-quota created"
+  > Note: The `scopes` field is used to specify the scope of the quota. In this case, it is set to `NotTerminating`, which means that the quota applies only to non-terminating resources. Which that means that inside this namespace, you can only create pods that have a total of 30 CPU and 30Gi of memory requests and limits.
 
   - Check the status of the quota:
 
     ```bash
-    oc describe quota my-quota
+    oc describe quota compute-deploy
     ```
     > output: "You should see the hard limits and the current usage of resources in the project"
 
-    ```yaml
-    Name:			my-quota
-    Namespace:		my-project
-    Resource		Hard		Used
-    --------		----		----
-    pods			10		2
-    requests.cpu		4		1
-    requests.memory	8Gi		2Gi
-    limits.cpu		4		1
-    limits.memory	8Gi		2Gi
-    ```
+ > output:
+
+  |Resource	|	Hard	|	Used |
+  |--------	|	----	|	---- |
+  | limits.cpu |      0  |   30 |
+  | limits.memory |    0     |  30Gi |
+  | requests.cpu |     0     |  3 |
+  | requests.memory |  0     |  30Gi |
+
   - Create a pod that exceeds the resource limits:
 
     ```bash
-    oc run my-pod --image=nginx --requests=cpu=2,memory=4Gi --limits=cpu=2,memory=4Gi
+    oc run my-pod --image=nginx --requests=cpu=5,memory=40Gi --limits=cpu=5,memory=40Gi
     ```
     > output: "You should see an error message indicating that the pod cannot be created due to resource limits"
     
     ```bash
-    Error from server (Forbidden): pods "my-pod" is forbidden: exceeded quota: my-quota: must specify limits.cpu, limits.memory, requests.cpu, requests.memory
+    Error from server (Forbidden): pods "my-pod" is forbidden: exceeded quota: compute-deploy: must specify limits.cpu, limits.memory, requests.cpu, requests.memory
     ```
   - Create a pod that is within the resource limits:
 
     ```bash
-    oc run my-pod2 --image=nginx --requests=cpu=1,memory=2Gi --limits=cpu=1,memory=2Gi
+    oc run my-pod2 --image=quay.io/practicalopenshift/hello-world --requests=cpu=250m,memory=64Mi --limits=cpu=500m,memory=500Mi
     ```
-    > output: "You should see the pod created successfully"
+    > output: "You should see the pod created successfully" so that essentially means is that the cpu can only request x amount and then the ram can only request x amount of the memory, so you got memory and you got cpu here! So for this pod essentially what I'm trying to say is you can only `request` this 64Mi amount from `memory` and this 250m amount of `CPU` you can't go above that for this pod.
+
+    **💡Important** When pods are done using memory they give that memory back so other resources can use it. Whereas `CPU` is not like that, when a pod is done using CPU it doesn't give it back to the cluster, so you need to set a limit on how much CPU it can use.
 
     ```bash
     pod/my-pod2 created
@@ -575,12 +586,11 @@ In the DeploymentConfig lab, you will create a custom DeploymentConfig based on 
   - Check the status of the quota again:
 
     ```bash
-    oc describe quota my-quota
+    oc describe quota compute-deploy
     ```
     > output: "You should see the updated usage of resources in the project"
     ```yaml
-    Name:			my-quota
-    Namespace:		my-project
+
     Resource		Hard		Used
     --------		----		----
     pods			10		3
@@ -589,6 +599,31 @@ In the DeploymentConfig lab, you will create a custom DeploymentConfig based on 
     limits.cpu		4		2
     limits.memory	8Gi		4Gi
     ```
+  - Lets try it using a deployment kubernetes resource:
+  ```bash
+  oc create -f labs-repo/quota-lab/deployment-quota.yml
+  ``` 
+  > output: "You should see the deployment created successfully"
+
+  ```bash
+  oc get deployments
+  ```
+  > output: "You should see the deployment in the list of deployments"
+
+  ```bash
+  oc get deployments
+  ``` 
+  > output: "You should see the deployment in the list of deployments"
+
+  ```bash
+  NAME                READY   UP-TO-DATE   AVAILABLE   AGE
+  my-deployment-quota   1/1     1            1           1m
+  ``` 
+
+  ```bash
+  oc describe deployment my-deployment-quota
+  ```
+  > output: "You should see the deployment details including the resource limits and requests" and lets check the Yaml file of the deployment from the UI
 
 ---
 

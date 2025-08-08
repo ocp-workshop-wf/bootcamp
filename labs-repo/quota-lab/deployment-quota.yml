@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-deployment-quota # Name of the deployment
+  labels:
+    app: hello-world # Label for the deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hello-world # Selector to match the pods with the label app: hello-world
+  template:
+    metadata:
+      labels:
+        app: hello-world # Label for the pods created by this deployment
+    spec:
+      containers:
+        - name: hello-world
+          image: quay.io/practicalopenshift/hello-world # Image for the hello world application
+          imagePullPolicy: Always
+          env:
+            - name: MESSAGE # Environment variable for the hello world application
+              # This environment variable can be overridden in the pod spec 
+              value: Hi! QUOTAAAA  # Environment variable for the hello world application
+          resources: # Requests 250 millicores of CPU and 64 MiB of memory
+            requests: # Requests 250 millicores of CPU and 64 MiB of memory
+              cpu: "250m" # Requests 250 millicores of CPU
+              memory: "64Mi" # Requests 64 MiB of memory
+            limits:
+              memory: "500Mi" # Limits to 500 MiB of memory
+              cpu: "1" # Limits to 1 CPU
