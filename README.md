@@ -33,24 +33,24 @@
 
 - **3.1** – [OpenShift Resources Overview](https://github.com/ocp-workshop-wf/bootcamp/tree/main/module3#31-openshift-resources-overview)
 - **3.2** – [Application Deployment in OpenShift](https://github.com/ocp-workshop-wf/bootcamp/tree/main/module3#32-openshift-and-how-to-deploy-applications)
-- **3.3** – [OpenShift Networking](https://github.com/ocp-workshop-wf/bootcamp/tree/main/module3#33-openshift-networking)  
-- **3.4** – [OpenShift ConfigMaps](https://github.com/ocp-workshop-wf/bootcamp/tree/main/module3#34-openshift-configmaps)
+- **3.3** - [Resource Quotas and Limits](https://github.com/ocp-workshop-wf/bootcamp/tree/main/module3#33-resource-quotas-and-limits)
+- **3.4** – [OpenShift Networking](https://github.com/ocp-workshop-wf/bootcamp/tree/main/module3#34-openshift-networking)  
 
 ---
 
 ### 🔹 [Module 4](https://github.com/ocp-workshop-wf/bootcamp/tree/main/module4): Application Deployment and Management
 
+- **4.0** – [OpenShift ConfigMaps](https://github.com/ocp-workshop-wf/bootcamp/tree/main/module3#35-openshift-configmaps)
 - **4.1** – [Managing Secrets](https://github.com/ocp-workshop-wf/bootcamp/tree/main/module4#41-secrets) 
 - **4.2** – [Images and Image Streams](https://github.com/ocp-workshop-wf/bootcamp/tree/main/module4#42-images-and-image-streams)
 - **4.3** – [Builds and BuildConfigs](https://github.com/ocp-workshop-wf/bootcamp/tree/main/module4#43-builds-and-buildconfigs) 
-- **4.4** – [Deployment Strategies](https://github.com/ocp-workshop-wf/bootcamp/tree/main/module4#44-deployment-strategies)  
-- **4.5** – [Triggers](https://github.com/ocp-workshop-wf/bootcamp/tree/main/module4#45-triggers)
+- **4.4** – [Source-to-Image (S2I)](https://github.com/ocp-workshop-wf/bootcamp/tree/main/module4#44-source-to-image-s2i)
 
 ---
 
 ### 🔹 [Module 5](https://github.com/ocp-workshop-wf/bootcamp/tree/main/module5): Advanced Deployment Options
 
-- **5.1** – [Source-to-Image (S2I)](https://github.com/ocp-workshop-wf/bootcamp/tree/main/module5#51-source-to-image-s2i)
+- **5.1** – [Deployment Strategies](https://github.com/ocp-workshop-wf/bootcamp/tree/main/module5#51-deployment-strategies) 
 - **5.2** – [OpenShift Storage and Volumes](https://github.com/ocp-workshop-wf/bootcamp/tree/main/module5#52-openshift-volumes)
 - **5.3** – [Scaling and Debugging Applications](https://github.com/ocp-workshop-wf/bootcamp/tree/main/module5#53-scaling-and-debuging-your-application)
 - **5.4** – [OpenShift Jobs](https://github.com/ocp-workshop-wf/bootcamp/tree/main/module5#openshift-jobs)
@@ -61,4 +61,5 @@
 
 - **6.1** – [Health Checks and Observability](https://github.com/ocp-workshop-wf/bootcamp/tree/main/module6#61-health-check--observability)
 - **6.2** – [Helm Charts](https://github.com/ocp-workshop-wf/bootcamp/tree/main/module6#62-HelmCharts)
-- **6.3** – [Useful Resources](https://github.com/ocp-workshop-wf/bootcamp/tree/main/module6#63-useful-resources)
+- **6.3** – [Bash Scripting](https://github.com/ocp-workshop-wf/bootcamp/tree/main/module6#63-bash-scripting)
+- **6.4** – [Useful Resources](https://github.com/ocp-workshop-wf/bootcamp/tree/main/module6#64-useful-resources)

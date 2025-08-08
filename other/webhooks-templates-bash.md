@@ -1,3 +1,135 @@
+### 4.5 Triggers
+
+<p align="right">
+  <a href="https://github.com/ocp-workshop-wf/bootcamp/tree/main/module4#-module-4-application-deployment-and-management" target="_blank">
+    <img src="/images/top.png" alt="OpenShift Training" style="width:25px;" />
+  </a>
+</p>
+
+Lets learn about basic automation for deployments, configuring the deployment process itself, and how to add health checks so that OpenShift can restart your pods if necessary.
+
+- Deployment Triggers:
+  - Image Change Trigger: This trigger watches an image stream in OpenShift. When the image stream or its image stream tag has a new image, if the deployment config is configured with an image change trigger,then the deployment config will roll out the new version of your application image automatically.
+<p align="center">
+<img src="/images/triggers.png" alt="Triggers" style="width:500px; align="center"/>
+</p>
+- ConfigChange Triggers:With the ConfigChange Trigger,any change to the POD template will trigger a new rollout. If you add a volume or change the image stream tag in a pod spec, then the ConfigChange Trigger will cause your deployment to roll out another version.
+  
+<p align="center">
+<img src="/images/configchangetrigger.png" alt="ConfigChange Triggers" style="width:500px; align="center"/>
+</p>
+
+--- 
+
+**Hands-on Walkthroughs** 
+  
+- How the ConfigChange Trigger works?
+    - In this exmaple you need 2 windows terminals.
+
+    ```bash
+    oc new-app quay.io/practicalopenshift/hello-world 
+    ```
+    ```bash
+    oc describe deployment/hello-world
+    ```
+    > output: look for `Triggers:       Config, Image(hello-world@latest, auto=true)` 
+  -  we're going to modify the pod template, which will trigger a redeploy due to the ConfigChange trigger configured for our deployment config.
+    ```bash
+    # on terminal 1 
+    oc get pods --watch
+    ```
+    ```bash
+   # on terminal 2
+    oc set volume deployment/hello-world \
+  --add \
+  --type emptyDir \
+  --mount-path /config-change-demo
+    ```
+
+- How to add and Remove DeploymentConfigs triggers:
+  -  You learned that both the config change trigger and the image change trigger are configured by default for applications created with OC new app.
+  - Lets learn how to use the `oc set triggers` command to modify the triggers with no arguments, `oc set triggers will simply print the trigger associated with the deployment config.
+    
+    ```bash
+    oc set triggers dc/hello-world
+    ```
+    > output: should contain `type` config, image to `true`
+
+    - To remove the triggers 
+    ```bash
+    oc set triggers dc/hello-world \ --remove --from-config
+    ```
+    > output: "deploymentconfig.apps.openshift.io/hello-world triggers updated"
+
+    ```bash
+    oc set triggers dc/hello-world
+    # to list the triggers
+    ```
+    > output: You should see `TYPE` config `VALUE` false.
+
+    ```bash
+    # to re-add the config change trigger you don't need to type `--add` once you set the trigger it Automatically adds it back
+    oc set triggers dc/hello-world --from-config
+    ```
+    ```bash
+    oc set triggers deployment/hello-world
+    ```
+    > output: both `VALUES` are true.
+
+- Lets replicate that with the image change trigger:
+
+    ```bash
+    oc set triggers deployment/hello-world \
+  --remove\
+  --from-image hello-world:latest
+    ```
+    ```bash
+    oc set triggers deployment/hello-world
+    ```
+    > output: on the list you will find only the config trigger and you will no loger find the image trigger
+
+    - So lets reverse that!
+  
+    ```bash
+    oc set triggers dc/hello-world --from-image hello-world:latest -c hello-world
+    ```
+    ```bash
+    oc set triggers dc/hello-world
+    ```
+    > output: you should find both `TYPE` in with the `VALUE` of true.
+
+
+### Quiz (Triggers)
+> Q1: What command will disable dc triggers?
+- [ ] `oc set triggers <dc name --remove>`
+- [ ] `oc set triggers <dc name> --none`
+- [ ] `oc remove triggers <dc name>`
+- [ ] `oc set triggers`
+
+
+<details>
+  <summary> Answer </summary>
+
+    
+  `oc set triggers <dc name --remove>`
+
+</details>
+
+> Q2: How many deployment triggers are enabled by default for oc new-app projects?
+- [ ] 1
+- [ ] 2
+- [ ] 3
+- [ ] 4
+
+
+<details>
+  <summary> Answer </summary>
+
+   2
+  
+
+</details>
+
 ### Webhooks
 Is a method for one application to automatically send real-time data to another application when a specific event occurs. It's essentially an automated messaging system that allows applications to communicate with each other without needing to constantly "poll" or check for updates. And this is one of the key features that enables CICD!
 
@@ -136,6 +268,7 @@ For builds, you will make a small tweak to an application, push it to GitLab, an
 - You can start the build using the webhook manually
 
 ---
+
 ### Quiz
 > Q1: What is the command to create a new BuildConfig for a Git URL?
 - [ ] `oc start-build <GIT URL>`
@@ -394,207 +527,8 @@ True: `oc new-app` does support templates as arguments.
 </details>
 
 ---
-### Bash scripting 
-Bash scripting is a way to automate tasks on Unix-like systems. It allows users to write sequences of commands in a file and execute them as a single script. Bash (Bourne Again SHell) is the most commonly used shell in Linux. Key Concepts:
 
-  - Shebang (#!/bin/bash)
 
-  - Variables and parameters
-
-  - Conditionals (if, else, elif)
-
-  - Loops (for, while, until)
-
-  - Functions
-
-  - Input/output (stdin, stdout, stderr)
-
-  - File operations and redirection
-
-**Resources:**
-
-  - [GNU Bash Manual](https://www.gnu.org/software/bash/manual/)
-
-  - [ShellCheck – Linter for Bash scripts](https://www.shellcheck.net/)
-
-  - [TLDP Bash Guide](https://tldp.org/LDP/Bash-Beginners-Guide/html/)
-
-**Hands-on Walkthroughs** 
-- Your first script
-
-  ```bash
-  #!/bin/bash
-  echo "Hello, Bash!"
-  ```
-- Save this as hello.sh, then run:
-  ```bash
-  chmod +x hello.sh
-  ./hello.sh
-  ```
-  > output: "Hello, Bash!"
-
-- Variables and parameters
-
-  ```bash
-  #!/bin/bash
-  NAME="World"
-  echo "Hello, $NAME!"
-  ```
-- Save this as hello_var.sh, then run:
-  ```bash
-  chmod +x hello_var.sh
-  ./hello_var.sh
-  ```
-  > output: "Hello, World!"  
-
-- Conditionals
-
-  ```bash
-  #!/bin/bash
-  if [ "$1" == "hello" ]; then
-      echo "Hello, World!"
-  else
-      echo "Goodbye, World!"
-  fi
-  ``` 
-- Save this as conditional.sh, then run:
-  ```bash
-  chmod +x conditional.sh
-  ./conditional.sh hello
-  ```
-  > output: "Hello, World!"
-  ```bash
-  ./conditional.sh goodbye
-  ```
-  > output: "Goodbye, World!"
-  
-  ```bash  
-  ./conditional.sh
-  ```
-  > output: "Goodbye, World!" (default case)
-
-- Loops
-
-  ```bash
-  #!/bin/bash
-  for i in {1..5}; do
-      echo "Iteration $i"
-  done
-  ```
-- Save this as loop.sh, then run:
-  ```bash
-  chmod +x loop.sh
-  ./loop.sh
-  ```
-  > output:
-  ```
-  Iteration 1
-  Iteration 2
-  Iteration 3
-  Iteration 4
-  Iteration 5
-  ```
-- Functions
-
-  ```bash
-  #!/bin/bash
-  greet() {
-      echo "Hello, $1!"
-  }
-  greet "Bash"
-  ```
-- Save this as functions.sh, then run:
-  ```bash
-  chmod +x functions.sh
-  ./functions.sh
-  ```
-  > output: "Hello, Bash!"
-
-- Input/output
-
-  ```bash
-  #!/bin/bash
-  echo "Enter your name:"
-  read NAME
-  echo "Hello, $NAME!"
-  ```
-- Save this as input_output.sh, then run:
-  ```bash
-  chmod +x input_output.sh
-  ./input_output.sh
-  ```
-  > output: "Enter your name:" (then type your name and press Enter)
-  ```
-  Hello, YourName!
-  ```
-- File operations and redirection
-
-  ```bash
-  #!/bin/bash
-  echo "This is a test file." > testfile.txt
-  cat testfile.txt
-  ```
-- Save this as file_ops.sh, then run:
-  ```bash
-  chmod +x file_ops.sh
-  ./file_ops.sh
-  ```
-  > output: "This is a test file."
-
-- Clean up created files:
-  ```bash
-  rm hello.sh hello_var.sh conditional.sh loop.sh functions.sh input_output.sh file_ops.sh
-  rm testfile.txt
-  ```
-- Resources:
-
-  - [GNU Bash Manual](https://www.gnu.org/software/bash/manual/)
-
-  - [ShellCheck – Linter for Bash scripts](https://www.shellcheck.net/)
-
-  - [TLDP Bash Guide](https://tldp.org/LDP/Bash-Beginners-Guide/html/)
-
-### 🔬 Hands-on Lab:
-For Bash scripting, you will create a simple script that automates a task on your OpenShift cluster.
-- Create a script that does the following:
-  - Lists all pods in your project
-  - Checks the status of each pod
-  - If a pod is not running, it should print a message indicating which pod is not running
-  - If all pods are running, it should print a success message
-```bash
-#!/bin/bash
-pods=$(oc get pods -o jsonpath='{.items[*].status.phase}')
-all_running=true
-for pod in $pods; do
-  if [ "$pod" != "Running" ]; then
-    echo "Pod $pod is not running."
-    all_running=false
-  fi
-done
-if $all_running; then
-  echo "All pods are running."
-else
-  echo "Some pods are not running."
-fi
-```
-- Save this script as `check_pods.sh`, then run:
-```bash
-chmod +x check_pods.sh
-./check_pods.sh
-```
-> output: Depending on the status of your pods, it will either list the pods that are
-not running or print "All pods are running."
-- Clean up:
-```bash
-rm check_pods.sh
-```
-### Checklist 📋
-- The script lists all pods in your project
-- The script checks the status of each pod
-- The script prints a message for each pod that is not running
-- The script prints a success message if all pods are running  
-
-### Quiz
 > Q1: What is the shebang line in a Bash script?
 - [ ] `#!/bin/bash`
 - [ ] `#!/usr/bin/env bash`

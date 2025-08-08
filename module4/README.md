@@ -8,6 +8,8 @@
 ## 🔹 Module 4: Application Deployment and Management 
 
 ## Table of Contents 
+- [4.0 - OpenShift ConfigMaps](#40-openshift-configmaps) | [Lab](#-hands-on-lab-configmaps) | [Quiz](#quiz-configmaps)
+
 - [4.1 - Secrets](#41-secrets) | [Lab](#-hands-on-lab-secrets) | [Quiz](#quiz-secrets)
 
 - [4.2 - Images and Image Streams](#42-images-and-image-streams) | [Lab](#-hands-on-lab-images) | [Quiz](#quiz-images)
@@ -16,7 +18,386 @@
 
 - [4.4 - Deployment Strategies](#44-deployment-strategies) | [Lab](#-hands-on-lab-deployment-strategies) | [Quiz](#quiz-deployment-strategies)
 
-- [4.5 - Triggers](#45-triggers) | [Quiz](#quiz-triggers)
+
+### 4.0 OpenShift ConfigMaps
+
+<p align="right">
+  <a href="https://github.com/ocp-workshop-wf/bootcamp/tree/main/module3#-module-3-core-openshift-resources" target="_blank">
+    <img src="/images/top.png" alt="OpenShift Training" style="width:25px;" />
+  </a>
+</p>
+
+- **Configmaps:** are a very useful resource type that OpenShift borrows from Kubernetes. ConfigMaps hold configuration data for pods to consume. This data is held in the ConfigMap separately from your running pod in OpenShift. Holding data for pods to consume is much less active job than some other types of resources in Kubernetes like `pods`, `deploymentconfigs` and `services` so when to use `ConfigMaps`
+
+  | Component         | Development | Production               |
+  |------------------|-------------|---------------------------|
+  | REST API Server  | localhost   | example-api.com           |
+  | Database         | localhost   | db-host.internal.com      |
+
+  > A common case where ConfigMaps become useful is when you deploy your application to different environments. For Local development, you may wish to run non-application dependencies such as REST service or database on your machine as well, in order to simplify the development environment to connect to this REST service or database your application will need to use values that point to these local versions you can use ConfigMaps to get that kind of flexibility in OpenShift. 
+
+<p align="center">
+  <img src="/images/cm.png" alt="OpenShift Training" style="width:400px; display:block; margin:auto;" />
+</p>
+
+  > There is one piece of vocabulary you need to know when working with ConfigMaps. To <u>CONSUME</u> a configmap just means that you use the data inside of a ConfigMap from a Pod. Once the ConfigMap exists on OpenShift, you can consume or use the ConfigMap in a pod by referring to the ConfigMap in the pod definition. The word consume makes it seem like consuming a ConfigMap should use it up somehow,but this is not the case. You can consume ConfigMaps from many different pods. A common i.e  "database name" shared between an application defination and the database pod. This can help you to centralize you configuration in <u>ONE PLACE</u> and then you can update the ConfigMap, all of your pods will use the updated configuration.
+
+  <p align="center">
+    <img src="/images/cm2.png" alt="OpenShift Training" style="width:400px; display:block; margin:auto;" />
+  </p>
+
+- OpenShift give you several tools to create ConfigMaps: 
+  - Command line
+  - Files
+  - Entire directories.
+  > You also need to talk about sensitive data any resource in your OpenShift Project can read the data in a ConfigMap. For this reason, you should not store any sensitive data in the ConfigMap. OpenShift has another resource type called the `Secret` that is used for sensitive date. Also there is one more limitation of ConfigMaps that you should keep in mind, ConfigMaps have a `1MB` storage size limit. If your data could grow above the `1MB` limit you may not want to use Configmaps.
+
+
+- ConfigMap Example:
+
+    ```yaml
+    apiVersion: v1 #kubernetes resource
+    data:
+    MESSAGE: Hello from ConfigMap #data 
+    kind: ConfigMap
+    metadata:
+    name: message-map
+    namespace: myproject #namespace
+    resourceVersion: "2827192"
+    selfLink: /api/v1/namespaces/myproject/configmaps/message-map
+    ```
+
+**Hands-on Walkthroughs**  
+
+  - Creating ConfigMaps:
+
+  ```bash
+  oc create configmap message-map --from-literal MESSAGE="Hello from ConfigMap"
+  # type - name of resource - to give some data -(Varaible) = data
+  ```
+  > output: "configmap/message-map created"
+
+  ```bash
+  # listing configmaps
+  oc get cm
+  ```
+
+  > output:
+    ```bash
+    message-map         1      42s # 1 means that we have only 1 key value pair inside the configmap
+    ```
+  - Lets check the ConfigMap yaml from UI and CLI
+  ```bash
+  oc get -o yaml cm/message-map
+  ```
+  > output:
+    ```yaml
+    apiVersion: v1
+    data: # instead of spec field we got data field here
+      MESSAGE: Hello from ConfigMap # varaible we configured earlier 
+    kind: ConfigMap
+    metadata:
+      creationTimestamp: "2025-07-18T01:09:39Z"
+      name: message-map # configmap name 
+      namespace: <your-namespace> # namespace/Project
+      resourceVersion: "3298865818"
+      uid: 7c32526a-8837-48ba-ab36-bade0095b35b
+    ```
+
+
+  - Consuming ConfigMaps: We'll test it out by making sure that the Hello World resonse changes after we consume the configmap 1st lets deploy our application.
+
+    ```bash
+    oc new-app quay.io/practicalopenshift/hello-world 
+    ```
+
+    > Once app created go ahead and expouse the service!
+
+    ```bash
+    oc expose service/hello-world
+    ```
+
+    > Once expose was done lets run status to get the URL
+
+    ```bash
+    oc status
+    ```
+
+    > We will Curl before and after configmap being applied to the application, at first it should give us the default message, at 2nd it should give us the message from inside the configmap!
+
+    ```bash
+    curl <url from oc status>
+    ```
+
+    > output:
+    "Welcome! You can change this message by editing the MESSAGE environment variable."
+
+  - Consuming a ConfigMap to the application from the  **command line**
+
+    ```bash
+    oc set env deployment/hello-world --from cm/message-map 
+    # ENV is just like in a dockerfile it sets an env variable based on the keys and pairs in the ConfigMap.
+    ```
+
+    > output: `deployment.apps.openshift.io/hello-world updated`
+
+    ```bash
+    curl <url from oc status>
+    ```
+
+    > output: "Hello from ConfigMap"
+
+    ```bash
+    oc get -o yaml dc/hello-world
+    ```
+
+    ```yaml
+        .....
+        spec:
+          containers:
+          - env: # the ENV we set 
+            - name: MESSAGE # consumed from Configmap
+              valueFrom:
+                configMapKeyRef: # that is how it consumed from configmap
+                  key: MESSAGE
+                  name: message-map #configmap name
+                  ........
+    ```
+
+  - Create ConfigMaps from **Files**:
+
+    ```bash
+    echo "Hello from ConfigMap file" > MESSAGE.txt
+    # creating a simple txt file 
+    ```
+
+    ```bash
+    cat MESSAGE.txt
+    # just to verify
+    ```
+
+    > output:"Hello from ConfigMap file"
+
+    ```bash
+    oc create configmap file-map --from-file=MESSAGE.txt
+    # create based on the txt file.
+    ```
+
+    > output: "configmap/file-map created"
+
+    ```bash
+    oc get -o yaml cm/file-map
+    ```
+
+    ```yaml
+    apiVersion: v1
+    data:
+      MESSAGE.txt: | # confirms it was taken from the file
+        Hello from ConfigMap file
+    kind: ConfigMap
+    metadata:
+    .........
+    ```
+
+    > output: "data.MESSAGE.txt: this is the wrong syntax as it doesn't match the key in the Hello-world application to match it we need to run the following command"
+
+    ```bash
+    oc create configmap file-map-2 --from-file=MESSAGE=MESSAGE.txt
+    # this time we specified the env variable = the file name
+    ```
+
+    > output: "configmap/file-map created"
+
+    ```bash
+    oc get -o yaml cm/file-map
+    ```
+
+    ```yaml
+    apiVersion: v1
+    data:
+      MESSAGE: | # now its fixed 
+        Hello from ConfigMap file
+    kind: ConfigMap
+    metadata:
+    ```
+
+    > output: Now as you see the data.MESSAGE: follows the same pattern for the Hello-world application.
+
+    ```bash
+    oc set env deployment/hello-world --from cm/file-map-2
+    # lets update the deployment to point at this configmap-2 the correct one 
+    ```
+
+    > output: "deployment.apps.openshift.io/hello-world updated"
+
+    ```bash
+    curl < URL from oc status>
+    ```
+
+    > output: "Hello from ConfigMap file."
+
+
+  - Create ConfigMaps from **Directories**:
+
+    ```bash
+    cd ./labs
+    ```
+
+    ```bash
+    oc create configmap pods-example --from-file=pods
+    # same but ending up with the name of the directory
+    ```
+
+    > output: "configmap/pods-example created!"
+
+    ```bash
+    oc get -o yaml configmap/pods-example
+    ```
+
+    > output:
+
+    ```yaml
+    apiVersion: v1
+    data:
+      pod.yaml: | # pod 1
+        apiVersion: v1
+        kind: Pod
+        metadata:
+          name: hello-world-pod
+          labels:
+            app: hello-world-pod
+        spec:
+          containers:
+          - env: # seeing this here
+            - name: MESSAGE # env varaible 
+              value: Hi! I'm an environment variable
+            image: quay.io/practicalopenshift/hello-world
+            imagePullPolicy: Always
+            name: hello-world-override
+            resources: {}
+      pod2.yaml: | # pod 2 
+        apiVersion: v1
+        kind: Pod
+        metadata:
+          name: hello-world-pod-2
+          labels:
+            app: hello-world-pod-2
+        spec:
+          containers:
+          - env:
+            - name: MESSAGE # message from pod 2 
+              value: Hi! I'm an environment variable in pod 2
+            image: quay.io/practicalopenshift/hello-world
+            imagePullPolicy: Always
+            name: hello-world-override
+            resources: {}
+      service.yaml: |
+        apiVersion: v1
+        kind: Service
+        metadata:
+          name: hello-world-pod-service
+        spec:
+          selector:
+            app: hello-world-pod
+          ports:
+            - protocol: TCP
+              port: 80
+              targetPort: 8080
+    kind: ConfigMap
+
+    ```
+
+---
+
+### 🔬 Hands-on Lab (ConfigMap)
+
+For ConfigMaps, you'll get some hands-on practice working with YAML. Start with the following ConfigMap definition:
+
+```yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: lab-map
+```
+
+- Create a new file called lab-configmap.yaml
+- Copy the above YAML into the file
+- Modify this YAML so that the ConfigMap will have the proper key fro the hello-world application
+- Us `oc create` to create the ConfigMap from the file
+- Deploy the `quay.io/practicalopenshift/hello-world` image using `oc new-app`
+- Change the message that the `Deployment` uses to the ConfigMap value using the `oc set env` command
+- Expose a route for your application.
+
+---
+
+### Checklist 📋
+
+- Output from `oc get cm` contains your new ConfigMap
+
+- Output from `oc get -o yaml dc/hello-world` contains the string `configMapKeyRef`
+
+- When you run `curl <your route>` you get the value you put in the ConfigMap
+
+---
+
+### Quiz (ConfigMap)
+>
+> Q1: What is the maximum amount of data that you can store in a ConfigMap?
+
+- [ ] 1 GB
+- [ ] 1 KB
+- [ ] 1 MB
+- [ ] 1 TB
+
+<details>
+  <summary> Answer </summary>
+
+   1 MB
+
+</details>
+
+> Q2: The data for a configmap is stored in its YAML resource definition under the "configData" field name.
+
+- [ ] True
+- [ ] False
+
+<details>
+  <summary> Answer </summary>
+
+   Fales "the field called data"
+
+</details>
+
+> Q3: What is the command to create a configmap using the oc tool?
+
+- [ ] `oc create configmap <new configmap name>`
+- [ ] `oc create -f configmap <new configmap name>`
+- [ ] `oc get configmap <new configmap name>`
+- [ ] `oc apply -f configmap <new configmap name>`
+
+<details>
+  <summary> Answer </summary>
+
+ `oc create configmap <new configmap name>`
+
+</details>
+
+> Q4: What kinds of inputs can you use to create a configmap?
+
+- [ ] Command line arguments of files
+- [ ] Command line arguments, files, directories, and custom ConfigMap YAML files
+- [ ] Command line arguments, files, or directories
+- [ ] Command line arguments, directories only!
+
+<details>
+  <summary> Answer </summary>
+
+   Command line arguments, files, directories, and custom ConfigMap YAML files
+
+</details>
+
+---
+
 
 ### 4.1 Secrets
 <p align="right">
@@ -163,6 +544,7 @@ type: Opaque
 - When you run `curl <your route>` you get the value you put in the Secret
 
 ---
+
 ### Quiz (Secrets)
 > Q1: You can use all the same inputs for ConfigMaps in order to create Secrets.
 - [ ] Fales
@@ -462,6 +844,7 @@ For images, you'll import your own private image and tag into OpenShift.
 - `curl <your route>` gives you the message you supplied in step 4.
 
 ---
+
 ### Quiz (Images)
 > Q1: OpenShift has its own image registry built in.
 - [ ] Fales
@@ -529,7 +912,7 @@ The `BuildConfig`:
 - Defines **how** the image should be built from the source code.
 - Is similar in concept to the flags and options used with `docker build`.
 
-## How Are Builds Triggered?
+ **How Are Builds Triggered?**
 
 When using the `oc new-app` command with a Git repository, OpenShift automatically:
 - Creates the `BuildConfig`.
@@ -678,6 +1061,7 @@ When using the `oc new-app` command with a Git repository, OpenShift automatical
 - `curl <your app>` shows you the MESSAGE value from step 5
 
 ---
+
 ### Quiz (Build - Buildconfig)
 > Q1: What is the command to create a new BuildConfig for a Git URL? 
 - [ ] `oc start-build <Git URL>`
@@ -709,595 +1093,138 @@ When using the `oc new-app` command with a Git repository, OpenShift automatical
 
 ---
 
-### 4.4 Deployment Strategies 
+### 4.4 Source-to-image (S2I)
 
 <p align="right">
-  <a href="https://github.com/ocp-workshop-wf/bootcamp/tree/main/module4#-module-4-application-deployment-and-management" target="_blank">
+  <a href="https://github.com/ocp-workshop-wf/bootcamp/tree/main/module5#-module-5-advanced-deployment-options" target="_blank">
     <img src="/images/top.png" alt="OpenShift Training" style="width:25px;" />
   </a>
 </p>
 
-| Stategy Type | Step 1 | Step 2 | Step 3 |
-| ------------ | -------- | ----- | ------ |
-| Rolling Strategy "Default" | Start new version | Switch traffic to new version | Stop old version | 
-| Recreate Strategy | Stop the old version | Start new Version | Switch Traffic to new version |
-| Custom Strategy | Start | Run custom deployment image | End |
-
-
-***Resources***
-- [12 App Factor](https://12factor.net/)
-- [ Custom Strategy using custom Image ](https://docs.openshift.com/en/container-platform/3.11/dev_guide/deployments/deployment_strategies.html#custom-strategy)
+ It is a toolkit and workflow that automates the process of building container images from source code. It takes a builder image (containing necessary build tools and dependencies) and source code, then combines them to create a runnable application image. S2I is used to create reproducible container images, making it easier for developers to deploy and manage applications in various environments, including OpenShift. 
 
 <p align="center">
-<img src="/images/rollingdeploymentgif.gif" alt="OpenShift Training" style="width:500px; align="center"/>
+<img src="/images/s2i-concept.webp" alt="OpenShift Training" style="width:400px; align="center"/>
 </p>
 
-- A rolling strategy supports pre and post hooks. The pre hook runs, of course, before the deployment Config, starts a new version and the post hook runs after the deployment Config stops the old version.
+Kaniko (Buildpacks / Konica Buildpack Implementation)
+Kaniko refers to a Cloud Native Buildpacks-based toolset, typically used in platforms like Heroku and Paketo. It:
+  - Detects your application type automatically
+  - Selects appropriate buildpacks
+  - Produces OCI-compliant images without needing a Dockerfile
+  - Emphasizes build phase separation (detect, build, and export)
 
+| Feature                        | S2I (Source-to-Image)                   | Kaniko (Buildpacks)                         |
+|-------------------------------|-----------------------------------------|---------------------------------------------|
+| **Build Method**              | Uses builder image + app source         | Uses buildpacks (detect/build/export flow)  |
+| **Dockerfile Needed**         | ❌ Not required                          | ❌ Not required                              |
+| **Language Detection**        | Manual or via image tag                 | ✅ Automatic                                 |
+| **Layer Caching**             | Basic layer reuse                       | ✅ Advanced layer caching & reuse            |
+| **Custom Logic**              | Allows `assemble`, `run`, `save-artifacts` scripts | Builtpack hooks for full customization   |
+| **OpenShift Native**          | ✅ Fully integrated                      | ⚠️ Needs Paketo/Stack-based integration     |
+| **Output Image Format**       | Docker/OCI-compatible                   | OCI-compatible                              |
+| **Use Case Fit**              | Great for OpenShift CI/CD pipelines     | Great for cloud-native CI systems like Tekton, GitHub Actions |
+
+
+  > Both S2I and Kaniko offer Dockerfile-less image creation. While S2I is tailored for OpenShift with native support and scripting hooks, Kaniko leverages Cloud Native Buildpacks for broader platform compatibility and better caching. 
+
+ > It uses `Assemble` script vs `Run` from Docker and `Run` vs `CMD` from Docker.
+
+ - FAQ: Why do I want another way to build and run applications?so what advantage does S2I have?
+ 
+    - The first advantage is that the developer can rely on the expertise of the S2I authors to make sure the image will be OpenShift compatible.
+    - The second advantage is that developers can avoid writing and maintaining Dockerfiles and other configuration by using the S2I defaults. 
+
+**Hands-on Walkthroughs** 
+- How to build an app using S2I?
+> the source of this lesson will be in you Labs directory `/s2i/ruby/`
+
+```bash
+cd ./s2i/ruby
+```
+```bash
+oc new-app ruby~https://gitlab.com/therayy1/openshif-labs.git --context-dir s2i/ruby 
+```
+
+```bash
+oc logs -f deployment/openshif-labs
+```
+> output: push successful 
+
+```bash
+oc get pods
+```
+> output: you will be able to see all pods related to this deployment
+
+```bash
+oc expose svc/openshif-labs
+```
+> output: "route.route.openshift.io/openshif-labs exposed"
+
+```bash
+oc get route
+```
+> output: URL under `HOST/PORT` copy it please!
+
+```bash
+curl <URL>
+```
+> output: "Hello world from Ruby"
+
+- How S2I language auto-detect works?!
+- How does OpenShift know when to use S2I? And specifically, how did OpenShift know how to use the Ruby S2I builder?
+
+  - When you start a build with OpenShift, OpenShift will first look for a dockerfile. If it finds one it will build usig something called the Docker Strategy. If OpenShift does not find a dockerfile it will attempt to use the Source Strategy instead.
+   
 <p align="center">
-<img src="/images/Recreate-Deployment.jpg" alt="OpenShift Training" style="width:500px; align="center"/>
+<img src="/images/S2I_Build_Process_Regenerated.png" alt="OpenShift Training" style="width:300px; align="center"/>
 </p>
 
-- The recreate strategy, on the other hand, supports pre and post hooks, as well as a mid hook that is executed while no Pods are running. That is, after the recreate strategy stops the old version, but before it starts the new one.
-
-- This image defines a Strategy Hook in OpenShift using a YAML-style syntax, specifically for a pre hook during a deployment strategy. Here's a regenerated clean version of the example for reference or use in documentation:
-
-  ```yml
-  pre:
-    failurePolicy: Abort
-    execNewPod:
-      containerName: hello-world
-      command: ["/bin/echo", "Hello from pre-hook"]
-      env:
-        - name: DEMO_ENV_VAR
-          value: DEMO_VALUE
-      volumes: []
-  ```
-
-- `pre`: – Indicates the hook will run before the strategy (rolling or recreate).
-
-- `failurePolicy`: – Controls what happens if the hook fails. Options are:
-
-- `Abort` – stop the deployment
-
-- `Retry` – try again
-
-- `Ignore` – continue regardless
-
-- `execNewPod`: – Runs the hook in a new pod with:
-
-- `containerName`: – the target container
-
-- `command`: – command to execute (in this case, a simple echo)
-
-- `env`: – environment variables
-
-- `volumes`: – volumes to mount (empty in this example)
-
-**Blue-Green Deployment**:
-  Blue-Green deployment is a strategy where two identical environments (called "blue" and "green") are maintained. The "blue" environment is the live/production system, and the "green" is the staging version running the new code. When a new version is ready:
-
-  - It’s deployed to the green environment.
-
-  - After testing and validation, traffic is switched from blue to green.
-
-  - If issues arise, rollback is as simple as redirecting traffic back to blue.
-
-  - How it works in OpenShift: 
-    - Traffic switch is achieved using `Routes`, you can update the route's `spec.to.name` field to point to a different `service` (e.g from `my-blue-app` to `my-green-app`).
-    
-    </br>
-
-    <p align="center">
-    <img src="/images/gbdeploy.gif" alt="OpenShift Training" style="width:500px; align="center"/>
-    </p>
-
-**Hands-on Walkthroughs**  
-
-- How to configure pre-deployment hook for `rolling strategy` you will need 2 windows terminals for this excersice.  
-
-    ```bash
-    # on terminal 1
-    oc get pods --watch
-    ```
-    ```bash
-    # on terminal 2
-    oc rollout latest deployment/hello-world
-    ```
-    > output: you should see the rolling strategy getting applied as the new version is getting deployed then switched the network to the new one and terminating the old one!
-
-  - Lets add a deployment hook to the application, and trigger another rollout.
-    
-    ```bash
-    oc set deployment-hook deployment/hello-world --pre -c hello-world -- /bin/echo hello from pre-deploy hook
-    ```
-    ```bash
-    oc describe deployment/hello-world
-    ```
-    > output: "Strategy:       Rolling
-  Pre-deployment hook (pod type, failure policy: Ignore):" + `Container:  hello-world` & `Command:    /bin/echo hello from pre-deploy hoo`
-
-- Now that we-ve verified out hook is configured, let's run the `oc rollout` command once again, just as we did before.
-  
-    ```bash
-    oc rollout latest deployment/hello-world
-    ```
-    > output: you will see a pod ends with `pre` and `deploy` pods and again same process normal rolling deployment after the `pre` was done!
-
-    - In case, the deployment hook pod exited very quickly, so we're going to check the OpenShift event logs in order to validate. 
-      - The events are a list of various OpenShift activities that have recently occurred this includes some basic deployment hook information.
-        
-        ```bash
-        oc get events
-        ```
-        > output: confirm that the `pre-hook` ran successfully.
-         
-- How to configure the Recreate Deployment Strategy
-  - Configuring the recreated strategy is a bit different from most of the commands that you have learned so far in this course. There's no command, such as `oc set deployment strategy`. Instead you need to modify the resource definition `YAML` directly. There are a couple of ways to do this.You can download a copy of the resource with `oc get -o YAML`, make changes and `re-upload` the changed definition using `oc create`. The oc tool provides a utility that automates all of these steps called `oc edit`.
-    
-    ```bash
-    oc edit deployment/hello-world
-    ```
-    > output: all you have to do is remove all of the keys except for the type, replace it with `Recreate`.
-    
-    ```yml
-      strategy:
-        type: Recreate # CHANGE HERE!
-        rollingParams:
-          updatePeriodSeconds: 1
-          intervalSeconds: 1
-          timeoutSeconds: 600
-          maxUnavailable: 25%
-          maxSurge: 25%
-          pre:
-            failurePolicy: Ignore
-            execNewPod:
-              command:
-                - /bin/echo
-                - hello
-                - from
-                - pre-deploy
-                - hook
-              containerName: hello-world
-        resources: {}
-        activeDeadlineSeconds: 21600
-    ```
-<p align="center">
-<img src="/images/strategy-change.png" alt="OpenShift Training" style="width:500px; align="center"/>
-</p>
-
-- Lets check the changes
-  
-    ```bash
-    oc describe deployment/hello-world
-    ```
-    > output: you should see `Strategy:       Recreate`
-
-- Now that you have updated the strategy to recreate, lets watch the pods as you trigger a deployment. The deployment should follow the recreate order as described earlier.
-
-    ```bash
-    # terminal 1
-    oc get pods -w
-    ```
-    ```bash
-    oc rollout latest deployment/hello-world
-    ```
-<p align="center">
-<img src="/images/pods-recreate.png" alt="OpenShift Training" style="width:500px; align="center"/>
-</p>
-
-> output:
-> Just as with the rolling strategy, OpenShift will start a deployment pod first. However, things start to change pretty quickly after that. Instead of starting the new replication controller and pods, first the old replication controller terminates and takes down its pods. Then the deployment config will schedule the new replication controller and start the new pods.
-
-- Blue Green Deployment 
-  ```yaml
-  # Route pointing initially to blue
-  apiVersion: route.openshift.io/v1
-  kind: Route
-  metadata:
-    name: my-app
-  spec:
-    to:
-      kind: Service
-      name: my-app-blue
-  ```
-  > once testing on the green environment is complete, switch:
-
-  ```yaml
-  spec:
-  to:
-    kind: Service
-    name: my-app-green
-  ```
-  - You can also Patch your route by running the following command
-  ```bash
-  oc patch route my-app -p '{"spec":{"to":{"name":"my-green-app"}}}'
-  ```
-  > output: Quick rollback or just re-point the route, with that your now able to test in production-like environment, and also you reduced the risk of downtime during deployment.
-
-- Lets try to do it ourseleves:
-  ```bash
-  # deploy blue
-  oc new-app quay.io/practicalopenshift/hello-world --name=blue-app
-  ```
-  ```bash
-  # expose blue
-  oc expose service/blue-app
-  ```
-  ```bash
-  # deploy green
-  oc new-app quay.io/practicalopenshift/hello-world --name=green-app
-  ```
-  ```bash
-  # expose green
-  oc expose service/green-app
-  ```
-  - Before switching :
-
-    <p align="center">
-    <img src="/images/blue.png" alt="OpenShift Training" style="width:500px; align="center"/>
-    </p>
-
-  - Lets switch route to green 
-
-    ```bash
-    oc patch route blue-app -p '{"spec":{"to":{"name":"green-app"}}}'
-    ```
-    > output: "route.route.openshift.io/blue-app patched"
-  
-  - After switching: 
-
-    <p align="center">
-    <img src="/images/afterblue.png" alt="OpenShift Training" style="width:500px; align="center"/>
-    </p>
-
-  - Rollback 
-    ```bash
-    oc patch route blue-app -p '{"spec":{"to":{"name":"blue-app"}}}'
-    ```
-    > output: it should be the same as the `Before Switching Image` 
-
- ***Resource*** [RedHat Documentation](https://www.redhat.com/en/topics/devops/what-is-blue-green-deployment)
-
- **Canary Release**: 
- Is a deployment strategy where a new version of the application is released to a small subset of users first. If no issues are detected, traffic is gradually increased to the new version until it becomes fully live.
-The name comes from the "canary in the coal mine" analogy — testing in a low-risk environment before exposing to all users.
-
-- How it works in OpenShift: 
-In OpenShift, Routes can be used to direct traffic to multiple backends with weights, allowing a portion of traffic to be sent to a new version. This works well when:
-
-  - You have two versions of the same app deployed (v1 and v2).
-  - You use a single Route with traffic weights defined.
-
-**Hands-on Walkthroughs**  
-  - In this example we are looking at a weighted routing.
-  ```yaml
-    apiVersion: route.openshift.io/v1
-    kind: Route
-    metadata:
-      name: my-app
-    spec:
-      to:
-        kind: Service
-        name: my-app-v1
-        weight: 80 # app v1 
-      alternateBackends:
-        - kind: Service
-          name: my-app-v2
-          weight: 20 # app v2  
-  ```
-  > In this example 80% of traffic goes to V1, 20% is routed to V2. You can always adjust the weights (e.g, 60/40, 50/50, 0/100).
-
-  - The Ideal way to use Canary:
-    1. Start with 90/10 split.
-    2. Monitor for errors, latency and logs.
-    3. If stable, move to 70/30, then 50/50.
-    4. Continue until 0/100 to fully promote.
-    5. Remove the old version when your done.
-    > By following these steps you will have a very low risk exposure, easy to monitor real-time behavior of the new version, and can be automated for rollout.
-
-    <p align="center">
-    <img src="/images/canarydgif.gif" alt="OpenShift Training" style="width:500px; align="center"/>
-    </p>
 
 
-  - Lets try it out:
-      ```bash
-      # deploy v1
-      oc new-app quay.io/practicalopenshift/hello-world --name=app-v1
-      ```
-      ```bash
-      oc expose service/app-v1
-      ```
-      ```bash
-      # deploy v2
-      oc new-app quay.io/practicalopenshift/hello-world --name=app-v2
-      ```
-      > after deploying app v2 we have to craft our route with the desired weights in this example ill do 90/10
+### 🔬 Hands-on Lab (S2I): 
+For S2I, you'll deploy a Python application without a Dockerfile and override an S2I script.
 
-      - The weight yaml 
-      ```yaml
-      apiVersion: route.openshift.io/v1
-      kind: Route
-      metadata:
-        name: my-app
-      spec:
-        to:
-          kind: Service
-          name: app-v1
-          weight: 90
-        alternateBackends:
-          - kind: Service
-            name: app-v2
-            weight: 10
-      ```
-      > once you have your yaml ready you will have to `Apply` it to your cluster in this case, we will save the file as `canary-route.yaml`
-      ```bash
-      oc apply -f canary.yaml
-      ```
-      > output "route.route.openshift.io/canary-route created"
-
-    - Lets monitor the traffic now 
-      ```bash
-      oc logs -f deployment/app-v2
-      ```
-      ```bash
-      # curl the url 
-      curl http://canary-route-raafat-dev.apps.rm3.7wse.p1.openshiftapps.com
-      ```
-      > output: " Welcome! You can change this message by editing the MESSAGE environment variable."  
-
-    - Increase traffic gradually:
-
-      <p align="center">
-      <img src="/images/canarybefore.png" alt="OpenShift Training" style="width:500px; align="center"/>
-      </p>
-
-      ```bash
-      # 70/30
-      oc patch route canary-route -p '{"spec":{"to":{"weight":70},"alternateBackends":[{"kind":"Service","name":"app-v2","weight":30}]}}'
-      ```
-      
-      <p align="center">
-      <img src="/images/canaryafter.png" alt="OpenShift Training" style="width:500px; align="center"/>
-      </p>
-
-    - Clean up:
-      ```bash
-      oc delete all -l app=hello-world
-      ```
-  **Resource** [Redhat Documentation](https://developers.redhat.com/articles/2024/03/26/canary-deployment-strategy-openshift-service-mesh#products_canary_deployment)
-     
+- If you haven't pushed your own version of the labs project to your GitLab account, you should follow the steps in the Builds lab to push your own version of the labs repository
+- Create a new OpenShift project called `s2i-labs`
+- Deploy an application using `oc new-app` with the python builder image for the `s2i/python` directory from the labs project for this course
+- Create a route for your application
+- Add an S2I override for the `run` script that prints a message and then calls the default `run` script
+- Start a new build for the application
 
 ---
 
-### 🔬 Hands-on Lab (Deployment strategies): 
-For Deployment Hooks, you will add a mid-deployment hook for the recreate strategy
+### Checklist 📋 (S2I): 
+- `curl <your route>` returns the Python hello world message
+- `oc status` has a Route, Service, DeploymentConfig, and BuildConfig
+- `oc logs <your Pod>` output contains the message you put in the override in step 5
 
-- Create a new project called "advanced-dc-labs"
+---
 
-- Deploy the hello-world application
-
-- Switch your application to use the Recreate strategy
-
-- Add a mid-deployment hook that prints out "Hello from mid-Deployment hook."
-
-- Roll out a new version of your application
-
-### Checklist 📋 (Deployment strategies): 
-
-- `oc get events` output contains your message from step 4
-
-- `oc describe deployment/hello-world` shows the Recreate strategy and hook
-
-### Quiz (Deployment strategies)
-> Q1: Which deployment strategy always has downtime during the deployment?
-- [ ] Rolling
-- [ ] Recreate
-- [ ] Custom
-- [ ] All the above
-
+### Quiz (S2I)
+> Q1: What is the syntax to specify a builder image to your oc new-app command?
+- [ ] Put the image name before the Git repo URL with the % character in between them
+- [ ] Put the image name before the Git repo URL with the ~ character in between them
+- [ ] Put the image name before the Git repo URL with £ character in between them
+- [ ] Put the image name before the Git repo URl with * in between them
 
 <details>
   <summary> Answer </summary>
 
-    Recreate 
-  
+  Put the image name before the Git repo URL with the ~ character in between them
 
 </details>
 
-> Q2: How many deployment strategy hooks does the rolling strategy have?
-- [ ] 1
-- [ ] 2
-- [ ] 3
-- [ ] 4
-
-
-<details>
-  <summary> Answer </summary>
-
-   2 `pre & post` deployment
-  
-
-</details>
-
-> Q3: What is the oc command to change from rolling to recreate strategy?
-- [ ] `oc set deployment-strategy <deployment name>`
-- [ ] `oc set deployment-strategy --recreate <deployment name>`
-- [ ] `oc set strategy <deployment name>`
-- [ ] There isn't one
-
+> Q2: What are the auto-detected languages for OpenShift builds?
+- [ ] Python, Ruby, Java, PHP, Perl, Node
+- [ ] Python, Ruby, Java, Perl, Node, Clojure
+- [ ] Python, Go, Java, PHP, Perl, Node
+- [ ] None of the above
 
 <details>
   <summary> Answer </summary>
 
-   There isn't one
-  
-
-</details>
-
-> Q4: A deployment Strategy that allows you to smoothly switch traffic 
-- [ ] Blue-Green 
-- [ ] Rolling Strategy
-- [ ] Canary Strategy
-- [ ] Recreate Strategy
-
-
-<details>
-  <summary> Answer </summary>
-
-   Canary Strategy
-  
-
-</details>
-
-> Q4: A deployment Strategy that allows you to switch traffic between to running application at the same time. 
-- [ ] Blue-Green 
-- [ ] Rolling Strategy
-- [ ] Canary Strategy
-- [ ] Recreate Strategy
-
-
-<details>
-  <summary> Answer </summary>
-
-   Blue-Green 
-  
-
-</details>
-
-
---- 
-
-### 4.5 Triggers
-
-<p align="right">
-  <a href="https://github.com/ocp-workshop-wf/bootcamp/tree/main/module4#-module-4-application-deployment-and-management" target="_blank">
-    <img src="/images/top.png" alt="OpenShift Training" style="width:25px;" />
-  </a>
-</p>
-
-Lets learn about basic automation for deployments, configuring the deployment process itself, and how to add health checks so that OpenShift can restart your pods if necessary.
-
-- Deployment Triggers:
-  - Image Change Trigger: This trigger watches an image stream in OpenShift. When the image stream or its image stream tag has a new image, if the deployment config is configured with an image change trigger,then the deployment config will roll out the new version of your application image automatically.
-<p align="center">
-<img src="/images/triggers.png" alt="Triggers" style="width:500px; align="center"/>
-</p>
-- ConfigChange Triggers:With the ConfigChange Trigger,any change to the POD template will trigger a new rollout. If you add a volume or change the image stream tag in a pod spec, then the ConfigChange Trigger will cause your deployment to roll out another version.
-  
-<p align="center">
-<img src="/images/configchangetrigger.png" alt="ConfigChange Triggers" style="width:500px; align="center"/>
-</p>
-
---- 
-
-**Hands-on Walkthroughs** 
-  
-- How the ConfigChange Trigger works?
-    - In this exmaple you need 2 windows terminals.
-
-    ```bash
-    oc new-app quay.io/practicalopenshift/hello-world 
-    ```
-    ```bash
-    oc describe deployment/hello-world
-    ```
-    > output: look for `Triggers:       Config, Image(hello-world@latest, auto=true)` 
-  -  we're going to modify the pod template, which will trigger a redeploy due to the ConfigChange trigger configured for our deployment config.
-    ```bash
-    # on terminal 1 
-    oc get pods --watch
-    ```
-    ```bash
-   # on terminal 2
-    oc set volume deployment/hello-world \
-  --add \
-  --type emptyDir \
-  --mount-path /config-change-demo
-    ```
-
-- How to add and Remove DeploymentConfigs triggers:
-  -  You learned that both the config change trigger and the image change trigger are configured by default for applications created with OC new app.
-  - Lets learn how to use the `oc set triggers` command to modify the triggers with no arguments, `oc set triggers will simply print the trigger associated with the deployment config.
-    
-    ```bash
-    oc set triggers dc/hello-world
-    ```
-    > output: should contain `type` config, image to `true`
-
-    - To remove the triggers 
-    ```bash
-    oc set triggers dc/hello-world \ --remove --from-config
-    ```
-    > output: "deploymentconfig.apps.openshift.io/hello-world triggers updated"
-
-    ```bash
-    oc set triggers dc/hello-world
-    # to list the triggers
-    ```
-    > output: You should see `TYPE` config `VALUE` false.
-
-    ```bash
-    # to re-add the config change trigger you don't need to type `--add` once you set the trigger it Automatically adds it back
-    oc set triggers dc/hello-world --from-config
-    ```
-    ```bash
-    oc set triggers deployment/hello-world
-    ```
-    > output: both `VALUES` are true.
-
-- Lets replicate that with the image change trigger:
-
-    ```bash
-    oc set triggers deployment/hello-world \
-  --remove\
-  --from-image hello-world:latest
-    ```
-    ```bash
-    oc set triggers deployment/hello-world
-    ```
-    > output: on the list you will find only the config trigger and you will no loger find the image trigger
-
-    - So lets reverse that!
-  
-    ```bash
-    oc set triggers dc/hello-world --from-image hello-world:latest -c hello-world
-    ```
-    ```bash
-    oc set triggers dc/hello-world
-    ```
-    > output: you should find both `TYPE` in with the `VALUE` of true.
-
-
-### Quiz (Triggers)
-> Q1: What command will disable dc triggers?
-- [ ] `oc set triggers <dc name --remove>`
-- [ ] `oc set triggers <dc name> --none`
-- [ ] `oc remove triggers <dc name>`
-- [ ] `oc set triggers`
-
-
-<details>
-  <summary> Answer </summary>
-
-    
-  `oc set triggers <dc name --remove>`
-
-</details>
-
-> Q2: How many deployment triggers are enabled by default for oc new-app projects?
-- [ ] 1
-- [ ] 2
-- [ ] 3
-- [ ] 4
-
-
-<details>
-  <summary> Answer </summary>
-
-   2
-  
+  Python, Ruby, Java, PHP, Perl, Node
 
 </details>
 

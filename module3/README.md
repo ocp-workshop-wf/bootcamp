@@ -13,9 +13,11 @@
  
 - [3.2 - OpenShift and how to deploy applications](#32-openshift-and-how-to-deploy-applications) | [Lab](#-hands-on-lab-deploying-application) | [Quiz](#quiz-deploying-application)
 
-- [3.3 - OpenShift Networking](#33-openshift-networking) | [Lab](#-hands-on-lab-network) | [Quiz](#quiz-network)
+- [3.3 - Resource Quotas and Limits](#33-resource-quotas-and-limits) | [Lab](#-hands-on-lab-resource-quota) | [Quiz](#quiz-resource-quota)
 
-- [3.4 - OpenShift ConfigMaps](#34-openshift-configmaps) | [Lab](#-hands-on-lab-configmap) | [Quiz](#quiz-configmap)
+- [3.4 - OpenShift Networking](#34-openshift-networking) | [Lab](#-hands-on-lab-network) | [Quiz](#quiz-network)
+
+- [3.5 - OpenShift ConfigMaps](#35-openshift-configmaps) | [Lab](#-hands-on-lab-configmap) | [Quiz](#quiz-configmap)
 
 ### 3.1 OpenShift Resources Overview
 
@@ -218,15 +220,15 @@
 
 ### 3.2 OpenShift and how to deploy applications
 
-<p align="right">
-  <a href="https://github.com/ocp-workshop-wf/bootcamp/tree/main/module3#-module-3-core-openshift-resources" target="_blank">
-    <img src="/images/top.png" alt="OpenShift Training" style="width:25px;" />
-  </a>
-</p>
+  <p align="right">
+    <a href="https://github.com/ocp-workshop-wf/bootcamp/tree/main/module3#-module-3-core-openshift-resources" target="_blank">
+      <img src="/images/top.png" alt="OpenShift Training" style="width:25px;" />
+    </a>
+  </p>
 
-- Direct deployment Git (for GitHub)
-- Source-to-Image (S2I) "Later in this course!"
-- OpenShift Pipelines (Tekton) "will not be covered in this course"
+  - Direct deployment Git (for GitHub)
+  - Source-to-Image (S2I) "Later in this course!"
+  - OpenShift Pipelines (Tekton) "will not be covered in this course"
 
 #### Direct deployment using Git
 As long as your source code is available online, `oc new-app` can build an image based on your application in the Git repository.
@@ -342,7 +344,7 @@ As long as your source code is available online, `oc new-app` can build an image
   - Make sure that your application is running on the OCP cluster.
 
     ```bash
-    oc new-app quay.io/practicalopenshift/hello-world --as-deployment-config
+    oc new-app quay.io/practicalopenshift/hello-world 
     ```
 
   - Terminal 1:
@@ -360,7 +362,7 @@ As long as your source code is available online, `oc new-app` can build an image
   - Terminal 2:
 
     ```bash
-    oc rollout latest dc/hello-world
+    oc rollout latest deplpoyment/hello-world
     ```
 
     > output: The first thing OCP does is to start a new deployment `starting from, Pending - ContainerCreating - Running` once its Running the previous version `Terminating` "Start new - Stop old. This is very difficult to do manually, but OpenShift contains sensible defaults that will handle the deployment for you.
@@ -379,7 +381,7 @@ As long as your source code is available online, `oc new-app` can build an image
   - Lets say that you've deployed a new version of your application, but you have monitoring in place and you've detected that you application's new version has an error. In this case you need to run `rollback`
 
     ```bash
-    oc rollback dc/hello-world
+    oc rollback deployment/hello-world
     ```
 
   > output: It is very similar process "Start the previous version, and Stops the current"
@@ -411,7 +413,7 @@ In the DeploymentConfig lab, you will create a custom DeploymentConfig based on 
 
 - Output from `oc get pods` contains two pods
 
-- Output from `oc describe dc/lab-dc` has the correct name and `MESSAGE` environment value
+- Output from `oc describe deployment/lab-dc` has the correct name and `MESSAGE` environment value
 
 - `curl localhost:8080` prints the message you entered in step 2
 
@@ -438,7 +440,7 @@ In the DeploymentConfig lab, you will create a custom DeploymentConfig based on 
 
 </details>
 
-> Q2: What OpenShift resource is responsible for running the correct number of pods for a DeploymentConfig?
+> Q2: What OpenShift resource is responsible for running the correct number of pods for a Deployment?
 
 - [ ] DeploymentConfigPodRunner
 - [ ] ReplicaSet
@@ -448,7 +450,7 @@ In the DeploymentConfig lab, you will create a custom DeploymentConfig based on 
 <details>
   <summary> Answer </summary>
 
-   ReplicationController
+   ReplicaSet
 
 </details>
 
@@ -480,23 +482,183 @@ In the DeploymentConfig lab, you will create a custom DeploymentConfig based on 
 
 </details>
 
-> Q5: What is the command to roll out a new version of your DeploymentConfig?
+> Q5: What is the command to roll out a new version of your Deployment?
 
-- [ ] `oc update dc/app-name`
-- [ ] `oc rollout dc/app-name`
-- [ ] `oc rollout latest dc/app-name`
-- [ ] `oc update latest dc/app-name`
+- [ ] `oc update deployment/app-name`
+- [ ] `oc rollout deployment/app-name`
+- [ ] `oc rollout latest deployment/app-name`
+- [ ] `oc update latest deployment/app-name`
 
 <details>
   <summary> Answer </summary>
 
-  `oc rollout latest dc/app-name`
+  `oc rollout latest deployment/app-name`
 
 </details>
 
 ---
 
-### 3.3 OpenShift Networking
+### 3.3 Resource Quotas and Limits
+<p align="right">
+  <a href="https://github.com/ocp-workshop-wf/bootcamp/tree/main/module3#-module-3-core-openshift-resources" target="_blank">
+    <img src="/images/top.png" alt="OpenShift Training" style="width:25px;" />
+  </a>
+</p>  
+[Resource Quotas and Limits](https://docs.redhat.com/en/documentation/openshift_container_platform/4.8/html/building_applications/quotas) are used to control the amount of resources that can be consumed by a project or namespace in OpenShift. They help ensure fair resource allocation and prevent resource exhaustion.
+- **Resource Quotas**: Set limits on the total amount of resources (CPU, memory, storage) that can be used by all pods in a project. They help prevent a single project from consuming all available resources in the cluster.
+- **Resource Limits**: Set limits on the amount of resources that can be used by individual pods. They help ensure that no single pod can consume excessive resources, which could impact the performance of other pods in the cluster. 
+
+---
+
+  **Hands-on Walkthroughs**
+
+  - Create a Resource Quota:
+
+  ```bash
+  oc create quota my-quota --hard=pods=10,requests.cpu=4,requests.memory=8Gi,limits.cpu=4,limits.memory=8Gi
+  ``` 
+    > output: "quota/my-quota created"
+
+  - Check the status of the quota:
+
+    ```bash
+    oc describe quota my-quota
+    ```
+    > output: "You should see the hard limits and the current usage of resources in the project"
+    ```yaml
+    Name:			my-quota
+    Namespace:		my-project
+    Resource		Hard		Used
+    --------		----		----
+    pods			10		2
+    requests.cpu		4		1
+    requests.memory	8Gi		2Gi
+    limits.cpu		4		1
+    limits.memory	8Gi		2Gi
+    ```
+  - Create a pod that exceeds the resource limits:
+
+    ```bash
+    oc run my-pod --image=nginx --requests=cpu=2,memory=4Gi --limits=cpu=2,memory=4Gi
+    ```
+    > output: "You should see an error message indicating that the pod cannot be created due to resource limits"
+    
+    ```bash
+    Error from server (Forbidden): pods "my-pod" is forbidden: exceeded quota: my-quota: must specify limits.cpu, limits.memory, requests.cpu, requests.memory
+    ```
+  - Create a pod that is within the resource limits:
+
+    ```bash
+    oc run my-pod2 --image=nginx --requests=cpu=1,memory=2Gi --limits=cpu=1,memory=2Gi
+    ```
+    > output: "You should see the pod created successfully"
+    ```bash
+    pod/my-pod2 created
+    ``` 
+  - Check the status of the pod:
+
+    ```bash
+    oc get pods
+    ```
+    > output: "You should see the pod running"
+    ```bash
+    NAME       READY   STATUS    RESTARTS   AGE
+    my-pod2    1/1     Running   0          1m
+    ```
+  - Check the status of the quota again:
+
+    ```bash
+    oc describe quota my-quota
+    ```
+    > output: "You should see the updated usage of resources in the project"
+    ```yaml
+    Name:			my-quota
+    Namespace:		my-project
+    Resource		Hard		Used
+    --------		----		----
+    pods			10		3
+    requests.cpu		4		2
+    requests.memory	8Gi		4Gi
+    limits.cpu		4		2
+    limits.memory	8Gi		4Gi
+    ```
+
+---
+
+### 🔬 Hands-on Lab (Resource Quota)
+In the Resource Quota lab, you will create a custom Resource Quota based on the hello-world image by changing some parameters.
+- First, `use oc create quota to create a Resource Quota with the following parameters:`
+  - `pods=10`
+  - `requests.cpu=4`
+  - `requests.memory=8Gi`
+  - `limits.cpu=4`
+  - `limits.memory=8Gi`
+- `Use oc describe quota to check the status of the Resource Quota`
+- `Use oc run to create a pod that exceeds the resource limits`
+- `Use oc run to create a pod that is within the resource limits`
+- `Use oc get pods to check the status of the pods`
+- `Use oc describe quota to check the status of the Resource Quota again`
+
+---
+
+### Checklist 📋 Resource Quota
+- Output from `oc describe quota my-quota` contains the correct hard limits and current usage
+- Output from `oc get pods` contains the pod that is within the resource limits
+- Output from `oc describe quota my-quota` shows the updated usage of resources in the project
+
+> 💡 Cleaning Up:
+  To clean up, use a single command to delete all of the resources created in step 1
+
+    ```bash
+    oc delete all --all -n my-project
+    ```
+---
+
+### Quiz Resource Quota
+> Q1: What is the purpose of Resource Quotas in OpenShift?
+- [ ] To limit the number of pods in a project
+- [ ] To limit the amount of resources that can be consumed by a project
+- [ ] To limit the amount of resources that can be consumed by a pod
+- [ ] To limit the number of projects in a cluster
+<details>
+  <summary> Answer </summary>
+
+   To limit the amount of resources that can be consumed by a project
+</details>
+
+> Q2: What is the command to create a Resource Quota in OpenShift?
+- [ ] `oc create quota my-quota --hard=pods=10,requests.cpu=4,requests.memory=8Gi,limits.cpu=4,limits.memory=8Gi`
+- [ ] `oc create resource-quota my-quota --hard=pods=10,requests.cpu=4,requests.memory=8Gi,limits.cpu=4,limits.memory=8Gi`
+- [ ] `oc create quota my-quota --limits=pods=10,requests.cpu=4,requests.memory=8Gi,limits.cpu=4,limits.memory=8Gi`
+- [ ] `oc create resource-quota my-quota --limits=pods=10,requests.cpu=4,requests.memory=8Gi,limits.cpu=4,limits.memory=8Gi`
+<details>
+  <summary> Answer </summary>
+
+   `oc create resource-quota my-quota --limits=pods=10,requests.cpu=4,requests.memory=8Gi,limits.cpu=4,limits.memory=8Gi`
+</details>
+
+> Q3: What is the command to check the status of a Resource Quota in OpenShift?
+- [ ] `oc describe quota my-quota`
+- [ ] `oc get quota my-quota`
+- [ ] `oc status quota my-quota`
+- [ ] `oc check quota my-quota`
+<details>
+  <summary> Answer </summary>
+
+   `oc describe quota my-quota`
+</details>  
+
+> Q4: What is the command to create a pod that exceeds the resource limits in OpenShift?
+- [ ] `oc run my-pod --image=nginx --requests=cpu=2,memory=4Gi --limits=cpu=2,memory=4Gi`
+- [ ] `oc create pod my-pod --image=nginx --requests=cpu=2,memory=4Gi --limits=cpu=2,memory=4Gi`
+- [ ] `oc new-pod my-pod --image=nginx --requests=cpu=2,memory=4Gi --limits=cpu=2,memory=4Gi`
+- [ ] `oc deploy my-pod --image=nginx --requests=cpu=2,memory=4Gi --limits=cpu=2,memory=4Gi`
+<details>
+  <summary> Answer </summary>
+    `oc run my-pod --image=nginx --requests=cpu=2,memory=4Gi --limits=cpu=2,memory=4Gi`
+</details>  
+
+### 3.4 OpenShift Networking
 
 
 <p align="right">
@@ -880,384 +1042,6 @@ Once you meet all of these criteria, you have successfully completed the lab. Yo
   <summary> Answer </summary>
 
    Passthrough 
-
-</details>
----
-
-### 3.4 OpenShift ConfigMaps
-
-<p align="right">
-  <a href="https://github.com/ocp-workshop-wf/bootcamp/tree/main/module3#-module-3-core-openshift-resources" target="_blank">
-    <img src="/images/top.png" alt="OpenShift Training" style="width:25px;" />
-  </a>
-</p>
-
-- **Configmaps:** are a very useful resource type that OpenShift borrows from Kubernetes. ConfigMaps hold configuration data for pods to consume. This data is held in the ConfigMap separately from your running pod in OpenShift. Holding data for pods to consume is much less active job than some other types of resources in Kubernetes like `pods`, `deploymentconfigs` and `services` so when to use `ConfigMaps`
-
-  | Component         | Development | Production               |
-  |------------------|-------------|---------------------------|
-  | REST API Server  | localhost   | example-api.com           |
-  | Database         | localhost   | db-host.internal.com      |
-
-  > A common case where ConfigMaps become useful is when you deploy your application to different environments. For Local development, you may wish to run non-application dependencies such as REST service or database on your machine as well, in order to simplify the development environment to connect to this REST service or database your application will need to use values that point to these local versions you can use ConfigMaps to get that kind of flexibility in OpenShift. 
-
-<p align="center">
-  <img src="/images/cm.png" alt="OpenShift Training" style="width:400px; display:block; margin:auto;" />
-</p>
-
-  > There is one piece of vocabulary you need to know when working with ConfigMaps. To <u>CONSUME</u> a configmap just means that you use the data inside of a ConfigMap from a Pod. Once the ConfigMap exists on OpenShift, you can consume or use the ConfigMap in a pod by referring to the ConfigMap in the pod definition. The word consume makes it seem like consuming a ConfigMap should use it up somehow,but this is not the case. You can consume ConfigMaps from many different pods. A common i.e  "database name" shared between an application defination and the database pod. This can help you to centralize you configuration in <u>ONE PLACE</u> and then you can update the ConfigMap, all of your pods will use the updated configuration.
-
-  <p align="center">
-    <img src="/images/cm2.png" alt="OpenShift Training" style="width:400px; display:block; margin:auto;" />
-  </p>
-
-- OpenShift give you several tools to create ConfigMaps: 
-  - Command line
-  - Files
-  - Entire directories.
-  > You also need to talk about sensitive data any resource in your OpenShift Project can read the data in a ConfigMap. For this reason, you should not store any sensitive data in the ConfigMap. OpenShift has another resource type called the `Secret` that is used for sensitive date. Also there is one more limitation of ConfigMaps that you should keep in mind, ConfigMaps have a `1MB` storage size limit. If your data could grow above the `1MB` limit you may not want to use Configmaps.
-
-
-- ConfigMap Example:
-
-    ```yaml
-    apiVersion: v1 #kubernetes resource
-    data:
-    MESSAGE: Hello from ConfigMap #data 
-    kind: ConfigMap
-    metadata:
-    name: message-map
-    namespace: myproject #namespace
-    resourceVersion: "2827192"
-    selfLink: /api/v1/namespaces/myproject/configmaps/message-map
-    ```
-
-**Hands-on Walkthroughs**  
-
-- Creating ConfigMaps:
-
-```bash
-oc create configmap message-map --from-literal MESSAGE="Hello from ConfigMap"
-# type - name of resource - to give some data -(Varaible) = data
-```
-> output: "configmap/message-map created"
-
-```bash
-# listing configmaps
-oc get cm
-```
-
-> output:
-  ```bash
-  message-map         1      42s # 1 means that we have only 1 key value pair inside the configmap
-  ```
-- Lets check the ConfigMap yaml from UI and CLI
-```bash
-oc get -o yaml cm/message-map
-```
-> output:
-  ```yaml
-  apiVersion: v1
-  data: # instead of spec field we got data field here
-    MESSAGE: Hello from ConfigMap # varaible we configured earlier 
-  kind: ConfigMap
-  metadata:
-    creationTimestamp: "2025-07-18T01:09:39Z"
-    name: message-map # configmap name 
-    namespace: <your-namespace> # namespace/Project
-    resourceVersion: "3298865818"
-    uid: 7c32526a-8837-48ba-ab36-bade0095b35b
-  ```
-
-
-- Consuming ConfigMaps: We'll test it out by making sure that the Hello World resonse changes after we consume the configmap 1st lets deploy our application.
-
-  ```bash
-  oc new-app quay.io/practicalopenshift/hello-world 
-  ```
-
-  > Once app created go ahead and expouse the service!
-
-  ```bash
-  oc expose service/hello-world
-  ```
-
-  > Once expose was done lets run status to get the URL
-
-  ```bash
-  oc status
-  ```
-
-  > We will Curl before and after configmap being applied to the application, at first it should give us the default message, at 2nd it should give us the message from inside the configmap!
-
-  ```bash
-  curl <url from oc status>
-  ```
-
-  > output:
-  "Welcome! You can change this message by editing the MESSAGE environment variable."
-
-- Consuming a ConfigMap to the application from the  **command line**
-
-  ```bash
-  oc set env deployment/hello-world --from cm/message-map 
-  # ENV is just like in a dockerfile it sets an env variable based on the keys and pairs in the ConfigMap.
-  ```
-
-  > output: `deployment.apps.openshift.io/hello-world updated`
-
-  ```bash
-  curl <url from oc status>
-  ```
-
-  > output: "Hello from ConfigMap"
-
-  ```bash
-  oc get -o yaml dc/hello-world
-  ```
-
-  ```yaml
-      .....
-      spec:
-        containers:
-        - env: # the ENV we set 
-          - name: MESSAGE # consumed from Configmap
-            valueFrom:
-              configMapKeyRef: # that is how it consumed from configmap
-                key: MESSAGE
-                name: message-map #configmap name
-                ........
-  ```
-
-- Create ConfigMaps from **Files**:
-
-  ```bash
-  echo "Hello from ConfigMap file" > MESSAGE.txt
-  # creating a simple txt file 
-  ```
-
-  ```bash
-  cat MESSAGE.txt
-  # just to verify
-  ```
-
-  > output:"Hello from ConfigMap file"
-
-  ```bash
-  oc create configmap file-map --from-file=MESSAGE.txt
-  # create based on the txt file.
-  ```
-
-  > output: "configmap/file-map created"
-
-  ```bash
-  oc get -o yaml cm/file-map
-  ```
-
-  ```yaml
-  apiVersion: v1
-  data:
-    MESSAGE.txt: | # confirms it was taken from the file
-      Hello from ConfigMap file
-  kind: ConfigMap
-  metadata:
-  .........
-  ```
-
-  > output: "data.MESSAGE.txt: this is the wrong syntax as it doesn't match the key in the Hello-world application to match it we need to run the following command"
-
-  ```bash
-  oc create configmap file-map-2 --from-file=MESSAGE=MESSAGE.txt
-  # this time we specified the env variable = the file name
-  ```
-
-  > output: "configmap/file-map created"
-
-  ```bash
-  oc get -o yaml cm/file-map
-  ```
-
-  ```yaml
-  apiVersion: v1
-  data:
-    MESSAGE: | # now its fixed 
-      Hello from ConfigMap file
-  kind: ConfigMap
-  metadata:
-  ```
-
-  > output: Now as you see the data.MESSAGE: follows the same pattern for the Hello-world application.
-
-  ```bash
-  oc set env deployment/hello-world --from cm/file-map-2
-  # lets update the deployment to point at this configmap-2 the correct one 
-  ```
-
-  > output: "deployment.apps.openshift.io/hello-world updated"
-
-  ```bash
-  curl < URL from oc status>
-  ```
-
-  > output: "Hello from ConfigMap file."
-
-
-- Create ConfigMaps from **Directories**:
-
-  ```bash
-  cd ./labs
-  ```
-
-  ```bash
-  oc create configmap pods-example --from-file=pods
-  # same but ending up with the name of the directory
-  ```
-
-  > output: "configmap/pods-example created!"
-
-  ```bash
-  oc get -o yaml configmap/pods-example
-  ```
-
-  > output:
-
-  ```yaml
-  apiVersion: v1
-  data:
-    pod.yaml: | # pod 1
-      apiVersion: v1
-      kind: Pod
-      metadata:
-        name: hello-world-pod
-        labels:
-          app: hello-world-pod
-      spec:
-        containers:
-        - env: # seeing this here
-          - name: MESSAGE # env varaible 
-            value: Hi! I'm an environment variable
-          image: quay.io/practicalopenshift/hello-world
-          imagePullPolicy: Always
-          name: hello-world-override
-          resources: {}
-    pod2.yaml: | # pod 2 
-      apiVersion: v1
-      kind: Pod
-      metadata:
-        name: hello-world-pod-2
-        labels:
-          app: hello-world-pod-2
-      spec:
-        containers:
-        - env:
-          - name: MESSAGE # message from pod 2 
-            value: Hi! I'm an environment variable in pod 2
-          image: quay.io/practicalopenshift/hello-world
-          imagePullPolicy: Always
-          name: hello-world-override
-          resources: {}
-    service.yaml: |
-      apiVersion: v1
-      kind: Service
-      metadata:
-        name: hello-world-pod-service
-      spec:
-        selector:
-          app: hello-world-pod
-        ports:
-          - protocol: TCP
-            port: 80
-            targetPort: 8080
-  kind: ConfigMap
-
-  ```
-
----
-
-### 🔬 Hands-on Lab (ConfigMap)
-
-For ConfigMaps, you'll get some hands-on practice working with YAML. Start with the following ConfigMap definition:
-
-```yaml
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: lab-map
-```
-
-- Create a new file called lab-configmap.yaml
-- Copy the above YAML into the file
-- Modify this YAML so that the ConfigMap will have the proper key fro the hello-world application
-- Us `oc create` to create the ConfigMap from the file
-- Deploy the `quay.io/practicalopenshift/hello-world` image using `oc new-app`
-- Change the message that the `Deployment` uses to the ConfigMap value using the `oc set env` command
-- Expose a route for your application.
-
----
-
-### Checklist 📋
-
-- Output from `oc get cm` contains your new ConfigMap
-
-- Output from `oc get -o yaml dc/hello-world` contains the string `configMapKeyRef`
-
-- When you run `curl <your route>` you get the value you put in the ConfigMap
-
----
-
-### Quiz (ConfigMap)
->
-> Q1: What is the maximum amount of data that you can store in a ConfigMap?
-
-- [ ] 1 GB
-- [ ] 1 KB
-- [ ] 1 MB
-- [ ] 1 TB
-
-<details>
-  <summary> Answer </summary>
-
-   1 MB
-
-</details>
-
-> Q2: The data for a configmap is stored in its YAML resource definition under the "configData" field name.
-
-- [ ] True
-- [ ] False
-
-<details>
-  <summary> Answer </summary>
-
-   Fales "the field called data"
-
-</details>
-
-> Q3: What is the command to create a configmap using the oc tool?
-
-- [ ] `oc create configmap <new configmap name>`
-- [ ] `oc create -f configmap <new configmap name>`
-- [ ] `oc get configmap <new configmap name>`
-- [ ] `oc apply -f configmap <new configmap name>`
-
-<details>
-  <summary> Answer </summary>
-
- `oc create configmap <new configmap name>`
-
-</details>
-
-> Q4: What kinds of inputs can you use to create a configmap?
-
-- [ ] Command line arguments of files
-- [ ] Command line arguments, files, directories, and custom ConfigMap YAML files
-- [ ] Command line arguments, files, or directories
-- [ ] Command line arguments, directories only!
-
-<details>
-  <summary> Answer </summary>
-
-   Command line arguments, files, directories, and custom ConfigMap YAML files
 
 </details>
 

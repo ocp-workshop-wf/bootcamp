@@ -13,6 +13,10 @@
 
 - [6.2 - Helm Charts](#62-HelmCharts) | [Lab](#-hands-on-lab-helm) | [Quiz](#quiz-helm)
 
+- [6.3 - Bash Scripting](#bash-scripting) | [Lab](#-hands-on-lab-bash-scripting) | [Quiz](#quiz-bash-scripting)
+
+- [6.4 - Useful Resources](#63-useful-resources)
+
 ---
 
 ### 6.1 Health Check & Observability
@@ -340,7 +344,253 @@ For Helm you will need to be creative - either you follow the same pattern I got
 </details>
 
 ---
-### 6.3 Useful Resources
+
+### Bash scripting 
+Bash scripting is a way to automate tasks on Unix-like systems. It allows users to write sequences of commands in a file and execute them as a single script. Bash (Bourne Again SHell) is the most commonly used shell in Linux. Key Concepts:
+
+  - Shebang (#!/bin/bash)
+
+  - Variables and parameters
+
+  - Conditionals (if, else, elif)
+
+  - Loops (for, while, until)
+
+  - Functions
+
+  - Input/output (stdin, stdout, stderr)
+
+  - File operations and redirection
+
+**Resources:**
+
+  - [GNU Bash Manual](https://www.gnu.org/software/bash/manual/)
+
+  - [ShellCheck – Linter for Bash scripts](https://www.shellcheck.net/)
+
+  - [TLDP Bash Guide](https://tldp.org/LDP/Bash-Beginners-Guide/html/)
+
+**Hands-on Walkthroughs** 
+- Your first script
+
+  ```bash
+  #!/bin/bash
+  echo "Hello, Bash!"
+  ```
+- Save this as hello.sh, then run:
+  ```bash
+  chmod +x hello.sh
+  ./hello.sh
+  ```
+  > output: "Hello, Bash!"
+
+- Variables and parameters
+
+  ```bash
+  #!/bin/bash
+  NAME="World"
+  echo "Hello, $NAME!"
+  ```
+- Save this as hello_var.sh, then run:
+  ```bash
+  chmod +x hello_var.sh
+  ./hello_var.sh
+  ```
+  > output: "Hello, World!"  
+
+- Conditionals
+
+  ```bash
+  #!/bin/bash
+  if [ "$1" == "hello" ]; then
+      echo "Hello, World!"
+  else
+      echo "Goodbye, World!"
+  fi
+  ``` 
+- Save this as conditional.sh, then run:
+  ```bash
+  chmod +x conditional.sh
+  ./conditional.sh hello
+  ```
+  > output: "Hello, World!"
+  ```bash
+  ./conditional.sh goodbye
+  ```
+  > output: "Goodbye, World!"
+  
+  ```bash  
+  ./conditional.sh
+  ```
+  > output: "Goodbye, World!" (default case)
+
+- Loops
+
+  ```bash
+  #!/bin/bash
+  for i in {1..5}; do
+      echo "Iteration $i"
+  done
+  ```
+- Save this as loop.sh, then run:
+  ```bash
+  chmod +x loop.sh
+  ./loop.sh
+  ```
+  > output:
+  ```
+  Iteration 1
+  Iteration 2
+  Iteration 3
+  Iteration 4
+  Iteration 5
+  ```
+- Functions
+
+  ```bash
+  #!/bin/bash
+  greet() {
+      echo "Hello, $1!"
+  }
+  greet "Bash"
+  ```
+- Save this as functions.sh, then run:
+  ```bash
+  chmod +x functions.sh
+  ./functions.sh
+  ```
+  > output: "Hello, Bash!"
+
+- Input/output
+
+  ```bash
+  #!/bin/bash
+  echo "Enter your name:"
+  read NAME
+  echo "Hello, $NAME!"
+  ```
+- Save this as input_output.sh, then run:
+  ```bash
+  chmod +x input_output.sh
+  ./input_output.sh
+  ```
+  > output: "Enter your name:" (then type your name and press Enter)
+  ```
+  Hello, YourName!
+  ```
+- File operations and redirection
+
+  ```bash
+  #!/bin/bash
+  echo "This is a test file." > testfile.txt
+  cat testfile.txt
+  ```
+- Save this as file_ops.sh, then run:
+  ```bash
+  chmod +x file_ops.sh
+  ./file_ops.sh
+  ```
+  > output: "This is a test file."
+
+- Clean up created files:
+  ```bash
+  rm hello.sh hello_var.sh conditional.sh loop.sh functions.sh input_output.sh file_ops.sh
+  rm testfile.txt
+  ```
+- Resources:
+
+  - [GNU Bash Manual](https://www.gnu.org/software/bash/manual/)
+
+  - [ShellCheck – Linter for Bash scripts](https://www.shellcheck.net/)
+
+  - [TLDP Bash Guide](https://tldp.org/LDP/Bash-Beginners-Guide/html/)
+
+### 🔬 Hands-on Lab:
+For Bash scripting, you will create a simple script that automates a task on your OpenShift cluster.
+- Create a script that does the following:
+  - Lists all pods in your project
+  - Checks the status of each pod
+  - If a pod is not running, it should print a message indicating which pod is not running
+  - If all pods are running, it should print a success message
+```bash
+#!/bin/bash
+pods=$(oc get pods -o jsonpath='{.items[*].status.phase}')
+all_running=true
+for pod in $pods; do
+  if [ "$pod" != "Running" ]; then
+    echo "Pod $pod is not running."
+    all_running=false
+  fi
+done
+if $all_running; then
+  echo "All pods are running."
+else
+  echo "Some pods are not running."
+fi
+```
+- Save this script as `check_pods.sh`, then run:
+```bash
+chmod +x check_pods.sh
+./check_pods.sh
+```
+> output: Depending on the status of your pods, it will either list the pods that are
+not running or print "All pods are running."
+- Clean up:
+```bash
+rm check_pods.sh
+```
+
+### Checklist 📋
+- The script lists all pods in your project
+- The script checks the status of each pod
+- The script prints a message for each pod that is not running
+- The script prints a success message if all pods are running  
+
+### Quiz (Bash Scripting)
+> Q1: What is the purpose of the shebang (#!/bin/bash) in a Bash script?
+- [ ] It defines the script's name
+- [ ] It specifies the interpreter to use for executing the script
+- [ ] It indicates the script's version   
+- [ ] It sets the script's permissions
+<details>
+  <summary> Answer </summary>
+
+  It specifies the interpreter to use for executing the script 
+</details>
+
+> Q2: How do you declare a variable in a Bash script?
+- [ ] var name="value"
+- [ ] name = "value"
+- [ ] name="value"
+- [ ] name: "value"
+<details>
+  <summary> Answer </summary>
+  name="value"
+</details>
+
+> Q3: What is the purpose of the `read` command in a Bash script?
+- [ ] To read a file
+- [ ] To read user input from the terminal
+- [ ] To read a variable's value
+- [ ] To read a command's output
+<details>
+  <summary> Answer </summary>
+  To read user input from the terminal
+</details>
+
+> Q4: How do you create a function in a Bash script?
+- [ ] function myfunc() { ... }
+- [ ] myfunc() { ... }
+- [ ] create myfunc() { ... }
+- [ ] def myfunc() { ... }
+<details>
+  <summary> Answer </summary>
+  myfunc() { ... }
+</details>
+
+---
+
+### 6.4 Useful Resources
 
 <p align="right">
   <a href="https://github.com/ocp-workshop-wf/bootcamp/tree/main/module6#-module-6-mastering-openshift" target="_blank">
