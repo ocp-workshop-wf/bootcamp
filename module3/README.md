@@ -504,6 +504,7 @@ In the DeploymentConfig lab, you will create a custom DeploymentConfig based on 
     <img src="/images/top.png" alt="OpenShift Training" style="width:25px;" />
   </a>
 </p>  
+
 [Resource Quotas and Limits](https://docs.redhat.com/en/documentation/openshift_container_platform/4.8/html/building_applications/quotas) are used to control the amount of resources that can be consumed by a project or namespace in OpenShift. They help ensure fair resource allocation and prevent resource exhaustion.
 - **Resource Quotas**: Set limits on the total amount of resources (CPU, memory, storage) that can be used by all pods in a project. They help prevent a single project from consuming all available resources in the cluster.
 - **Resource Limits**: Set limits on the amount of resources that can be used by individual pods. They help ensure that no single pod can consume excessive resources, which could impact the performance of other pods in the cluster. 
@@ -517,7 +518,8 @@ In the DeploymentConfig lab, you will create a custom DeploymentConfig based on 
   ```bash
   oc create quota my-quota --hard=pods=10,requests.cpu=4,requests.memory=8Gi,limits.cpu=4,limits.memory=8Gi
   ``` 
-    > output: "quota/my-quota created"
+  
+  > output: "quota/my-quota created"
 
   - Check the status of the quota:
 
@@ -525,6 +527,7 @@ In the DeploymentConfig lab, you will create a custom DeploymentConfig based on 
     oc describe quota my-quota
     ```
     > output: "You should see the hard limits and the current usage of resources in the project"
+
     ```yaml
     Name:			my-quota
     Namespace:		my-project
@@ -552,15 +555,19 @@ In the DeploymentConfig lab, you will create a custom DeploymentConfig based on 
     oc run my-pod2 --image=nginx --requests=cpu=1,memory=2Gi --limits=cpu=1,memory=2Gi
     ```
     > output: "You should see the pod created successfully"
+
     ```bash
     pod/my-pod2 created
     ``` 
+
   - Check the status of the pod:
 
     ```bash
     oc get pods
     ```
+
     > output: "You should see the pod running"
+
     ```bash
     NAME       READY   STATUS    RESTARTS   AGE
     my-pod2    1/1     Running   0          1m
@@ -607,11 +614,12 @@ In the Resource Quota lab, you will create a custom Resource Quota based on the 
 - Output from `oc describe quota my-quota` shows the updated usage of resources in the project
 
 > 💡 Cleaning Up:
+
   To clean up, use a single command to delete all of the resources created in step 1
 
-    ```bash
-    oc delete all --all -n my-project
-    ```
+  ```bash
+  oc delete all --all -n my-project
+  ```
 ---
 
 ### Quiz Resource Quota
