@@ -277,7 +277,23 @@ In OpenShift, Routes can be used to direct traffic to multiple backends with wei
   - You have two versions of the same app deployed (v1 and v2).
   - You use a single Route with traffic weights defined.
 
-**Hands-on Walkthroughs**  
+  **Compare**
+  - Blue Green vs Canary
+    - Blue Green: Switches traffic between two complete environments (blue and green).
+    - Canary: Gradually shifts traffic to a new version while monitoring for issues.
+
+  | Feature               | Blue Green                     | Canary                          |
+  |-----------------------|--------------------------------|---------------------------------|
+  | Deployment Scope      | Entire environment             | Subset of users                 |
+  | Traffic Switching      | Instant switch                 | Gradual shift                   |
+  | Risk Level            | Higher (all or nothing)       | Lower (monitoring during rollout) |
+  | Rollback Complexity    | Simple (switch back)           | More complex (gradual rollback) |
+  | User Impact            | All users at once              | Small group initially           |
+  | Monitoring              | Less emphasis on monitoring     | High emphasis on monitoring      |
+
+  > Canary is useful if new version is backwards compatible vs Blue Green is more suitable for major changes that require a full environment switch NOT backwards compatible.
+
+**Hands-on Walkthroughs**
   - In this example we are looking at a weighted routing.
   ```yaml
     apiVersion: route.openshift.io/v1
