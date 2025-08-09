@@ -40,7 +40,7 @@
   <img src="/images/cm.png" alt="OpenShift Training" style="width:400px; display:block; margin:auto;" />
 </p>
 
-  > There is one piece of vocabulary you need to know when working with ConfigMaps. To <u>CONSUME</u> a configmap just means that you use the data inside of a ConfigMap from a Pod. Once the ConfigMap exists on OpenShift, you can consume or use the ConfigMap in a pod by referring to the ConfigMap in the pod definition. The word consume makes it seem like consuming a ConfigMap should use it up somehow,but this is not the case. You can consume ConfigMaps from many different pods. A common i.e  "database name" shared between an application defination and the database pod. This can help you to centralize you configuration in <u>ONE PLACE</u> and then you can update the ConfigMap, all of your pods will use the updated configuration.
+  > There is one piece of vocabulary you need to know when working with ConfigMaps. To <u>CONSUME</u> a configmap just means that you use the data inside of a ConfigMap from a Pod. Once the ConfigMap exists on OpenShift, you can consume or use the ConfigMap in a pod by referring to the ConfigMap in the pod definition. The word consume makes it seem like consuming a ConfigMap should use it up somehow,but this is not the case. You can consume ConfigMaps from many different pods. A common i.e  "database name" shared between an application definition and the database pod. This can help you to centralize your configuration in <u>ONE PLACE</u> and then you can update the ConfigMap, all of your pods will use the updated configuration.
 
   <p align="center">
     <img src="/images/cm2.png" alt="OpenShift Training" style="width:400px; display:block; margin:auto;" />
@@ -50,7 +50,7 @@
   - Command line
   - Files
   - Entire directories.
-  > You also need to talk about sensitive data any resource in your OpenShift Project can read the data in a ConfigMap. For this reason, you should not store any sensitive data in the ConfigMap. OpenShift has another resource type called the `Secret` that is used for sensitive date. Also there is one more limitation of ConfigMaps that you should keep in mind, ConfigMaps have a `1MB` storage size limit. If your data could grow above the `1MB` limit you may not want to use Configmaps.
+  > You also need to talk about sensitive data any resource in your OpenShift Project can read the data in a ConfigMap. For this reason, you should not store any sensitive data in the ConfigMap. OpenShift has another resource type called the `Secret` that is used for sensitive data. Also there is one more limitation of ConfigMaps that you should keep in mind, ConfigMaps have a `1MB` storage size limit. If your data could grow above the `1MB` limit you may not want to use Configmaps.
 
 
 - ConfigMap Example:
@@ -73,7 +73,7 @@
 
   ```bash
   oc create configmap message-map --from-literal MESSAGE="Hello from ConfigMap"
-  # type - name of resource - to give some data -(Varaible) = data
+  # type - name of resource - to give some data -(Variable) = data
   ```
   > output: "configmap/message-map created"
 
@@ -105,13 +105,13 @@
     ```
 
 
-  - Consuming ConfigMaps: We'll test it out by making sure that the Hello World resonse changes after we consume the configmap 1st lets deploy our application.
+  - Consuming ConfigMaps: We'll test it out by making sure that the Hello World response changes after we consume the configmap 1st lets deploy our application.
 
     ```bash
     oc new-app quay.io/practicalopenshift/hello-world 
     ```
 
-    > Once app created go ahead and expouse the service!
+    > Once app created go ahead and expose the service!
 
     ```bash
     oc expose service/hello-world
@@ -269,7 +269,7 @@
         spec:
           containers:
           - env: # seeing this here
-            - name: MESSAGE # env varaible 
+            - name: MESSAGE # env variable 
               value: Hi! I'm an environment variable
             image: quay.io/practicalopenshift/hello-world
             imagePullPolicy: Always
@@ -322,8 +322,8 @@ metadata:
 
 - Create a new file called lab-configmap.yaml
 - Copy the above YAML into the file
-- Modify this YAML so that the ConfigMap will have the proper key fro the hello-world application
-- Us `oc create` to create the ConfigMap from the file
+- Modify this YAML so that the ConfigMap will have the proper key f the hello-world application
+- Use `oc create` to create the ConfigMap from the file
 - Deploy the `quay.io/practicalopenshift/hello-world` image using `oc new-app`
 - Change the message that the `Deployment` uses to the ConfigMap value using the `oc set env` command
 - Expose a route for your application.
@@ -452,7 +452,7 @@ metadata:
   - Lets open the yaml for that secret.
 
   ```bash
-  oc get -o yaml secrete/message-secret
+  oc get -o yaml secret/message-secret
   ```
   > output:
 
@@ -506,7 +506,7 @@ metadata:
     .....
   - env:
           - name: MESSAGE
-            valueFrom: # refrence
+            valueFrom: # reference
               secretKeyRef:
                 key: MESSAGE # env
                 name: message-secret # secret value
@@ -547,7 +547,7 @@ type: Opaque
 
 ### Quiz (Secrets)
 > Q1: You can use all the same inputs for ConfigMaps in order to create Secrets.
-- [ ] Fales
+- [ ] False
 - [ ] True
 
 <details>
@@ -558,7 +558,7 @@ type: Opaque
 </details>
 
 > Q2: The data stored in a secret resource is securely encrypted. Even if someone could read the secret, they wouldn't get access to the information inside.
-- [ ] Fales
+- [ ] False
 - [ ] True
 
 <details>
@@ -829,7 +829,7 @@ For images, you'll import your own private image and tag into OpenShift.
 
 - Create a new project called `images-lab`
 - Create an image named `images-lab` based on `quay.io/practicalopenshift/hello-world`
-- Push this image to your Quay.io accout. Keep it private
+- Push this image to your Quay.io account. Keep it private
 - Create another image with the tag `images-lab:private-tag`.
 - Push this tag to Quay.io
 - Create an ImageStream for your private images-lab image
@@ -982,6 +982,8 @@ For images, you'll import your own private image and tag into OpenShift.
     ```
     - Lets look at the builds
 
+
+  - Checking build logs to dignose problems 
       ```bash
       oc get build
       ```
@@ -1107,7 +1109,7 @@ For images, you'll import your own private image and tag into OpenShift.
 <img src="/images/s2i-concept.webp" alt="OpenShift Training" style="width:400px; align="center"/>
 </p>
 
-Kaniko (Buildpacks / Konica Buildpack Implementation)
+Kaniko (Buildpacks / Koniko Buildpack Implementation)
 Kaniko refers to a Cloud Native Buildpacks-based toolset, typically used in platforms like Heroku and Paketo. It:
   - Detects your application type automatically
   - Selects appropriate buildpacks
@@ -1174,7 +1176,7 @@ curl <URL>
 - How S2I language auto-detect works?!
 - How does OpenShift know when to use S2I? And specifically, how did OpenShift know how to use the Ruby S2I builder?
 
-  - When you start a build with OpenShift, OpenShift will first look for a dockerfile. If it finds one it will build usig something called the Docker Strategy. If OpenShift does not find a dockerfile it will attempt to use the Source Strategy instead.
+  - When you start a build with OpenShift, OpenShift will first look for a dockerfile. If it finds one it will build using something called the Docker Strategy. If OpenShift does not find a dockerfile it will attempt to use the Source Strategy instead.
    
 <p align="center">
 <img src="/images/S2I_Build_Process_Regenerated.png" alt="OpenShift Training" style="width:300px; align="center"/>

@@ -13,7 +13,7 @@
 
 - [5.2 - OpenShift Volumes](#52-openshift-volumes) | [Lab](#-hands-on-lab-volumes) | [Quiz](#quiz-volumes)
 
-- [5.3 - Scaling and Debuging Your Application](#53-scaling-and-debuging-your-application) | [Quiz](#quiz-scaling) 
+- [5.3 - Scaling and Debugging Your Application](#53-scaling-and-debugging-your-application) | [Quiz](#quiz-scaling) 
 
 - [5.4 - OpenShift Jobs](#openshift-jobs) 
 
@@ -25,7 +25,7 @@
   </a>
 </p>
 
-| Stategy Type | Step 1 | Step 2 | Step 3 |
+| Strategy Type | Step 1 | Step 2 | Step 3 |
 | ------------ | -------- | ----- | ------ |
 | Rolling Strategy "Default" | Start new version | Switch traffic to new version | Stop old version | 
 | Recreate Strategy | Stop the old version | Start new Version | Switch Traffic to new version |
@@ -102,7 +102,7 @@
 
 **Hands-on Walkthroughs**  
 
-- How to configure pre-deployment hook for `rolling strategy` you will need 2 windows terminals for this excersice.  
+- How to configure pre-deployment hook for `rolling strategy` you will need 2 windows terminals for this excercise.  
 
     ```bash
     # on terminal 1
@@ -668,7 +668,7 @@ For volumes, you'll mount a secret as a volume.
 
 ---
 
-### 5.3 Scaling and Debuging Your Application 
+### 5.3 Scaling and Debugging Your Application 
 
 <p align="right">
   <a href="https://github.com/ocp-workshop-wf/bootcamp/tree/main/module5#-module-5-advanced-deployment-options" target="_blank">
@@ -699,7 +699,7 @@ The core idea:
 </p>
 
 
-***Debuging in OpenShift*** provides a powerful way to troubleshoot and debug issues within your cluster, particularly for pods and nodes.When used with a pod, `oc debug` creates a new, temporary pod based on the existing pod's image and configuration, but with the ability to inject debugging tools or run commands within its environment. This allows you to:
+***Debugging in OpenShift*** provides a powerful way to troubleshoot and debug issues within your cluster, particularly for pods and nodes.When used with a pod, `oc debug` creates a new, temporary pod based on the existing pod's image and configuration, but with the ability to inject debugging tools or run commands within its environment. This allows you to:
 - Attach to a running container: Gain a shell prompt inside a container to inspect its file system, processes, or configuration.
 - Install debugging tools such as `strace`, or other utilities to analyze application behavior
 - Modify container environment: Temporarily change environment variables or mount paths for testing or debugging
