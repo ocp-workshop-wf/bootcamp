@@ -1,5 +1,5 @@
   <p align="center">
-  <img src="/images/internal-banner.webp" alt="OpenShift Training" />
+  <img src="/images/openshift-landing-page.png" alt="OpenShift Training" />
   </p>
 
 [![Static Badge](https://img.shields.io/badge/Agenda-green?style=flat&logoSize=auto)
