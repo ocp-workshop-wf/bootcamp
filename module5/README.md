@@ -11,11 +11,9 @@
 
 - [5.1 - Deployment Strategies](#51-openshift-deployment-strategies) | [Lab](#-hands-on-lab-deployment-strategies) | [Quiz](#quiz-deployment-strategies)
 
-- [5.2 - OpenShift Volumes](#52-openshift-volumes) | [Lab](#-hands-on-lab-volumes) | [Quiz](#quiz-volumes)
+- [5.2 - Scaling and Debuging Your Application](#52-scaling-and-debuging-your-application) | [Quiz](#quiz-scaling) 
 
-- [5.3 - Scaling and Debuging Your Application](#53-scaling-and-debuging-your-application) | [Quiz](#quiz-scaling) 
-
-- [5.4 - OpenShift Jobs](#openshift-jobs) 
+- [5.3 - OpenShift Jobs](#53-openshift-jobs) 
 
 ### 5.1 Deployment Strategies 
 
@@ -493,182 +491,9 @@ For Deployment Hooks, you will add a mid-deployment hook for the recreate strate
 
 --- 
 
-### 5.2 OpenShift Volumes
-
-<p align="right">
-  <a href="https://github.com/ocp-workshop-wf/bootcamp/tree/main/module5#-module-5-advanced-deployment-options" target="_blank">
-    <img src="/images/top.png" alt="OpenShift Training" style="width:25px;" />
-  </a>
-</p>
-
-Volumes allow you to manage mounted file systems in your pods using a variety of different suppliers.
-    
-    - Filesystem mounted in Pods
-    - Many Suppliers
-  
-OpenShift can make files available to containers from many sources, such as secrets,ConfigMaps, attached hard disk storage, cloud storage, such as S3 and Google Compute files,and many other types of suppliers.
-
-- Lets learn about emptyDir Volume type: 
-Empty directory volumes always start out empty. The worker node that runs your application provides some temporary storage along with other information for the Pod. If the Pod is removed from a node, the EmptyDirectory contents will be deleted. 
-    - Most common problems is when you run rolling out a new version, updating, configuration or changing a Pod in any way.
-
-<p align="center">
-<img src="/images/volumes.png" alt="OpenShift Training" style="width:400px; align="center"/>
-</p>
-
-**Hands-on Walkthroughs** 
-- Define and use an empty directory:
-
-    ```bash
-    oc new-project volumes
-    ```
-    ```bash
-    oc new-app quay.io/practicalopenshift/hello-world
-    ```
-    ```bash
-    oc set volume deployment/hello-world \
-  --add \
-  --type emptyDir \
-  --mount-path /empty-dir-demo 
-    ```
-     > output: "Generated volume name: volume-xxxx / deployment.apps/hello-world volume updated"
-    ```bash
-    oc get -o yaml deployment/hello-world
-    ```
-    > output:
-    ```yml
-    ......
-    # The mountPath value specifies that OpenShift should mount the volume in the empty-dir-demo directory.
-        volumeMounts:
-        - mountPath: /empty-dir-demo 
-          name: volume-XXXX 
-    ......
-      volumes:
-      - emptyDir: {} 
-        name: volume-XXXX # we didn't define a name so it generated that one!
-    status:
-    ......
-    ```
-- How to verify the emptyDir Volume is working?
-So we need to access the pod's terminal.
-
-    ```bash
-    oc get pod
-    ```
-    - Copy the Pod name
-
-    ```bash
-    oc rsh <pod name>
-    ```
-    > output: In there look for the empty-dir-demo directory and verify its empty.
-- How to mount ConfigMap as a Volume.
-    ```bash
-    oc create configmap cm-volume \
-  --from-literal file.txt="ConfigMap file contents"
-    ```
-    > output: "configmap/cm-volume created"
-   
-   ```bash
-    oc set volume deployment/hello-world \
-    --add \
-    --configmap-name cm-volume \
-    --mount-path /cm-directory
-   ```
-    > output: "deployment.apps/hello-world volume updated"
-    ```bash
-    oc get -o yaml deployment/hello-world
-    ```
-    > output: 
-    ```yaml
-    .....
-      volumeMounts:
-        - mountPath: /empty-dir-demo
-          name: volume-cnpmf
-        - mountPath: /cm-directory
-          name: volume-c9bct
-    ......
-      volumes:
-      - emptyDir: {}
-        name: volume-cnpmf
-      - configMap:
-          defaultMode: 420
-          name: cm-volume
-        name: volume-c9bct
-    .....
-    ```
-
-### 🔬 Hands-on Lab (Volumes): 
-For volumes, you'll mount a secret as a volume. 
-
-- Create a new project named `volumes-lab`
-- Create a new opaque secret based on the files in the `pods` directory from the labs repository
-- Deploy the Hello World application
-- Mount this secret as a volume to the path /secret-volume
-
----
-
-### Checklist 📋 (Volumes): 
-
-- After you shell into the pod, `ls /secret-volume` shows you the two pod files.
-- You can get the original contents of the pod files with `cat`
-
----
-
-### Quiz (Volumes)
-> Q1: The emptyDir volume type can persist its data through a Pod restart
-- [ ] True 
-- [ ] False
 
 
-<details>
-  <summary> Answer </summary>
-
-    True, this is one type of Pod event that emptyDir can handle.
-  
-
-</details>
-
-> Q2: What is the command to add an emptyDir volume to an existing DeploymentConfig?
-- [ ] `oc set volume`
-- [ ] `oc create volume`
-- [ ] `oc add-volume`
-- [ ] `oc set DeploymentConfig --volume`
-
-
-<details>
-  <summary> Answer </summary>
-
-  `oc set volume`
-  
-</details>
-
-> Q3: Where can you go to find out more about configuring other types of volumes?
-- [ ] Kubernetes Documentation 
-- [ ] oc explain
-- [ ] all the above
-- [ ] None of the above
-
-<details>
-  <summary> Answer </summary>
-
-   All the above
-  
-</details>
-
-> Q4: Secrets and ConfigMaps can be used as volumes or environment variables.
-- [ ] True 
-- [ ] False
-
-<details>
-  <summary> Answer </summary>
-
-    True, They can be used as either volumes or environment variables.
-  
-</details>
-
----
-
-### 5.3 Scaling and Debuging Your Application 
+### 5.2 Scaling and Debuging Your Application 
 
 <p align="right">
   <a href="https://github.com/ocp-workshop-wf/bootcamp/tree/main/module5#-module-5-advanced-deployment-options" target="_blank">
@@ -850,7 +675,7 @@ If you don't see a command prompt, try pressing enter.
 
 --- 
 
-### OpenShift Jobs: 
+### 5.3 OpenShift Jobs: 
 
 <p align="right">
   <a href="https://github.com/ocp-workshop-wf/bootcamp/tree/main/module5#-module-5-advanced-deployment-options" target="_blank">

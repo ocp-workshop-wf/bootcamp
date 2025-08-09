@@ -63,7 +63,7 @@ OpenShift is Red Hat’s enterprise-grade Kubernetes platform designed for runni
 </p>
 
   <p align="center">
-  <img src="/images/intro-ocp.png" alt="OpenShift Training" style="width:500px; align="center"/>
+  <img src="/images/ocp-introo.png" alt="OpenShift Training" style="width:500px; align="center"/>
   </p>
 
 
