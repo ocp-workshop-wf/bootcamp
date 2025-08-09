@@ -20,7 +20,7 @@ From the course  "OpenShift 4," you will learn the following OpenShift Resources
 |-|-|-|-|-| 
 | OCP CLI | OCP UI | `Projects` | `Pods` | YAML | 
 | JSON | `Deployment` | `DeploymentConfig` | `Services` | `Route` |
-| `ImageStream` | Labels | `S2I` |`Build` | `BuildConfig`| 
+| `ImageStream` | Bash | `S2I` |`Build` | `BuildConfig`| 
 | `Rollout` | `Rollback` | `ReplicationController`| `ReplicaSet`| `ConfigMaps` |
 | `Secrets`| Trouble-Shooting | Packadging | ResourceQuota | `Volumes` | 
 | `Horizontal Scalling` | Vertical Scaling | AutoScaling | Rolling Strategy | Recreate Strategy | 
