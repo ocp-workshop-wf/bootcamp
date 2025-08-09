@@ -2,8 +2,6 @@
   <img src="/images/internal-banner.webp" alt="OpenShift Training" />
   </p>
 
-
-## 🔴  OpenShift Bootcamp Modules
 [![Static Badge](https://img.shields.io/badge/Agenda-green?style=flat&logoSize=auto)
 ](https://github.com/ocp-workshop-wf/bootcamp/blob/main/other/Agenda.md)  [![Static Badge](https://img.shields.io/badge/PreRequisites-blue?style=flat&logoSize=auto&link=[https%3A%2F%2Fgithub.com%2Focp-workshop-wf%2Fbootcamp%2Fblob%2Fmain%2Fprerequisites.md])](https://github.com/ocp-workshop-wf/bootcamp/blob/main/other/prerequisites.md) [![Static Badge](https://img.shields.io/badge/CheatSheet-purple?style=flat&logoSize=auto)
 ](https://github.com/ocp-workshop-wf/bootcamp/blob/main/other/CheatSheet.md) [![Static Badge](https://img.shields.io/badge/OCP-CLI-red?style=flat&logoSize=auto)
@@ -32,25 +30,25 @@ From the course  "OpenShift 4," you will learn the following OpenShift Resources
 - You will learn 15 + types of OpenShift resources.
 - You will be able to configure applications to follow OpenShift best practices.
 
-<p align="center">
+<div align="center">
 
 | 💡 Modules Structure |
-| -------- |
-| Resource Information  | 
+|:--------------------:|
+| Resource Information  |
 | Hands-on Walkthroughs |
-| 🔬 Hands-on Labs    | 
-| Checklist 📋 |
-| Quiz |
+| 🔬 Hands-on Labs      |
+| Checklist 📋          |
+| Quiz                  |
 
-</p>
+</div>
 
-
-    - [Module 1: Introduction and Core Concepts](https://github.com/ocp-workshop-wf/bootcamp/tree/main/module1)
-    - [Module 2: Working with OpenShift](https://github.com/ocp-workshop-wf/bootcamp/tree/main/module2)
-    - [Module 3: Core Concepts](https://github.com/ocp-workshop-wf/bootcamp/tree/main/module3)
-    - [Module 4: Application Deployment and Management](https://github.com/ocp-workshop-wf/bootcamp/tree/main/module4)
-    - [Module 5: Advanced Deployment Options](https://github.com/ocp-workshop-wf/bootcamp/tree/main/module5)
-    - [Module 6: Mastering OpenShift](https://github.com/ocp-workshop-wf/bootcamp/tree/main/module6)
+### 🔴  OpenShift Bootcamp Modules
+- [Module 1: Introduction and Core Concepts](https://github.com/ocp-workshop-wf/bootcamp/tree/main/module1)
+- [Module 2: Working with OpenShift](https://github.com/ocp-workshop-wf/bootcamp/tree/main/module2)
+- [Module 3: Core Concepts](https://github.com/ocp-workshop-wf/bootcamp/tree/main/module3)
+- [Module 4: Application Deployment and Management](https://github.com/ocp-workshop-wf/bootcamp/tree/main/module4)
+- [Module 5: Advanced Deployment Options](https://github.com/ocp-workshop-wf/bootcamp/tree/main/module5)
+- [Module 6: Mastering OpenShift](https://github.com/ocp-workshop-wf/bootcamp/tree/main/module6)
 
 
 
