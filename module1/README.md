@@ -8,42 +8,16 @@
 ## 🔹 Module 1: Introduction and Core Concepts 
 
 ## Table of Contents
-- [1.0 - What You’ll Learn](#10-what-youll-learn)
+
 - [1.1 - Introduction to OpenShift](#11-overview-of-openshift-and-its-architecture)
 - [1.2 - Difference between Kubernetes and OpenShift](#12-difference-between-kubernetes-and-openshift)
 
-
-### 1.0 What You’ll Learn:
 
 <p align="right">
   <a href="https://github.com/ocp-workshop-wf/bootcamp/tree/main/module1#-module-1-introduction-and-core-concepts" target="_blank">
     <img src="/images/top.png" alt="OpenShift Training" style="width:25px;" />
   </a>
 </p>
-
-From the course  "OpenShift 4," you will learn the following OpenShift Resources and soft skills:
-||||||
-|-|-|-|-|-| 
-| OCP CLI | OCP UI | `Projects` | `Pods` | YAML | 
-| JSON | `Deployment` | `DeploymentConfig` | `Services` | `Route` |
-| `ImageStream` | Labels | `S2I` |`Build` | `BuildConfig`| 
-| `Rollout` | `Rollback` | `ReplicationController`| `ReplicaSet`| `ConfigMaps` |
-| `Secrets`| Trouble-Shooting | Packadging | ResourceQuota | `Volumes` | 
-| `Horizontal Scalling` | Vertical Scaling | AutoScaling | Rolling Strategy | Recreate Strategy | 
-| Custom Strategy | `Deduging` | OpenShift Jobs | StartUp Probe | Health Checks |
-| liveness Probe | Readiness probe| HelmCharts | Canary Strategy | Green-Blue Strategy |
-
-- You will learn 15 + types of OpenShift resources.
-- You will be able to configure applications to follow OpenShift best practices.
-- Develop advanced application deployments.
-
-  |💡 **Modules Stucture** | 
-  | -------- |
-  | Resource Information  | 
-  | Hands-on Walkthroughs |
-  | 🔬 Hands-on Labs    | 
-  | Checklist 📋|
-  | Quiz |
 
 
 ### 1.1 Overview of OpenShift and its Architecture
