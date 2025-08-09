@@ -44,7 +44,7 @@ This type of probe is only executed at startup, unlike liveness and readiness pr
 
 - **Use case**: If you have been developing applications for a while, you have probably had the pleasure of dealing with an application that crashed unexpectedly after running successfully for a while. When this happens to an OpenShift Application that has `liveness checks` configured, OpenShift will automatically restart the pod for many types of workloads..
 
-- Both Readiness and Liveness Probes have a few options available. The most common option for `REST APIs` is the `HTTP GIT probe`. This type of probe makes HTTP requests to your pod at specified intervals and reports `success` if the response code is between `200` and `399`. This is a natural fit for arrest API, and it should be your go-to Readiness and Liveness Probe solution unless you have a good reason to do otherwise. For applications that aren't serving arrest API, there's also an escape hatch present in the form of the Command execution probe. Also we got the most common check which is `TCP check`.
+- Both Readiness and Liveness Probes have a few options available. The most common option for `REST APIs` is the `HTTP GET probe`. This type of probe makes HTTP requests to your pod at specified intervals and reports `success` if the response code is between `200` and `399`. This is a natural fit for REST API, and it should be your go-to Readiness and Liveness Probe solution unless you have a good reason to do otherwise. For applications that aren't serving REST API, there's also an escape hatch present in the form of the Command execution probe. Also we got the most common check which is `TCP check`.
 
 **Startup probe** A startup probe verifies whether the application within a container is started. This can be used to adopt liveness checks on slow starting containers, avoiding them getting killed by the kubelet before they are up and running.
   - Why use a Startup Probe? 
@@ -128,8 +128,8 @@ oc describe deployment/hello-world
 <img src="/images/livenessprob.png" alt="OpenShift Training" style="width:500px; align="center"/>
 </p>
 
-- What happens when Livness probes fail?
-- So lets set the trigger to an incorrect port, this will trigger the failer behavior and cause OpenShift to restart the pod.
+- What happens when Liveliness probes fail?
+- So lets set the trigger to an incorrect port, this will trigger the failure behavior and cause OpenShift to restart the pod.
 ```bash
 # on terminal 1
 oc get pods -w
@@ -160,7 +160,7 @@ oc set probe deployment/hello-world \
   --open-tcp=8080
 ```
 
-> output: the Pod is no longer broken and its running successfuly
+> output: the Pod is no longer broken and its running successfully
 
 <p align="center">
 <img src="/images/healthy.png" alt="OpenShift Training" style="width:500px; align="center"/>
@@ -280,7 +280,7 @@ For Helm you will need to be creative - either you follow the same pattern I got
   - `helm lint . [[comment: need to 'cd' to repo folder ]]`
 - Generate yaml from the chart 
   - `helm template .`
-- Generate a `tgz` of your helm chart [[Make sure your out of the helm fold]]
+- Generate a `tgz` of your helm chart [[Make sure you are out of the helm folder]]
   - `helm package <chart-name>`
 - Generate / update `index.yaml` for your Helm repository
   - `helm repo index --url <helm-repo-url> .` # Don't forget the `.`

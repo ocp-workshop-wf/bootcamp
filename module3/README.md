@@ -27,7 +27,7 @@
   </a>
 </p>
 
-**DeploymentConfig:** Define the template for a pod and manages deploying new images or configuration changes. The DeploymentConfig template for a pod uses the same format for its pod template. This template is found in the DeploymentConfig `spec` under the `template` property. The other important thing that DeploymentConfigs have is the `replicas` parameter in the `spec` field. This configuration option tells the DeploymentConfig how many instances of a `pod` it needs to run. If the DeploymentConfig sees that there are not enough instancs, it will start new pods according to the `template` until it reaches the number specified in the replica's field. Similarly, if you change the replica's value to a lower number, the DeploymentConfig will start deleting pods until it reaches the target number.There is a lot of other behavior that DeploymentConfigs will handle for you,such as automatically triggering new deployments, controlling details about how deployments are conducted, and adding custom behavior using lifecycle hooks.
+**DeploymentConfig:** Define the template for a pod and manages deploying new images or configuration changes. The DeploymentConfig template for a pod uses the same format for its pod template. This template is found in the DeploymentConfig `spec` under the `template` property. The other important thing that DeploymentConfigs have is the `replicas` parameter in the `spec` field. This configuration option tells the DeploymentConfig how many instances of a `pod` it needs to run. If the DeploymentConfig sees that there are not enough instances, it will start new pods according to the `template` until it reaches the number specified in the replica's field. Similarly, if you change the replica's value to a lower number, the DeploymentConfig will start deleting pods until it reaches the target number.There is a lot of other behavior that DeploymentConfigs will handle for you,such as automatically triggering new deployments, controlling details about how deployments are conducted, and adding custom behavior using lifecycle hooks.
 
   | In This Module | Advanced Module | 
   | -------------- | --------------- | 
@@ -73,7 +73,7 @@
     <img src="/images/deployment-ui.png" alt="OpenShift Training" style="width:500px; align="center"/>
     </p>
 
-  - Now lets clean all and re-deploy using OpenShift Resource DeploymentConfig.
+  - Now let's clean all and re-deploy using OpenShift Resource DeploymentConfig.
     ```bash
     oc delete all -l app=hello-world
     ```
@@ -88,7 +88,7 @@
       ```bash
       oc new-app quay.io/practicalopenshift/hello-world --as-deployment-config
       ```
-      > output: When DeploymentConfig is deployed it deploys an `ImageStream`, `Service` and `Pods` lets checkout the YAML of DeploymentConfig through the UI
+      > output: When DeploymentConfig is deployed it deploys an `ImageStream`, `Service` and `Pods` let's checkout the YAML of DeploymentConfig through the UI
 
     - Check running resources:
 
@@ -147,7 +147,7 @@
     oc new-app quay.io/practicalopenshift/hello-world --as-deployment-config
     ```
 
-  - Another way to Check the detatils for that DeploymentConfig and find the `label`:
+  - Another way to Check the details for that DeploymentConfig and find the `label`:
 
     ```bash
     oc describe dc/hello-world
@@ -186,7 +186,7 @@
     oc describe dc/demo-app
     ```
 
-  - Lets add another app with a different name parameter:
+  - Let's add another app with a different name parameter:
 
     ```
     oc new-app quay.io/practicalopenshift/hello-world --name demo-app-2 --as-deployment-config
@@ -271,7 +271,7 @@ As long as your source code is available online, `oc new-app` can build an image
     ```
   > output: 1st OpenShift will clone the repo, after cloning it will go step by step through the same dockerfile build process, after the build command succeeds OpenShift will push the image up the `hello-world` image stream. 
 
-    - lets check our status to list what was deployed
+    - let's check our status to list what was deployed
     ```bash
     oc status
     ```
@@ -283,7 +283,7 @@ As long as your source code is available online, `oc new-app` can build an image
     deployment #1 deployed 14 minutes ago - 1 pod
   ```
 
-  - Lets go delete all and check the output
+  - Let's go delete all and check the output
 
     ```bash
     oc delete all -l app=hello-world
@@ -326,7 +326,7 @@ As long as your source code is available online, `oc new-app` can build an image
   ....
   ```
 
-  - Lets list the ReplicationController
+  - Let's list the ReplicationController
 
     ```bash
     oc get rc
@@ -362,7 +362,7 @@ As long as your source code is available online, `oc new-app` can build an image
   - Terminal 2:
 
     ```bash
-    oc rollout latest deplpoyment/hello-world
+    oc rollout latest deployment/hello-world
     ```
 
     > output: The first thing OCP does is to start a new deployment `starting from, Pending - ContainerCreating - Running` once its Running the previous version `Terminating` "Start new - Stop old. This is very difficult to do manually, but OpenShift contains sensible defaults that will handle the deployment for you.
@@ -378,7 +378,7 @@ As long as your source code is available online, `oc new-app` can build an image
   </p>
   
 
-  - Lets say that you've deployed a new version of your application, but you have monitoring in place and you've detected that you application's new version has an error. In this case you need to run `rollback`
+  - Let's say that you've deployed a new version of your application, but you have monitoring in place and you've detected that you application's new version has an error. In this case you need to run `rollback`
 
     ```bash
     oc rollback deployment/hello-world
@@ -599,7 +599,7 @@ In the DeploymentConfig lab, you will create a custom DeploymentConfig based on 
     limits.cpu		4		2
     limits.memory	8Gi		4Gi
     ```
-  - Lets try it using a deployment kubernetes resource:
+  - Let's try it using a deployment kubernetes resource:
   ```bash
   oc create -f labs-repo/quota-lab/deployment-quota.yml
   ``` 
@@ -623,7 +623,7 @@ In the DeploymentConfig lab, you will create a custom DeploymentConfig based on 
   ```bash
   oc describe deployment my-deployment-quota
   ```
-  > output: "You should see the deployment details including the resource limits and requests" and lets check the Yaml file of the deployment from the UI
+  > output: "You should see the deployment details including the resource limits and requests" and let's check the Yaml file of the deployment from the UI
 
 ---
 
@@ -724,7 +724,7 @@ In the Resource Quota lab, you will create a custom Resource Quota based on the 
   ```
   > output: The first field that was given is the Cluster IP, this IP is the `virtual IP` assigned to the service by OpenShift that is only exposed "This is how other pods in OpenShift will access your `service` " also looking at the `ports` object this is the list of ports exposed by the `service`, and you should have the `selector`, which explains a bit more about how `selectors work` - `selectors` use the same labels that we learned about before for `deployment`
 
-- Lets create a manual service:
+- Let's create a manual service:
 
   ```bash
   oc create -f labs-repo/pods/pod.yaml
@@ -734,7 +734,7 @@ In the Resource Quota lab, you will create a custom Resource Quota based on the 
   oc expose pod/hello-world-pod
   ```
 
-  > output: "you should see an error as you need to spicify the port!" 
+  > output: "you should see an error as you need to specify the port!" 
   ```bash
   error: couldn't find port via --port flag or introspection
   See 'oc expose -h' for help and examples
@@ -753,7 +753,7 @@ In the Resource Quota lab, you will create a custom Resource Quota based on the 
     svc/hello-world-pod - 172.30.71.69:8080
       pod/hello-world-pod runs quay.io/practicalopenshift/hello-world
     ```
-  - Lets create another pod and make a network request from the 2nd pod to the 1st one. 
+  - Let's create another pod and make a network request from the 2nd pod to the 1st one. 
     ```bash
     oc create -f labs-repo/pods/pod2.yaml
     ```
@@ -777,7 +777,7 @@ In the Resource Quota lab, you will create a custom Resource Quota based on the 
     # `-qO-` option to print to standard output instead of to a file. 
     wget -qO- 172.30.71.69:8080
     ```
-    > output: "Hi! I'm an environment varible"
+    > output: "Hi! I'm an environment variable"
 
       <p align="center">
       <img src="/images/svc-req1.png" alt="OpenShift Training" style="width:400px; align="center"/>
@@ -791,11 +791,11 @@ In the Resource Quota lab, you will create a custom Resource Quota based on the 
     ```bash
     env
     ```
-    > output: Because services can expose multiple ports, each one get a seprate environment variable with a port number, we can find the `address` we used for the `wget` command. By using a couple of these environment varaibles, the first is the Port `80:80 TCP address`. "this is the same IP printed out in the `oc status`"
+    > output: Because services can expose multiple ports, each one get a seperate environment variable with a port number, we can find the `address` we used for the `wget` command. By using a couple of these environment variables, the first is the Port `80:80 TCP address`. "this is the same IP printed out in the `oc status`"
     "HELLO_WORLD_POD_PORT_8080_TCP_PORT=8080"
     "HELLO_WORLD_POD_PORT_8080_TCP_ADDR=172.30.71.69"
 
-    - The advantage to using environment variables rather than the direct IP is that IP may change overtime or between clusters "so lets try!"
+    - The advantage to using environment variables rather than the direct IP is that IP may change overtime or between clusters "so let's try!"
 
     ```bash
     $wget -qO- $HELLO_WORLD_POD_PORT_8080_TCP_ADDR:$HELLO_WORLD_POD_PORT_8080_TCP_PORT
@@ -823,7 +823,7 @@ ____
   ```bash
   oc status
   ```
-  > output: you should see that you got a `svc` exposed to a specific `url` lets `curl` that one!
+  > output: you should see that you got a `svc` exposed to a specific `url` let's `curl` that one!
 
   ```bash
   # for this example I got `svc/hello-world-pod - http://hello-world-raafat-dev.apps.rm3.7wse.p1.openshiftapps.com` that what I will be using.
@@ -831,10 +831,10 @@ ____
   ```
   > output: "Welcome! You can change this message by editing the MESSAGE environment variable. "
 
-- Lets dig a bit deeper in Routes: 
+- Let's dig a bit deeper in Routes: 
   **Routes** are not part of Kubernetes they are new to OpenShift.
 
-  - Lets take a look at the `route` yaml either from the UI or cli.
+  - Let's take a look at the `route` yaml either from the UI or cli.
 
     ```bash
     oc get -o yaml route/hello-world
@@ -857,9 +857,9 @@ ____
 
   -  Edge Route : Which uses `HTTPS` outside the connection between you and OpenShift cluster is Secure, but the connection within the cluster to the pod is insecure. 
 
-  - Passthrough Route: Which is secure on the outside and using the same certificate is seccure on the inside.
+  - Passthrough Route: Which is secure on the outside and using the same certificate is secure on the inside.
 
-  - Re-encrypt Route: Where we have a different ceritificate on the outside and a different certificate on the inside "they are really complicated and not recommended"
+  - Re-encrypt Route: Where we have a different certificate on the outside and a different certificate on the inside "they are really complicated and not recommended"
 
 - Route yaml sample 
 ```yaml
