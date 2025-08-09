@@ -1035,7 +1035,16 @@ ____
 
   -  Edge Route : Which uses `HTTPS` outside the connection between you and OpenShift cluster is Secure, but the connection within the cluster to the pod is insecure. 
 
+    <p align="center">
+      <img src="/images/edge-route.png" alt="OpenShift Training" style="width:400px; display:block; margin:auto;" />
+    </p>
+
+
   - Passthrough Route: Which is secure on the outside and using the same certificate is seccure on the inside.
+
+    <p align="center">
+      <img src="/images/passthough.png" alt="OpenShift Training" style="width:400px; display:block; margin:auto;" />
+    </p>
 
   - Re-encrypt Route: Where we have a different ceritificate on the outside and a different certificate on the inside "they are really complicated and not recommended"
 
