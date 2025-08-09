@@ -16,9 +16,8 @@
 ---
 
 From the course  "OpenShift 4," you will learn the following OpenShift Resources and soft skills:
-||||||
-|-|-|-|-|-| 
 | OCP CLI | OCP UI | `Projects` | `Pods` | YAML | 
+|:-:|:-:|:-:|:-:|:-:| 
 | JSON | `Deployment` | `DeploymentConfig` | `Services` | `Route` |
 | `ImageStream` | Bash | `S2I` |`Build` | `BuildConfig`| 
 | `Rollout` | `Rollback` | `ReplicationController`| `ReplicaSet`| `ConfigMaps` |
@@ -34,7 +33,7 @@ From the course  "OpenShift 4," you will learn the following OpenShift Resources
 
 | 💡 Modules Structure |
 |--------------------|
-| **Resource Information**  |
+| Resource Information |
 | Hands-on Walkthroughs |
 | 🔬 Hands-on Labs      |
 | Checklist 📋          |
