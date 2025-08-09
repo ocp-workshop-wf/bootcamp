@@ -32,13 +32,18 @@ From the course  "OpenShift 4," you will learn the following OpenShift Resources
 - You will learn 15 + types of OpenShift resources.
 - You will be able to configure applications to follow OpenShift best practices.
 
-    |💡 Modules Structure |
-    | -------- |
-    | Resource Information  | 
-    | Hands-on Walkthroughs |
-    | 🔬 Hands-on Labs    | 
-    | Checklist 📋|
-    | Quiz |
+<p align="center">
+
+| 💡 Modules Structure |
+| -------- |
+| Resource Information  | 
+| Hands-on Walkthroughs |
+| 🔬 Hands-on Labs    | 
+| Checklist 📋 |
+| Quiz |
+
+</p>
+
 
     - [Module 1: Introduction and Core Concepts](https://github.com/ocp-workshop-wf/bootcamp/tree/main/module1)
     - [Module 2: Working with OpenShift](https://github.com/ocp-workshop-wf/bootcamp/tree/main/module2)
