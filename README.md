@@ -33,8 +33,8 @@ From the course  "OpenShift 4," you will learn the following OpenShift Resources
 <div align="center">
 
 | 💡 Modules Structure |
-|:--------------------:|
-| Resource Information  |
+|--------------------|
+| **Resource Information**  |
 | Hands-on Walkthroughs |
 | 🔬 Hands-on Labs      |
 | Checklist 📋          |
