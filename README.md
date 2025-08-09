@@ -26,7 +26,7 @@ From the course  "OpenShift 4," you will learn the following OpenShift Resources
 | Custom Strategy | `Deduging` | OpenShift Jobs | StartUp Probe | Health Checks |
 | liveness Probe | Readiness probe| HelmCharts | Canary Strategy | Green-Blue Strategy |
 
-- You will learn 15 + types of OpenShift resources.
+- You will learn **15 +** types of OpenShift resources.
 - You will be able to configure applications to follow OpenShift best practices.
 
 <div align="center">
