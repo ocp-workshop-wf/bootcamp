@@ -3,13 +3,13 @@
   </p>
 
 [![Static Badge](https://img.shields.io/badge/Agenda-green?style=flat&logoSize=auto)
-](https://github.com/ocp-workshop-wf/bootcamp/blob/main/other/Agenda.md)  [![Static Badge](https://img.shields.io/badge/PreRequisites-blue?style=flat&logoSize=auto&link=[https%3A%2F%2Fgithub.com%2Focp-workshop-wf%2Fbootcamp%2Fblob%2Fmain%2Fprerequisites.md])](https://github.com/ocp-workshop-wf/bootcamp/blob/main/other/prerequisites.md) [![Static Badge](https://img.shields.io/badge/CheatSheet-purple?style=flat&logoSize=auto)
+](https://github.com/ocp-workshop-wf/bootcamp/blob/main/other/Agenda.md) [![Static Badge](https://img.shields.io/badge/OpenShift-Bootcamp-red?style=social)
+](https://github.com/ocp-workshop-wf) [![Static Badge](https://img.shields.io/badge/PreRequisites-blue?style=flat&logoSize=auto&link=[https%3A%2F%2Fgithub.com%2Focp-workshop-wf%2Fbootcamp%2Fblob%2Fmain%2Fprerequisites.md])](https://github.com/ocp-workshop-wf/bootcamp/blob/main/other/prerequisites.md) [![Static Badge](https://img.shields.io/badge/CheatSheet-purple?style=flat&logoSize=auto)
 ](https://github.com/ocp-workshop-wf/bootcamp/blob/main/other/CheatSheet.md) [![Static Badge](https://img.shields.io/badge/OCP-CLI-red?style=flat&logoSize=auto)
 ](https://github.com/ocp-workshop-wf/bootcamp/blob/main/other/ocpcli-cheatsheet.md)   [![Static Badge](https://img.shields.io/badge/Labs-maroon?style=flat&logoSize=auto)
 ](https://github.com/ocp-workshop-wf/bootcamp/tree/main/labs-repo)[![Static Badge](https://img.shields.io/badge/Kubernetes-black?style=flat&logo=Kubernetes&logoSize=auto)
 ](https://kubernetes.io/docs/home/) [![Static Badge](https://img.shields.io/badge/RedHat-OpenShift-maroon?style=flat&logo=Redhat&logoSize=auto)
-](https://docs.redhat.com/en/documentation/openshift_container_platform/4.19)[![Static Badge](https://img.shields.io/badge/OpenShift-Bootcamp-red?style=social)
-](https://github.com/ocp-workshop-wf)
+](https://docs.redhat.com/en/documentation/openshift_container_platform/4.19)
 [![Static Badge](https://img.shields.io/badge/FAQ-black?style=flat&label=FAQ)](https://github.com/ocp-workshop-wf/bootcamp/blob/main/other/FAQ.md) 
 
 
