@@ -10,9 +10,9 @@
 
 ## Table of Contents 
 
-- [2.0 - OpenShift Container Lifecycle](#20-openshift-container-lifecycle)
-- [2.1 - OpenShift CLI and Web Consol](#21-openshift-cli-oc-and-web-console)
-- [2.2 - Creating and Managing Projects (Learning YAML)](#22-creating-and-managing-projects-learning-yaml) | [Lab](#-hands-on-lab-yaml) | [Quiz](#quiz-yaml)
+- [2.0 - OpenShift Container Lifecycle](#20-openshift-container-lifecycle) | [Hands-on-Walkthrough](#hands-on-walkthrough-openshift-container-lifecycle) | [Lab](#-hands-on-lab-openshift-container-lifecycle) | [Quiz](#quiz-openshift-container-lifecycle)
+- [2.1 - OpenShift CLI and Web Console](#21-openshift-cli-oc-and-web-console) | [Hands-on-Walkthrough](#hands-on-walkthrough-openshift-cli-oc-and-web-console) | [Lab](#-hands-on-lab-openshift-cli-oc-and-web-console) | [Quiz](#quiz-openshift-cli-oc-and-web-console)
+- [2.2 - Creating and Managing Projects (Learning YAML)](#22-creating-and-managing-projects-learning-yaml) | [Hands-on-Walkthrough](#hands-on-walkthrough-creating-and-managing-projects-learning-yaml) | [Lab](#-hands-on-lab-yaml) | [Quiz](#quiz-yaml)
 
 ### 2.0 OpenShift Container Lifecycle
 
@@ -82,7 +82,7 @@
 
   ---
 
-  **Hands-on Walkthroughs**  
+### Hands-on Walkthrough (CLI & Web Console)  
   - Log in to the OpenShift Web Console.
 
       - Check the status of OpenShift: Log in, log out
@@ -270,7 +270,7 @@ ___
   ```
 #### [Resource: Yaml.org](https://yaml.org/)
 
-**Hands-on Walkthroughs**  
+### Hands-on Walkthrough  (YAML)
 
 - Use YAML to understand Pod defenations following objects such as `apiVersion, kind, spec`.
 

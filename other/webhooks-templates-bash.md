@@ -21,7 +21,7 @@ Lets learn about basic automation for deployments, configuring the deployment pr
 
 --- 
 
-**Hands-on Walkthroughs** 
+### Hands-on Walkthrough  
   
 - How the ConfigChange Trigger works?
     - In this exmaple you need 2 windows terminals.
@@ -144,7 +144,7 @@ Is a method for one application to automatically send real-time data to another 
 </p>
 
 
-**Hands-on Walkthroughs**  
+### Hands-on Walkthrough   
 
 - How to call a Webhook Manually? We need 2 pieces of data!
   - Secret Token
@@ -331,7 +331,7 @@ A template is a reusable definition of a set of OpenShift objects (like pods, se
         - Object (Resource) List: Define the various pieces that make up your application. Each object in the list contains a full definition for a normal OpenShift resource.
         - Parameters: Allow you to make your application configurable.Common parameters include `credentials`, `database names`, more ...
 
-**Hands-on Walkthroughs** 
+### Hands-on Walkthrough  
 - Using Templates: How to upload Template files?
 
     ```bash

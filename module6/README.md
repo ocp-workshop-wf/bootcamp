@@ -10,11 +10,11 @@
 
 ## Table of Contents 
 
-- [6.1 - Health Check & Observability](#61-health-check--observability) | [Lab](#-hands-on-lab-health-check) | [Quiz](#quiz-health-check)
+- [6.1 - Health Check & Observability](#61-health-check--observability) | [Hands-on-Walkthrough](#hands-on-walkthrough-health-check) | [Lab](#-hands-on-lab-health-check) | [Quiz](#quiz-health-check)
 
-- [6.2 - Helm Charts](#62-HelmCharts) | [Lab](#-hands-on-lab-helm) | [Quiz](#quiz-helm)
+- [6.2 - Helm Charts](#62-HelmCharts) | [Hands-on-Walkthrough](#hands-on-walkthrough-helm) | [Lab](#-hands-on-lab-helm) | [Quiz](#quiz-helm)
 
-- [6.3 - Bash Scripting](#bash-scripting) | [Lab](#-hands-on-lab-bash-scripting) | [Quiz](#quiz-bash-scripting)
+- [6.3 - Bash Scripting](#bash-scripting) | [Hands-on-Walkthrough](#hands-on-walkthrough-bash-scripting) | [Lab](#-hands-on-lab-bash-scripting) | [Quiz](#quiz-bash-scripting)
 
 - [6.4 - Useful Resources](#63-useful-resources)
 
@@ -106,7 +106,7 @@ This type of probe is only executed at startup, unlike liveness and readiness pr
 
 **Resource**: [Kubernetes Documentation](https://kubernetes.io/docs/concepts/configuration/liveness-readiness-startup-probes/)
 
-**Hands-on Walkthroughs** 
+### Hands-on Walkthrough (Probes)
 
 - How to configure a Liveness Probe?
 
@@ -245,7 +245,7 @@ mychart/
 
 ---
 
-**Hands-on Walkthroughs** 
+### Hands-on Walkthrough (Helm)
 - Access the labs directory and explore helm folder
   
 ```bash
@@ -371,7 +371,7 @@ Bash scripting is a way to automate tasks on Unix-like systems. It allows users 
 
   - [TLDP Bash Guide](https://tldp.org/LDP/Bash-Beginners-Guide/html/)
 
-**Hands-on Walkthroughs** 
+### Hands-on Walkthrough (Bash Scripting)
 - Your first script
 
   ```bash

@@ -94,7 +94,7 @@ OpenShift is Red Hat’s enterprise-grade Kubernetes platform designed for runni
 **Resource:**  
 - [Kubernetes vs OpenShift](https://www.theknowledgeacademy.com/blog/openshift-vs-kubernetes/)
 
-**Hands-on Walkthroughs**  
+### Hands-on Walkthrough   
 - Explore and compare the UI and default tooling in both OpenShift and vanilla Kubernetes.
 
 ---

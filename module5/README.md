@@ -10,11 +10,11 @@
 
 ## Table of Contents 
 
-- [5.1 - Deployment Strategies](#51-openshift-deployment-strategies) | [Lab](#-hands-on-lab-deployment-strategies) | [Quiz](#quiz-deployment-strategies)
+- [5.1 - Deployment Strategies](#51-openshift-deployment-strategies) | [Hands-on-Walkthrough Blue-Green Deployment](#hands-on-walkthrough-blue-green-deployment) | [Hands-on-Walkthrough Canary Deployment](#hands-on-walkthrough-canary-deployment) | [Lab](#-hands-on-lab-deployment-strategies) | [Quiz](#quiz-deployment-strategies)
 
-- [5.2 - Scaling and Debuging Your Application](#52-scaling-and-debuging-your-application) | [Quiz](#quiz-scaling) 
+- [5.2 - Scaling and Debuging Your Application](#52-scaling-and-debuging-your-application) | [Hands-on-Walkthrough](#hands-on-walkthrough-scaling-and-debugging-your-application) | [Quiz](#quiz-scaling) 
 
-- [5.3 - OpenShift Jobs](#53-openshift-jobs) 
+- [5.3 - OpenShift Jobs](#53-openshift-jobs) | [Hands-on-Walkthrough](#hands-on-walkthrough-openshift-jobs)
 
 ### 5.1 Deployment Strategies 
 
@@ -99,7 +99,7 @@
     <img src="/images/gbdeploy.gif" alt="OpenShift Training" style="width:500px; align="center"/>
     </p>
 
-**Hands-on Walkthroughs**  
+### Hands-on Walkthrough (Blue-Green Deployment)  
 
 - How to configure pre-deployment hook for `rolling strategy` you will need 2 windows terminals for this excersice.  
 
@@ -112,6 +112,12 @@
     oc rollout latest deployment/hello-world
     ```
     > output: you should see the rolling strategy getting applied as the new version is getting deployed then switched the network to the new one and terminating the old one!
+
+    **Use Case**: This is useful for ensuring zero downtime during deployments.
+    - Example scenarios include:
+      - When you need to run database migrations before the new version starts.
+      - When you want to perform health checks on the new version before switching traffic.
+      - When you need to clean up resources from the old version after it's stopped.
 
   - Lets add a deployment hook to the application, and trigger another rollout.
     
@@ -138,7 +144,13 @@
         oc get events
         ```
         > output: confirm that the `pre-hook` ran successfully.
-         
+
+      **Use Case**: This is useful for ensuring that any necessary pre-deployment tasks are completed before the new version is rolled out.
+      - Example scenarios include:
+        - When you need to run database migrations before the new version starts.
+        - When you want to perform health checks on the new version before switching traffic.
+        - When you need to clean up resources from the old version after it's stopped.
+
 - How to configure the Recreate Deployment Strategy
   - Configuring the recreated strategy is a bit different from most of the commands that you have learned so far in this course. There's no command, such as `oc set deployment strategy`. Instead you need to modify the resource definition `YAML` directly. There are a couple of ways to do this.You can download a copy of the resource with `oc get -o YAML`, make changes and `re-upload` the changed definition using `oc create`. The oc tool provides a utility that automates all of these steps called `oc edit`.
     
@@ -173,6 +185,12 @@
 <img src="/images/strategy-change.png" alt="OpenShift Training" style="width:500px; align="center"/>
 </p>
 
+  **Use Case**: This is useful for ensuring that any necessary pre-deployment tasks are completed before the new version is rolled out.
+  - Example scenarios include:
+    - When you need to run database migrations before the new version starts.
+    - When you want to perform health checks on the new version before switching traffic.
+    - When you need to clean up resources from the old version after it's stopped.
+
 - Lets check the changes
   
     ```bash
@@ -196,7 +214,13 @@
 > output:
 > Just as with the rolling strategy, OpenShift will start a deployment pod first. However, things start to change pretty quickly after that. Instead of starting the new replication controller and pods, first the old replication controller terminates and takes down its pods. Then the deployment config will schedule the new replication controller and start the new pods.
 
-- Blue Green Deployment 
+  **Use Case**: This is useful for ensuring that any necessary pre-deployment tasks are completed before the new version is rolled out.
+  - Example scenarios include:
+    - When you need to run database migrations before the new version starts.
+    - When you want to perform health checks on the new version before switching traffic.
+    - When you need to clean up resources from the old version after it's stopped.
+
+- Blue Green Deployment
   ```yaml
   # Route pointing initially to blue
   apiVersion: route.openshift.io/v1
@@ -292,7 +316,13 @@ In OpenShift, Routes can be used to direct traffic to multiple backends with wei
 
   > Canary is useful if new version is backwards compatible vs Blue Green is more suitable for major changes that require a full environment switch NOT backwards compatible.
 
-**Hands-on Walkthroughs**
+  **Use Case**: This is useful for ensuring that any necessary pre-deployment tasks are completed before the new version is rolled out.
+  - Example scenarios include:
+    - When you need to run database migrations before the new version starts.
+    - When you want to perform health checks on the new version before switching traffic.
+    - When you need to clean up resources from the old version after it's stopped.
+
+### Hands-on Walkthrough (Canary Deployment)
   - In this example we are looking at a weighted routing.
   ```yaml
     apiVersion: route.openshift.io/v1
@@ -524,6 +554,11 @@ The core idea:
 <img src="/images/hpa-overview.png" alt="OpenShift Training" style="width:500px; align="center"/>
 </p>
 
+ **Use Case**: This is useful for ensuring that any necessary pre-deployment tasks are completed before the new version is rolled out.
+ - Example scenarios include:
+   - When you need to run database migrations before the new version starts.
+   - When you want to perform health checks on the new version before switching traffic.
+   - When you need to clean up resources from the old version after it's stopped.
 
 ***Debuging in OpenShift*** provides a powerful way to troubleshoot and debug issues within your cluster, particularly for pods and nodes.When used with a pod, `oc debug` creates a new, temporary pod based on the existing pod's image and configuration, but with the ability to inject debugging tools or run commands within its environment. This allows you to:
 - Attach to a running container: Gain a shell prompt inside a container to inspect its file system, processes, or configuration.
@@ -532,7 +567,13 @@ The core idea:
  
 * [Debug Resource](http://redhat.com/en/blog/how-oc-debug-works#:~:text=If%20you%20have%20used%20relatively,to%20display%20its%20YAML%20output.)
 
-**Hands-on Walkthroughs** 
+**Use Case**: This is useful for troubleshooting and debugging issues within your cluster.
+- Example scenarios include:
+  - When you need to investigate a failing pod.
+  - When you want to analyze resource usage on a specific node.
+  - When you need to test changes to your application without affecting the live environment.
+
+### Hands-on Walkthrough (Scaling and Debugging)  
 
 - How to manually scale your application?
   - When your application starts, the initial number of pods is controlled by the number replicas property in the deployment config spec. The default is one for oc new-app applications. You can of course edit this by hand if you have your application in a template or YAML files.
@@ -690,24 +731,31 @@ If you don't see a command prompt, try pressing enter.
   - A pod template, which describes the application the pod will create.
   - An optional `parallelism` parameter, which specifies how many pod replicas running in parallel should execute a job. If not specified, this defaults to the value in the `completions` parameter.
   - An optional `completions` parameter, specifying how many concurrently running pods should execute a job. If not specified, this value defaults to one.
-  
-```yaml
-apiVersion: batch/v1 # its a kubernetes resource not OpenShift
-kind: Job
-metadata:
-  name: hello-world-job
-spec:
-  parallelism: 1    # Optional value for how many pod replicas a job should run in parallel; defaults to `completions`.
-  completions: 1    # Optional value for how many successful pod completions are needed to mark a job completed; defaults to one.
-  template:         # Template for the pod the controller creates.
-    metadata:
-      name: hello-world-job
-    spec:
-      containers:
-      - name: hello-world-job
-        image: <image url>
-      restartPolicy: OnFailure   # The restart policy of the pod. This does not apply to the job controller.
-```
+
+  **Use Case**: Jobs are useful for running tasks that need to be completed, such as batch processing or one-time tasks.
+  - Example scenarios include:
+    - Running a database migration.
+    - Generating reports.
+    - Performing backups.
+
+
+  ```yaml
+  apiVersion: batch/v1 # its a kubernetes resource not OpenShift
+  kind: Job
+  metadata:
+    name: hello-world-job
+  spec:
+    parallelism: 1    # Optional value for how many pod replicas a job should run in parallel; defaults to `completions`.
+    completions: 1    # Optional value for how many successful pod completions are needed to mark a job completed; defaults to one.
+    template:         # Template for the pod the controller creates.
+      metadata:
+        name: hello-world-job
+      spec:
+        containers:
+        - name: hello-world-job
+          image: <image url>
+        restartPolicy: OnFailure   # The restart policy of the pod. This does not apply to the job controller.
+  ```
 - When defining a Job, you can define its maximum duration by setting the `activeDeadlineSeconds` field. It is specified in seconds and is not set by default. When not set, there is no maximum duration enforced.
 
 ```bash
@@ -727,7 +775,7 @@ spec:
   > That your accessing the shell and running the command echo.
 
 
-**Hands-on Walkthroughs** 
+### Hands-on Walkthrough (Jobs)  
 
 - Launch a job 
 

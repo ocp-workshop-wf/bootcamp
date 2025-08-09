@@ -10,15 +10,15 @@
 ## 🔹 Module 3: Core OpenShift Resources
 
 ## Table of Contents 
-- [3.1 - OpenShift Resources Overview](#31-openshift-resources-overview) 
- 
-- [3.2 - OpenShift and how to deploy applications](#32-openshift-and-how-to-deploy-applications) | [Lab](#-hands-on-lab-deploying-application) | [Quiz](#quiz-deploying-application)
+- [3.1 - OpenShift Resources Overview](#31-openshift-resources-overview)
 
-- [3.3 - Resource Quotas and Limits](#33-resource-quotas-and-limits) | [Lab](#-hands-on-lab-resource-quota) | [Quiz](#quiz-resource-quota)
+- [3.2 - OpenShift and how to deploy applications](#32-openshift-and-how-to-deploy-applications) | [Hands-on-Walkthrough](#hands-on-walkthrough-openshift-and-how-to-deploy-applications) | [Lab](#-hands-on-lab-deploying-application) | [Quiz](#quiz-deploying-application)
 
-- [3.4 - OpenShift Volumes](#34-openshift-volumes) | [Lab](#-hands-on-lab-volumes) | [Quiz](#quiz-volumes)
+- [3.3 - Resource Quotas and Limits](#33-resource-quotas-and-limits) | [Hands-on-Walkthrough](#hands-on-walkthrough-resource-quotas-and-limits) | [Lab](#-hands-on-lab-resource-quota) | [Quiz](#quiz-resource-quota)
 
-- [3.5 - OpenShift Networking](#35-openshift-networking) | [Lab](#-hands-on-lab-network) | [Quiz](#quiz-network)
+- [3.4 - OpenShift Volumes](#34-openshift-volumes) | [Hands-on-Walkthrough](#hands-on-walkthrough-openshift-volumes) | [Lab](#-hands-on-lab-volumes) | [Quiz](#quiz-volumes)
+
+- [3.5 - OpenShift Networking](#35-openshift-networking) | [Hands-on-Walkthrough](#hands-on-walkthrough-openshift-networking) | [Lab](#-hands-on-lab-network) | [Quiz](#quiz-network)
 
 
 ### 3.1 OpenShift Resources Overview
@@ -62,7 +62,7 @@
 
 ---
 
-**Hands-on Walkthroughs**  
+### Hands-on Walkthrough (Deployment / DeploymentConfig)  
 
 - Deploy an existing image based on its tag: `oc new-app <image tag>`
   - For this lesson lets deploy using an image from quay.io lets start deploying using Kubernetes Resource first which is Deployment
@@ -146,13 +146,13 @@
   - Run the application again:
 
     ```bash
-    oc new-app quay.io/practicalopenshift/hello-world --as-deployment-config
+    oc new-app quay.io/practicalopenshift/hello-world 
     ```
 
   - Another way to Check the detatils for that DeploymentConfig and find the `label`:
 
     ```bash
-    oc describe dc/hello-world
+    oc describe deployment/hello-world
     ```
     <p align="center">
     <img src="/images/dc-label.png" alt="OpenShift Training" style="width:400px; align="center"/>
@@ -179,19 +179,19 @@
 - Name your DeploymentConfigs:
 
   ```
-  oc new-app quay.io/practicalopenshift/hello-world --name demo-app --as-deployment-config
+  oc new-app quay.io/practicalopenshift/hello-world --name demo-app 
   ```
 
   - Describe your new named DC:
 
     ```
-    oc describe dc/demo-app
+    oc describe deployment/demo-app
     ```
 
   - Lets add another app with a different name parameter:
 
     ```
-    oc new-app quay.io/practicalopenshift/hello-world --name demo-app-2 --as-deployment-config
+    oc new-app quay.io/practicalopenshift/hello-world --name demo-app-2
     ```
 
   - Run status:
@@ -237,12 +237,12 @@ As long as your source code is available online, `oc new-app` can build an image
 
 ---
 
-**Hands-on Walkthroughs**  
+### Hands-on Walkthrough (Deploy from Git)   
 
 - Deploy the app from a Git Repo:
 
     ```bash
-    oc new-app https://gitlab.com/therayy1/hello-world.git --as-deployment-config 
+    oc new-app https://gitlab.com/therayy1/hello-world.git  
     ```
 
   ```bash
@@ -513,7 +513,10 @@ In the DeploymentConfig lab, you will create a custom DeploymentConfig based on 
 
 ---
 
-  **Hands-on Walkthroughs**
+**Use Case**
+In a multi-tenant environment, different teams may deploy applications in the same OpenShift cluster. Resource quotas ensure that no single team can monopolize cluster resources, leading to fair resource distribution.
+
+### Hands-on Walkthrough (Resource Quotas)
 
   - Check-out a Resource Quota:
 
@@ -727,7 +730,9 @@ Empty directory volumes always start out empty. The worker node that runs your a
 <img src="/images/volumes.png" alt="OpenShift Training" style="width:400px; align="center"/>
 </p>
 
-**Hands-on Walkthroughs** 
+  **Use Case for OpenShift Volumes emptyDir** Applications that generate temporary files, caches, or intermediate processing results can use emptyDir for this purpose. Since the data is not persistent, it's suitable for information that doesn't need to survive Pod restarts or migrations.
+
+### Hands-on Walkthrough (Volumes)  
 - Define and use an empty directory:
 
     ```bash
@@ -893,7 +898,7 @@ For volumes, you'll mount a secret as a volume.
 
 ---
 
-**Hands-on Walkthroughs**  
+### Hands-on Walkthrough (Services)  
 
 - Dig into the Service `spec`.
 
@@ -1039,14 +1044,28 @@ ____
       <img src="/images/edge-route.png" alt="OpenShift Training" style="width:400px; display:block; margin:auto;" />
     </p>
 
+    **Use Case**: Edge routes are useful when you want to secure the connection between the user and the OpenShift cluster while allowing for potential inspection or modification of the traffic within the cluster. 
+      - Example scenarios include:
+        - When you want to offload SSL termination to the OpenShift router, allowing it to handle SSL certificates and encryption.
+        - When you want to use a single certificate for multiple routes, simplifying certificate management.
+        - When you want to enable features like load balancing or traffic routing based on HTTP headers.
 
   - Passthrough Route: Which is secure on the outside and using the same certificate is seccure on the inside.
 
     <p align="center">
       <img src="/images/passthough.png" alt="OpenShift Training" style="width:400px; display:block; margin:auto;" />
     </p>
+  **Use Case**: Passthrough routes are useful when you need end-to-end encryption and want to use the same certificate for both the external and internal connections. This is often required for applications that handle sensitive data and need to maintain strict security controls.
+    - Example scenarios include:
+      - When you want to ensure that all traffic between the user and the application remains encrypted.
+      - When you need to comply with strict regulatory requirements for data protection.
 
   - Re-encrypt Route: Where we have a different ceritificate on the outside and a different certificate on the inside "they are really complicated and not recommended"
+
+  **Use Case**: Re-encrypt routes are useful when you need to maintain separate certificates for external and internal connections, often for compliance or security reasons.
+  - Example scenarios include:
+    - When you need to comply with strict regulatory requirements for data protection.
+    - When you want to implement different security policies for internal and external traffic.
 
 - Route yaml sample 
 ```yaml
@@ -1071,7 +1090,7 @@ spec:
 
 ```
 
-**Hands-on Walkthroughs**  
+### Hands-on Walkthrough (Routes)
 
 - Lets use the deployed application: 
   ```bash

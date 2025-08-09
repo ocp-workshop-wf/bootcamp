@@ -9,15 +9,15 @@
 ## 🔹 Module 4: Application Deployment and Management 
 
 ## Table of Contents 
-- [4.0 - OpenShift ConfigMaps](#40-openshift-configmaps) | [Lab](#-hands-on-lab-configmaps) | [Quiz](#quiz-configmaps)
+- [4.0 - OpenShift ConfigMaps](#40-openshift-configmaps) | [Hands-on-Walkthrough](#hands-on-walkthrough-configmaps) | [Lab](#-hands-on-lab-configmaps) | [Quiz](#quiz-configmaps)
 
-- [4.1 - Secrets](#41-secrets) | [Lab](#-hands-on-lab-secrets) | [Quiz](#quiz-secrets)
+- [4.1 - Secrets](#41-secrets) | [Hands-on-Walkthrough](#hands-on-walkthrough-secrets) | [Lab](#-hands-on-lab-secrets) | [Quiz](#quiz-secrets)
 
-- [4.2 - Images and Image Streams](#42-images-and-image-streams) | [Lab](#-hands-on-lab-images) | [Quiz](#quiz-images)
+- [4.2 - Images and Image Streams](#42-images-and-image-streams) | [Hands-on-Walkthrough](#hands-on-walkthrough-images) | [Lab](#-hands-on-lab-images) | [Quiz](#quiz-images)
 
-- [4.3 - Builds and BuildConfigs](#43-builds-and-buildconfigs) | [Lab](#-hands-on-lab-build-and-buildconfig) | [Quiz](#quiz-build---buildconfig)
+- [4.3 - Builds and BuildConfigs](#43-builds-and-buildconfigs) | [Hands-on-Walkthrough](#hands-on-walkthrough-builds-and-buildconfigs) | [Lab](#-hands-on-lab-build-and-buildconfig) | [Quiz](#quiz-build---buildconfig)
 
-- [4.4 - Source to Image](#44-source-to-image) | [Lab](#-hands-on-lab-source-to-image) | [Quiz](#quiz-source-to-image)
+- [4.4 - Source to Image](#44-source-to-image) | [Hands-on-Walkthrough](#hands-on-walkthrough-source-to-image) | [Lab](#-hands-on-lab-source-to-image) | [Quiz](#quiz-source-to-image)
 
 
 ### 4.0 OpenShift ConfigMaps
@@ -68,7 +68,13 @@
     selfLink: /api/v1/namespaces/myproject/configmaps/message-map
     ```
 
-**Hands-on Walkthroughs**  
+  **Use Case**: ConfigMaps are useful for managing non-sensitive configuration data that your applications need to function. They allow you to decouple configuration from your application code, making it easier to manage and update configurations without redeploying your applications.
+    - **Example Scenarios**:
+      - When you need to change configuration values frequently without redeploying your application.
+      - When you want to share configuration data between multiple pods or services.
+      - When you need to manage different configurations for different environments (e.g., development, testing, production).
+
+### Hands-on Walkthrough (ConfigMaps)
 
   - Creating ConfigMaps:
 
@@ -425,7 +431,14 @@ metadata:
 > 💡 **NOTE** 
 > OpenShift security model restricts all permissions by default, so you will need to grant the service accounts permissions before they will be able to do anything interesting in the OpenShift API.
 
-**Hands-on Walkthroughs**  
+
+  **Use Case**: Secrets are useful for managing sensitive information that your applications need to function. They allow you to decouple sensitive data from your application code, making it easier to manage and update secrets without redeploying your applications.
+  - Example scenarios include:
+    - When you need to store database credentials securely.
+    - When you want to manage API keys without exposing them in your code.
+    - When you need to handle TLS certificates for secure communication.
+
+### Hands-on Walkthrough (Secrets)  
 
 - Create an Opaque secret.
   - It is very similar to the `configmap` 
@@ -615,7 +628,7 @@ The OpenShift ImageStream and ImageStreamTag resources may sound like they do so
 <img src="/images/Imagestreamtagdeployment.png" alt="Image & Image Streams Arch" style="width:400px; align="center"/>
 </p>
 
-**Hands-on Walkthroughs**  
+### Hands-on Walkthrough (Image Streams)  
 - How to create an ImageStream
   ```bash
   oc delete all -l app=hello-world
@@ -920,7 +933,7 @@ For images, you'll import your own private image and tag into OpenShift.
   - Initiates a build process.
   - Sets up an image stream and deployment configuration.
 
-  **Hands-on Walkthroughs**  
+### Hands-on Walkthrough (Builds)  
 
   - lets create a new build 
 
@@ -1136,7 +1149,7 @@ Kaniko refers to a Cloud Native Buildpacks-based toolset, typically used in plat
     - The first advantage is that the developer can rely on the expertise of the S2I authors to make sure the image will be OpenShift compatible.
     - The second advantage is that developers can avoid writing and maintaining Dockerfiles and other configuration by using the S2I defaults. 
 
-**Hands-on Walkthroughs** 
+### Hands-on Walkthrough (S2I)  
 - How to build an app using S2I?
 > the source of this lesson will be in you Labs directory `/s2i/ruby/`
 
