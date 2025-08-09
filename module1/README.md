@@ -24,11 +24,11 @@
 From the course  "OpenShift 4," you will learn the following OpenShift Resources and soft skills:
 ||||||
 |-|-|-|-|-| 
-| OCP CLI | OCP UI | `Projects` | `Pods` | Yaml | 
+| OCP CLI | OCP UI | `Projects` | `Pods` | YAML | 
 | JSON | `Deployment` | `DeploymentConfig` | `Services` | `Route` |
 | `ImageStream` | Labels | `S2I` |`Build` | `BuildConfig`| 
 | `Rollout` | `Rollback` | `ReplicationController`| `ReplicaSet`| `ConfigMaps` |
-| `Secrets`| Trouble-Shooting | Packadging | Index charts | `Volumes` | 
+| `Secrets`| Trouble-Shooting | Packadging | ResourceQuota | `Volumes` | 
 | `Horizontal Scalling` | Vertical Scaling | AutoScaling | Rolling Strategy | Recreate Strategy | 
 | Custom Strategy | `Deduging` | OpenShift Jobs | StartUp Probe | Health Checks |
 | liveness Probe | Readiness probe| HelmCharts | Canary Strategy | Green-Blue Strategy |

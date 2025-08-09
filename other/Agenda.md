@@ -16,22 +16,25 @@
 ## 🗓️ Day 1: Introduction & Interfacesc (Tuesday)
 
 
-
 **8:00 AM – 9:00 AM**   – Breakfast 🥐
 
 **9:00 AM – 9:15 AM**   – Welcome & Workshop Overview
 
 **9:15 AM – 9:45 AM**   – What You’ll Learn
 
-**9:45 AM – 10:45 AM**  – Module 1 
+**9:45 AM – 10:15 AM**  – Introduction to OpenShift/Kubernetes
+
+**10:15 AM - 10:45 AM** - Differences Between OCP and K8's
 
 **10:45 AM - 11:00 AM** - Break ☕🥯
 
-**11:00 AM – 11:30 AM** – Module 2
+**11:00 AM – 11:15 AM** – Openshift Container Lifecycle
+
+**11:15 AM – 11:30 AM** – OpenShift Cli & Web UI
 
 **11:30 AM – 12:30 PM** – Lunch 🍽️
 
-**12:30 PM – 1:00 PM**  – Module 2 Continue
+**12:30 PM – 1:00 PM**  – Yaml Basics
 
 **1:00 PM – 3:00 PM**   – Module 3
 
@@ -47,7 +50,7 @@
 
 **9:00 AM – 9:10 AM**   – Day 1 Recap & Day 2 Objectives
 
-**9:10 AM – 11:00 AM**  – Module 4 
+**9:10 AM – 11:00 AM**  – ConfigMaps
 
 **11:00 AM – 11:15 AM** – Break ☕🥯
 
@@ -55,7 +58,7 @@
 
 **12:00 PM – 1:00 PM**  – Lunch 🍽️
 
-**1:00 PM – 3:00 PM**   – Module 5
+**1:00 PM – 3:00 PM**   – Deployment Strategies
 
 **3:00 PM – 3:15 PM**   – Break ☕🥯
 
@@ -71,19 +74,19 @@
 
 **9:00 AM – 9:10 AM**   – Day 2 Recap & Day 3 Objectives
 
-**9:10 AM – 11:00 AM**  - Module 6
+**9:10 AM – 11:00 AM**  - Scaling & Debugging Applications
 
 **11:00 AM – 11:15 AM** – Break ☕🥯
 
-**11:10 AM – 1:00 PM** - Module 6 continue 
+**11:10 AM – 1:00 PM** - Module 6 
 
 **1:00 PM - 2:00 PM**  - Lunch 🍽️
 
-**2:00 PM – 3:30 PM**   – Overview - Recap
+**2:00 PM – 3:30 PM**   – Helm Charts
 
 **3:30 PM – 3:45 PM**   – Break ☕🥯
 
-**3:45 PM - 4:00 PM**   - Survey & Feedback 📝
+**3:45 PM - 4:00 PM**   - Bash Scripting Basics
 
 **4:00 PM – 5:00 PM**   – Final Wrap-Up & Open Q\&A
 
