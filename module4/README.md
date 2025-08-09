@@ -16,7 +16,7 @@
 
 - [4.3 - Builds and BuildConfigs](#43-builds-and-buildconfigs) | [Lab](#-hands-on-lab-build-and-buildconfig) | [Quiz](#quiz-build---buildconfig)
 
-- [4.4 - Source to Image](#44-deployment-strategies) | [Lab](#-hands-on-lab-deployment-strategies) | [Quiz](#quiz-deployment-strategies)
+- [4.4 - Source to Image](#44-source-to-image) | [Lab](#-hands-on-lab-source-to-image) | [Quiz](#quiz-source-to-image)
 
 
 ### 4.0 OpenShift ConfigMaps
