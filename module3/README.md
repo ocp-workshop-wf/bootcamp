@@ -499,15 +499,15 @@ In the DeploymentConfig lab, you will create a custom DeploymentConfig based on 
 ---
 
 ### 3.3 Resource Quotas and Limits
-<p align="right">
-  <a href="https://github.com/ocp-workshop-wf/bootcamp/tree/main/module3#-module-3-core-openshift-resources" target="_blank">
-    <img src="/images/top.png" alt="OpenShift Training" style="width:25px;" />
-  </a>
-</p>  
+  <p align="right">
+    <a href="https://github.com/ocp-workshop-wf/bootcamp/tree/main/module3#-module-3-core-openshift-resources" target="_blank">
+      <img src="/images/top.png" alt="OpenShift Training" style="width:25px;" />
+    </a>
+  </p>  
 
-[Resource Quotas and Limits](https://docs.redhat.com/en/documentation/openshift_container_platform/4.8/html/building_applications/quotas) are used to control the amount of resources that can be consumed by a project or namespace in OpenShift. They help ensure fair resource allocation and prevent resource exhaustion.
-- **Resource Quotas**: Set limits on the total amount of resources (CPU, memory, storage) that can be used by all pods in a project. They help prevent a single project from consuming all available resources in the cluster.
-- **Resource Limits**: Set limits on the amount of resources that can be used by individual pods. They help ensure that no single pod can consume excessive resources, which could impact the performance of other pods in the cluster. 
+  [Resource Quotas and Limits](https://docs.redhat.com/en/documentation/openshift_container_platform/4.8/html/building_applications/quotas) are used to control the amount of resources that can be consumed by a project or namespace in OpenShift. They help ensure fair resource allocation and prevent resource exhaustion.
+  - **Resource Quotas**: Set limits on the total amount of resources (CPU, memory, storage) that can be used by all pods in a project. They help prevent a single project from consuming all available resources in the cluster.
+  - **Resource Limits**: Set limits on the amount of resources that can be used by individual pods. They help ensure that no single pod can consume excessive resources, which could impact the performance of other pods in the cluster. 
 
 ---
 
@@ -1002,89 +1002,16 @@ Once you meet all of these criteria, you have successfully completed the lab. Yo
 
 </details>
 
-### Quiz
-
-> Q2: How do pods and other resources send traffic to a service?
-
-- [ ] The Pod's virtual IP
-- [ ] Expose a Route for the service
-- [ ] Use oc port-forward from inside a Pod
-- [ ] Click on the service right click and select one!
-
-<details>
-  <summary> Answer </summary>
-
-   The Pod's virtual IP
-
-</details>
-
-> Q3: What is the command to create a service for a pod?
-
-- [ ] `oc expose <pod-name>`
-- [ ] `oc expose --port<port><pod-name>`
-- [ ] `oc expose service --port<port><pod-name>`
-- [ ] `oc expose service<pod-name>`
-
-<details>
-  <summary> Answer </summary>
-
-   `oc expose --port<port><pod-name>`
-
-</details>
-
-> Q4: What is the command to create a route for a service?
-
+> Q2: What is the command to expose a service as a route?
+- [ ] `oc expose service <service-name>`
+- [ ] `oc create route <route-name> --service=<service-name>`
 - [ ] `oc expose <service-name>`
-- [ ] `oc expose-service <service-name`
-- [ ] `oc expose port<port>`
-- [ ] `oc expose service<pod-name>`
+- [ ] `oc create route <route-name> --service=<service-name> --port=<port>`
 
 <details>
   <summary> Answer </summary>
 
-   `oc expose <service-name>`
-
-</details>
-
-> Q5: True / False: OpenShift publishes virtual IPs in environment variables inside of containers.
-
-- [ ] True
-- [ ] False
-- [ ] None of the above
-- [ ] All the above
-
-<details>
-  <summary> Answer </summary>
-
-   True
-
-</details>
-
-> Q6: Which Route is secure from the outside and not secure from the inside?
-
-- [ ] Edge
-- [ ] Passthrough
-- [ ] Unsecure
-- [ ] Re-encrypt
-
-<details>
-  <summary> Answer </summary>
-
-   Edge
-
-</details>
-
-> Q7: Which Route is secure from the outside and secure from the inside?
-
-- [ ] Edge
-- [ ] Passthrough
-- [ ] Passthrough and Re-encrypt
-- [ ] Re-encrypt
-
-<details>
-  <summary> Answer </summary>
-
-   Passthrough 
+   `oc create route <route-name> --service=<service-name> --port=<port>`
 
 </details>
 
