@@ -43,12 +43,12 @@ From the course  "OpenShift 4," you will learn the following OpenShift Resources
 </div>
 
 ### 🔴  OpenShift Bootcamp Modules
-- 🔹 [Module 1: Introduction and Core Concepts](https://github.com/ocp-workshop-wf/bootcamp/tree/main/module1)
-- 🔹 [Module 2: Working with OpenShift](https://github.com/ocp-workshop-wf/bootcamp/tree/main/module2)
-- 🔹 [Module 3: Core Concepts](https://github.com/ocp-workshop-wf/bootcamp/tree/main/module3)
-- 🔹 [Module 4: Application Deployment and Management](https://github.com/ocp-workshop-wf/bootcamp/tree/main/module4)
-- 🔹 [Module 5: Advanced Deployment Options](https://github.com/ocp-workshop-wf/bootcamp/tree/main/module5)
-- 🔹 [Module 6: Mastering OpenShift](https://github.com/ocp-workshop-wf/bootcamp/tree/main/module6)
+- 🔹 [Module 1:](https://github.com/ocp-workshop-wf/bootcamp/tree/main/module1)  Introduction and Core Concepts
+- 🔹 [Module 2:](https://github.com/ocp-workshop-wf/bootcamp/tree/main/module2) Working with OpenShift
+- 🔹 [Module 3:](https://github.com/ocp-workshop-wf/bootcamp/tree/main/module3) Core Concepts
+- 🔹 [Module 4:](https://github.com/ocp-workshop-wf/bootcamp/tree/main/module4) Application Deployment and Management
+- 🔹 [Module 5:](https://github.com/ocp-workshop-wf/bootcamp/tree/main/module5) Advanced Deployment Options
+- 🔹 [Module 6:](https://github.com/ocp-workshop-wf/bootcamp/tree/main/module6) Mastering OpenShift
 
 
 
