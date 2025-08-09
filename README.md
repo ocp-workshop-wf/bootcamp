@@ -69,3 +69,16 @@ Skills needed!
   - `git`: To interact with your source control on github.
   - Other parameters and options we will learn throughout this course. 
 
+--- 
+
+<p align="right">
+  <a href="https://github.com/ocp-workshop-wf/bootcamp/tree/main/module1" target="_blank">
+    <img src="/images/nexticon.webp" alt="OpenShift Training" style="width:25px;" />
+  </a>
+</p>
+
+<p align="left">
+  <a href="https://github.com/ocp-workshop-wf" target="_blank">
+    <img src="/images/backred1.png" alt="OpenShift Training" style="width:25px;" />
+  </a>
+</p>
