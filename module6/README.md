@@ -249,7 +249,7 @@ mychart/
 - Access the labs directory and explore helm folder
   
 ```bash
-cd ./labs-repo/helm/mq-helm
+cd ./labs-repo/6.2-helm/mq-helm
 ```
 ```bash
 helm install my-release --dry-run . > all.yaml    

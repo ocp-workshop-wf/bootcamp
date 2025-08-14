@@ -780,7 +780,7 @@ If you don't see a command prompt, try pressing enter.
 - Launch a job 
 
 ```bash
-cd ./labs-repo/job
+cd ./labs-repo/5.3-job
 ```
 ```bash
 oc apply -f hello-job.yaml

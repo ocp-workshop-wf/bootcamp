@@ -247,7 +247,7 @@
   - Create ConfigMaps from **Directories**:
 
     ```bash
-    cd ./labs
+    cd ./labs-repo
     ```
 
     ```bash

@@ -274,7 +274,7 @@ ___
 
 - Use YAML to understand Pod defenations following objects such as `apiVersion, kind, spec`.
 
-    - Go ahead and open `/labs-repo/pods/pod.yaml`
+    - Go ahead and open `/labs-repo/2.0-pods/pod.yaml`
     
       ```yaml
       apiVersion: v1
@@ -400,13 +400,13 @@ Once you meet all of these criteria, you have successfully completed the lab. Yo
 > Q6: What is the command to create a pod on OpenShift based on its YAML file?
 - [ ] `oc start pod <pod-file.yaml>`
 - [ ] `oc create <pod-file.yaml>`
-- [ ] `oc create-f <pod-file.yaml>`
+- [ ] `oc create -f <pod-file.yaml>`
 - [ ] `oc start pod -f <pod-file.yaml>`
 
 <details>
   <summary> Answer </summary>
 
-   `oc create-f <pod-file.yaml>`
+   `oc create -f <pod-file.yaml>`
 
 </details>
 
