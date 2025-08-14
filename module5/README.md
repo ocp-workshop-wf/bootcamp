@@ -610,7 +610,9 @@ The core idea:
         Replicas:       3 current / 3 desired
     .....
     ```
-- How to create a HPA:  "Explain more about CPU add some files to run to demonstrate the HPA"
+- How to create a HPA V1 :  "Explain more about CPU add some files to run to demonstrate the HPA"
+
+FYI: there are 2 versions of HPA in OpenShift/Kubernetes: V1 and V2, V2 is more advanced and supports more metrics than just CPU, but for this demo we will use V1 which is more commonly used.
 
 ```bash
   oc autoscale deployment/hello-world \
@@ -663,6 +665,16 @@ Pod IP: 10.128.30.7
 If you don't see a command prompt, try pressing enter.
 ~ $ 
 ```
+
+- HPA version 2 on OpenShift
+  - HPA v2 supports multiple metrics (CPU, memory, custom metrics) for scaling decisions.
+  - It allows more granular control over scaling behavior with advanced configuration options.
+  - HPA v2 can scale based on external metrics, not just resource usage within the cluster.
+  - To create an HPA v2, you typically define it in a YAML file and apply it to your cluster. Here's an example of an HPA v2 definition:
+  
+  ```bash
+  oc apply -f hpa-v2.yaml
+  ```
 
 ### Quiz (Scaling)
 > Q1: You must have a HorizontalPodAutoscaler in order to scale up your application.
