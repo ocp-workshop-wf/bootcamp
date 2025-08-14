@@ -671,10 +671,49 @@ If you don't see a command prompt, try pressing enter.
   - It allows more granular control over scaling behavior with advanced configuration options.
   - HPA v2 can scale based on external metrics, not just resource usage within the cluster.
   - To create an HPA v2, you typically define it in a YAML file and apply it to your cluster. Here's an example of an HPA v2 definition:
-  
-  ```bash
+
+```bash
   oc apply -f hpa-v2.yaml
-  ```
+```
+> output: "horizontalpodautoscaler.autoscaling/hello-world created"
+
+- Describe the HPA
+```bash
+  oc describe hpa/hello-world
+```
+> output: includes all details about the HPA specially the Targets.
+```bash
+  oc get -o yaml hpa/hello-world
+```
+> output: full yaml definition of the HPA
+
+- Lets watch the HPA in action by increasing the CPU usage on the pod.
+```bash
+  oc exec -it <pod name> -- /bin/sh
+```
+> output: you are now inside the pod terminal
+```bash
+  while true; do sha1sum /dev/zero; done
+```
+> output: this command will max out the CPU usage of the pod  
+
+```bash
+  watch oc get hpa
+```
+> output: you should see the current CPU usage increasing and the number of replicas scaling up accordingly 
+
+```
+  oc get pods
+```
+> output: you should see more pods being created as the HPA scales up the deployment  
+
+- Clean up
+```bash
+  oc delete hpa/hello-world
+  oc delete deployment/hello-world
+```
+> output: "horizontalpodautoscaler.autoscaling "hello-world" deleted" & "deployment.apps "hello-world" deleted"
+
 
 ### Quiz (Scaling)
 > Q1: You must have a HorizontalPodAutoscaler in order to scale up your application.
