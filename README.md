@@ -58,7 +58,7 @@ From the course  "OpenShift 4," you will learn the following OpenShift Resources
 - [x] Visual Studio code (IDE)- Preferred
 - [x] OpenShift CLI 
 - [x] Helm CLI
-- [x] OpenShift Namespace Quota (10 GB Memory, 4 Cores CPUs)
+- [x] Docker Fundamentals
 
 Skills needed!
   - `cd`: To navigate to a specific directory
