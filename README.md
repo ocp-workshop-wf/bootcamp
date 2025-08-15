@@ -68,7 +68,9 @@ Skills needed!
   - `echo`: To echo a parameter given
   - `vi` or `vim`: Its a built in editor used to edit files.
   - `git`: To interact with your source control on github.
-  - Other parameters and options we will learn throughout this course. 
+  - `docker`: To interact with Docker containers and images.
+  - `Wget`: To download files from the web.
+  - Other parameters and options we will learn throughout this course.
 
 --- 
 
