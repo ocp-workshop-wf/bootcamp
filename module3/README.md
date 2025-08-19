@@ -518,6 +518,20 @@ In a multi-tenant environment, different teams may deploy applications in the sa
 
 ### Hands-on Walkthrough (Resource Quotas)
 
+  - Check your current project quota:
+
+    ```bash
+    oc get quota
+    ```
+    > output: "You should see the current resource quota for your project"
+
+  - Decribe the quota of your project:
+
+    ```bash
+    oc describe quota
+    ```
+    > output: "You should see the current resource quota for your project"
+    
   - Check-out a Resource Quota:
 
   ```yaml

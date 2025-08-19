@@ -142,7 +142,7 @@
   - Creating Pod from files
     - Create pod on OpenShift
       ```bash
-      oc create -f pods/pod.yaml
+      oc create -f 2.0-pods/pod.yaml
       ```
 
       <p align="center">
