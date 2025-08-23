@@ -255,8 +255,116 @@ cd ./labs-repo/6.2-helm/mq-helm
 helm install my-release --dry-run . > all.yaml    
 ```
 
-### 🔬 Hands-on Lab (Helm): 
-For Helm you will need to be creative - either you follow the same pattern I got here into the Helm directory or you might want to create your own, here are the step by step recipe. using 
+---
+
+- Create a Helm chart for your application
+
+  ```bash
+  helm create myapp
+  ```
+  > output: A new Helm chart named "myapp" is created with the default directory structure.
+
+- Update the `values.yaml` file with your application-specific configurations.
+  ```yaml
+  replicaCount: 1
+
+  image:
+    repository: myapp
+    tag: latest
+    pullPolicy: IfNotPresent
+
+  service:
+    type: ClusterIP
+    port: 8080
+
+  ingress:
+    enabled: false
+  ```
+- Update the `templates/deployment.yaml` file to use the values from `values.yaml`.
+
+  ```yaml
+  apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    name: {{ .Release.Name }}
+    labels:
+      app: {{ .Release.Name }}
+  spec:
+    replicas: {{ .Values.replicaCount }}
+    selector:
+      matchLabels:
+        app: {{ .Release.Name }}
+    template:
+      metadata:
+        labels:
+          app: {{ .Release.Name }}
+      spec:
+        containers:
+          - name: {{ .Release.Name }}
+            image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+            ports:
+              - containerPort: {{ .Values.service.port }}
+  ```
+
+- Run Helm install dry-run on OpenShift
+
+  ```bash
+  helm install myapp ./myapp --dry-run
+  ```
+- Check the generated resources
+
+  ```bash
+  oc get all 
+  ```
+  > output: You should see the resources created by the Helm chart in your namespace.
+
+- Verify the deployment
+  ```bash
+  oc get all
+  ```
+  > output: You should see the resources created by the Helm chart in your namespace.
+
+- Uninstall Helm deployment 
+
+  ```bash
+  helm uninstall myapp
+  ```
+  > output: You should see the resources being deleted.
+
+- Package the Helm chart
+  ```bash
+  helm package myapp
+  ```
+  > output: You should see a `.tgz` file created in your current directory.
+
+- Create a Helm repository on GitHub
+  - Create a new GitHub repository
+  - Go to Settings > Pages tab
+  - Under "Source", select the main branch and save.
+  - Your repository should now have a public URL -> `https://<git-org>.github.io/<repo-name>/`
+
+- Push the Helm chart to your GitHub repository
+  ```bash
+  git add myapp-*.tgz
+  git commit -m "Add Helm chart for myapp"
+  git push
+  ```
+  > output: You should see the Helm chart pushed to your GitHub repository.
+
+- Update the Helm repository index
+  ```bash
+  helm repo index --url https://<git-org>.github.io/<repo-name>/ .
+  ```
+- Verify the Helm repository
+  ```bash
+  helm repo add <helm-repo-name> https://<git-org>.github.io/<repo-name>/
+  helm repo update
+  ```
+  > output: You should see the Helm repository updated with the new chart.
+
+
+### 🔬 Hands-on Lab (Helm):
+For Helm you will need to be creative - either you follow the same pattern I got here into the Helm directory or you might want to create your own, here are the step by step recipe. using
   ```bash
   helm create bootcamp
   ```
