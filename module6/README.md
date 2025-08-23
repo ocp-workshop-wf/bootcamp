@@ -264,7 +264,7 @@ helm install my-release --dry-run . > all.yaml
   ```
   > output: A new Helm chart named "myapp" is created with the default directory structure.
 
-- Update the `values.yaml` file with your application-specific configurations.
+- Update the `values.yaml` file with your application-specific configurations adding an Environment variable for MESSAGE="HELLO FROM HELM".
   ```yaml
   replicaCount: 1
 
@@ -279,6 +279,10 @@ helm install my-release --dry-run . > all.yaml
 
   ingress:
     enabled: false
+
+  env:
+    - name: MESSAGE
+      value: "HELLO FROM HELM"
   ```
 - Update the `templates/deployment.yaml` file to use the values from `values.yaml`.
 
@@ -304,6 +308,44 @@ helm install my-release --dry-run . > all.yaml
             image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
             ports:
               - containerPort: {{ .Values.service.port }}
+            env:
+              - name: {{ .Values.env[0].name }}
+                value: {{ .Values.env[0].value }}
+  ```
+
+- Update the templates/service.yaml
+
+  ```yaml
+  apiVersion: v1
+  kind: Service
+  metadata:
+    name: {{ .Release.Name }}
+    labels:
+      app: {{ .Release.Name }}
+  spec:
+    type: {{ .Values.service.type }}
+    ports:
+      - port: {{ .Values.service.port }}
+        targetPort: {{ .Values.service.port }}
+    selector:
+      app: {{ .Release.Name }}
+  ```
+
+- Update the templates/route.yaml
+
+  ```yaml
+  apiVersion: route.openshift.io/v1
+  kind: Route
+  metadata:
+    name: {{ .Release.Name }}
+    labels:
+      app: {{ .Release.Name }}
+  spec:
+    to:
+      kind: Service
+      name: {{ .Release.Name }}
+    port:
+      targetPort: {{ .Values.service.port }}
   ```
 
 - Run Helm install dry-run on OpenShift
@@ -311,6 +353,21 @@ helm install my-release --dry-run . > all.yaml
   ```bash
   helm install myapp ./myapp --dry-run
   ```
+
+- Helm template
+
+  ```bash
+  helm template myapp ./myapp
+  ```
+  > output: You should see the rendered Kubernetes manifests for your application.
+
+- Helm install
+
+  ```bash
+  helm install myapp ./myapp
+  ```
+  > output: You should see the Helm release created.
+
 - Check the generated resources
 
   ```bash
@@ -335,7 +392,7 @@ helm install my-release --dry-run . > all.yaml
   ```bash
   helm package myapp
   ```
-  > output: You should see a `.tgz` file created in your current directory.
+  > output: Successfully packaged chart and saved it to: /Users/ray/bootcamp/labs-repo/6.2-helm/myapp-0.1.0.tgz
 
 - Create a Helm repository on GitHub
   - Create a new GitHub repository

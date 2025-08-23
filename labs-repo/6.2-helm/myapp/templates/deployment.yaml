@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}
+  labels:
+    app: {{ .Release.Name }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}
+    spec:
+      containers:
+        - name: {{ .Release.Name }}
+          image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+          ports:
+            - containerPort: {{ .Values.service.port }}
+          env:
+{{- range .Values.env }} # loops over list/array
+            - name: {{ .name }} # inside the loop, .name refers to the current item's name
+              value: {{ .value | quote }} 
+              # inside the loop, .value refers to the current item's value
+              # quote the value that wraps the value in double quotes ("...")
+{{- end }} # end of env loop

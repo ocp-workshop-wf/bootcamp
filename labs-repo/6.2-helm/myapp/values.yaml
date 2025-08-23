@@ -1,0 +1,17 @@
+replicaCount: 1
+
+image:
+  repository: quay.io/practicalopenshift/hello-world
+  tag: latest
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 8080
+
+ingress:
+  enabled: false
+
+env:
+  - name: MESSAGE
+    value: "Hello from Helm"
