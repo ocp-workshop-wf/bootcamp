@@ -22,7 +22,7 @@ curl $(oc get route myapp -o jsonpath='{.spec.host}')
 sleep 3 
 
 
-echo "Deleting $APP_NAME"
+echo "\n Deleting $APP_NAME"
 
 sleep 90
 
