@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
-
+export APP_NAME=myapp
 echo "Installing Helm chart for myapp..."
 
 cd ..
 cd 6.2-helm/myapp
 
-helm install myapp . 
+helm install $APP_NAME . 
 
-echo "Installing Helm chart for myapp./.\./.\./.\......."
+echo "Installing Helm chart for $APP_NAME............"
 
 sleep 3
 
@@ -17,12 +17,13 @@ sleep 3
 
 oc status 
 
-curl $(oc get route myapp -o jsonpath='{.spec.host}') \n
+curl $(oc get route myapp -o jsonpath='{.spec.host}')
 
 sleep 3 
 
-echo "Deleting the app"
+
+echo "Deleting $APP_NAME"
 
 sleep 90
 
-helm uninstall myapp
+helm uninstall $APP_NAME
