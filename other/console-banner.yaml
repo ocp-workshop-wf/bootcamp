@@ -1,0 +1,9 @@
+apiVersion: console.openshift.io/v1
+kind: ConsoleNotification
+metadata:
+  name: bootcamp-banner
+spec:
+  text: "OpenShift BootCamp WellsFargo"
+  color: '#FF0000'      # Banner background (red)
+  textColor: '#FFFF00'  # Font color (yellow)
+  location: BannerTop   # Where to display (top banner)

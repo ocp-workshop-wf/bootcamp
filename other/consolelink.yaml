@@ -1,0 +1,11 @@
+apiVersion: console.openshift.io/v1
+kind: ConsoleLink
+metadata:
+  name: ocp-workshop-wf-github
+spec:
+  href: "https://github.com/ocp-workshop-wf"
+  text: "OCP Workshop WF GitHub"
+  location: ApplicationMenu   # You can also use HelpMenu, UserMenu, etc.
+  applicationMenu:
+    section: "Resources"
+    imageURL: "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"
