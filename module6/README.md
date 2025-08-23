@@ -249,13 +249,9 @@ mychart/
 - Access the labs directory and explore helm folder
   
 ```bash
-cd ./labs-repo/6.2-helm/mq-helm
+cd ./labs-repo/6.2-helm/myapp
 ```
 ```bash
-helm install my-release --dry-run . > all.yaml    
-```
-
----
 
 - Create a Helm chart for your application
 
